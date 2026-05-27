@@ -1,0 +1,65 @@
+
+
+
+
+
+
+
+
+
+
+
+// VARIABLE : 
+
+$tab-header-height: 29px;
+$app-font: arial;
+$debug-font: "Courier New", Courier, monospace;
+$text-1x: 11px;
+$icon-size: 12px;
+$ui-z-deep: 1000;
+$top-highlight-height: 1px;
+
+// DEBUG : 
+
+$debug-border: 1px solid red;
+
+// LAYOUT GAP : 
+
+$ui-container-gap: 3px;
+$inside-tab-gap: 3px;
+
+@mixin click{
+    &:hover{
+        opacity: 90%;
+        cursor: pointer;
+    }
+    &:active{
+        opacity: 100%;
+    }
+}
+
+@mixin buttonIcon{
+        height: 25px;
+        aspect-ratio: 1/1;
+        box-sizing: border-box;
+        background: $tab-color;
+        outline: none;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // border-radius: 3px;
+        cursor: pointer;
+        @include click();
+        i{
+            position: absolute;
+            font-size: $icon-size;
+            color: $icon-color;
+        }
+}
+
+// NON-RENDERABLE : 
+
+.non-renderable{
+    display: none;
+}

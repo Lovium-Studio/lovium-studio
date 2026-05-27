@@ -1,0 +1,515 @@
+
+
+
+
+
+
+
+
+
+
+// TIMELINE TAB : 
+
+#timeline-tab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: $tab-color; 
+    overflow: hidden;
+    z-index: 2;
+}
+
+// TIMELINE LEFT CONTAINER : 
+
+.timeline-left-container{
+    position: relative;
+    width: 160px;
+    min-width: 160px;
+    height: 100%;
+    box-sizing: border-box; 
+}
+
+// TIME RIGHT CONTAINER :
+
+.timeline-right-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+// TIMELINE HEADER CONTAINER :
+
+$timeline-header-height: $tab-header-height;
+
+.timeline-header-container{
+    position: relative;
+    width: 100%;
+    height: $timeline-header-height;
+    box-sizing: border-box;
+    background: $tertiary-color;
+    margin-bottom: 2px;
+}
+
+// TIMELINE TRACK CONTAINER : 
+
+.timeline-track-container{
+    position: relative;
+    width: 100%;
+    height: calc( 100% - $timeline-header-height );
+    box-sizing: border-box;
+}
+
+// TIMELINE HEADER CONTROL CONTAINER :
+
+.timeline-header-control-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row; 
+    background: $tab-color;
+    border-bottom: 2px solid $tertiary-color;
+    // gap: 3px;
+    // padding-right: 3px;
+    padding-right: 3px;
+    button{
+        position: relative;
+        @include buttonIcon()
+    }
+}
+
+// TIMELINE TRACK TRACKER : 
+
+.timeline-track-tracker{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+    box-sizing: border-box;
+}
+
+// TIMELINE TRACK ROW : 
+
+$track-height: 30px;
+
+.timeline-track-row{
+    position: relative;
+    width: 100%;
+    height: $track-height;
+    min-height: $track-height;
+    background: $tab-color;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //padding-right: 5px;
+}
+
+// TIMELINE TRACKER CONTROL : 
+
+$tracker-in-border: 2px;
+
+.timeline-tracker-control{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-top: $tracker-in-border solid $tertiary-color;
+    border-bottom: $tracker-in-border solid $tertiary-color;
+    background: $tab-color;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    padding-right: 3px;
+    &::after{
+        position: absolute;
+        width: 1px;
+        height: 10px;
+        background: $tertiary-color;
+        right: 0px;
+        z-index: 200; 
+        content: '';
+    }
+    button{
+        position: relative;
+        background: none;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 17px;
+        @include click();
+        i{
+            position: absolute;
+            color: $icon-color;
+            font-size: $icon-size;
+        }
+    }
+    .tracker-control-name{
+        position: absolute;
+        left: 7px;
+        font-family: arial;
+        font-weight: initial;
+        color: $font-color;
+        font-size: $text-1x;
+    }
+}
+
+// TIMELINE TRACKER ROW : 
+
+.timeline-tracker-row{
+    border-top: 2px solid $tertiary-color;
+    border-bottom: 2px solid $tertiary-color;
+    background: $tab-color;
+    &::after{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-top: 2px solid $tertiary-color;
+        border-bottom: 2px solid $tertiary-color;
+        background: $tab-color;
+        z-index: 2;
+        content: '';
+    }
+}
+
+// TRACKER : 
+
+$tracker-color: $quaternary-color;
+
+.tracker{
+    position: absolute;
+    left: 10%;
+    width: 200px;
+    height: 100%;
+    box-sizing: border-box;
+    background: $tracker-color;
+    // border: 1px solid $tab-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; 
+    z-index: 10;
+    .tracker-handle{
+        background: $secondary-color;
+        cursor: w-resize;
+        width: 6px;
+        min-width: 6px;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .tracker-handle-indicator{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            background: $tracker-color;
+            border: 2px solid $gray-color;
+        }
+        &:active{
+            .tracker-handle-indicator{
+                background: $tab-color;
+            }
+        }
+    }
+    .tracker-body{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    .tracker-valuer-container{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border: 3px solid $tracker-color;
+        // background: $transparent-dark;
+        display: flex; 
+        justify-content: center;  
+        align-items: center;
+        background-image: url('C:/Users/Rhyan Eduardo/Documents/GitHub/rocon-studio/assets/img/tracker-diagonal-lines.png') ;
+        background-size: 50px;
+        background-repeat: repeat;
+        .tracker-name{ 
+            position: absolute;
+            font-family: arial;
+            font-weight: initial;
+            font-size: $text-1x;
+            color: $font-color;
+            border: none;
+            outline: none;
+            background: none;
+            text-align: center;
+        }
+        .tracker-value{
+            position: absolute;
+            font-family: arial;
+            font-weight: initial;
+            font-size: $text-1x;
+            color: $font-color;
+            border: none;
+            outline: none;
+            background: none;
+            width: 25px;
+            margin: 0;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            }
+        }
+        .tracker-start-value{
+            text-align: left;
+            left: 0px;
+        }
+        .tracker-end-value{
+            text-align: right;
+            right: 0px;
+        }
+    }
+    // &:active{
+    //     border-style: dashed;
+    // }
+}
+
+// TIMELINE TRACKER HEADER : 
+
+.timeline-tracker-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background: $tab-color;
+    border-bottom: 2px solid $tertiary-color;
+    .timeline-ruler-value{
+        position: relative;
+        font-family: $app-font;
+        font-size: $text-1x;
+        font-weight: initial;
+        color: $font-color;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: row;
+        height: 100%;
+        box-sizing: border-box;
+        gap: 3px;
+        z-index: 0;
+        &::after{
+            position: relative;
+            width: 1px;
+            height: 10px;
+            background: $secondary-color;
+            content: '';
+        }
+        &:first-of-type{
+            flex-direction: row-reverse;
+        }
+    }
+}
+
+// NEEDLE : 
+
+#needle{
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    bottom: 0px;
+    box-sizing: border-box;
+    background: $primary-color;
+    left: 0px;
+    z-index: 1000; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    cursor: w-resize;
+    z-index: 9999;
+    .needle-bottom{
+        position: absolute;
+        width: 3px;
+        height: 2px;
+        background: $gray-color;
+        bottom: 0px;
+    }
+    .needle-top{
+        position: absolute;
+        width: 3px;
+        height: 2px;
+        background: $gray-color;
+        top: 0px;
+    }
+    .needle-tracker{
+        position: absolute;
+        width: 1px;
+        height: 700%;
+        top: calc($tab-header-height - 2px);
+        background: $secondary-color; 
+        z-index: 800;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: '';
+    }
+    &:active{ 
+        background: #b96f00;   
+    }
+}
+
+// PRE NEEDLE : 
+
+#pre-needle{
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    box-sizing: border-box;
+    background: $secondary-color;
+    display: none;
+    left: 10px;
+    z-index: 50;
+}
+
+// TIMELINE CREATE TRACKER : 
+
+.timeline-create-tracker{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-top: $tracker-in-border solid $tertiary-color;
+    border-bottom: $tracker-in-border solid $tertiary-color;
+    background: $tab-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: arial;
+    color: $font-color;
+    font-weight: initial;
+    font-size: $text-1x;
+    outline: none;
+    @include click();
+    &::after{
+        position: absolute;
+        width: 1px;
+        height: 10px;
+        background: $tertiary-color;
+        right: 0px;
+        z-index: 200; 
+        content: '';
+    }
+}
+
+// TIMELINE AREA TIME : 
+
+#timeline-area-time{
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    box-sizing: border-box;
+    background: $quaternary-color;
+    z-index: 1;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; 
+    z-index: 100;
+    left: 30px; 
+    #timeline-area-time-handle{   
+        position: relative;
+        width: 6px;
+        min-width: 6px;
+        height: 100%;  
+        box-sizing: border-box;
+        background: $secondary-color; 
+        cursor: w-resize;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        .area-time-handle-indicator{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            background: $primary-color;
+            border: 2px solid $gray-color;
+        }
+        &:active{
+            .area-time-handle-indicator{
+                background: $tab-color;
+            }
+        }
+    }
+
+    .timeline-area-time-left-handle{
+        left: 0px;
+    }
+
+    .timeline-area-time-right-handle{
+        right: 0px;
+    }
+    #area-time{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        z-index: 100;
+    }
+}
+
+// TRACKER START POINT CONTAINER : 
+
+.tracker-start-point-container{
+    position: absolute;
+    left: 3px;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+        position: relative;
+        font-size: $icon-size;
+        color: $icon-color;
+        margin-top: 1px;
+    }
+    cursor: pointer;
+    &:active{
+        opacity: 90%;
+    }
+}
+
+// TRACKER END POINT CONTAINER : 
+
+.tracker-end-point-container{
+    position: absolute;
+    right: 3px;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+        position: relative;
+        font-size: $icon-size;
+        color: $icon-color;
+        margin-top: 1px;
+    }
+    cursor: pointer;
+    &:active{
+        opacity: 90%;
+    }
+}
+

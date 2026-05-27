@@ -1,0 +1,218 @@
+
+
+
+
+
+
+
+
+
+
+
+// EXPLORER TAB : 
+
+#explorer-tab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background: $tab-color;
+}
+
+// EXPLORER FOLDER ROW :  
+
+$explorer-folder-row-height: 25px;
+$explorer-folder-row-gap: $inside-tab-gap;
+$explorer-root-color: lighten($quaternary-color, 10%);
+
+.explorer-folder-root-container{
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    background: none;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    .explorer-component-container{
+        position: relative;
+        width: 100%;
+        height: auto;        
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+    .explorer-folder-header{
+        position: relative;
+        width: 100%;
+        height: $explorer-folder-row-height;
+        box-sizing: border-box;
+    }
+    .explorer-row-item{  
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        border-left: 1px solid $tab-color;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+        &:hover{
+            border-color: $primary-color;
+            background: $quaternary-color;
+            .explorer-item-menu-container{
+                display: flex;
+            }
+            
+        }
+        i{
+            position: relative;
+            font-size: $icon-size;
+            color: $icon-color;
+            margin-left: 5px;
+        }
+        .explorer-item-name{
+            position: relative;
+            font-family: $app-font;
+            font-weight: initial;
+            font-size: $text-1x;
+            color: $font-color;
+            margin-left: 5px;
+        }
+        .explorer-item-menu-container{
+            position: absolute;
+            right: 5px;
+            height: 100%;
+            width: auto;
+            box-sizing: border-box;
+            display: none;
+            justify-content: flex-end;
+            align-items: center;
+            flex-direction: row;
+            button{
+                position: relative;
+                background: none;
+                border: none;
+                outline: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 17px;
+                aspect-ratio: 1/1;
+                cursor: pointer;
+                @include click();
+                i{
+                    position: absolute;
+                    font-size: $icon-color;
+                    color: $font-color;
+                }
+            }
+        }
+    }
+    .explorer-element-container{
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        .explorer-element-header{
+            position: relative;
+            width: 100%;
+            height: $explorer-folder-row-height;
+            box-sizing: border-box;
+        }
+        .explorer-entity-container{
+            position: relative;
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            .explorer-entity-row{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: row;
+                border-left: 1px solid $tab-color;
+                position: relative;
+                width: 100%;
+                height: $explorer-folder-row-height;
+                box-sizing: border-box;
+                cursor: pointer;
+                padding-left: 15px;
+                &::after{
+                    position: absolute;
+                    left: 10px;
+                    height: 100%;
+                    width: 1px;
+                    border-left: 1px dashed $explorer-root-color;
+                    box-sizing: border-box;
+                    content: '';
+                }
+                // &:first-of-type{
+                //     &::after{
+                //         height: 10px;
+                //         bottom: 0px;
+                //     }
+                // }
+                &:last-of-type{
+                    &::after{
+                        height: 12px;
+                        top: 0px;
+                        width: 5px;
+                        border-bottom: 1px dashed $explorer-root-color;
+                    }
+                }
+                // &::before{
+                //     position: absolute;
+                //     left: 8px;
+                //     height: 5px;
+                //     width: 5px;
+                //     background: $dark-gray-color;
+                //     border: 1px solid $gray-color;
+                //     box-sizing: border-box;
+                //     z-index: 10;
+                //     content: '';
+                // }
+                &:hover{
+                    border-color: $primary-color;
+                    i{
+                        color: $primary-color;
+                    }
+                    &::before{
+                        background: $primary-color;
+                    }
+                }
+                i{
+                    position: relative;
+                    font-size: $icon-size;
+                    color: $gray-color;
+                    margin-left: 5px;
+                }
+                .explorer-item-name{
+                    position: relative;
+                    font-family: $app-font;
+                    font-weight: initial;
+                    font-size: $text-1x;
+                    color: $font-color;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

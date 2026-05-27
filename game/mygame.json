@@ -1,0 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+{    
+    "gameGraphicPath" : "./graphic/game-graphic.json",
+    "mainPath" : "main.cpp",
+    "compilerPath" : "",
+    "gameAssetPath" : ""
+}

@@ -1,0 +1,155 @@
+
+
+
+
+
+
+
+
+
+
+
+// WINDOW : 
+
+.window-container{
+    position: absolute;
+    width: 400px;
+    height: 450px;
+    z-index: 200;
+    background: $tertiary-color;
+    border: 1px solid $tab-color;
+    left: 40%;
+    top: 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    resize: both;
+} 
+
+// WINDOW TITLE BAR : 
+
+.window-title-bar{
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: $tab-color;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: $top-highlight-height solid $primary-color;
+    .window-name{
+        position: absolute;
+        left: 23px;
+        font-family: $app-font;
+        font-size: $text-1x;
+        font-weight: initial;
+        color: $font-color;
+    }
+    .window-icon{
+        position: absolute;
+        left: 7px;
+        width: 10px;
+    }
+    .window-close{
+        position: absolute;
+        right: 5px;
+        background: none;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10px;
+        height: 10px;
+        i{
+            position: absolute;
+            font-size: $icon-size;
+            color: $icon-color;
+            cursor: pointer;
+        }
+        @include click();
+    }
+}
+
+// WINDOW CONTENT CONTAINER : 
+
+.window-content-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+// WINDOW CONTENT FLEX COLUMN : 
+
+.window-content-flex-column{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+// WINDOW CONTENT CENTER : 
+
+.window-content-flex-center{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+// WINDOW RESIZER : 
+
+$window-resize-scale: 2px;
+
+.window-width-left{
+    position: absolute;
+    width: $window-resize-scale;
+    height: 100%;
+    box-sizing: border-box;
+    left: 0px;
+    z-index: 100;
+    display: none;
+    cursor: e-resize;
+}
+
+.window-width-right{
+    position: absolute;
+    width: $window-resize-scale;
+    height: 100%;
+    box-sizing: border-box;
+    right: 0px;
+    z-index: 100;
+    display: none;
+    cursor: e-resize;
+}
+
+.window-height-top{
+    position: absolute;
+    width: 100%;
+    height: $window-resize-scale;
+    box-sizing: border-box;
+    top: 0px;
+    z-index: 100;
+    display: none;
+    cursor: n-resize;
+}
+
+.window-height-bottom{
+    position: absolute;
+    width: 100%;
+    height: $window-resize-scale;
+    box-sizing: border-box;
+    bottom: 0px;
+    z-index: 100;
+    display: none;
+    cursor: n-resize;
+}

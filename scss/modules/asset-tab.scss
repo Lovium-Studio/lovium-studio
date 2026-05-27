@@ -1,0 +1,96 @@
+
+
+
+
+
+
+
+// ASSET TAB : 
+
+#asset-tab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: $tertiary-color;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: $inside-tab-gap;
+} 
+
+// ASSET TAB BUTTON : 
+
+.asset-tab-button{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    background: $dark-gray-color;
+    outline: none;
+    border: none;
+    font-family: $app-font;
+    font-size: $text-1x;
+    font-weight: inherit;
+    color: $font-color;
+    @include click();
+    i{
+        font-size: $icon-size;
+    }
+}
+
+// ASSET TAB BUTTON DELETE BUTTON : 
+
+.asset-tab-delete-button{
+    background: $red-color;
+}
+
+// ASSET TAB INFO TABLE : 
+
+#asset-tab-info-table{
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    // gap: $inside-tab-gap;
+    .info-table-row{
+        position: relative;
+        width: 100%;
+        height: 30px;
+        background: $dark-gray-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &::after{
+            position: absolute;
+            bottom: 0px;
+            width: 90%;
+            height: 1px;
+            background: $quaternary-color;
+            content: '';
+        }
+        &:last-of-type{
+            &::after{
+                display: none;
+            }
+        }
+        span{ 
+            position: absolute;
+            font-family: $app-font;
+            font-weight: initial;
+            font-size: $text-1x;
+            color: $font-color;
+        }
+        .info-key{
+            left: 5px;
+        }
+        .info-value{
+            right: 5px;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+
+
+
+
+
+
+
+
+
+
+
+
+// CONTEXT MENU : 
+
+#context-menu-container{
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    width: 190px;
+    height: auto;
+    max-height: 250px;
+    background: $tab-color;
+    border: 1px solid $quaternary-color;
+    z-index: 99999;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+// CONTEXT MENU BUTTON : 
+
+.context-menu-button{
+    position: relative;
+    width: 100%;
+    height: 25px;
+    min-height: 25px;
+    box-sizing: border-box;
+    font-family: $app-font;
+    font-weight: initial;
+    font-size: $text-1x;
+    color: $font-color;
+    border: none;
+    outline: none;
+    background: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    &:hover{
+        background: $primary-color;
+    }
+    i{
+        position: relative;
+        color: $icon-color;
+        margin-right: 4px;
+        margin-left: 4px;
+    }
+    &:active{
+        opacity: 90%;
+    }
+    .context-menu-button-divisor{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        box-sizing: border-box;
+        border-left: 10px solid $dark-gray-color;
+        border-right: 10px solid $dark-gray-color;
+        height: 1px;
+        background: $quaternary-color;
+    }
+}
+
+
+

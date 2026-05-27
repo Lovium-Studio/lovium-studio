@@ -1,0 +1,141 @@
+
+
+
+
+
+
+
+
+
+
+
+
+// AUTO COMPLETE : 
+
+// AUTO COMPLETE CONTAINER : 
+
+#auto-complete-container{
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    width: 190px;
+    height: auto;
+    max-height: 250px;
+    background: $quaternary-color;
+    border: 1px solid $quaternary-color;
+    z-index: 99999;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+// AUTO COMPLETE SEARCHBOX CONTAINER : 
+
+.auto-complete-searchbox-container{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    min-height: 30px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid $primary-color;
+    .auto-complete-searchbox-icon{
+        position: absolute;
+        right: 5px;
+        font-size: $icon-size;
+        color: $icon-color;
+        z-index: 2;
+    }
+}
+
+// AUTO COMPLETE SEARCHBOX : 
+
+.auto-complete-searchbox-input{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: $dark-gray-color;
+    padding: 3px;
+    font-family: $app-font;
+    font-size: $text-1x;
+    color: $font-color;
+    font-weight: initial;
+    padding-right: 20px;
+    &:focus{
+        border-color: $primary-color;
+    }
+}
+
+// AUTO COMPLETE COMPLETE LIST CONTAINER : 
+
+.auto-complete-complete-list-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+// AUTO COMPLETE COMPLETE ROW : 
+
+.auto-complete-complete-row{
+    position: relative;
+    width: 100%;
+    height: 25px;
+    min-height: 25px;
+    box-sizing: border-box;
+    background: $dark-gray-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &::after{
+        position: absolute;
+        bottom: 0px;
+        width: 90%;
+        height: 1px;
+        background: $quaternary-color;
+        content: '';
+    }
+    .auto-complete-complete-row-label{
+        position: absolute;
+        left: 19px;
+        font-family: $app-font;
+        font-size: $text-1x;
+        color: $font-color;
+        font-weight: initial;
+        margin: 0px;
+        padding: 0px;
+    }
+    .auto-complete-complete-row-icon{
+        position: absolute;
+        left: 4px;
+        font-size: $icon-size;
+        color: $icon-color;
+    }
+    &:last-of-type{
+        &::after{
+            background: none;
+        }
+    }
+    &:hover{
+        background: $primary-color;
+        &::after{
+            background: $primary-color;
+        }
+    }
+    &:active{
+        opacity: 90%;
+    }
+}   
+
+

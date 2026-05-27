@@ -1,0 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    "gameGraphic" : [
+        {
+            "name" : "",
+            "type" : "",
+            "state" : {
+                "visible" : true,
+                "lock" : false
+            },
+            "entities" : [
+                {
+                    "name" : "",
+                    "type" : "",
+                    "path" : ""
+                }
+            ]
+        }
+    ]
+}

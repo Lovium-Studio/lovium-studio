@@ -1,0 +1,93 @@
+
+
+
+
+
+
+
+
+
+
+// CODE EDITOR TAB :
+
+#code-editor-tab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: $inside-tab-gap;
+    background: $tertiary-color;
+}
+
+// CODE EDITOR MENU CONTAINER :
+
+.code-editor-menu-container{
+    position: relative;
+    width: 100%;
+    height: $tab-header-height;
+    min-height: $tab-header-height;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $tab-color;
+}
+
+// CODE EDITOR CONTAINER :
+
+.code-editor-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: $tab-color;
+    overflow: hidden;
+    border-top: none;
+}
+
+// CODE EDITOR MENU RIGHT CONTAINER :
+
+.code-editor-menu-right-container{
+    position: absolute;
+    right: 3px;
+    height: 30px;
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    .code-editor-menu-button{
+        position: relative;
+        @include buttonIcon();
+    }
+}      
+
+// CODE EDITOR MENU LEFT CONTAINER : 
+
+.code-editor-menu-left-container{
+    position: absolute;           
+    left: 3px;
+    height: 30px;
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    .code-editor-menu-button{
+        position: relative;
+        @include buttonIcon();
+    }
+}
+
+// CODE EDITOR : 
+
+.code-editor{
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    box-sizing: border-box;
+}

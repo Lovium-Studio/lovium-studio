@@ -1,0 +1,97 @@
+
+
+
+
+
+
+
+// SIMPLE FILE VIEWER : 
+
+#simple-file-viewer{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    background: $dark-gray-color;
+    // border: 5px solid $dark-gray-color;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    padding: $inside-tab-gap;
+    gap: $inside-tab-gap;
+    .simple-preview-container{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $dark-gray-color;
+        background-size: 35px;
+        background-repeat: repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        cursor: zoom-in;
+        #simple-preview-container-zoom-area{
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 1px dashed $gray-color;
+            z-index: 3;
+        }
+    }
+    .simple-menu-container{
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        height: 35px;
+        background: $tertiary-color; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 1px;
+        button{
+            position: relative;
+            background: none;
+            border: none;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include click();
+            i{ 
+                position: absolute;
+                font-size: $icon-size;
+                color: $icon-color;
+                margin-top: 1px; 
+            }
+        }
+        span{
+            position: relative;
+            font-family: $app-font;
+            font-size: $text-1x;
+            font-weight: initial;
+            color: $font-color;
+        }
+    }
+    .simple-image-preview{
+        position: absolute;
+        height: 70%;
+        -webkit-user-drag: none;
+    }
+    #simple-file-name{
+        position: absolute;
+        bottom: 10px;
+        font-family: $app-font;
+        font-size: $text-1x;
+        font-weight: initial;
+        color: $font-color;
+        z-index: 10;
+        background: #00000063;
+        padding: 5px;
+        padding-left: 7px;
+        padding-right: 7px;
+        border-radius: 50px;
+    }
+}

@@ -1,0 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+
+// TOOLTIP : 
+
+#tooltip{
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    border: 1px solid $dark-gray-color;
+    background: $quaternary-color;
+    padding: 3px;
+    gap: 3px;
+    z-index: 99999;
+    left: 400px;
+    top: 300px;
+    .tooltip-icon{
+        position: relative;
+        font-size: $icon-size;
+        color: $icon-color;
+        margin-top: 1px;
+    }
+    #tooltip-info{
+        position: relative;
+        font-family: $app-font;
+        font-weight: initial;
+        font-size: $text-1x;
+        color: $font-color;
+    }
+}
