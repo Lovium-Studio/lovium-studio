@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 // TAB CONTAINER :
 
 .tab-container{
@@ -41,7 +31,7 @@ $tab-row-heihgt: 30px;
     height: $tab-row-heihgt;
     min-height: $tab-row-heihgt;
     box-sizing: border-box;
-    background: $quaternary-color;
+    background: var(--dark-gray-light-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -56,7 +46,7 @@ $tab-row-heihgt: 30px;
     width: 100%;
     height: calc( 100% - $tab-row-heihgt);
     box-sizing: border-box;
-    border: $inside-tab-gap solid $tertiary-color;
+    border: $inside-tab-gap solid var(--dark-gray-color);
 }
 
 // TAB BUTTON :
@@ -66,26 +56,26 @@ $tab-row-heihgt: 30px;
     font-family: $app-font;
     font-size: $text-1x;
     font-weight: initial;
-    color: $font-color;
+    color: var(--gray-color);
     text-align: left;
     height: 100%;
     width: 100px;
-    background: $tab-color;
+    background: var(--dark-gray-dark-color);
     box-sizing: border-box;
     border: none;
     outline: none;
     cursor: pointer;
-    border-top: $top-highlight-height solid $icon-color;
+    border-top: $top-highlight-height solid var(--gray-color);
     // &:nth-of-type(1){
-    //     border-top-color: $primary-color;
-    //     background: $tertiary-color;
+    //     border-top-color: var(--pink-color);
+    //     background: var(--dark-gray-color);
     // } 
 
 }
 
 .active-tab{
-    border-top-color: $primary-color; 
-    background: $tertiary-color;
+    border-top-color: var(--pink-color); 
+    background: var(--dark-gray-color);
 }
 
 // ADD TAB BUTTON : 
@@ -95,7 +85,7 @@ $tab-row-heihgt: 30px;
     font-family: $app-font;
     font-size: $text-1x;
     font-weight: initial;
-    color: $font-color;
+    color: var(--gray-color);
     text-align: center;
     height: 100%;
     width: 20px;
@@ -110,11 +100,11 @@ $tab-row-heihgt: 30px;
     i{
         position: absolute;
         font-size: 15px;
-        color: $icon-color;
+        color: var(--gray-color);
     }
     &:active{
         i{
-            color: $primary-color;
+            color: var(--pink-color);
         }
     }
 }

@@ -21,8 +21,8 @@
     width: 190px;
     height: auto;
     max-height: 250px;
-    background: $quaternary-color;
-    border: 1px solid $quaternary-color;
+    background: var(--dark-gray-light-color);
+    border: 1px solid var(--dark-gray-light-color);
     z-index: 99999;
     display: none;
     justify-content: flex-start;
@@ -41,12 +41,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top: 1px solid $primary-color;
+    border-top: 1px solid var(--pink-color);
     .auto-complete-searchbox-icon{
         position: absolute;
         right: 5px;
         font-size: $icon-size;
-        color: $icon-color;
+        color: var(--gray-color);
         z-index: 2;
     }
 }
@@ -60,15 +60,15 @@
     box-sizing: border-box;
     border: none;
     outline: none;
-    background: $dark-gray-color;
+    background: var(--dark-gray-dark-color);
     padding: 3px;
     font-family: $app-font;
     font-size: $text-1x;
-    color: $font-color;
+    color: var(--gray-color);
     font-weight: initial;
     padding-right: 20px;
     &:focus{
-        border-color: $primary-color;
+        border-color: var(--pink-color);
     }
 }
 
@@ -93,7 +93,7 @@
     height: 25px;
     min-height: 25px;
     box-sizing: border-box;
-    background: $dark-gray-color;
+    background: var(--dark-gray-dark-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,7 +103,7 @@
         bottom: 0px;
         width: 90%;
         height: 1px;
-        background: $quaternary-color;
+        background: var(--dark-gray-light-color);
         content: '';
     }
     .auto-complete-complete-row-label{
@@ -111,7 +111,7 @@
         left: 19px;
         font-family: $app-font;
         font-size: $text-1x;
-        color: $font-color;
+        color: var(--gray-color);
         font-weight: initial;
         margin: 0px;
         padding: 0px;
@@ -120,7 +120,7 @@
         position: absolute;
         left: 4px;
         font-size: $icon-size;
-        color: $icon-color;
+        color: var(--gray-color);
     }
     &:last-of-type{
         &::after{
@@ -128,9 +128,9 @@
         }
     }
     &:hover{
-        background: $primary-color;
+        background: var(--pink-color);
         &::after{
-            background: $primary-color;
+            background: var(--pink-color);
         }
     }
     &:active{

@@ -42,7 +42,7 @@ $inside-tab-gap: 3px;
         height: 25px;
         aspect-ratio: 1/1;
         box-sizing: border-box;
-        background: $tab-color;
+        background: var(--dark-gray-dark-color);
         outline: none;
         border: none;
         display: flex;
@@ -54,7 +54,7 @@ $inside-tab-gap: 3px;
         i{
             position: absolute;
             font-size: $icon-size;
-            color: $icon-color;
+            color: var(--gray-color);
         }
 }
 

@@ -19,8 +19,8 @@
     width: 190px;
     height: auto;
     max-height: 250px;
-    background: $tab-color;
-    border: 1px solid $quaternary-color;
+    background: var(--dark-gray-dark-color);
+    border: 1px solid var(--dark-gray-light-color);
     z-index: 99999;
     display: none;
     justify-content: flex-start;
@@ -39,7 +39,7 @@
     font-family: $app-font;
     font-weight: initial;
     font-size: $text-1x;
-    color: $font-color;
+    color: var(--gray-color);
     border: none;
     outline: none;
     background: none;
@@ -49,11 +49,11 @@
     flex-direction: row;
     cursor: pointer;
     &:hover{
-        background: $primary-color;
+        background: var(--pink-color);
     }
     i{
         position: relative;
-        color: $icon-color;
+        color: var(--gray-color);
         margin-right: 4px;
         margin-left: 4px;
     }
@@ -65,10 +65,10 @@
         bottom: 0px;
         width: 100%;
         box-sizing: border-box;
-        border-left: 10px solid $dark-gray-color;
-        border-right: 10px solid $dark-gray-color;
+        border-left: 10px solid var(--dark-gray-dark-color);
+        border-right: 10px solid var(--dark-gray-dark-color);
         height: 1px;
-        background: $quaternary-color;
+        background: var(--dark-gray-light-color);
     }
 }
 

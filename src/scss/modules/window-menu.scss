@@ -15,7 +15,7 @@
     position: absolute;
     left: 10px;
     top: 28px;
-    background: $gray-color;
+    background: var(--gray-color);
     width: 240px;
     height: auto;
     z-index: 100;
@@ -23,7 +23,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    border: 1px solid $tab-color;
+    border: 1px solid var(--dark-gray-dark-color);
     .window-menu{
         position: relative;
         width: 100%;
@@ -31,7 +31,7 @@
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: $tab-color;
+        color: var(--dark-gray-dark-color);
         box-sizing: border-box;
         background: none;
         border: none;
@@ -39,8 +39,8 @@
         text-align: left;
         cursor: pointer;
         &:hover{
-            background: $primary-color;
-            color: $font-color;
+            background: var(--pink-color);
+            color: var(--gray-color);
         }
         &:active{
             opacity: 90%;
@@ -50,6 +50,6 @@
         position: relative;
         width: 95%;
         height: 1px;
-        background: darken($gray-color, 10%);
+        background: --gray-color;
     }
 }

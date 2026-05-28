@@ -46,7 +46,7 @@ export function tabLoad(){
             location: "bottom"
         },
         {
-            name: "2D Stage",
+            name: "Board",
             content: twoDStage,
             ID: "TABTgL",
             location: "top"

@@ -4,30 +4,39 @@
   "description": "application-builder",
   "main": "main.js",
   "build": {
-        "appId": "com.lovium.app",
-        "fileAssociations": [
-            {
-                "ext": "spaper",
-                "name": "Snack Paper File",
-                "role": "Editor",
-                "icon": "./file/spf/snack-paper-file-icon.ico"
-            }
-        ],
-        "asar": true,
-        "extraResources": [
-            {"from": "node_modules/call-bind-apply-helpers","to": "node_modules/call-bind-apply-helpers"}
-        ],
-        "win": {
-            "target": "nsis",
-            "icon": "path/to/install-icon.png"
-        },
-        "files": ["**/*","!node_modules/**/*.map"],
-        "npmRebuild": false,
-        "asarUnpack": ["**/*.node","node_modules/call-bind-apply-helpers/**"],
-        "directories": {
-            "output": "./build/win"
-        }
+    "appId": "com.lovium.app",
+    "fileAssociations": [
+      {
+        "ext": "spaper",
+        "name": "Snack Paper File",
+        "role": "Editor",
+        "icon": "./file/spf/snack-paper-file-icon.ico"
+      }
+    ],
+    "asar": true,
+    "extraResources": [
+      {
+        "from": "node_modules/call-bind-apply-helpers",
+        "to": "node_modules/call-bind-apply-helpers"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "path/to/install-icon.png"
     },
+    "files": [
+      "**/*",
+      "!node_modules/**/*.map"
+    ],
+    "npmRebuild": false,
+    "asarUnpack": [
+      "**/*.node",
+      "node_modules/call-bind-apply-helpers/**"
+    ],
+    "directories": {
+      "output": "./build/win"
+    }
+  },
   "scripts": {
     "sass": "sass --watch src/scss/global.scss:./src/css/global.css",
     "tsc-main": "tsc -p tsconfig.main.json -w",
@@ -48,7 +57,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^30.0.2",
-    "electron-builder": "^25.0.0-alpha.9"
+    "electron-builder": "^25.0.0-alpha.9",
+    "electron-reloader": "^1.2.3"
   },
   "dependencies": {
     "electron-reload": "^2.0.0-alpha.1",

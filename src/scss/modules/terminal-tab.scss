@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 // CONSOLE TAB : 
 
 #terminal-tab{
@@ -21,7 +10,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background: $tab-color;
+    background: var(--dark-gray-dark-color);
     overflow: hidden;
     overflow-y: auto;
     overflow-x: hidden;
@@ -32,13 +21,13 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb {
-        background: $icon-color; 
+        background: var(--gray-color); 
         width: 5px;
-        border-top: $inside-tab-gap solid $tertiary-color;
-        border-bottom: $inside-tab-gap solid $tertiary-color;
-        border-left: $inside-tab-gap solid $tertiary-color;
+        border-top: $inside-tab-gap solid var(--dark-gray-color);
+        border-bottom: $inside-tab-gap solid var(--dark-gray-color);
+        border-left: $inside-tab-gap solid var(--dark-gray-color);
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
@@ -59,7 +48,7 @@
     font-family: $debug-font;
     font-size: 12px;
     font-weight: inherit;
-    color: $font-color;
+    color: var(--gray-color);
     text-align: left;
     padding-left: 5px;
     box-sizing: border-box;
@@ -80,7 +69,7 @@
     font-family: $debug-font;
     font-size: 12px;
     font-weight: inherit;
-    color: $primary-color;
+    color: var(--pink-color);
     text-align: left;
     padding-left: 5px;
     box-sizing: border-box;
@@ -101,7 +90,7 @@
     font-family: $debug-font;
     font-size: 12px;
     font-weight: inherit;
-    color: $red-color;
+    color: var(--red-color);
     text-align: left;
     padding-left: 5px;
     box-sizing: border-box;
@@ -127,7 +116,7 @@
     font-family: $debug-font;
     font-size: 12px;
     font-weight: inherit;
-    color: $font-color;
+    color: var(--gray-color);
     text-align: left;
     padding-left: 5px;
 }

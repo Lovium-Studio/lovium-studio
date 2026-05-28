@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 // INSPECTOR TAB : 
 
 #inspector-tab{
@@ -25,8 +15,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2;
-    background: $tertiary-color;
-}
+    background: var(--dark-gray-color);
+};
 
 
 

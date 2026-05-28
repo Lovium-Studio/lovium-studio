@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 // SCROLL : 
 
 .v-scroll{
@@ -21,11 +11,11 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
+        background: var(--dark-gray-dark-color);  
         width: 5px;
-        border: $inside-tab-gap solid $tertiary-color;
+        border: $inside-tab-gap solid var(--dark-gray-color);
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
@@ -43,12 +33,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
+        background: var(--dark-gray-dark-color);  
         width: 5px;
-        border: 3px solid $tertiary-color;
+        border: 3px solid var(--dark-gray-color);
         border-left: none;
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
@@ -66,12 +56,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
+        background: var(--dark-gray-dark-color);  
         width: 5px;
-        border: 3px solid $tertiary-color;
+        border: 3px solid var(--dark-gray-color);
         border-left: none;
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
@@ -90,14 +80,14 @@
         left: -5px;
     } 
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
-        border: 3px solid $tertiary-color;
+        background: var(--dark-gray-dark-color);  
+        border: 3px solid var(--dark-gray-color);
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
-        background: $tertiary-color;
+        background: var(--dark-gray-color);
     }
 }
 
@@ -111,15 +101,15 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
+        background: var(--dark-gray-dark-color);  
         width: 5px;
-        border: $inside-tab-gap solid $tertiary-color;
+        border: $inside-tab-gap solid var(--dark-gray-color);
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
-        background: $tertiary-color;
+        background: var(--dark-gray-color);
     }
 }
 
@@ -133,12 +123,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
+        background: var(--dark-gray-dark-color);  
         width: 5px;
-        border: 3px solid $tertiary-color;
+        border: 3px solid var(--dark-gray-color);
         border-left: none;
         &:active{
-            background: $tertiary-color
+            background: var(--dark-gray-color)
         }
     }
     &::-webkit-scrollbar-track {
@@ -157,13 +147,13 @@
         left: -5px;
     } 
     &::-webkit-scrollbar-thumb { 
-        background: $tab-color;  
-        border: 3px solid $tertiary-color;
+        background: var(--dark-gray-dark-color);  
+        border: 3px solid var(--dark-gray-color);
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
-        background: $tertiary-color;
+        background: var(--dark-gray-color);
     }
 }

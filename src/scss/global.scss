@@ -63,12 +63,12 @@ body{
     span{
         text-rendering: optimizeLegibility;
         &::selection{
-            background-color: $secondary-color;
+            background-color: var(--gray-color);
         }
     }
     input{
         &::selection{
-            background-color: $secondary-color;
+            background-color: var(--gray-color);
         }
     }
     i{
@@ -86,7 +86,7 @@ body{
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: $quaternary-color;
+    background: var(--dark-gray-light-color);
     display: grid;
     grid-template-rows: 25px 1fr 25px;
 }
@@ -95,7 +95,7 @@ body{
 
 #menu-bar{
     position: relative;
-    background: $tab-color;
+    background: var(--dark-gray-dark-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -112,10 +112,10 @@ body{
         box-sizing: border-box;
         padding-left: 10px;
         padding-right: 10px;
-        color: $font-color;
+        color: var(--gray-color);
         cursor: pointer;
         &:hover{
-            background: $quaternary-color;
+            background: var(--dark-gray-light-color);
         }
     }
 }
@@ -140,10 +140,10 @@ body{
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    background: $tertiary-color;
-    border-top: $ui-container-gap solid $quaternary-color;
-    border-left: $ui-container-gap solid $quaternary-color;
-    border-bottom: $ui-container-gap solid $quaternary-color;
+    background: var(--dark-gray-color);
+    border-top: $ui-container-gap solid var(--dark-gray-light-color);
+    border-left: $ui-container-gap solid var(--dark-gray-light-color);
+    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
     left: 0px;
 }
 
@@ -158,8 +158,8 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-top: $ui-container-gap solid $quaternary-color;
-    border-bottom: $ui-container-gap solid $quaternary-color;
+    border-top: $ui-container-gap solid var(--dark-gray-light-color);
+    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
 }
 
 // UI RIGHT CONTAINER : 
@@ -169,10 +169,10 @@ body{
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    background: $tertiary-color;
-    border-top: $ui-container-gap solid $quaternary-color;
-    border-right: $ui-container-gap solid $quaternary-color;
-    border-bottom: $ui-container-gap solid $quaternary-color;
+    background: var(--dark-gray-color);
+    border-top: $ui-container-gap solid var(--dark-gray-light-color);
+    border-right: $ui-container-gap solid var(--dark-gray-light-color);
+    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
     right: 0px;
 }
 
@@ -192,7 +192,7 @@ body{
     width: 100%;
     height: 200%;
     box-sizing: border-box;
-    background: $tertiary-color;
+    background: var(--dark-gray-color);
 }
 
 // UI BOTTOM CONTAINER : 
@@ -202,5 +202,5 @@ body{
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: $tertiary-color;
+    background: var(--dark-gray-color);
 }

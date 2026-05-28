@@ -18,10 +18,10 @@ import { console } from "../console/console.js";
 import { contextMenu } from "../context-menu/context-menu.js";
 
 const TrackerColor = {
-    red : "#A71919",
+    red : "var(--pink-color)",
     purple : "#4a0472",
     yeallow : "#bf8e24",
-    green : "#00ba32"
+    green : "var(--blue-color)"
 }
 
 const sequenceDataTest = [

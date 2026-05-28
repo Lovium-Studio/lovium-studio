@@ -15,12 +15,12 @@
     position: absolute;
     width: 150px;
     height: auto;
-    background: $quaternary-color;
+    background: var(--dark-gray-light-color);
     display: none;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    border: 1px solid $tab-color;
+    border: 1px solid var(--dark-gray-dark-color);
     overflow: hidden;
     overflow-y: auto;
     overflow-x: hidden;
@@ -31,10 +31,10 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb {
-        background: $icon-color;  
+        background: var(--gray-color);  
         width: 5px;
         &:active{
-            background: $icon-color;
+            background: var(--gray-color);
         }
     }
     &::-webkit-scrollbar-track {
@@ -49,12 +49,12 @@
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: $font-color;
+        color: var(--gray-color);
         text-align: left;
         background: none;
         cursor: pointer;
         outline: none;
-        border: 2px solid $quaternary-color;
+        border: 2px solid var(--dark-gray-light-color);
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -62,12 +62,12 @@
         i{
             position: absolute;
             right: 6px;
-            color: $font-color;
+            color: var(--gray-color);
             font-size: $icon-size;
         }
         &:hover{
-            background: $primary-color;
-            border-color: $primary-color;
+            background: var(--pink-color);
+            border-color: var(--pink-color);
         }
     }
 }

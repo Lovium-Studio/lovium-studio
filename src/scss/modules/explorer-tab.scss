@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 // EXPLORER TAB : 
 
 #explorer-tab{
@@ -20,14 +10,13 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background: $tab-color;
+    background: var(--dark-gray-dark-color);
 }
 
 // EXPLORER FOLDER ROW :  
 
 $explorer-folder-row-height: 25px;
 $explorer-folder-row-gap: $inside-tab-gap;
-$explorer-root-color: lighten($quaternary-color, 10%);
 
 .explorer-folder-root-container{
     position: relative;
@@ -61,24 +50,22 @@ $explorer-root-color: lighten($quaternary-color, 10%);
         justify-content: flex-start;
         align-items: center;
         flex-direction: row;
-        border-left: 1px solid $tab-color;
+        border-left: 1px solid var(--dark-gray-dark-color);
         position: relative;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         cursor: pointer;
         &:hover{
-            border-color: $primary-color;
-            background: $quaternary-color;
+            background: var(--dark-gray-light-color);
             .explorer-item-menu-container{
                 display: flex;
             }
-            
         }
         i{
             position: relative;
             font-size: $icon-size;
-            color: $icon-color;
+            color: var(--gray-color);
             margin-left: 5px;
         }
         .explorer-item-name{
@@ -86,7 +73,7 @@ $explorer-root-color: lighten($quaternary-color, 10%);
             font-family: $app-font;
             font-weight: initial;
             font-size: $text-1x;
-            color: $font-color;
+            color: var(--gray-color);
             margin-left: 5px;
         }
         .explorer-item-menu-container{
@@ -113,8 +100,8 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                 @include click();
                 i{
                     position: absolute;
-                    font-size: $icon-color;
-                    color: $font-color;
+                    font-size: var(--gray-color);
+                    color: var(--gray-color);
                 }
             }
         }
@@ -148,7 +135,7 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                 justify-content: flex-start;
                 align-items: center;
                 flex-direction: row;
-                border-left: 1px solid $tab-color;
+                border-left: 1px solid var(--dark-gray-dark-color);
                 position: relative;
                 width: 100%;
                 height: $explorer-folder-row-height;
@@ -160,7 +147,7 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                     left: 10px;
                     height: 100%;
                     width: 1px;
-                    border-left: 1px dashed $explorer-root-color;
+                    border-left: 1px dashed --dark-gray-light-color;
                     box-sizing: border-box;
                     content: '';
                 }
@@ -175,7 +162,7 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                         height: 12px;
                         top: 0px;
                         width: 5px;
-                        border-bottom: 1px dashed $explorer-root-color;
+                        border-bottom: 1px dashed --dark-gray-light-color;
                     }
                 }
                 // &::before{
@@ -183,25 +170,25 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                 //     left: 8px;
                 //     height: 5px;
                 //     width: 5px;
-                //     background: $dark-gray-color;
-                //     border: 1px solid $gray-color;
+                //     background: var(--dark-gray-dark-color);
+                //     border: 1px solid var(--gray-color);
                 //     box-sizing: border-box;
                 //     z-index: 10;
                 //     content: '';
                 // }
                 &:hover{
-                    border-color: $primary-color;
+                    background: var(--dark-gray-light-color);
                     i{
-                        color: $primary-color;
+                        color: var(--pink-color);
                     }
                     &::before{
-                        background: $primary-color;
+                        background: var(--pink-color);
                     }
                 }
                 i{
                     position: relative;
                     font-size: $icon-size;
-                    color: $gray-color;
+                    color: var(--gray-color);
                     margin-left: 5px;
                 }
                 .explorer-item-name{
@@ -209,7 +196,7 @@ $explorer-root-color: lighten($quaternary-color, 10%);
                     font-family: $app-font;
                     font-weight: initial;
                     font-size: $text-1x;
-                    color: $font-color;
+                    color: var(--gray-color);
                     margin-left: 5px;
                 }
             }

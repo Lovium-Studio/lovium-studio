@@ -12,7 +12,7 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: $tertiary-color;
+    background: var(--dark-gray-color);
     display: none;
     justify-content: flex-start;
     align-items: center;
@@ -27,13 +27,13 @@
     width: 100%;
     height: 30px;
     box-sizing: border-box;
-    background: $dark-gray-color;
+    background: var(--dark-gray-dark-color);
     outline: none;
     border: none;
     font-family: $app-font;
     font-size: $text-1x;
     font-weight: inherit;
-    color: $font-color;
+    color: var(--gray-color);
     @include click();
     i{
         font-size: $icon-size;
@@ -43,7 +43,7 @@
 // ASSET TAB BUTTON DELETE BUTTON : 
 
 .asset-tab-delete-button{
-    background: $red-color;
+    background: var(--red-color);
 }
 
 // ASSET TAB INFO TABLE : 
@@ -62,7 +62,7 @@
         position: relative;
         width: 100%;
         height: 30px;
-        background: $dark-gray-color;
+        background: var(--dark-gray-dark-color);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -71,7 +71,7 @@
             bottom: 0px;
             width: 90%;
             height: 1px;
-            background: $quaternary-color;
+            background: var(--dark-gray-light-color);
             content: '';
         }
         &:last-of-type{
@@ -84,7 +84,7 @@
             font-family: $app-font;
             font-weight: initial;
             font-size: $text-1x;
-            color: $font-color;
+            color: var(--gray-color);
         }
         .info-key{
             left: 5px;

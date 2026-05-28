@@ -19,7 +19,7 @@ $handle-rect-size: 100px;
     position: absolute;
     width: $handle-rect-size;
     height: $handle-rect-size; 
-    border: 1px dashed $gray-color;
+    border: 1px dashed var(--gray-color);
     display: none;
     justify-content: center;
     align-items: center;
@@ -37,8 +37,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     top: $handle-outside;
     cursor: s-resize;
 }
@@ -47,8 +47,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     top: $handle-outside;
     left: $handle-outside;
     cursor: nw-resize;
@@ -58,8 +58,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     top: $handle-outside;
     right: $handle-outside;
     cursor: sw-resize;
@@ -69,8 +69,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     left: $handle-outside;
     cursor: w-resize;
 }
@@ -79,8 +79,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     left: $handle-outside;
     bottom: $handle-outside;
     cursor: sw-resize;
@@ -90,8 +90,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     bottom: $handle-outside;
     cursor: s-resize;
 }
@@ -100,8 +100,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     bottom: $handle-outside;
     right: $handle-outside;
     cursor: nw-resize;
@@ -111,8 +111,8 @@ $handle-outside: -4px;
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $gray-color;
-    background: $primary-color;
+    border: 1px solid var(--gray-color);
+    background: var(--pink-color);
     right: $handle-outside;
     cursor: w-resize;
 }
@@ -121,7 +121,7 @@ $handle-outside: -4px;
 
 .resize-handle{
     &:active{
-        background: $tab-color !important;
+        background: var(--dark-gray-dark-color) !important;
     }
 }
 
@@ -130,9 +130,9 @@ $handle-outside: -4px;
 #anchor-point{
     position: absolute;
     font-size: $icon-size;
-    color: $icon-color;
+    color: var(--gray-color);
     &:active{
-        color: $primary-color;
+        color: var(--pink-color);
     }
 }
 
@@ -147,7 +147,7 @@ $handle-outside: -4px;
     height: 15px;
     i{
         position: absolute;
-        color: $icon-color;
+        color: var(--gray-color);
         font-size: $icon-size  + 3px;
         display: none;
         text-rendering: geometricPrecision;
@@ -155,7 +155,7 @@ $handle-outside: -4px;
     &:active{
         cursor: none;
         i{
-            color: $primary-color;
+            color: var(--pink-color);
         }
     }
     &:hover{

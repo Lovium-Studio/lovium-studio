@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 // SIMPLE FILE VIEWER : 
 
 #simple-file-viewer{
@@ -12,8 +6,8 @@
     width: 100%;
     aspect-ratio: 1/1;
     box-sizing: border-box;
-    background: $dark-gray-color;
-    // border: 5px solid $dark-gray-color;
+    background: var(--dark-gray-dark-color);
+    // border: 5px solid var(--dark-gray-dark-color);
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -24,7 +18,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        border: 1px solid $dark-gray-color;
+        border: 1px solid var(--dark-gray-dark-color);
         background-size: 35px;
         background-repeat: repeat;
         display: flex;
@@ -36,7 +30,7 @@
             position: absolute;
             width: 150px;
             height: 150px;
-            border: 1px dashed $gray-color;
+            border: 1px dashed var(--gray-color);
             z-index: 3;
         }
     }
@@ -45,7 +39,7 @@
         width: 100%;
         box-sizing: border-box;
         height: 35px;
-        background: $tertiary-color; 
+        background: var(--dark-gray-color); 
         display: flex;
         justify-content: center;
         align-items: center;
@@ -63,7 +57,7 @@
             i{ 
                 position: absolute;
                 font-size: $icon-size;
-                color: $icon-color;
+                color: var(--gray-color);
                 margin-top: 1px; 
             }
         }
@@ -72,7 +66,7 @@
             font-family: $app-font;
             font-size: $text-1x;
             font-weight: initial;
-            color: $font-color;
+            color: var(--gray-color);
         }
     }
     .simple-image-preview{
@@ -86,7 +80,7 @@
         font-family: $app-font;
         font-size: $text-1x;
         font-weight: initial;
-        color: $font-color;
+        color: var(--gray-color);
         z-index: 10;
         background: #00000063;
         padding: 5px;

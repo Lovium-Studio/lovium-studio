@@ -22,6 +22,6 @@
     .custom-mouse-cursor{
         position: absolute;
         font-size: $icon-size;
-        color: $icon-color;
+        color: var(--gray-color);
     }
 }

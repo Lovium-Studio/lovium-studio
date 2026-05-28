@@ -20,17 +20,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px dashed $gray-color;
+    border: 1px dashed var(--gray-color);
     i{
         position: relative;
         font-size: 40px;
-        color: $icon-color;
+        color: var(--gray-color);
     }
     span{
         position: relative;
         font-family: $app-font;
         font-size: $text-1x;
-        color: $font-color;
+        color: var(--gray-color);
         text-align: center;
     }
     button{
@@ -39,19 +39,19 @@
         border: none;
         background: none;
         font-family: $app-font;
-        color: $gray-color;
+        color: var(--gray-color);
         font-weight: initial;
         cursor: pointer;
         font-size: $text-1x;
         i{
             position: relative;
             font-size: $icon-size;
-            color: $icon-color;
+            color: var(--gray-color);
         }
         &:hover{
-            color: $primary-color;
+            color: var(--pink-color);
             i{
-                color: $primary-color;
+                color: var(--pink-color);
             }
         }
         &:active{
