@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "./dist/main",
+    "rootDir": "./main",
+    "allowJs": false,       
+    "checkJs": false,           
+    "esModuleInterop": true,
+    "skipLibCheck": true,       
+    "noEmit" : false,
+    "noImplicitAny": false,
+    "strict": false,
+    "noEmitOnError": false,
+    "strictNullChecks": false
+  },
+  "include": ["main"],
+  "exclude": ["node_modules", "dist", "src"]
+}

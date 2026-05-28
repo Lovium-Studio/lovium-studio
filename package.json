@@ -1,27 +1,48 @@
 {
-  "name": "rocon-studio",
+  "name": "lovium-studio",
   "version": "1.0.0",
   "description": "application-builder",
   "main": "main.js",
   "build": {
-    "appId": "com.rocon.app",
-    "win": {
-      "target": "nsis",
-      "icon": "path/to/icon.ico"
+        "appId": "com.lovium.app",
+        "fileAssociations": [
+            {
+                "ext": "spaper",
+                "name": "Snack Paper File",
+                "role": "Editor",
+                "icon": "./file/spf/snack-paper-file-icon.ico"
+            }
+        ],
+        "asar": true,
+        "extraResources": [
+            {"from": "node_modules/call-bind-apply-helpers","to": "node_modules/call-bind-apply-helpers"}
+        ],
+        "win": {
+            "target": "nsis",
+            "icon": "path/to/install-icon.png"
+        },
+        "files": ["**/*","!node_modules/**/*.map"],
+        "npmRebuild": false,
+        "asarUnpack": ["**/*.node","node_modules/call-bind-apply-helpers/**"],
+        "directories": {
+            "output": "./build/win"
+        }
     },
-    "npmRebuild": false,
-    "asarUnpack": [
-      "**/*.node"
-    ],
-    "directories": {
-      "output": "dist"
-    }
-  },
   "scripts": {
-    "start": "npm-run-all --parallel sass electron",
-    "sass": "sass --watch scss/global.scss:./css/global.css",
-    "electron": "electron .",
-    "build": "electron-builder"
+    "sass": "sass --watch src/scss/global.scss:./src/css/global.css",
+    "tsc-main": "tsc -p tsconfig.main.json -w",
+    "tsc-renderer": "tsc -p tsconfig.renderer.json -w",
+    "electron-run": "electron ./dist/main/main.js",
+    "start": "npm-run-all --parallel sass tsc-main tsc-renderer electron-run",
+    "build-ts": "tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json",
+    "electron-watch": "npm run build-ts && electron ./dist/main/main.js",
+    "electron": "electron ./dist/main/main.js",
+    "build": "electron-builder",
+    "publish": "electron-builder --publish always",
+    "npm-install": "npm i",
+    "node-rebuild": "npm rebuild",
+    "electron-rebuild": "npx @electron/rebuild",
+    "setup": "npm-run-all -s npm-install node-rebuild electron-rebuild"
   },
   "author": "BioBit Interactive Co.",
   "license": "ISC",
