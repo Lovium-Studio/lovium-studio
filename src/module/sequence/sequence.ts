@@ -43,7 +43,7 @@ const sequenceDataTest = [
             },
             {
                 name : "Tracker Title",
-                start : 410,
+                start : 310,
                 end : 200,
                 startValue : "43434",
                 endValue : "4343",
@@ -208,7 +208,6 @@ export function sequence(sequenceData = sequenceDataTest) {
         
         const sequenceTrackerGroup = trackData.trackerGroup;
 
-        const trackColor = trackData.color;
         const trackType = trackData.type;
         const trackLock = trackData.lock;
         const trackVisible = trackData.visible;
@@ -296,7 +295,6 @@ export function sequence(sequenceData = sequenceDataTest) {
             tracker.classList.add("tracker");
             tracker.style.left = `${trackerStart}px`;
             tracker.style.width = `${trackerEnd}px`;
-            tracker.style.background = `${trackColor}`;
 
             const trackerHandleLeft = document.createElement("div");
             trackerHandleLeft.classList.add("left-tracker-handle", "tracker-handle");
@@ -306,18 +304,15 @@ export function sequence(sequenceData = sequenceDataTest) {
 
             const trackerHandleLeftIndicator = document.createElement("div");
             trackerHandleLeftIndicator.classList.add("tracker-handle-indicator");
-            trackerHandleLeftIndicator.style.background = `${trackColor}`;
 
             const trackerHandleRightIndicator = document.createElement("div");
             trackerHandleRightIndicator.classList.add("tracker-handle-indicator");
-            trackerHandleRightIndicator.style.background = `${trackColor}`;
 
             const trackerBody = document.createElement("div"); // Alterado para 'div' caso 'tracker-body' não seja um elemento customizado
             trackerBody.classList.add("tracker-body");  
 
             const trackerInputContainer = document.createElement("div"); // Alterado para 'div' caso 'tracker-valuer-container' não seja um elemento customizado
             trackerInputContainer.classList.add("tracker-valuer-container");
-            trackerInputContainer.style.borderColor = `${trackColor}`;
 
             const trackerNameInput = document.createElement("input");
             trackerNameInput.classList.add("tracker-name");
@@ -401,22 +396,9 @@ export function sequence(sequenceData = sequenceDataTest) {
                 trackerUpdateName(trackerNameInput.value);
                 console(trackerNameInput.value);
             });
+            
 
-            trackerHandleLeft.addEventListener("mousedown",function(){
-                trackerHandleLeftIndicator.style.background = "#111111";
-            })
-
-            document.addEventListener("mouseup",function(){
-                trackerHandleLeftIndicator.style.background = `${trackColor}`;
-            })
-
-            trackerHandleRight.addEventListener("mousedown",function(){
-                trackerHandleRightIndicator.style.background = "#111111"
-            })
-
-            document.addEventListener("mouseup",function(){
-                trackerHandleRightIndicator.style.background = `${trackColor}`;
-            })
+            
 
             function trackerHandleContextMenu(e) {
                 e.preventDefault(); // Previne o menu de contexto padrão do navegador
@@ -471,10 +453,10 @@ export function sequence(sequenceData = sequenceDataTest) {
         });
     
         containerA.addEventListener('scroll', () => {
-            containerB.scrollTop = containerA.scrollTop;
+            containerB.scrollTop = containerA.scrollTop; 
         });
     }
 
     doubleScroll(sequenceControlContainer,sequenceTrackerContainer)
-    
+      
 }

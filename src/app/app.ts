@@ -13,7 +13,7 @@ import { console } from "../module/console/console.js";
 import { RangeProgress } from "../module/range-progress/range-progress.js";
 import { viewportGrid } from "../module/viewport-grid/viewport-grid.js";
 import { viewportSelection } from "../module/viewport-selection/viewport-selection.js";
-import { animation } from "../module/animation/animation.js";
+// import { animation } from "../module/animation/animation.js";
 import { inspector } from "../module/inspector/inspector.js";
 import { shild } from "../module/shild/shild.js";
 import { presetHighlight } from "../module/preset-highlight/preset-highlight.js";
@@ -49,7 +49,7 @@ function appLoad(){
     splitter();
     // viewportSelection();
     // viewportGrid(20,20)
-    animation();
+    // animation();
     inspector();
     presetHighlight(); 
     tabLoad();

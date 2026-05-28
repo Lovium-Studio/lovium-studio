@@ -147,7 +147,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                     left: 10px;
                     height: 100%;
                     width: 1px;
-                    border-left: 1px dashed --dark-gray-light-color;
+                    border-left: 1px dashed var(--pink-color);
                     box-sizing: border-box;
                     content: '';
                 }
@@ -162,7 +162,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                         height: 12px;
                         top: 0px;
                         width: 5px;
-                        border-bottom: 1px dashed --dark-gray-light-color;
+                        border-bottom: 1px dashed var(--pink-color);
                     }
                 }
                 // &::before{

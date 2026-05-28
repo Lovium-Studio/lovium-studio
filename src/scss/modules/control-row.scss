@@ -274,14 +274,14 @@ $control-row-container-inside-gap: 5px;
         border-radius: 50px;
         &::-webkit-slider-thumb {
             -webkit-appearance:none; 
-            background: var(--gray-color);
+            background: var(--pink-color);
             width: 17px;
             height: 4px;
-            border: 1px solid var(--gray-color);
+            border: 1px solid var(--pink-color);
             cursor:pointer;
             &:active{
-                border-color: var(--pink-color);
-                background: var(--pink-color);
+                border-color: var(--gray-color);
+                background: var(--gray-color);
             }
         }
     }

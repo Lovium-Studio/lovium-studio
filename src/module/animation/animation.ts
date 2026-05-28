@@ -37,12 +37,9 @@ export function animation() {
 
     forwardAnimationButton.addEventListener("click", function() {
         const trackRulerWidth = trackRuler.offsetWidth;
-        const needleWidth = needle.offsetWidth;
-        
-        if (needleLeft + needleWidth + needleSnap <= trackRulerWidth) {
+ 
             needleLeft += needleSnap;
             needle.style.left = `${needleLeft}px`;
-        }
     });
     
     backwardAnimationButton.addEventListener("click", function() {
