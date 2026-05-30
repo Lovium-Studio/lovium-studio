@@ -29,7 +29,6 @@ import { resizeHandle } from "../module/resize-handle/resize-handle.js"
 // import { explorerTab } from "../module/tooltip/tooltip.js";
 import { uiImageLoad } from "../module/ui-image-load/ui-image-load.js";
 import { assetTab } from "../module/asset-tab/asset-tab.js";
-import { twoDCamera } from "../module/2d-camera/2d-camera.js";
 
 // WINDOWS : 
 
@@ -64,7 +63,6 @@ function appLoad(){
     // explorerTab();
     uiImageLoad();
     assetTab();
-    twoDCamera();
     console("Application Started...", "success"); 
 }
 

@@ -1,100 +1,93 @@
 
+// ASSET TAB :
 
+import { gui } from "../gui/gui.js";
 
+// SETUP : 
 
+let ZOOM_STATE : boolean = false;
+let ZOOM_SCALE : number = 1;
 
-
-
-
-
-// ASSET TAB:
-
-import { getUi } from "../get-ui/get-ui.js";
-
-export function assetTab() {
-    function simpleFileViewer() {
-        const simplePreviewContainer = getUi("simple-preview-container");
-        const simpleImagePreview = getUi("simple-image-preview");
-        const simplePreviewContainerZoomArea = getUi("simple-preview-container-zoom-area");
-
-        let zoomState = false;
-        let zoomScale = 1; // Fator de zoom inicial
-
-        function updateZoomAreaPosition(e) {
-            const containerRect = simplePreviewContainer.getBoundingClientRect();
-            const mouseX = e.clientX - containerRect.left;
-            const mouseY = e.clientY - containerRect.top;
-            const zoomAreaWidth = simplePreviewContainerZoomArea.offsetWidth;
-            const zoomAreaHeight = simplePreviewContainerZoomArea.offsetHeight;
-
-            simplePreviewContainerZoomArea.style.left = `${Math.max(0, Math.min(mouseX - (zoomAreaWidth / 2), containerRect.width - zoomAreaWidth))}px`;
-            simplePreviewContainerZoomArea.style.top = `${Math.max(0, Math.min(mouseY - (zoomAreaHeight / 2), containerRect.height - zoomAreaHeight))}px`;
-        }
-
-        function zoomToPosition(e) {
-            if (zoomState) {
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-
-                simpleImagePreview.style.left = `${-mouseX + simpleImagePreview.offsetWidth / 2}px`;
-                simpleImagePreview.style.top = `${-mouseY + simpleImagePreview.offsetHeight / 2}px`;
-            }
-        }
-
-        simplePreviewContainer.addEventListener("click", function(e) {
-            zoomState = !zoomState;
-
-            if (zoomState) {
-                simpleImagePreview.style.height = "135%";
-                simpleImagePreview.style.cursor = "zoom-out";
-                zoomToPosition(e);  // A imagem segue o mouse ao clicar para fazer zoom
-            } else {
-                simpleImagePreview.style.height = "";
-                simpleImagePreview.style.cursor = "";
-                simpleImagePreview.style.left = "auto";
-                simpleImagePreview.style.top = "auto";
-            }
-        });
-
-        simplePreviewContainer.addEventListener("mousemove", function(e) {
-            if (zoomState) {
-                zoomToPosition(e);
-            }
-        });
-
-        simplePreviewContainer.addEventListener("wheel", function(e) {
-            if (zoomState) {
-                const zoomSpeed = 0.1;
-                const delta = Math.sign(e.deltaY);
-                zoomScale = Math.max(0.5, Math.min(2, zoomScale - delta * zoomSpeed));
-
-                const containerWidth = simplePreviewContainer.offsetWidth;
-                const containerHeight = simplePreviewContainer.offsetHeight;
-
-                const zoomAreaWidth = Math.min(containerWidth, containerWidth * zoomScale);
-                const zoomAreaHeight = Math.min(containerHeight, containerHeight * zoomScale);
-
-                // Limitar o tamanho da área de zoom ao tamanho do contêiner
-                simplePreviewContainerZoomArea.style.width = `${Math.min(containerWidth, zoomAreaWidth)}px`;
-                simplePreviewContainerZoomArea.style.height = `${Math.min(containerHeight, zoomAreaHeight)}px`;
-
-                updateZoomAreaPosition(e);  // Atualiza a posição da área de zoom
-            }
-        });
-
-        simplePreviewContainer.addEventListener("mouseleave", function() {
-            if (zoomState) {
-                simplePreviewContainerZoomArea.style.left = "";
-                simplePreviewContainerZoomArea.style.top = "";
-                simplePreviewContainerZoomArea.style.width = "";
-                simplePreviewContainerZoomArea.style.height = "";
-            }
-        });
-    }
+export const assetTab = () : void => {
 
     simpleFileViewer();
-}
+};
 
+const simpleFileViewer = () : void => {
+        
+    const updateZoomAreaPosition = (e : MouseEvent) : void => {
+
+        const containerRect = gui.assetTab.simplePreviewContainer.getBoundingClientRect();
+        const mouseX : number = e.clientX - containerRect.left;
+        const mouseY : number = e.clientY - containerRect.top;
+        const zoomAreaWidth : number = gui.assetTab.simplePreviewContainerZoomArea.offsetWidth;
+        const zoomAreaHeight : number = gui.assetTab.simplePreviewContainerZoomArea.offsetHeight;
+
+        gui.assetTab.simplePreviewContainerZoomArea.style.left = `${Math.max(0, Math.min(mouseX - (zoomAreaWidth / 2), containerRect.width - zoomAreaWidth))}px`;
+        gui.assetTab.simplePreviewContainerZoomArea.style.top = `${Math.max(0, Math.min(mouseY - (zoomAreaHeight / 2), containerRect.height - zoomAreaHeight))}px`;
+    };
+
+    const zoomToPosition = (e : MouseEvent) : void => {
+
+        if (ZOOM_STATE) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            gui.assetTab.simpleImagePreview.style.left = `${-mouseX + gui.assetTab.simpleImagePreview.offsetWidth / 2}px`;
+            gui.assetTab.simpleImagePreview.style.top = `${-mouseY + gui.assetTab.simpleImagePreview.offsetHeight / 2}px`;
+        }
+    };
+
+    gui.assetTab.simplePreviewContainer.addEventListener("click", function(e) {
+
+        ZOOM_STATE = !ZOOM_STATE;
+
+        if (ZOOM_STATE) {
+            gui.assetTab.simpleImagePreview.style.height = "135%";
+            gui.assetTab.simpleImagePreview.style.cursor = "zoom-out";
+            zoomToPosition(e); 
+        } else {
+            gui.assetTab.simpleImagePreview.style.height = "";
+            gui.assetTab.simpleImagePreview.style.cursor = "";
+            gui.assetTab.simpleImagePreview.style.left = "auto";
+            gui.assetTab.simpleImagePreview.style.top = "auto";
+        };
+
+    });
+
+    gui.assetTab.simplePreviewContainer.addEventListener("mousemove", function(e) {
+        if (ZOOM_STATE) zoomToPosition(e);
+    });
+
+    gui.assetTab.simplePreviewContainer.addEventListener("wheel", function(e) {
+
+        if (ZOOM_STATE) {
+            const zoomSpeed = 0.1;
+            const delta = Math.sign(e.deltaY);
+            ZOOM_SCALE = Math.max(0.5, Math.min(2, ZOOM_SCALE - delta * zoomSpeed));
+
+            const containerWidth = gui.assetTab.simplePreviewContainer.offsetWidth;
+            const containerHeight = gui.assetTab.simplePreviewContainer.offsetHeight;
+
+            const zoomAreaWidth = Math.min(containerWidth, containerWidth * ZOOM_SCALE);
+            const zoomAreaHeight = Math.min(containerHeight, containerHeight * ZOOM_SCALE);
+
+            gui.assetTab.simplePreviewContainerZoomArea.style.width = `${Math.min(containerWidth, zoomAreaWidth)}px`;
+            gui.assetTab.simplePreviewContainerZoomArea.style.height = `${Math.min(containerHeight, zoomAreaHeight)}px`;
+
+            updateZoomAreaPosition(e); 
+        }
+    });
+
+    gui.assetTab.simplePreviewContainer.addEventListener("mouseleave", function() {
+        if (ZOOM_STATE) {
+            gui.assetTab.simplePreviewContainerZoomArea.style.left = "";
+            gui.assetTab.simplePreviewContainerZoomArea.style.top = "";
+            gui.assetTab.simplePreviewContainerZoomArea.style.width = "";
+            gui.assetTab.simplePreviewContainerZoomArea.style.height = "";
+        };
+    });
+};
 
 
 
