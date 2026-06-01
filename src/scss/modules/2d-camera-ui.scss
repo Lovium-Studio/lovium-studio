@@ -63,14 +63,14 @@ $camera-color: #a71984;
     i{
         position: relative;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
     }
     span{
         position: relative;
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: var(--gray-color);
+        color: var(--color-c);
         margin-bottom: 1px;
     }
 }   
@@ -82,7 +82,7 @@ $camera-color: #a71984;
     right: $inside-tab-gap;
     width: auto;
     height: 85%;
-    background: var(--dark-gray-transparent-color);
+    background: var(--color-a-t);
     border-radius: 50px;
     display: flex;
     justify-content: flex-start;
@@ -96,7 +96,7 @@ $camera-color: #a71984;
     i{
         position: relative;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
         margin-top: 2px;
     }
     span{
@@ -104,6 +104,6 @@ $camera-color: #a71984;
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: var(--gray-color);
+        color: var(--color-c);
     }
 }   

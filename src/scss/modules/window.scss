@@ -16,8 +16,8 @@
     width: 400px;
     height: 450px;
     z-index: 200;
-    background: var(--dark-gray-color);
-    border: 1px solid var(--dark-gray-dark-color);
+    background: var(--color-d);
+    border: 1px solid var(--color-f);
     left: 40%;
     top: 100px;
     display: flex;
@@ -33,19 +33,19 @@
     position: relative;
     width: 100%;
     height: 25px;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top: $top-highlight-height solid var(--pink-color);
+    border-top: $top-highlight-height solid var(--color-b);
     .window-name{
         position: absolute;
         left: 23px;
         font-family: $app-font;
         font-size: $text-1x;
         font-weight: initial;
-        color: var(--gray-color);
+        color: var(--color-c);
     }
     .window-icon{
         position: absolute;
@@ -66,7 +66,7 @@
         i{
             position: absolute;
             font-size: $icon-size;
-            color: var(--gray-color);
+            color: var(--color-c);
             cursor: pointer;
         }
         @include click();

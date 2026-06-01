@@ -10,7 +10,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
 }
 
 // EXPLORER FOLDER ROW :  
@@ -50,14 +50,14 @@ $explorer-folder-row-gap: $inside-tab-gap;
         justify-content: flex-start;
         align-items: center;
         flex-direction: row;
-        border-left: 1px solid var(--dark-gray-dark-color);
+        border-left: 1px solid var(--color-f);
         position: relative;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         cursor: pointer;
         &:hover{
-            background: var(--dark-gray-light-color);
+            background: var(--color-e);
             .explorer-item-menu-container{
                 display: flex;
             }
@@ -65,7 +65,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
         i{
             position: relative;
             font-size: $icon-size;
-            color: var(--gray-color);
+            color: var(--color-c);
             margin-left: 5px;
         }
         .explorer-item-name{
@@ -73,7 +73,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
             font-family: $app-font;
             font-weight: initial;
             font-size: $text-1x;
-            color: var(--gray-color);
+            color: var(--color-c);
             margin-left: 5px;
         }
         .explorer-item-menu-container{
@@ -100,8 +100,8 @@ $explorer-folder-row-gap: $inside-tab-gap;
                 @include click();
                 i{
                     position: absolute;
-                    font-size: var(--gray-color);
-                    color: var(--gray-color);
+                    font-size: var(--color-c);
+                    color: var(--color-c);
                 }
             }
         }
@@ -135,7 +135,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                 justify-content: flex-start;
                 align-items: center;
                 flex-direction: row;
-                border-left: 1px solid var(--dark-gray-dark-color);
+                border-left: 1px solid var(--color-f);
                 position: relative;
                 width: 100%;
                 height: $explorer-folder-row-height;
@@ -147,7 +147,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                     left: 10px;
                     height: 100%;
                     width: 1px;
-                    border-left: 1px dashed var(--pink-color);
+                    border-left: 1px dashed var(--color-b);
                     box-sizing: border-box;
                     content: '';
                 }
@@ -162,7 +162,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                         height: 12px;
                         top: 0px;
                         width: 5px;
-                        border-bottom: 1px dashed var(--pink-color);
+                        border-bottom: 1px dashed var(--color-b);
                     }
                 }
                 // &::before{
@@ -170,25 +170,25 @@ $explorer-folder-row-gap: $inside-tab-gap;
                 //     left: 8px;
                 //     height: 5px;
                 //     width: 5px;
-                //     background: var(--dark-gray-dark-color);
-                //     border: 1px solid var(--gray-color);
+                //     background: var(--color-f);
+                //     border: 1px solid var(--color-c);
                 //     box-sizing: border-box;
                 //     z-index: 10;
                 //     content: '';
                 // }
                 &:hover{
-                    background: var(--dark-gray-light-color);
+                    background: var(--color-e);
                     i{
-                        color: var(--pink-color);
+                        color: var(--color-b);
                     }
                     &::before{
-                        background: var(--pink-color);
+                        background: var(--color-b);
                     }
                 }
                 i{
                     position: relative;
                     font-size: $icon-size;
-                    color: var(--gray-color);
+                    color: var(--color-c);
                     margin-left: 5px;
                 }
                 .explorer-item-name{
@@ -196,7 +196,7 @@ $explorer-folder-row-gap: $inside-tab-gap;
                     font-family: $app-font;
                     font-weight: initial;
                     font-size: $text-1x;
-                    color: var(--gray-color);
+                    color: var(--color-c);
                     margin-left: 5px;
                 }
             }

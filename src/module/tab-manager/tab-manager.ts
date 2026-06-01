@@ -1,46 +1,45 @@
+
+// TAB MANAGER : 
+
 import { getUi } from "../get-ui/get-ui.js";
 import { console } from "../console/console.js";
 import { contextMenu } from "../context-menu/context-menu.js";
+import { ITab, TabLocationOption } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 
-const uiLeftContainerTabRow = getUi("ui-left-container-tab-row");
-const uiTopContainerTabRow = getUi("ui-top-container-tab-row");
-const uiBottomContainerTabRow = getUi("ui-bottom-container-tab-row");
-const uiRightContainerTabRow = getUi("ui-right-container-tab-row");
+// SETUP : 
 
-const uiLeftContainer = getUi("tab-left");
-const uiTopContainer = getUi("tab-top");
-const uiBottomContainer = getUi("tab-bottom");
-const uiRightContainer = getUi("tab-right");
-
-const addTabButton = getUi("add-tab-button");
-
-const tabContentsByLocation = {
-    left: [],
-    top: [],
-    bottom: [],
-    right: []
+const tabContentsByLocation: Record<TabLocationOption, HTMLElement[]> = {
+    LEFT: [],
+    TOP: [], 
+    BOTTOM: [],
+    RIGHT: []
 };
 
-const tabButtonsByLocation = {
-    left: [],
-    top: [], 
-    bottom: [],
-    right: []
+const tabButtonsByLocation: Record<TabLocationOption, HTMLButtonElement[]> = {
+    LEFT: [],
+    TOP: [], 
+    BOTTOM: [],
+    RIGHT: []
 };
 
-export function tabManage(tabList) {
+export const tabManager = (tabList: ITab[]): void => {
+
     tabList.forEach(tab => {
 
         const tabButton = document.createElement("button");
         tabButton.classList.add("tab-button");
         tabButton.textContent = tab.name;
 
-        let tabLocation = tab.location;
+        let tabLocation: TabLocationOption = tab.location;
         const tabContent = tab.content;
 
         tabContent.style.display = "none";
 
-        function tabbuttonHandleContextMenu() {
+        const tabbuttonHandleContextMenu = (event: MouseEvent): void => {
+
+            event.preventDefault();
+
             const tabButtonContextMenu = [      
                 {
                     name: "Go to Left",
@@ -67,13 +66,13 @@ export function tabManage(tabList) {
                     divisor: true,
                 },
                 {
-                    name: "Hide",
+                    label: "Hide",
                     id: "tabHide",
                     icon: "ri-eye-off-fill",
                     divisor: false,
                 },
                 {
-                    name: "Manage",
+                    label: "Manage",
                     id: "",
                     icon: "ri-settings-4-fill",
                     divisor: false,
@@ -83,67 +82,76 @@ export function tabManage(tabList) {
             contextMenu(tabButtonContextMenu, event);
 
             const tabHideMenu = getUi("tabHide");
+
             tabHideMenu.addEventListener("click", function() {
                 setTabVisibility(tab.content, tabButton);
             });
 
-            function setTabVisibility(tabToHide, tabButtonToHide) {
+            const setTabVisibility = (tabToHide: HTMLElement, tabButtonToHide: HTMLButtonElement): void => {
                 tabToHide.remove();
                 tabButtonToHide.remove();
-            }
+            };
 
-            function removeTabFromPreviousLocation() {
+            const removeTabFromPreviousLocation = (): void => {
+
                 const oldLocation = tabLocation;
 
                 const buttonIndex = tabButtonsByLocation[oldLocation].indexOf(tabButton);
+            
                 if (buttonIndex !== -1) {
                     tabButtonsByLocation[oldLocation].splice(buttonIndex, 1);
-                }
+                };
 
                 const contentIndex = tabContentsByLocation[oldLocation].indexOf(tabContent);
+
                 if (contentIndex !== -1) {
                     tabContentsByLocation[oldLocation].splice(contentIndex, 1);
-                }
+                };
 
                 if (tabButtonsByLocation[oldLocation].length > 0) {
                     const adjacentIndex = buttonIndex > 0 ? buttonIndex - 1 : 0;
                     tabButtonsByLocation[oldLocation][adjacentIndex].click();
-                }
-            }
+                };
+            };
 
-            function setTabLocation(newLocation) {
+            const setTabLocation = (newLocation: TabLocationOption): void => {
                 removeTabFromPreviousLocation();
 
                 tabLocation = newLocation;
 
                 switch(newLocation) {
-                    case "left":
-                        uiLeftContainerTabRow.appendChild(tabButton);
-                        uiLeftContainer.appendChild(tabContent);
-                        tabButtonsByLocation.left.push(tabButton);
-                        tabContentsByLocation.left.push(tabContent);
+                    case "LEFT":
+                        gui.tabManager.tabLeftHeader.appendChild(tabButton);
+                        gui.tabManager.tabLeftContainer.appendChild(tabContent);
+                        tabButtonsByLocation.LEFT.push(tabButton);
+                        tabContentsByLocation.LEFT.push(tabContent);
                         break;
-                    case "top":
-                        uiTopContainerTabRow.insertBefore(tabButton, addTabButton);
-                        uiTopContainer.appendChild(tabContent);
-                        tabButtonsByLocation.top.push(tabButton);
-                        tabContentsByLocation.top.push(tabContent);
+                    case "TOP":
+
+                        if (gui.tabManager.addTabButton) {
+                            gui.tabManager.tabTopHeader.insertBefore(tabButton, gui.tabManager.addTabButton);
+                        } else {
+                            gui.tabManager.tabTopHeader.appendChild(tabButton);
+                        };
+                        
+                        gui.tabManager.tabTopContainer.appendChild(tabContent);
+                        tabButtonsByLocation.TOP.push(tabButton);
+                        tabContentsByLocation.TOP.push(tabContent);
+                    break;
+                    case "BOTTOM":
+                        gui.tabManager.tabBottomHeader.appendChild(tabButton);
+                        gui.tabManager.tabBottomContainer.appendChild(tabContent);
+                        tabButtonsByLocation.BOTTOM.push(tabButton);
+                        tabContentsByLocation.BOTTOM.push(tabContent);
                         break;
-                    case "bottom":
-                        uiBottomContainerTabRow.appendChild(tabButton);
-                        uiBottomContainer.appendChild(tabContent);
-                        tabButtonsByLocation.bottom.push(tabButton);
-                        tabContentsByLocation.bottom.push(tabContent);
-                        break;
-                    case "right":
-                        uiRightContainerTabRow.appendChild(tabButton);
-                        uiRightContainer.appendChild(tabContent);
-                        tabButtonsByLocation.right.push(tabButton);
-                        tabContentsByLocation.right.push(tabContent);
+                    case "RIGHT":
+                        gui.tabManager.tabRightHeader.appendChild(tabButton);
+                        gui.tabManager.tabRightContainer.appendChild(tabContent);
+                        tabButtonsByLocation.RIGHT.push(tabButton);
+                        tabContentsByLocation.RIGHT.push(tabContent);
                         break;
                 }
 
-                // Atualizar visibilidade e estado ativo
                 tabContentsByLocation[newLocation].forEach(content => {
                     content.style.display = "none";
                 });
@@ -153,33 +161,32 @@ export function tabManage(tabList) {
 
                 tabContent.style.display = "flex";
                 tabButton.classList.add("active-tab");
-
-            }
+            };
 
             const tabGoToLeft = getUi("tabGoToLeft");
             tabGoToLeft.addEventListener("click", function() {
-                setTabLocation("left");
-                tab.location = "left";
+                setTabLocation("LEFT");
+                tab.location = "LEFT";
             });
 
             const tabGoToRight = getUi("tabGoToRight");
             tabGoToRight.addEventListener("click", function() {
-                setTabLocation("right");
-                tab.location = "right";
+                setTabLocation("RIGHT");
+                tab.location = "RIGHT";
             });
 
             const tabGoToTop = getUi("tabGoToTop");
             tabGoToTop.addEventListener("click", function() {
-                setTabLocation("top");
-                tab.location = "top";
+                setTabLocation("TOP");
+                tab.location = "TOP";
             });
 
             const tabGoToBottom = getUi("tabGoToBottom");
             tabGoToBottom.addEventListener("click", function() {
-                setTabLocation("bottom");
-                tab.location = "bottom";
+                setTabLocation("BOTTOM");
+                tab.location = "BOTTOM";
             });
-        }
+        };
 
         tabButton.addEventListener("contextmenu", tabbuttonHandleContextMenu);
 
@@ -197,43 +204,48 @@ export function tabManage(tabList) {
             tabButton.classList.add("active-tab");
         });
 
-        if (["left", "right", "bottom", "top"].indexOf(tabLocation) === -1) {
+        if (["LEFT", "RIGHT", "BOTTOM", "TOP"].indexOf(tabLocation) === -1) {
             console(`LAYOUT_INSERT_TAB_ERROR: in tab '${tab.name}', error to insert the tab in the layout. You need to follow the 'location' specifications!`, "error");
             return;
-        }
+        };
 
         switch(tabLocation) {
-            case "left":
-                uiLeftContainerTabRow.appendChild(tabButton);
-                uiLeftContainer.appendChild(tabContent);
-                tabButtonsByLocation.left.push(tabButton);
-                tabContentsByLocation.left.push(tabContent);
+            case "LEFT":
+                gui.tabManager.tabLeftHeader.appendChild(tabButton);
+                gui.tabManager.tabLeftContainer.appendChild(tabContent);
+                tabButtonsByLocation.LEFT.push(tabButton);
+                tabContentsByLocation.LEFT.push(tabContent);
                 break;
-            case "top":
-                uiTopContainerTabRow.insertBefore(tabButton, addTabButton);
-                uiTopContainer.appendChild(tabContent);
-                tabButtonsByLocation.top.push(tabButton);
-                tabContentsByLocation.top.push(tabContent);
+            case "TOP":
+                if (gui.tabManager.addTabButton) {
+                    gui.tabManager.tabTopHeader.insertBefore(tabButton, gui.tabManager.addTabButton);
+                } else {
+                    gui.tabManager.tabTopHeader.appendChild(tabButton);
+                }
+                gui.tabManager.tabTopContainer.appendChild(tabContent);
+                tabButtonsByLocation.TOP.push(tabButton);
+                tabContentsByLocation.TOP.push(tabContent);
                 break;
-            case "bottom":
-                uiBottomContainerTabRow.appendChild(tabButton);
-                uiBottomContainer.appendChild(tabContent);
-                tabButtonsByLocation.bottom.push(tabButton);
-                tabContentsByLocation.bottom.push(tabContent);
+            case "BOTTOM":
+                gui.tabManager.tabBottomHeader.appendChild(tabButton);
+                gui.tabManager.tabBottomContainer.appendChild(tabContent);
+                tabButtonsByLocation.BOTTOM.push(tabButton);
+                tabContentsByLocation.BOTTOM.push(tabContent);
                 break;
-            case "right":
-                uiRightContainerTabRow.appendChild(tabButton);
-                uiRightContainer.appendChild(tabContent);
-                tabButtonsByLocation.right.push(tabButton);
-                tabContentsByLocation.right.push(tabContent);
+            case "RIGHT":
+                gui.tabManager.tabRightHeader.appendChild(tabButton);
+                gui.tabManager.tabRightContainer.appendChild(tabContent);
+                tabButtonsByLocation.RIGHT.push(tabButton);
+                tabContentsByLocation.RIGHT.push(tabContent);
                 break;
         }
     }); 
 
-    Object.keys(tabContentsByLocation).forEach(layout => {
+    (Object.keys(tabContentsByLocation) as TabLocationOption[]).forEach(layout => {
         if (tabContentsByLocation[layout].length > 0) {
             tabContentsByLocation[layout][0].style.display = "flex";
             tabButtonsByLocation[layout][0].classList.add("active-tab");
-        }
-    });
-}
+        };
+    }); 
+};
+

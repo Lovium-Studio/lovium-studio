@@ -1,0 +1,8 @@
+// TYPESCRIPT INTERFACE | TYPE : 
+;
+;
+;
+;
+;
+;
+export {};

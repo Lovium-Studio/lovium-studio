@@ -1,86 +1,65 @@
 
-
-
-
-
-
-
-
-
-
-
 // TAB LOAD : 
 
-import { getUi } from "../get-ui/get-ui.js";
-import { tabManage } from "../tab-manage/tab-manage.js";
-import { console } from "../console/console.js";
+import { tabManager } from "../tab-manager/tab-manager.js";
+import { ITab } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 
-const consoleTab = getUi("console-tab");
-const timelineTab = getUi("timeline-tab");
-const terminalTab = getUi("terminal-tab");
-const twoDStage = getUi("viewport-tab");
-const inspectorTab = getUi("inspector-tab");
-const explorerTab = getUi("explorer-tab");
-const codeEidtorTab = getUi("code-editor-tab");
-const assetTab = getUi("asset-tab");
-
-export function tabLoad(){
+export const tabLoad = () : ITab[] => {
  
-    const tabList = [
+    const tabList : ITab[] = [
         {
-            name: "Sequence",
-            content: timelineTab,
-            ID: "TABTL",
-            location: "bottom"
+            name: "Animation",
+            content: gui.nativeTab.timelineTab,
+            id: "TABTL",
+            location: "BOTTOM"
         },
         {
             name: "Console",
-            content: consoleTab,
-            ID: "TABTgL",
-            location: "bottom"
+            content: gui.nativeTab.consoleTab,
+            id: "TABTgL",
+            location: "BOTTOM"
         },
         {
             name: "Terminal",
-            content: terminalTab,
-            ID: "TABTgL",
-            location: "bottom"
+            content: gui.nativeTab.terminalTab,
+            id: "TABTgL",
+            location: "BOTTOM"
         },
         {
             name: "Board",
-            content: twoDStage,
-            ID: "TABTgL",
-            location: "top"
+            content: gui.nativeTab.boardTab,
+            id: "TABTgL",
+            location: "TOP"
         },
         {
             name: "Inspector",
-            content: inspectorTab,
-            ID: "TABTgL",
-            location: "right"  
+            content: gui.nativeTab.inspectorTab,
+            id: "TABTgL",
+            location: "RIGHT"  
         },
         {
             name: "Explorer",
-            content: explorerTab,
-            ID: "TABTgL",
-            location: "left"
+            content: gui.nativeTab.explorerTab,
+            id: "TABTgL",
+            location: "LEFT"
         },
         {
             name: "Asset",
-            content: assetTab,
-            ID: "TABTgL",
-            location: "left"
+            content: gui.nativeTab.assetTab,
+            id: "TABTgL",
+            location: "LEFT"
         },
         {
             name: "Code",
-            content: codeEidtorTab,
-            ID: "TABTgL",
-            location: "top"
+            content: gui.nativeTab.codeTab,
+            id: "TABTgL",
+            location: "TOP"
         }
     ];
 
-    tabManage(tabList);
+    tabManager(tabList);
 
-    return { 
-        tabList:tabList 
-    }
-
-}
+    return tabList;
+    
+};

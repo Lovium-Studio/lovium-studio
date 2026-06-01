@@ -10,25 +10,23 @@ import { getUi } from "../module/get-ui/get-ui.js";
 import { terminal } from "../module/terminal/terminal.js";
 import { splitter } from "../module/splitter/splitter.js";
 import { console } from "../module/console/console.js";
-import { RangeProgress } from "../module/range-progress/range-progress.js";
 import { viewportGrid } from "../module/viewport-grid/viewport-grid.js";
 import { viewportSelection } from "../module/viewport-selection/viewport-selection.js";
 // import { animation } from "../module/animation/animation.js";
-import { inspector } from "../module/inspector/inspector.js";
+import { inspectorTab } from "../module/inspector-tab/inspector-tab.js";
 import { shild } from "../module/shild/shild.js";
-import { presetHighlight } from "../module/preset-highlight/preset-highlight.js";
 import { windowMenu } from "../module/menu-window/window-menu.js";
 import { viewport } from "../module/viewport/viewport.js"
 // import { tabManage } from "../module/tab-manage/tab-manage.js";
 import { tabLoad } from "../module/tab-load/tab-load.js";
 import { sequence } from "../module/sequence/sequence.js";
 import { applicationPath } from "../module/application-path/application-path-.js";
-import { codeEditor } from "../module/code-editor/code-editor.js";
+import { codeTab } from "../module/code-tab/code-tab.js";
 import { statusBar } from "../module/status-bar/status-bar.js";
 import { resizeHandle } from "../module/resize-handle/resize-handle.js"
 // import { explorerTab } from "../module/tooltip/tooltip.js";
-import { uiImageLoad } from "../module/ui-image-load/ui-image-load.js";
 import { assetTab } from "../module/asset-tab/asset-tab.js";
+import { gui } from "../module/gui/gui.js";
 
 // WINDOWS : 
 
@@ -49,8 +47,7 @@ function appLoad(){
     // viewportSelection();
     // viewportGrid(20,20)
     // animation();
-    inspector();
-    presetHighlight(); 
+    inspectorTab();
     tabLoad();
     viewport({
         gridWidth : 25,
@@ -58,15 +55,57 @@ function appLoad(){
     })    
     sequence();
     applicationPath();
-    codeEditor();
+    codeTab();
     statusBar();
     // explorerTab();
-    uiImageLoad();
     assetTab();
-    console("Application Started...", "success"); 
+    console("Application Started...", "LOG"); 
+
+    // resizeHandle({
+    //     x : 300,
+    //     y : 400, 
+    //     width : 300,
+    //     height : 200,
+    //     type : "SINGLE_OBJECT",
+    //     rotate : false
+    // })
+
+    resizeHandle.setHandle({
+        x : 100,
+        y : 200,  
+        width : 300,
+        height : 200,
+        type : "SINGLE_OBJECT", 
+        rotate : true
+    })
+
+
 }
 
-document.addEventListener("DOMContentLoaded",appLoad());
+const dt = gui.custom("divtestb") as HTMLDivElement;
+
+dt.addEventListener("click",function(){
+
+    const dtRect = dt.getBoundingClientRect();
+
+    resizeHandle.setHandle({
+        x : dtRect.x,
+        y : dtRect.y,  
+        width : dtRect.width,
+        height : dtRect.height,
+        type : "SINGLE_OBJECT", 
+        rotate : true
+    })
+})
+
+resizeHandle.onChange(coord=>{
+    dt.style.left = coord.x + "px";
+    dt.style.top = coord.y + "px";
+    dt.style.width = coord.width + "px";
+    dt.style.height = coord.height + "px";
+})
+
+document.addEventListener("DOMContentLoaded",appLoad);
 
 // TERMINAL : 
 
@@ -88,51 +127,51 @@ const fileMenu = getUi("menu-file")
 function handleMenuNew(){
     const fileMenus = [
         {
-            name: "New",
+            label: "New",
             divisor: false,
             id: "new-menu"
         },
         {
-            name: "Open",
+            label: "Open",
             divisor: true,
             id: "HGT"
         },
         {
-            name: "Save",
+            label: "Save",
             divisor: false,
             id: "HGT"
         },
         {
-            name: "Save as..",
+            label: "Save as..",
             divisor: true,
             id: "HGT"
         },
         {
-            name: "Inport",
+            label: "Inport",
             divisor: false,
             id: "HGT"
         },
         {
-            name: "Export",
+            label: "Export",
             divisor: true,
             id: "HGT"
         },
         {
-            name: "Preferences",
+            label: "Preferences",
             divisor: true,
             id: "HGT"
         },
         {
-            name: "Addon",
+            label: "Addon",
             divisor: true,
             id: "HGT"
         }
         ,
         {
-            name: "Exit",
+            label: "Exit",
             divisor: false,
             id: "HGT"
-        }
+        } 
     ];
 
     windowMenu(fileMenu, fileMenus);
@@ -153,32 +192,32 @@ const editMenu = getUi("menu-edit")
 function handleMenuEdit(){
     const editMenus = [
         {
-            name: "Desfazer",
+            label: "Desfazer",
             divisor: false,
             id: "new-menu"
         },
         {
-            name: "Refazer",
+            label: "Refazer",
             divisor: true,
             id: "HGT"
         },
         {
-            name: "Selecionar",
+            label: "Selecionar",
             divisor: false,
             id: "HGT"
         },
         {
-            name: "Save as..",
+            label: "Save as..",
             divisor: true,
-            id: "HGT"
+            id: "HGT" 
         },
         {
-            name: "edit Option",
+            label: "edit Option",
             divisor: false,
             id: "HGT"
         },
         {
-            name: "edit Option",
+            label: "edit Option",
             divisor: false,
             id: "HGT"
         }

@@ -1,81 +1,69 @@
 
-
-
-
-
-
-
-
-
-
 // CONTEXT MENU : 
 
-import { getUi } from "../get-ui/get-ui.js";
+import { IContextMenu } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 
-const contextMenuContainer = getUi("context-menu-container");
+export const contextMenu = (buttonList : IContextMenu[] , event : MouseEvent ) : void =>  {
 
-export function contextMenu(context, event) {
-    console.log("Context array:", context); 
+    gui.contextMenu.contextMenuContainer.innerHTML = "";
 
-    contextMenuContainer.innerHTML = "";
+    buttonList.forEach(function(button) {
 
-    context.forEach(function(contexts) {
         const contextMenuButton = document.createElement("div");
         contextMenuButton.classList.add("context-menu-button");
-        contextMenuButton.id = contexts.id; 
+        contextMenuButton.id = button.id; 
 
         const contextMenuLabel = document.createElement("span");
-        contextMenuLabel.textContent = contexts.name;
+        contextMenuLabel.textContent = button.label;
 
         const contextMenuButtonIcon = document.createElement("i");
-        contextMenuButtonIcon.classList.add(`${contexts.icon}`);
+        contextMenuButtonIcon.classList.add(`${button.icon}`);
 
         const contextMenuButtonDivisor = document.createElement("div");
         contextMenuButtonDivisor.classList.add("context-menu-button-divisor")
 
-        if (contexts.divisor == true){
+        if (button.divisor == true){
             contextMenuButton.appendChild(contextMenuButtonDivisor)
-        }
+        };
         
         contextMenuButton.appendChild(contextMenuButtonIcon);
         contextMenuButton.appendChild(contextMenuLabel);
-        contextMenuContainer.appendChild(contextMenuButton);
+        gui.contextMenu.contextMenuContainer.appendChild(contextMenuButton);
     });
 
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
+    const mouseX : number = event.clientX;
+    const mouseY : number = event.clientY;
 
-    function setPosition() {
-        contextMenuContainer.style.left = `${mouseX}px`;
-        contextMenuContainer.style.top = `${mouseY}px`;
+    const setPosition = () : void => {
 
-        // Agora o menu já foi posicionado, podemos calcular o tamanho real
-        const contextMenuContainerRect = contextMenuContainer.getBoundingClientRect();
+        gui.contextMenu.contextMenuContainer.style.left = `${mouseX}px`;
+        gui.contextMenu.contextMenuContainer.style.top = `${mouseY}px`;
 
-        // Verifica se ultrapassou a borda inferior da janela
+        const contextMenuContainerRect = gui.contextMenu.contextMenuContainer.getBoundingClientRect();
+
         if (contextMenuContainerRect.bottom > window.innerHeight) {
-            contextMenuContainer.style.top = `${window.innerHeight - contextMenuContainerRect.height - 10}px`;
-        }
+            gui.contextMenu.contextMenuContainer.style.top = `${window.innerHeight - contextMenuContainerRect.height - 10}px`;
+        };
 
-        // Verifica se ultrapassou a borda direita da janela
         if (contextMenuContainerRect.right > window.innerWidth) {
-            contextMenuContainer.style.left = `${window.innerWidth - contextMenuContainerRect.width - 10}px`;
-        }
-    } 
-
-    contextMenuContainer.addEventListener("click", function() {
-        contextMenuContainer.style.display = "none";
+            gui.contextMenu.contextMenuContainer.style.left = `${window.innerWidth - contextMenuContainerRect.width - 10}px`;
+        };
+    };
+ 
+    gui.contextMenu.contextMenuContainer.addEventListener("click", function() {
+        gui.contextMenu.contextMenuContainer.style.display = "none";
     });
 
-    contextMenuContainer.style.display = "flex"; 
+    gui.contextMenu.contextMenuContainer.style.display = "flex"; 
 
-    document.addEventListener("click", function handleClickOutside(e) {
-        if (!contextMenuContainer.contains(e.target)) {
-            contextMenuContainer.style.display = "none";
+    document.addEventListener("click", function handleClickOutside(e: MouseEvent) { 
+        if (!gui.contextMenu.contextMenuContainer.contains(e.target as Node)) {
+            gui.contextMenu.contextMenuContainer.style.display = "none";
             document.removeEventListener("click", handleClickOutside);
-        }
-    }); 
+        };
+    });
 
     setPosition();
-}
+};
    

@@ -1,86 +1,80 @@
 
-
-
-
-
-
-
-
-
-
-
-
 // DROPDOWN : 
 
-import { getUi } from "../get-ui/get-ui.js";
+import { IDropdown } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 import { shild } from "../shild/shild.js";
 
-const uiDropdown = getUi("ui-dropdown");
-const mainView = getUi("main-container");
-let dropdownTimeout;
+// SETUP : 
 
-export function dropdown(dropdownTo,option) {
+let DROPDOWN_TIMEOUT : number;
 
-    uiDropdown.innerHTML = ""; 
-    uiDropdown.style.display = "flex";
+export const dropdown = (dropdownTo : HTMLElement ,buttonList : IDropdown[]) : void => {
+
+    gui.dropdown.dropdownContainer.innerHTML = ""; 
+    gui.dropdown.dropdownContainer.style.display = "flex";
+
     shild({visible: true, opaque: false});
 
     let dropdownToRect = dropdownTo.getBoundingClientRect();
-    let uiDropdownRect = uiDropdown.getBoundingClientRect();
-    let mainViewRect = mainView.getBoundingClientRect();
+    let uiDropdownRect = gui.dropdown.dropdownContainer.getBoundingClientRect();
+    let mainViewRect = gui.mainContainer.getBoundingClientRect();
 
     const getHeight = dropdownToRect.height;
-    const getTop = dropdownToRect.top;
+    const getTop = dropdownToRect.top; 
     const setToBottom = getTop + getHeight + 3;
 
-    uiDropdown.style.left = `${dropdownToRect.left - 1}px`;
-    uiDropdown.style.width = `${dropdownToRect.width}px`;
-    uiDropdown.style.top = `${setToBottom}px`;
+    gui.dropdown.dropdownContainer.style.left = `${dropdownToRect.left}px`;
+    gui.dropdown.dropdownContainer.style.width = `${dropdownToRect.width - 2}px`;
+    gui.dropdown.dropdownContainer.style.top = `${setToBottom}px`;
 
     const mainViewHeight = mainViewRect.height;
-    const newDropdownHeight = mainView.offsetHeight - uiDropdown.offsetTop - 29;
+    const newDropdownHeight = gui.mainContainer.offsetHeight - gui.dropdown.dropdownContainer.offsetTop - 29;
 
-    if (uiDropdownRect.bottom < mainView.offsetHeight) {
-        uiDropdown.style.height = "auto";
+    if (uiDropdownRect.bottom < gui.mainContainer.offsetHeight) {
+        gui.dropdown.dropdownContainer.style.height = "auto";
     }else {
-        uiDropdown.style.height = `${newDropdownHeight}px`;
-    }
+        gui.dropdown.dropdownContainer.style.height = `${newDropdownHeight}px`;
+    };
 
-    if (dropdownTimeout) { clearTimeout(dropdownTimeout); }
+    if (DROPDOWN_TIMEOUT) clearTimeout(DROPDOWN_TIMEOUT);
 
-    dropdownTimeout = setTimeout(() => {
+    DROPDOWN_TIMEOUT = setTimeout(() => {
         document.addEventListener('click', handleClickOutside);
     }, 100);
- 
-    for (let i = 0; i < option.length; i++) {
+
+    buttonList.forEach(button => {
+
         const dropdownButton = document.createElement("button");
         dropdownButton.classList.add("ui-dropdown-button");
-        dropdownButton.textContent = option[i].name;
-        dropdownButton.id = option[i].id;
+        dropdownButton.textContent = button.label;
+
+        if(button.id) dropdownButton.id = button.id ;
     
         const dropdownIcon = document.createElement("i");
-        dropdownIcon.classList.add(option[i].icon);
+        dropdownIcon.classList.add(button.icon);
     
         dropdownButton.appendChild(dropdownIcon);
-        uiDropdown.appendChild(dropdownButton);
-    }
+        gui.dropdown.dropdownContainer.appendChild(dropdownButton);
 
+    });
+ 
     window.addEventListener('resize', () => {
-        uiDropdown.style.display = "none";
+        gui.dropdown.dropdownContainer.style.display = "none";
         shild({visible: false, opaque: false});
     });
     
-}
+};
 
-function handleClickOutside(event) {
-    if (!uiDropdown.contains(event.target)) {
-        uiDropdown.style.display = "none";
+const handleClickOutside = (event : MouseEvent ) : void => {
+    if (!gui.dropdown.dropdownContainer.contains(event.target as Node)) {
+        gui.dropdown.dropdownContainer.style.display = "none";
         shild({visible: false, opaque: false});
         document.removeEventListener('click', handleClickOutside);
     }else{
-        uiDropdown.style.display = "none";
+        gui.dropdown.dropdownContainer.style.display = "none";
         shild({visible: false, opaque: false});
         document.removeEventListener('click', handleClickOutside);
-    }
-}
+    };
+};
 

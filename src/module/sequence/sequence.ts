@@ -18,10 +18,10 @@ import { console } from "../console/console.js";
 import { contextMenu } from "../context-menu/context-menu.js";
 
 const TrackerColor = {
-    red : "var(--pink-color)",
+    red : "var(--color-b)",
     purple : "#4a0472",
     yeallow : "#bf8e24",
-    green : "var(--blue-color)"
+    green : "var(--color-a)"
 }
 
 const sequenceDataTest = [
@@ -405,25 +405,25 @@ export function sequence(sequenceData = sequenceDataTest) {
                 
                 const contextTemplatee = [
                     {
-                        name: "Delete",
+                        label: "Delete",
                         id: "deleteTrackMenu",
                         icon: "ri-delete-bin-6-fill",
                         divisor : true
                     },
                     {
-                        name: "Duplicate Left",
+                        label: "Duplicate Left",
                         id: "trt",
                         icon: "ri-expand-left-fill",
                         divisor : false
                     },
                     {
-                        name: "Duplicate Right",
+                        label: "Duplicate Right",
                         id: "trt",
                         icon: "ri-expand-right-fill",
                         divisor : true
                     },
                     {
-                        name: "Lock",
+                        label: "Lock",
                         id: "trt",
                         icon: "ri-lock-fill",
                         divisor : false

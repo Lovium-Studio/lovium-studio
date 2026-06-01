@@ -16,13 +16,13 @@ $control-row-container-gap: $inside-tab-gap;
 
 .control-row-container{
     position: relative;
-    // border: $control-row-container-gap solid var(--dark-gray-color); 
+    // border: $control-row-container-gap solid var(--color-d); 
     // border-top: none;
     // border-bottom: none;
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -42,7 +42,7 @@ $control-row-container-row-padding: 5px;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border: $control-row-container-row-padding solid var(--dark-gray-dark-color);
+    border: $control-row-container-row-padding solid var(--color-f);
     border-top: none;
 } 
 
@@ -54,11 +54,11 @@ $control-row-container-row-padding: 5px;
     height: $control-row-container-row-height;
     min-height: $control-row-container-row-height;
     box-sizing: border-box;
-    border-left: calc($control-row-container-row-padding + 3px) solid var(--dark-gray-dark-color);
+    border-left: calc($control-row-container-row-padding + 3px) solid var(--color-f);
     font-family: $app-font;
     font-weight: initial;
     font-size: $text-1x;
-    color: var(--gray-color);
+    color: var(--color-c);
     text-align: left;
     display: flex;
     justify-content: flex-start;
@@ -96,7 +96,7 @@ $control-row-container-inside-gap: 5px;
     font-family: $app-font;
     font-weight: initial;
     font-size: $text-1x;
-    color: var(--gray-color);
+    color: var(--color-c);
     text-align: left;
 }
 
@@ -116,17 +116,17 @@ $control-row-container-inside-gap: 5px;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        background: var(--dark-gray-color);
-        border: 1px solid var(--dark-gray-color);
+        background: var(--color-d);
+        border: 1px solid var(--color-d);
         outline: none;
         padding: 3px;
         font-family: $app-font;
-        color: var(--gray-color);
+        color: var(--color-c);
         font-weight: initial;
         font-size: $text-1x;
         padding-right: 20px;
         &:focus{
-            border-color: var(--pink-color);
+            border-color: var(--color-b);
         }
     }
     .input-incrementor{
@@ -142,11 +142,11 @@ $control-row-container-inside-gap: 5px;
         i{
             position: relative;
             font-size: $icon-size;
-            color: var(--gray-color);
+            color: var(--color-c);
         }
         &:active{
             i{
-                color: var(--pink-color);
+                color: var(--color-b);
             }
         }
     }
@@ -159,7 +159,7 @@ $control-row-container-inside-gap: 5px;
     height: 100%;
     aspect-ratio: 1/1;
     box-sizing: border-box;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
     border: none;
     outline: none;
     display: flex;
@@ -168,7 +168,7 @@ $control-row-container-inside-gap: 5px;
     i{
         position: absolute;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
     }
     @include click();
 }
@@ -178,13 +178,13 @@ $control-row-container-inside-gap: 5px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
     border: none;
     outline: none;
     font-family: $app-font;
     font-size: $text-1x;
     font-weight: initial;
-    color: var(--gray-color);
+    color: var(--color-c);
     @include click();
 }
 
@@ -204,8 +204,8 @@ $control-row-container-inside-gap: 5px;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        background: var(--dark-gray-color);
-        border: 1px solid var(--dark-gray-color);
+        background: var(--color-d);
+        border: 1px solid var(--color-d);
         outline: none;
         padding: 3px;
         padding-right: 20px;
@@ -218,12 +218,12 @@ $control-row-container-inside-gap: 5px;
             position: absolute;
             left: 3px;
             font-family: $app-font;
-            color: var(--gray-color);
+            color: var(--color-c);
             font-weight: initial;
             font-size: $text-1x;
         }
         &:focus{
-            border-color: var(--pink-color);
+            border-color: var(--color-b);
         }
     }
     .dropdown-arrow{   
@@ -238,11 +238,11 @@ $control-row-container-inside-gap: 5px;
         i{
             position: relative;
             font-size: $icon-size;
-            color: var(--gray-color);
+            color: var(--color-c);
         }
         &:active{
             i{
-                color: var(--pink-color);
+                color: var(--color-b);
             }
         }
     }
@@ -260,13 +260,13 @@ $control-row-container-inside-gap: 5px;
     align-items: center;
     flex-direction: row;
     z-index: 10;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
     .control-row-range{
         position: relative;
         width: 100%;
         height: 2px;
         box-sizing: border-box;
-        background: var(--dark-gray-dark-color);
+        background: var(--color-f);
         outline: none;
         -webkit-appearance:none; 
         margin-left: 7px;
@@ -274,21 +274,21 @@ $control-row-container-inside-gap: 5px;
         border-radius: 50px;
         &::-webkit-slider-thumb {
             -webkit-appearance:none; 
-            background: var(--pink-color);
+            background: var(--color-b);
             width: 17px;
             height: 4px;
-            border: 1px solid var(--pink-color);
+            border: 1px solid var(--color-b);
             cursor:pointer;
             &:active{
-                border-color: var(--gray-color);
-                background: var(--gray-color);
+                border-color: var(--color-c);
+                background: var(--color-c);
             }
         }
     }
     .control-row-range-value-label{
         position: relative;
         font-family: $app-font;
-        color: var(--gray-color);
+        color: var(--color-c);
         font-weight: initial;
         font-size: $text-1x;
         margin-left: 5px;
@@ -312,17 +312,17 @@ $control-row-container-inside-gap: 5px;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        background: var(--dark-gray-color);
-        border: 1px solid var(--dark-gray-color);
+        background: var(--color-d);
+        border: 1px solid var(--color-d);
         outline: none;
         padding: 3px;
         font-family: $app-font;
-        color: var(--gray-color);
+        color: var(--color-c);
         font-weight: initial;
         font-size: $text-1x;
         padding-right: 20px;
         &:focus{
-            border-color: var(--pink-color);
+            border-color: var(--color-b);
         }
     }
     .text-input-icon{
@@ -337,7 +337,7 @@ $control-row-container-inside-gap: 5px;
         i{
             position: relative;
             font-size: $icon-size;
-            color: var(--gray-color);
+            color: var(--color-c);
         }
     }
 }

@@ -19,8 +19,8 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-    border: 1px solid var(--dark-gray-dark-color);
-    background: var(--dark-gray-light-color);
+    border: 1px solid var(--color-f);
+    background: var(--color-e);
     padding: 3px;
     gap: 3px;
     z-index: 99999;
@@ -29,7 +29,7 @@
     .tooltip-icon{
         position: relative;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
         margin-top: 1px;
     }
     #tooltip-info{
@@ -37,6 +37,6 @@
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: var(--gray-color);
+        color: var(--color-c);
     }
 }

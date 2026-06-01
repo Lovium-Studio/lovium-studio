@@ -23,14 +23,14 @@
     position: relative;    
     width: 100%;
     min-height: 30px;
-    background: var(--pink-color);
+    background: var(--color-b);
     border: none;   
     outline: none;
     font-family: $app-font;
     font-size: $text-1x;
     font-weight: initial;
     border-top: none;
-    color: var(--gray-color);
+    color: var(--color-c);
     margin: 0px;
     margin-bottom: $inside-tab-gap;
     padding: 0px;
@@ -45,7 +45,7 @@
     height: 100%;
     box-sizing: border-box; 
     gap: $inside-tab-gap;
-    border-top: $inside-tab-gap solid var(--dark-gray-color);
+    border-top: $inside-tab-gap solid var(--color-d);
 }
 
 // WINDOW CREATE CONTENT LEFT : 
@@ -62,8 +62,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 5px;
-    border-top: 3px solid var(--dark-gray-color);
-    border-left: 3px solid var(--dark-gray-color);
+    border-top: 3px solid var(--color-d);
+    border-left: 3px solid var(--color-d);
     flex-wrap: wrap;
 }
 
@@ -75,8 +75,8 @@
     height: 130px;
     min-width: 100px;
     min-height: 130px;
-    background: var(--dark-gray-dark-color);
-    border-top: $top-highlight-height solid var(--dark-gray-color);
+    background: var(--color-f);
+    border-top: $top-highlight-height solid var(--color-d);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,11 +85,11 @@
         width: 100%;
         height: 20px;
         box-sizing: border-box;
-        background: var(--gray-color);
+        background: var(--color-c);
         font-family: $app-font;
         font-weight: initial;
         font-size: $text-1x;
-        color: var(--dark-gray-dark-color);
+        color: var(--color-f);
         text-align: center;
         bottom: 0px;
         display: flex;
@@ -99,7 +99,7 @@
     .preset-icon{
         position: absolute;
         font-size: 55px;
-        color: var(--gray-color);
+        color: var(--color-c);
         top: 23px;
     }
     @include click();

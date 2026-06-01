@@ -1,66 +1,54 @@
 
+// WINDOW MENU :
 
+import { IWindowMenu } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 
+export const windowMenu = (menuButton : HTMLButtonElement, buttonList : IWindowMenu[] ) : void =>  {
 
+    gui.windowMenu.windowMenuContainer.innerHTML = "";
+    gui.windowMenu.windowMenuContainer.style.display = "flex"; 
 
-
-
-
-
-
-// WINDOW MENU:
-
-import { getUi } from "../get-ui/get-ui.js";
-import { windowCreate } from "../../window/window-create/window-create.js";
-import { console } from "../console/console.js";
-
-const windowMenuContainer = getUi("window-menu-container");
-const menuBar = getUi("menu-bar");
-
-export function windowMenu(menu, menus) {
-    windowMenuContainer.innerHTML = "";
-    windowMenuContainer.style.display = "flex"; 
-
-    function hideWindowMenuContainer(event) {
-        if (!windowMenuContainer.contains(event.target) && event.target !== menuBar) {
-            windowMenuContainer.style.display = "none";
+    function hideWindowMenuContainer(event : MouseEvent ) {
+        if (!gui.windowMenu.windowMenuContainer.contains(event.target as Node) && event.target !== gui.windowMenu.windowMenuBar) {
+            gui.windowMenu.windowMenuContainer.style.display = "none";
             document.removeEventListener("click", hideWindowMenuContainer);
-        }
-    }
+        };
+    };
 
-    windowMenuContainer.addEventListener("click", function(event) {
+    gui.windowMenu.windowMenuContainer.addEventListener("click", function(event : MouseEvent ) {
         event.stopPropagation();
-        windowMenuContainer.style.display = "none";
+        gui.windowMenu.windowMenuContainer.style.display = "none";
     });
  
-    menu.addEventListener("click", function(event) {
+    menuButton.addEventListener("click", function(event) {
         event.stopPropagation();
-        windowMenuContainer.style.display = "flex";
+        gui.windowMenu.windowMenuContainer.style.display = "flex";
         updatePosition();
         document.addEventListener("click", hideWindowMenuContainer);
     });
 
     function updatePosition() {
-        const menuRect = menu.getBoundingClientRect();
-        windowMenuContainer.style.left = `${menuRect.left}px`;
-    }
+        const menuRect = menuButton.getBoundingClientRect();
+        gui.windowMenu.windowMenuContainer.style.left = `${menuRect.left}px`;
+    };
 
-    for (let m = 0; m < menus.length; m++) {
+    buttonList.forEach( button=>{
+
         const windowMenuButton = document.createElement("button");
         windowMenuButton.classList.add("window-menu");
-        windowMenuButton.textContent = menus[m].name;
-        windowMenuButton.id = menus[m].id;
+        windowMenuButton.textContent = button.label;
 
-        const menuSetting = menus[m];
+        if(button.id) windowMenuButton.id = button.id;
 
-        windowMenuContainer.appendChild(windowMenuButton);
+        gui.windowMenu.windowMenuContainer.appendChild(windowMenuButton);
 
-        if (menuSetting.divisor === true) {
+        if (button.divisor) {
             const windowMenuSeparator = document.createElement("div");
             windowMenuSeparator.classList.add("window-menu-separator");
-            windowMenuContainer.appendChild(windowMenuSeparator);
-        }
-    }
+            gui.windowMenu.windowMenuContainer.appendChild(windowMenuSeparator);
+        };
+    });
 
     updatePosition();
-}
+};

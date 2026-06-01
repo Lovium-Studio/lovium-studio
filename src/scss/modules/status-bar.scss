@@ -14,7 +14,7 @@
 
 #status-bar{
     position: relative;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -71,7 +71,7 @@
 .status-bar-action{
     cursor: pointer;
     &:hover{
-        background: --gray-color;
+        background: --color-c;
     }
     &:active{
         opacity: 90%;
@@ -83,7 +83,7 @@
 .status-bar-icon{
     position: relative; 
     font-size: $icon-size; 
-    color: var(--gray-color);
+    color: var(--color-c);
 }
 
 // STATUS BAR VALUE : 
@@ -93,7 +93,7 @@
     font-family: $app-font;
     font-weight: initial;
     font-size: $text-1x;
-    color: var(--gray-color);
+    color: var(--color-c);
     margin: 0px;
     padding: 0px;
     margin-bottom: 2px;

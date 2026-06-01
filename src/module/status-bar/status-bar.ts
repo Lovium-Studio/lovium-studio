@@ -89,17 +89,17 @@ export function statusBar() {
 
             const statusBarContextMenu = [
                 {
-                    name : "Alternate",
+                    label : "Alternate",
                     id : "statusBarActionAlternate",
                     icon : "ri-arrow-left-right-fill"
                 }, 
                 {
-                    name : "Hide",
+                    label : "Hide",
                     id : "statusBarActionHide",
                     icon : "ri-eye-off-fill"
                 },
                 {
-                    name : "Create",
+                    label : "Create",
                     id : "statusBarActionCreate",
                     icon : "ri-add-fill"
                 },

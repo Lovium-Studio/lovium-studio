@@ -1,57 +1,42 @@
 
-
-
-
-
-
-
-
-
-
-
-
 // INSPECTOR 
 
 import { getUi } from "../get-ui/get-ui.js"
 import { dropdown } from "../dropdown/dropdown.js";
 import { console } from "../console/console.js";
+import { gui } from "../gui/gui.js";
 
-const inspectorDropdownFontWheight = getUi("inspector-dropdown-font-wheight");
+export const inspectorTab = () : void => {
 
-export function inspector(){
+    const handleFontDropdown = () : void => {
 
-
-
-
-
-
-    function handleFontDropdown(){
-        const options = [
+        const buttonList = [
             {
-                name : "Bold",
+                label : "Bold",
                 id : "bold-id",
                 icon : "ri-home-3-line"
             },
             {
-                name : "Regular",
+                label : "Regular",
                 id : "ggt",
                 icon : "ri-home-3-line"
             },
             {
-                name : "Black",
+                label : "Black",
                 id : "ggt",
                 icon : "ri-home-3-line"
             }
-           
+            
         ]
-        dropdown(inspectorDropdownFontWheight,options);
+
+        dropdown(gui.inspectorTab.inspectorFontWheightDropdown,buttonList);
 
         const fontBold = getUi("bold-id").addEventListener("click",function(){
-            console("Font Bold Setado!","success");
-        })
+            console("Font Bold Setado!","LOG");
+        });
 
-    }
+    };
 
-    inspectorDropdownFontWheight.addEventListener("click",handleFontDropdown)
+    gui.inspectorTab.inspectorFontWheightDropdown.addEventListener("click",handleFontDropdown)
 
-}
+};

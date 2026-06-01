@@ -11,11 +11,11 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
+        background: var(--color-f);  
         width: 5px;
-        border: $inside-tab-gap solid var(--dark-gray-color);
+        border: $inside-tab-gap solid var(--color-d);
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
@@ -33,12 +33,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
+        background: var(--color-f);  
         width: 5px;
-        border: 3px solid var(--dark-gray-color);
+        border: 3px solid var(--color-d);
         border-left: none;
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
@@ -56,12 +56,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
+        background: var(--color-f);  
         width: 5px;
-        border: 3px solid var(--dark-gray-color);
+        border: 3px solid var(--color-d);
         border-left: none;
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
@@ -80,14 +80,14 @@
         left: -5px;
     } 
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
-        border: 3px solid var(--dark-gray-color);
+        background: var(--color-f);  
+        border: 3px solid var(--color-d);
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
-        background: var(--dark-gray-color);
+        background: var(--color-d);
     }
 }
 
@@ -101,15 +101,15 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
+        background: var(--color-f);  
         width: 5px;
-        border: $inside-tab-gap solid var(--dark-gray-color);
+        border: $inside-tab-gap solid var(--color-d);
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
-        background: var(--dark-gray-color);
+        background: var(--color-d);
     }
 }
 
@@ -123,12 +123,12 @@
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
+        background: var(--color-f);  
         width: 5px;
-        border: 3px solid var(--dark-gray-color);
+        border: 3px solid var(--color-d);
         border-left: none;
         &:active{
-            background: var(--dark-gray-color)
+            background: var(--color-d)
         }
     }
     &::-webkit-scrollbar-track {
@@ -147,13 +147,13 @@
         left: -5px;
     } 
     &::-webkit-scrollbar-thumb { 
-        background: var(--dark-gray-dark-color);  
-        border: 3px solid var(--dark-gray-color);
+        background: var(--color-f);  
+        border: 3px solid var(--color-d);
         &:active{
-            background: var(--gray-color);
+            background: var(--color-c);
         }
     }
     &::-webkit-scrollbar-track {
-        background: var(--dark-gray-color);
+        background: var(--color-d);
     }
 }

@@ -63,12 +63,12 @@ body{
     span{
         text-rendering: optimizeLegibility;
         &::selection{
-            background-color: var(--gray-color);
+            background-color: var(--color-c);
         }
     }
     input{
         &::selection{
-            background-color: var(--gray-color);
+            background-color: var(--color-c);
         }
     }
     i{
@@ -86,7 +86,7 @@ body{
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: var(--dark-gray-light-color);
+    background: var(--color-e);
     display: grid;
     grid-template-rows: 25px 1fr 25px;
 }
@@ -95,7 +95,7 @@ body{
 
 #menu-bar{
     position: relative;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -112,10 +112,10 @@ body{
         box-sizing: border-box;
         padding-left: 10px;
         padding-right: 10px;
-        color: var(--gray-color);
+        color: var(--color-c);
         cursor: pointer;
         &:hover{
-            background: var(--dark-gray-light-color);
+            background: var(--color-e);
         }
     }
 }
@@ -140,10 +140,10 @@ body{
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    background: var(--dark-gray-color);
-    border-top: $ui-container-gap solid var(--dark-gray-light-color);
-    border-left: $ui-container-gap solid var(--dark-gray-light-color);
-    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
+    background: var(--color-d);
+    border-top: $ui-container-gap solid var(--color-e);
+    border-left: $ui-container-gap solid var(--color-e);
+    border-bottom: $ui-container-gap solid var(--color-e);
     left: 0px;
 }
 
@@ -158,8 +158,8 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-top: $ui-container-gap solid var(--dark-gray-light-color);
-    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
+    border-top: $ui-container-gap solid var(--color-e);
+    border-bottom: $ui-container-gap solid var(--color-e);
 }
 
 // UI RIGHT CONTAINER : 
@@ -169,10 +169,10 @@ body{
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    background: var(--dark-gray-color);
-    border-top: $ui-container-gap solid var(--dark-gray-light-color);
-    border-right: $ui-container-gap solid var(--dark-gray-light-color);
-    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
+    background: var(--color-d);
+    border-top: $ui-container-gap solid var(--color-e);
+    border-right: $ui-container-gap solid var(--color-e);
+    border-bottom: $ui-container-gap solid var(--color-e);
     right: 0px;
 }
 
@@ -192,7 +192,7 @@ body{
     width: 100%;
     height: 200%;
     box-sizing: border-box;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
 }
 
 // UI BOTTOM CONTAINER : 
@@ -202,5 +202,5 @@ body{
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
 }

@@ -12,7 +12,7 @@
 
 // UI SPLITTER : 
 
-$splitter-color: var(--gray-color);
+$splitter-color: var(--color-c);
 $splitter-scale: $ui-container-gap;
 $vertical-splitter-width: $splitter-scale;
 $horizontal-slitter-height: $splitter-scale;
@@ -28,8 +28,8 @@ $horizontal-slitter-height: $splitter-scale;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top: $ui-container-gap solid var(--dark-gray-light-color);
-    border-bottom: $ui-container-gap solid var(--dark-gray-light-color);
+    border-top: $ui-container-gap solid var(--color-e);
+    border-bottom: $ui-container-gap solid var(--color-e);
     &:active{
         background: $splitter-color;
     }
@@ -40,7 +40,7 @@ $horizontal-slitter-height: $splitter-scale;
     width: 100%;
     height: $horizontal-slitter-height;
     box-sizing: border-box;
-    // background: var(--dark-gray-light-color);
+    // background: var(--color-e);
     cursor: row-resize;
     min-height: $horizontal-slitter-height;
     display: flex;

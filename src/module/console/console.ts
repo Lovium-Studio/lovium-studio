@@ -1,62 +1,53 @@
 
+// CONSOLE TAB : 
 
+import { ConsoleTypeOption } from "../../../typescript/types.js";
+import { gui } from "../gui/gui.js";
 
+const ALERT_COLOR : string = "--color-a";
+const SUCCESS_COLOR : string = "--color-b";
 
-
-
-
-
-
-
-
-
-const alertColor = "#A71919";
-const successColor = "#19A727";
-
-export function console(text,type){
-
-    const consoleTabButton = document.getElementById("console-tab-button");
-    const consoleTab = document.getElementById("console-tab");
+export const console = (text : string ,type : ConsoleTypeOption = "LOG") : void => {
 
     const logRow = document.createElement("span");
     logRow.className = "log-row";
 
-    if (type === "error"){
-        consoleTabButton.style.borderColor = alertColor;
-    }
+    if (type === "ERROR") gui.consoleTab.consoleTabButton.style.borderColor = ALERT_COLOR;
+    
+    const getCurrentTime = () : string => {
 
-    function getCurrentTime() {
         const now = new Date();
+
         let hours = now.getHours();
         let minutes = now.getMinutes();
-        let seconds = now.getSeconds(); 
+        let seconds = now.getSeconds();  
     
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+        hours = hours < 10 ? 0 + hours : hours;
+        minutes = minutes < 10 ? 0 + minutes : minutes;
+        seconds = seconds < 10 ? 0 + seconds : seconds;
     
         return `${hours}:${minutes}:${seconds}`;
-    }
+    };
     
     logRow.textContent = `${text} [${getCurrentTime()}]`;
 
     switch (type){
-        case "log":
+        case "LOG":
             logRow.style.color = "";
         break;
-        case "error":
-            logRow.style.color = alertColor;
+        case "ERROR":
+            logRow.style.color = ALERT_COLOR;
         break;
-        case "success":
-            logRow.style.color = successColor;
+        case "ALERT":
+            logRow.style.color = SUCCESS_COLOR;
         break;
-    }
+    };
     
-    consoleTab.appendChild(logRow);
+    gui.consoleTab.consoleTab.appendChild(logRow);
 
-    consoleTab.scrollTo({
-        top: consoleTab.scrollHeight,
+    gui.consoleTab.consoleTab.scrollTo({
+        top: gui.consoleTab.consoleTab.scrollHeight,
         behavior: 'smooth'
     });
 
-}
+};

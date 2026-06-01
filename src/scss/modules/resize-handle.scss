@@ -1,30 +1,18 @@
 
-
-
-
-
-
-
-
-
-
-
 // RESIZE HANDLE : 
-
-// HANDLE RESIZE RECT : 
 
 $handle-rect-size: 100px;
 
-#resize-handle-rect{
+.resize-handle-rect{
     position: absolute;
     width: $handle-rect-size;
     height: $handle-rect-size; 
-    border: 1px dashed var(--gray-color);
-    display: none;
+    border: 1px solid var(--color-c);
+    display: flex;
     justify-content: center;
     align-items: center;
-    left: 10px;
-    top: 10px;
+    left: 0px;
+    top: 0px;
     z-index: 100;
 }
 
@@ -33,86 +21,86 @@ $handle-rect-size: 100px;
 $handle-size: 5px;
 $handle-outside: -4px;
 
-#handle-top{
+.handle-top-center{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     top: $handle-outside;
     cursor: s-resize;
 }
 
-#handle-top-left{
+.handle-top-left{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     top: $handle-outside;
     left: $handle-outside;
     cursor: nw-resize;
 }
 
-#handle-top-right{
+.handle-top-right{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     top: $handle-outside;
     right: $handle-outside;
     cursor: sw-resize;
 }
 
-#handle-left-center{
+.handle-left-center{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     left: $handle-outside;
     cursor: w-resize;
 }
 
-#handle-bottom-left{
+.handle-bottom-left{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     left: $handle-outside;
     bottom: $handle-outside;
     cursor: sw-resize;
 }
 
-#handle-bottom{
+.handle-bottom-center{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     bottom: $handle-outside;
     cursor: s-resize;
 }
 
-#handle-bottom-right{
+.handle-bottom-right{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     bottom: $handle-outside;
     right: $handle-outside;
     cursor: nw-resize;
 }
 
-#handle-right-center{
+.handle-right-center{
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid var(--gray-color);
-    background: var(--pink-color);
+    border: 1px solid var(--color-c);
+    background: var(--color-b);
     right: $handle-outside;
     cursor: w-resize;
 }
@@ -121,18 +109,18 @@ $handle-outside: -4px;
 
 .resize-handle{
     &:active{
-        background: var(--dark-gray-dark-color) !important;
+        background: var(--color-f) !important;
     }
 }
 
 // ANCHOR POINT : 
 
-#anchor-point{
+.anchor-point{
     position: absolute;
     font-size: $icon-size;
-    color: var(--gray-color);
+    color: var(--color-c);
     &:active{
-        color: var(--pink-color);
+        color: var(--color-b);
     }
 }
 
@@ -147,7 +135,7 @@ $handle-outside: -4px;
     height: 15px;
     i{
         position: absolute;
-        color: var(--gray-color);
+        color: var(--color-c);
         font-size: $icon-size  + 3px;
         display: none;
         text-rendering: geometricPrecision;
@@ -155,7 +143,7 @@ $handle-outside: -4px;
     &:active{
         cursor: none;
         i{
-            color: var(--pink-color);
+            color: var(--color-b);
         }
     }
     &:hover{
@@ -180,4 +168,13 @@ $handle-outside: -4px;
 
 .rotation-handle-bottom{
     bottom: -23px;
+}
+
+#divtestb{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--color-a);
+    left: 200px;
+    top: 200px;
 }

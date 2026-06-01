@@ -1,20 +1,7 @@
 
-
-
-
-
-
-
-
-
-
-
-
 // AUTO COMPLETE : 
 
 import { getUi } from "../get-ui/get-ui.js";
-import { console } from "../console/console.js";
-import { contextMenu } from "../context-menu/context-menu.js";
 
 const autoCompleteRowDefaultIcon = "ri-braces-fill";
 
@@ -165,7 +152,7 @@ const autoCompleteRowDefaultIcon = "ri-braces-fill";
 //     } 
 // ];
 
-const primaryColor = "#19A727";
+const primaryColor = "--color-b";
 
 const autoCompleteList = [
     {
@@ -211,7 +198,7 @@ const autoCompleteList = [
             "while",
             "loop",
             "iteration"
-        ]
+        ] 
     },
     {
         value: "local",
@@ -225,7 +212,7 @@ const autoCompleteList = [
 ];
 
 
-export function autoComplete(input, x, y) {
+export const autoComplete = (input : string , x : number , y : number) : void => {
 
     const completeList = autoCompleteList;
 
@@ -237,7 +224,7 @@ export function autoComplete(input, x, y) {
 
     document.addEventListener("click",function(){autoCompleteContainer.style.display = "none"});
 
-    function autoCompleteSetPosition(cX, cY) {
+    const autoCompleteSetPosition = (cX : number, cY : number) : void => {
 
         const codeEditorContainer = getUi("code-editor");
         const codeEditorContainerRect = codeEditorContainer.getBoundingClientRect();
@@ -249,15 +236,17 @@ export function autoComplete(input, x, y) {
         // if(cY > codeEditorContainerRect.height){
         //     autoCompleteContainer.style.top = `${codeEditorContainerRect.height - autoCompleteContainerRect.height}px`;
         // }
-    }
+    };
 
-    function filterAutoCompleteList(value) {
+    const filterAutoCompleteList = (value : string) : void => {
+
         autoCompleteListContainer.innerHTML = ""; 
         autoCompleteContainer.style.display = "none";
 
         if (value !== "") {
+
             const inputValue = value.toLowerCase();
-            let firstMatch = true; // Flag para identificar o primeiro item
+            let firstMatch = true; 
 
             completeList.forEach(list => {
                 const iconType = getIconType(list.Type);
@@ -267,18 +256,17 @@ export function autoComplete(input, x, y) {
                 if (matchFound) {
                     const autoCompleteRow = createAutoCompleteRow(list.value, iconType);
                     
-                    // Verifica se é o primeiro item correspondente e aplica o fundo vermelho
                     if (firstMatch) {
                         autoCompleteRow.style.backgroundColor = primaryColor;
-                        firstMatch = false; // Depois do primeiro, desativa a flag
-                    }
+                        firstMatch = false; 
+                    };
 
                     autoCompleteListContainer.appendChild(autoCompleteRow);
                     autoCompleteContainer.style.display = "flex";
-                }
+                };
             });
-        }
-    }
+        };
+    };
 
     autoCompleteSetPosition(x, y);
 
@@ -287,9 +275,9 @@ export function autoComplete(input, x, y) {
     autoCompleteInput.addEventListener("input", function() {
         filterAutoCompleteList(autoCompleteInput.value);
     });
-}
+};
 
-function getIconType(type) {
+const getIconType = (type : string) : string => {
     switch (type) {
         case "var": 
             return "ri-braces-fill";
@@ -298,16 +286,17 @@ function getIconType(type) {
         case "color":
             return "ri-brush-line";
         default:
-            return autoCompleteRowDefaultIcon;
-    }
-}
+        return autoCompleteRowDefaultIcon;
+    };
+};
 
-function createAutoCompleteRow(label, iconType) {
+const createAutoCompleteRow = (label : string, icon : string) : HTMLDivElement => {
+
     const autoCompleteRow = document.createElement("div");
     autoCompleteRow.classList.add("auto-complete-complete-row");
 
     const autoCompleteRowIcon = document.createElement("i");
-    autoCompleteRowIcon.classList.add("auto-complete-complete-row-icon", iconType);
+    autoCompleteRowIcon.classList.add("auto-complete-complete-row-icon", icon);
 
     const autoCompleteRowLabel = document.createElement("span");
     autoCompleteRowLabel.classList.add("auto-complete-complete-row-label");
@@ -317,5 +306,5 @@ function createAutoCompleteRow(label, iconType) {
     autoCompleteRow.appendChild(autoCompleteRowIcon);
 
     return autoCompleteRow;
-}
+};
 

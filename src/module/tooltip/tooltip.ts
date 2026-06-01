@@ -1,33 +1,17 @@
 
-
-
-
-
-
-
-
-
-
-
 // TOOLTIP : 
 
-import { getUi } from "../get-ui/get-ui.js";
+import { gui } from "../gui/gui.js";
 
-export function tooltip(tool, info,event) {
+export const tooltip = (tool : HTMLElement, info : string ,event : MouseEvent) : void => {
 
-    const tooltipEl = getUi("tooltip");
-    const tooltipInfo = getUi("tooltip-info");
+    gui.tooltip.tooltipLabel.textContent = info;
 
-    tooltipInfo.textContent = info;
+    tool.addEventListener("mouseleave", ()=> gui.tooltip.tooltipContainer.style.display = "none");
+          
+    const mouseX : number = event.clientX;
+    const mouseY : number = event.clientY;
 
-    tool.addEventListener("mouseleave", function() {
-        tooltipEl.style.display = "none";
-    });       
+    gui.tooltip.tooltipContainer.style.transform = `translate(${mouseX}px ${mouseY}px)`;
 
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
-        tooltipEl.style.left = `${mouseX}px`;
-        tooltipEl.style.top = `${mouseY}px`;
-
-}
+};

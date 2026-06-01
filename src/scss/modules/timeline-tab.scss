@@ -9,7 +9,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background: var(--dark-gray-dark-color); 
+    background: var(--color-f); 
     overflow: hidden;
     z-index: 2;
 }
@@ -42,7 +42,7 @@ $timeline-header-height: $tab-header-height;
     width: 100%;
     height: $timeline-header-height;
     box-sizing: border-box;
-    background: var(--dark-gray-color);
+    background: var(--color-d);
     margin-bottom: 2px;
 }
 
@@ -62,8 +62,8 @@ $timeline-header-height: $tab-header-height;
     justify-content: space-around;
     align-items: center;
     flex-direction: row; 
-    background: var(--dark-gray-dark-color);
-    border-bottom: 2px solid var(--dark-gray-color);
+    background: var(--color-f);
+    border-bottom: 2px solid var(--color-d);
     // gap: 3px;
     // padding-right: 3px;
     padding-right: 3px;
@@ -93,7 +93,7 @@ $track-height: 30px;
     width: 100%;
     height: $track-height;
     min-height: $track-height;
-    background: var(--dark-gray-dark-color);
+    background: var(--color-f);
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -110,9 +110,9 @@ $tracker-in-border: 2px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    border-top: $tracker-in-border solid var(--dark-gray-color);
-    border-bottom: $tracker-in-border solid var(--dark-gray-color);
-    background: var(--dark-gray-dark-color);
+    border-top: $tracker-in-border solid var(--color-d);
+    border-bottom: $tracker-in-border solid var(--color-d);
+    background: var(--color-f);
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -122,7 +122,7 @@ $tracker-in-border: 2px;
         position: absolute;
         width: 1px;
         height: 10px;
-        background: var(--dark-gray-color);
+        background: var(--color-d);
         right: 0px;
         z-index: 200; 
         content: '';
@@ -139,7 +139,7 @@ $tracker-in-border: 2px;
         @include click();
         i{
             position: absolute;
-            color: var(--gray-color);
+            color: var(--color-c);
             font-size: $icon-size;
         }
     }
@@ -148,7 +148,7 @@ $tracker-in-border: 2px;
         left: 7px;
         font-family: arial;
         font-weight: initial;
-        color: var(--gray-color);
+        color: var(--color-c);
         font-size: $text-1x;
     }
 }
@@ -156,16 +156,16 @@ $tracker-in-border: 2px;
 // TIMELINE TRACKER ROW : 
 
 .timeline-tracker-row{
-    border-top: 2px solid var(--dark-gray-color);
-    border-bottom: 2px solid var(--dark-gray-color);
-    background: var(--dark-gray-dark-color);
+    border-top: 2px solid var(--color-d);
+    border-bottom: 2px solid var(--color-d);
+    background: var(--color-f);
     &::after{
         position: absolute;
         width: 100%;
         height: 100%;
-        border-top: 2px solid var(--dark-gray-color);
-        border-bottom: 2px solid var(--dark-gray-color);
-        background: var(--dark-gray-dark-color);
+        border-top: 2px solid var(--color-d);
+        border-bottom: 2px solid var(--color-d);
+        background: var(--color-f);
         z-index: 2;
         content: '';
     }
@@ -173,7 +173,7 @@ $tracker-in-border: 2px;
 
 // TRACKER : 
 
-$tracker-color: var(--dark-gray-light-color);
+$tracker-color: var(--color-e);
 
 .tracker{
     position: absolute;
@@ -182,14 +182,14 @@ $tracker-color: var(--dark-gray-light-color);
     height: 100%;
     box-sizing: border-box;
     background: $tracker-color;
-    // border: 1px solid var(--dark-gray-dark-color);
+    // border: 1px solid var(--color-f);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row; 
     z-index: 10;
     .tracker-handle{
-        background: var(--gray-color);
+        background: var(--color-c);
         cursor: w-resize;
         width: 3px;
         min-width: 3px;
@@ -203,12 +203,12 @@ $tracker-color: var(--dark-gray-light-color);
             width: 100%;
             height: 100%;
             box-sizing: border-box;
-            background: var(--pink-color);
-            // border: 2px solid var(--gray-color);
+            background: var(--color-b);
+            // border: 2px solid var(--color-c);
         }
         // &:active{
         //     .tracker-handle-indicator{
-        //         background: var(--dark-gray-dark-color);
+        //         background: var(--color-f);
         //     }
         // }
     }
@@ -227,7 +227,7 @@ $tracker-color: var(--dark-gray-light-color);
         height: 100%;
         box-sizing: border-box;
         border: 3px solid $tracker-color;
-        // background: var(--dark-gray-transparent-color);
+        // background: var(--color-a-t);
         display: flex; 
         justify-content: center;  
         align-items: center;
@@ -239,7 +239,7 @@ $tracker-color: var(--dark-gray-light-color);
             font-family: arial;
             font-weight: initial;
             font-size: $text-1x;
-            color: var(--gray-color);
+            color: var(--color-c);
             border: none;
             outline: none;
             background: none;
@@ -250,7 +250,7 @@ $tracker-color: var(--dark-gray-light-color);
             font-family: arial;
             font-weight: initial;
             font-size: $text-1x;
-            color: var(--gray-color);
+            color: var(--color-c);
             border: none;
             outline: none;
             background: none;
@@ -282,14 +282,14 @@ $tracker-color: var(--dark-gray-light-color);
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    background: var(--dark-gray-dark-color);
-    border-bottom: 2px solid var(--dark-gray-color);
+    background: var(--color-f);
+    border-bottom: 2px solid var(--color-d);
     .timeline-ruler-value{
         position: relative;
         font-family: $app-font;
         font-size: $text-1x;
         font-weight: initial;
-        color: var(--gray-color);
+        color: var(--color-c);
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -302,7 +302,7 @@ $tracker-color: var(--dark-gray-light-color);
             position: relative;
             width: 1px;
             height: 10px;
-            background: var(--gray-color);
+            background: var(--color-c);
             content: '';
         }
         &:first-of-type{
@@ -326,7 +326,7 @@ $tracker-color: var(--dark-gray-light-color);
     height: 100%;
     bottom: 0px;
     box-sizing: border-box;
-    background: var(--pink-color);
+    background: var(--color-b);
     left: 100px;
     z-index: 1000; 
     display: flex; 
@@ -338,14 +338,14 @@ $tracker-color: var(--dark-gray-light-color);
         position: absolute;
         width: 3px;
         height: 2px;
-        background: var(--pink-color);
+        background: var(--color-b);
         bottom: 0px;
     }
     .needle-top{
         position: absolute;
         width: 3px;
         height: 2px;
-        background: var(--pink-color);
+        background: var(--color-b);
         top: 0px;
     }
     .needle-tracker{
@@ -353,7 +353,7 @@ $tracker-color: var(--dark-gray-light-color);
         width: 1px;
         height: 700%;
         top: calc($tab-header-height - 2px);
-        background: var(--pink-color); 
+        background: var(--color-b); 
         z-index: 800;
         display: flex;
         justify-content: center;
@@ -369,7 +369,7 @@ $tracker-color: var(--dark-gray-light-color);
     width: 1px;
     height: 100%;
     box-sizing: border-box;
-    background: var(--gray-color);
+    background: var(--color-c);
     display: none;
     left: 10px;
     z-index: 50;
@@ -383,14 +383,14 @@ $tracker-color: var(--dark-gray-light-color);
     height: 100%;
     box-sizing: border-box;
     border: none;
-    border-top: $tracker-in-border solid var(--dark-gray-color);
-    border-bottom: $tracker-in-border solid var(--dark-gray-color);
-    background: var(--dark-gray-dark-color);
+    border-top: $tracker-in-border solid var(--color-d);
+    border-bottom: $tracker-in-border solid var(--color-d);
+    background: var(--color-f);
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: arial;
-    color: var(--gray-color);
+    color: var(--color-c);
     font-weight: initial;
     font-size: $text-1x;
     outline: none;
@@ -399,7 +399,7 @@ $tracker-color: var(--dark-gray-light-color);
         position: absolute;
         width: 1px;
         height: 10px;
-        background: var(--dark-gray-color);
+        background: var(--color-d);
         right: 0px;
         z-index: 200; 
         content: '';
@@ -427,7 +427,7 @@ $tracker-color: var(--dark-gray-light-color);
         min-width: 6px;
         height: 100%;  
         box-sizing: border-box;
-        background: var(--gray-color); 
+        background: var(--color-c); 
         cursor: w-resize;
         display: flex;
         justify-content: center;
@@ -438,12 +438,12 @@ $tracker-color: var(--dark-gray-light-color);
             width: 100%;
             height: 100%;
             box-sizing: border-box;
-            background: var(--pink-color);
-            border: 2px solid var(--gray-color);
+            background: var(--color-b);
+            border: 2px solid var(--color-c);
         }
         &:active{
             .area-time-handle-indicator{
-                background: var(--dark-gray-dark-color);
+                background: var(--color-f);
             }
         }
     }
@@ -478,7 +478,7 @@ $tracker-color: var(--dark-gray-light-color);
     i{
         position: relative;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
         margin-top: 1px;
     }
     cursor: pointer;
@@ -500,7 +500,7 @@ $tracker-color: var(--dark-gray-light-color);
     i{
         position: relative;
         font-size: $icon-size;
-        color: var(--gray-color);
+        color: var(--color-c);
         margin-top: 1px;
     }
     cursor: pointer;

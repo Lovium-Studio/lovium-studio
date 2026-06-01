@@ -8,13 +8,13 @@ import { gui } from "../gui/gui.js";
 
 const ANIMATION_FPS : number = 10;
 const NEEDLE_SNAP : number = 5;
-const PRIMARY_COLOR : string = "--pink-color";
+const PRIMARY_COLOR : string = "--color-b";
 
 let ANIMATION_STATE : boolean = false; 
 let NEEDLE_X : number = 0; 
 let INTERVAL_ID : number | undefined = undefined;
 
-export const animation = () : void => {
+export const timeline = () : void => {
 
     const playAnimationButtonIcon = gui.sequenceTab.sequencePlayButton.getElementsByTagName("i")[0];
     const stopAnimationButtonIcon = gui.sequenceTab.sequenceStopButton.getElementsByTagName("i")[0];
@@ -97,7 +97,9 @@ export const animation = () : void => {
     });
 
     gui.sequenceTab.sequencePlayButton.addEventListener("click", function() {
+
         ANIMATION_STATE = !ANIMATION_STATE;
+
         playAnimation(ANIMATION_STATE);
         if (ANIMATION_STATE) {
             playAnimationButtonIcon.style.color = PRIMARY_COLOR;
@@ -106,7 +108,7 @@ export const animation = () : void => {
         } else {
             playAnimationButtonIcon.style.color = "";
             playAnimationButtonIcon.className = "ri-play-fill";
-        }
+        };
     });
 
     const dragNeedle = (event : MouseEvent) : void => {
@@ -123,7 +125,7 @@ export const animation = () : void => {
                 newLeft = 0;
             } else if (newLeft > gui.sequenceTab.sequenceRuler.offsetWidth - gui.sequenceTab.sequenceNeedle.offsetWidth) {
                 newLeft = gui.sequenceTab.sequenceRuler.offsetWidth - gui.sequenceTab.sequenceNeedle.offsetWidth;
-            }
+            };
 
             gui.sequenceTab.sequenceNeedle.style.left = newLeft + 'px';
             NEEDLE_X = newLeft;  
@@ -138,7 +140,7 @@ export const animation = () : void => {
         document.addEventListener('mouseup', function() {
             document.removeEventListener('mousemove', onMouseMove);
         }, { once: true });
-    }
+    };
 
     gui.sequenceTab.sequenceNeedle.addEventListener('mousedown', dragNeedle);
 
