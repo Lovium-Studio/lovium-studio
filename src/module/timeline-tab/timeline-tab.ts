@@ -211,7 +211,7 @@ const loadAnimation = ( trackList : IAnimationTrackOption[] ) : void => {
         timelineTrackControl.appendChild(timelineTrackSettingsButton);
         timelineTrackControl.appendChild(timelineTrackLockButton);
         timelineTrackControl.appendChild(timelineTrackDeleteButton);
-        timelineTrackControl.appendChild(timelineTrackVisibleButton);
+        timelineTrackControl.appendChild(timelineTrackVisibleButton); 
         timelineTrackControl.appendChild(timelineTrackAddButton);
         timelineTrackControl.appendChild(timelineTrackControlName);
         timelineTrackRow.appendChild(timelineTrackControl);
@@ -385,26 +385,129 @@ const simpleAnimation : IAnimationTrackOption[] = [
         label : "Translate X",
         locked : false,
         active : true,
-        id : "454545",
+        id : "track_001",
         tweenList : [
             {
-                label : "Hello World", 
+                label : "Move Right",
                 start : 50,
                 end : 200,
-                id : "34343434",
-                from : "a",
-                to : "b"
+                id : "tween_001",
+                from : 0,
+                to : 500
             },
-            { 
-                label : "Hello World", 
+            {
+                label : "Move Left",
                 start : 300,
-                end : 150, 
-                id : "34343434",
-                from : "a",
-                to : "b"
-            }  
+                end : 150,
+                id : "tween_002",
+                from : 500,
+                to : 100
+            }
         ]
+    },
 
+    {
+        type : "TRANSLATE_Y",
+        label : "Translate Y",
+        locked : false,
+        active : true,
+        id : "track_002",
+        tweenList : [
+            {
+                label : "Fall",
+                start : 120,
+                end : 250,
+                id : "tween_003",
+                from : 0,
+                to : 300
+            },
+            {
+                label : "Jump",
+                start : 450,
+                end : 100,
+                id : "tween_004",
+                from : 300,
+                to : 50
+            }
+        ]
+    },
+
+    {
+        type : "ROTATE",
+        label : "Rotation",
+        locked : false,
+        active : true,
+        id : "track_003",
+        tweenList : [
+            {
+                label : "Rotate Clockwise",
+                start : 80,
+                end : 180,
+                id : "tween_005",
+                from : 0,
+                to : 180
+            },
+            {
+                label : "Rotate Back",
+                start : 350,
+                end : 180,
+                id : "tween_006",
+                from : 180,
+                to : 0
+            }
+        ]
+    },
+
+    {
+        type : "SCALE",
+        label : "Scale",
+        locked : false,
+        active : true,
+        id : "track_004",
+        tweenList : [
+            {
+                label : "Grow",
+                start : 200,
+                end : 220,
+                id : "tween_007",
+                from : 1,
+                to : 2
+            },
+            {
+                label : "Shrink",
+                start : 500,
+                end : 180,
+                id : "tween_008",
+                from : 2,
+                to : 1
+            }
+        ]
+    },
+
+    {
+        type : "OPACITY",
+        label : "Opacity",
+        locked : false,
+        active : true,
+        id : "track_005",
+        tweenList : [
+            {
+                label : "Fade In",
+                start : 20,
+                end : 150,
+                id : "tween_009",
+                from : 0,
+                to : 1
+            },
+            {
+                label : "Fade Out",
+                start : 650,
+                end : 200,
+                id : "tween_010",
+                from : 1,
+                to : 0
+            }
+        ]
     }
 ];
 

@@ -99,7 +99,23 @@ dt.addEventListener("click",function(){
         rotate : true, 
         object : "HTML"
     });
-}) 
+});
+
+setTimeout(() => {
+        console("IMG CLICKED ")
+
+    const dtRect = dt.getBoundingClientRect(); 
+ 
+    resizeHandle.setHandle({ 
+        x : dtRect.x,
+        y : dtRect.y,  
+        width : dtRect.width,  
+        height : dtRect.height, 
+        type : "SINGLE_OBJECT",  
+        rotate : true, 
+        object : "HTML"
+    });
+}, 5000);
 
 resizeHandle.onChange(coord=>{
     dt.style.left = coord.x + "px";

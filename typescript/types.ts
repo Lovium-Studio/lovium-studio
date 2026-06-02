@@ -9,7 +9,7 @@ export type ResizeHandleTypeOption = "SINGLE_OBJECT" | "GROUP_OBJECT" | "ASPECT_
 
 export type ResizeHandleObjectType = "HTML" | "CANVAS";
 
-export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" | "SCALE";
+export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" | "SCALE" | "OPACITY";
 
 export interface ITab {
     name: string,

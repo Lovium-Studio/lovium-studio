@@ -196,7 +196,7 @@ class ResizeHandle {
             this.handleRightCenter.style.height = "30px";
         }
 
-        this.notifyListeners();
+        // this.notifyListeners();    
     };
 
     public config = ( option : IResizeHandleConfigOption) : void => {
