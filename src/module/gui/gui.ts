@@ -10,15 +10,6 @@ export const gui = {
         simplePreviewContainer : getUi("simple-preview-container") as HTMLDivElement,
         simplePreviewContainerZoomArea : getUi("simple-preview-container-zoom-area") as HTMLDivElement
     },
-    sequenceTab : {
-        sequencePlayButton : getUi("play-animation") as HTMLButtonElement,
-        sequenceNeedle : getUi("needle") as HTMLDivElement,
-        sequencePreNeedle : getUi("pre-needle") as HTMLDivElement,
-        sequenceForwardAnimationButton : getUi("forward-animation") as HTMLButtonElement,
-        sequenceBackwardAnimationButton : getUi("backward-animation") as HTMLButtonElement,
-        sequenceRuler : getUi("area-time") as HTMLDivElement,
-        sequenceStopButton : getUi("stop-animation") as HTMLButtonElement
-    },
     tabManager : {
         tabLeftHeader : getUi("ui-left-container-tab-row") as HTMLDivElement,
         tabTopHeader : getUi("ui-top-container-tab-row") as HTMLDivElement,
@@ -64,5 +55,16 @@ export const gui = {
     boardTab : {
         boardContainer : getUi("viewport-ui") as HTMLDivElement
     },
+    timelineTab : {
+        timelinePlayButton : getUi("play-animation") as HTMLButtonElement,
+        timelineNeedle : getUi("needle") as HTMLDivElement,
+        timelinePreNeedle : getUi("pre-needle") as HTMLDivElement,
+        timelineForwardAnimationButton : getUi("forward-animation") as HTMLButtonElement,
+        timelineBackwardAnimationButton : getUi("backward-animation") as HTMLButtonElement,
+        timelineRuler : getUi("track-ruler") as HTMLDivElement,
+        timelineStopButton : getUi("stop-animation") as HTMLButtonElement,
+        timelineTrackControlContainer : getUi("sequence-control-container") as HTMLDivElement,
+        timelineTrackContainer : getUi("sequence-tracker-container") as HTMLDivElement,
+    },
     custom : (el : any) => getUi(el)
-};
+}; 

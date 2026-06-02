@@ -152,29 +152,30 @@ $handle-outside: -4px;
         }
     }
 
-}
+};
 
 .rotation-handle-right{
     right: -23px;
-}
+};
 
 .rotation-handle-left{
     left: -23px;
-}
+};
 
 .rotation-handle-top{
     top: -23px;
-}
+};
 
 .rotation-handle-bottom{
     bottom: -23px;
-}
+};
 
 #divtestb{
     position: absolute;
     width: 100px;
     height: 100px;
-    background: var(--color-a);
     left: 200px;
     top: 200px;
-}
+    // background-image: url('https://opengameart.org/sites/default/files/player_19.png');
+    // background-size: cover;
+};

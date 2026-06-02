@@ -42,25 +42,25 @@ export const tabManager = (tabList: ITab[]): void => {
 
             const tabButtonContextMenu = [      
                 {
-                    name: "Go to Left",
+                    label: "Go to Left",
                     id: "tabGoToLeft",
                     icon: "ri-skip-left-line",
                     divisor: false,
                 },
                 {
-                    name: "Go to Right",
+                    label: "Go to Right",
                     id: "tabGoToRight",
                     icon: "ri-skip-right-line",
                     divisor: false,
                 },
                 {
-                    name: "Go to Top",
+                    label: "Go to Top",
                     id: "tabGoToTop",
                     icon: "ri-skip-up-line",
                     divisor: false,
                 },
                 {
-                    name: "Go to Bottom",
+                    label: "Go to Bottom",
                     id: "tabGoToBottom",
                     icon: "ri-skip-down-line",
                     divisor: true,
@@ -89,7 +89,7 @@ export const tabManager = (tabList: ITab[]): void => {
 
             const setTabVisibility = (tabToHide: HTMLElement, tabButtonToHide: HTMLButtonElement): void => {
                 tabToHide.remove();
-                tabButtonToHide.remove();
+                tabButtonToHide.remove(); 
             };
 
             const removeTabFromPreviousLocation = (): void => {

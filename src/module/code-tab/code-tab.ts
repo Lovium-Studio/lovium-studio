@@ -13,12 +13,12 @@ export const codeTab = () : void => {
     // @ts-ignore
     const editor = ace.edit("code-editor");
 
-    editor.session.setMode("ace/mode/javascript");
+    editor.session.setMode("ace/mode/lua");
 
     editor.setTheme("ace/theme/monokai");
 
     editor.setOptions({
-        fontSize: "10pt",
+        fontSize: "10pt", 
         showLineNumbers: true,
         showGutter: true,
         enableBasicAutocompletion: false,

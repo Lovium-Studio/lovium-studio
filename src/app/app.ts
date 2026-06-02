@@ -19,7 +19,6 @@ import { windowMenu } from "../module/menu-window/window-menu.js";
 import { viewport } from "../module/viewport/viewport.js"
 // import { tabManage } from "../module/tab-manage/tab-manage.js";
 import { tabLoad } from "../module/tab-load/tab-load.js";
-import { sequence } from "../module/sequence/sequence.js";
 import { applicationPath } from "../module/application-path/application-path-.js";
 import { codeTab } from "../module/code-tab/code-tab.js";
 import { statusBar } from "../module/status-bar/status-bar.js";
@@ -27,6 +26,7 @@ import { resizeHandle } from "../module/resize-handle/resize-handle.js"
 // import { explorerTab } from "../module/tooltip/tooltip.js";
 import { assetTab } from "../module/asset-tab/asset-tab.js";
 import { gui } from "../module/gui/gui.js";
+import { timeline } from "../module/timeline-tab/timeline-tab.js";
 
 // WINDOWS : 
 
@@ -53,13 +53,17 @@ function appLoad(){
         gridWidth : 25,
         gridHeight : 25  
     })    
-    sequence();
     applicationPath();
     codeTab();
     statusBar();
     // explorerTab();
     assetTab();
-    console("Application Started...", "LOG"); 
+
+    timeline(); 
+
+    console("Application Started...", "LOG");
+    
+    
 
     // resizeHandle({
     //     x : 300,
@@ -70,33 +74,32 @@ function appLoad(){
     //     rotate : false
     // })
 
-    resizeHandle.setHandle({
-        x : 100,
-        y : 200,  
-        width : 300,
-        height : 200,
-        type : "SINGLE_OBJECT", 
-        rotate : true
-    })
 
 
-}
+    resizeHandle.config({
+        lineType : "DASHED" 
+    });
+ 
+};
 
 const dt = gui.custom("divtestb") as HTMLDivElement;
 
 dt.addEventListener("click",function(){
 
-    const dtRect = dt.getBoundingClientRect();
+    console("IMG CLICKED ")
 
-    resizeHandle.setHandle({
+    const dtRect = dt.getBoundingClientRect(); 
+ 
+    resizeHandle.setHandle({ 
         x : dtRect.x,
         y : dtRect.y,  
         width : dtRect.width,
         height : dtRect.height,
-        type : "SINGLE_OBJECT", 
-        rotate : true
-    })
-})
+        type : "SINGLE_OBJECT",  
+        rotate : true, 
+        object : "HTML"
+    });
+}) 
 
 resizeHandle.onChange(coord=>{
     dt.style.left = coord.x + "px";
@@ -107,13 +110,13 @@ resizeHandle.onChange(coord=>{
 
 document.addEventListener("DOMContentLoaded",appLoad);
 
-// TERMINAL : 
+// TERMINAL :  
 
-terminalInput.addEventListener("keydown", function(e) {
+terminalInput.addEventListener("keydown", function(e : KeyboardEvent ) {
     if (e.key === "Enter") {
         const { result } = terminal(terminalInput.value.trim());
         terminalInput.value = '';
-        console(result);  // Exibe o objeto no console para depuração
+        // console(result,"LOG");  // Exibe o objeto no console para depuração
     }
 });
 
@@ -233,21 +236,6 @@ function handleMenuEdit(){
 }
 
 editMenu.addEventListener("click",handleMenuEdit)
-
-// TAB : 
-
-consoleTabButton.addEventListener("click",function(){
-    tab("console");
-});
-
-timelineTabButton.addEventListener("click",function(){
-    tab("timeline")
-});
-
-termninalTabButton.addEventListener("click",function(){
-    tab("terminal")
-});
-
 
 
 

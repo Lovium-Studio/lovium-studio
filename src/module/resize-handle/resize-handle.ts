@@ -1,6 +1,41 @@
+
+/**************************************************************************/
+/* resize-handle.js/.ts                                                   */
+/**************************************************************************/
+/*                                                                        */                                          
+/*                         This file is part of:                          */
+/*                             Lovium Studio                              */
+/*              https://github.com/Lovium-Studio/lovium-studio            */
+/*                                                                        */    
+/**************************************************************************/
+/*                                                                        */
+/* Copyright (c) 2026-present Lovium Studio & Community.                  */
+/* Copyright (c) 2026-present Rhyan Eduardo Ferreira.                     */
+/*                                                                        */
+/* Permission is hereby granted, free of charge, to any person obtaining  */
+/* a copy of this software and associated documentation files (the        */
+/* "Software"), to deal in the Software without restriction, including    */
+/* without limitation the rights to use, copy, modify, merge, publish,    */
+/* distribute, sublicense, and/or sell copies of the Software, and to     */
+/* permit persons to whom the Software is furnished to do so, subject to  */
+/* the following conditions:                                              */
+/*                                                                        */
+/* The above copyright notice and this permission notice shall be         */
+/* included in all copies or substantial portions of the Software.        */
+/*                                                                        */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,        */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF     */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. */
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY   */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,   */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE      */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
+/*                                                                        */
+/**************************************************************************/
+
 // RESIZE HANDLE : 
 
-import { IResizeHandle, IResizeHandleCoordinate } from "../../../typescript/types.js";
+import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../typescript/types.js";
 import { gui } from "../gui/gui.js";
 
 class ResizeHandle {
@@ -32,6 +67,7 @@ class ResizeHandle {
     private startTop: number;
     private isResizing: boolean;
     private isMoving: boolean;
+    private padding : number;
 
     private changeListeners: ((coordinate: IResizeHandleCoordinate) => void)[] = [];
 
@@ -40,13 +76,14 @@ class ResizeHandle {
         this.container = container;
         this.currentHandle = null;
         this.startX = 0;
-        this.startY = 0;
+        this.startY = 0; 
         this.startWidth = 0;
         this.startHeight = 0;
         this.startLeft = 0;
         this.startTop = 0;
         this.isResizing = false;
-        this.isMoving = false;
+        this.isMoving = false; 
+        this.padding = 0;
 
         this.handleRect = document.createElement("div");
         this.handleRect.classList.add("resize-handle-rect");
@@ -119,7 +156,7 @@ class ResizeHandle {
         this.resizeHandles.forEach(handle => {
             handle.addEventListener('mousedown', (event) => this.onMouseDown(event, handle));
         });
-    }
+    };
 
     public setHandle = (option: IResizeHandle): void => {
 
@@ -162,6 +199,13 @@ class ResizeHandle {
         this.notifyListeners();
     };
 
+    public config = ( option : IResizeHandleConfigOption) : void => {
+
+        if(option.lineType) this.handleRect.style.borderStyle = option.lineType.toLowerCase();
+        if(option.opacity)  this.handleRect.style.opacity = `${option.opacity}`;
+        if(option.padding)  this.padding = option.padding;
+    };
+
     public onChange = (callback: (coordinate: IResizeHandleCoordinate) => void): IResizeHandleCoordinate => {
         this.changeListeners.push(callback);
         return this.getCoordinate();
@@ -171,16 +215,16 @@ class ResizeHandle {
         if (this.changeListeners.length === 0) return;
         const currentCoords = this.getCoordinate();
         this.changeListeners.forEach(listener => listener(currentCoords));
-    }
+    };
 
     public getCoordinate(): IResizeHandleCoordinate {
         return {
-            x: this.handleRect.offsetLeft,
-            y: this.handleRect.offsetTop,
-            width: this.handleRect.offsetWidth,
-            height: this.handleRect.offsetHeight
+            x: this.handleRect.offsetLeft + this.padding,
+            y: this.handleRect.offsetTop + this.padding,
+            width: this.handleRect.offsetWidth - this.padding * 2,
+            height: this.handleRect.offsetHeight - this.padding * 2
         };
-    }
+    };
 
     private onMouseMove = (event: MouseEvent): void => {
         if (this.isResizing) {
@@ -263,6 +307,6 @@ class ResizeHandle {
         this.container.addEventListener('mousemove', this.onMouseMove);
         document.addEventListener('mouseup', this.onMouseUp);
     };
-}
+};
 
-export const resizeHandle: ResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
+export const resizeHandle : ResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);

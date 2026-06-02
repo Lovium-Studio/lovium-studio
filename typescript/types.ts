@@ -1,3 +1,4 @@
+
 // TYPESCRIPT INTERFACE | TYPE : 
 
 export type TabLocationOption = "BOTTOM" | "TOP" | "LEFT" | "RIGHT";
@@ -5,6 +6,10 @@ export type TabLocationOption = "BOTTOM" | "TOP" | "LEFT" | "RIGHT";
 export type ConsoleTypeOption = "ALERT" | "ERROR" | "LOG";
 
 export type ResizeHandleTypeOption = "SINGLE_OBJECT" | "GROUP_OBJECT" | "ASPECT_RATIO_OBJECT" | "PATTERN_OBJECT";
+
+export type ResizeHandleObjectType = "HTML" | "CANVAS";
+
+export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" | "SCALE";
 
 export interface ITab {
     name: string,
@@ -39,6 +44,7 @@ export interface IResizeHandle {
     width: number,
     height: number,
     rotate: boolean
+    object  : ResizeHandleObjectType
 };
 
 export interface IResizeHandleCoordinate {
@@ -46,4 +52,28 @@ export interface IResizeHandleCoordinate {
     y : number,
     width : number,
     height : number
+};
+
+export interface IResizeHandleConfigOption {
+    padding? : number 
+    lineType? : "SOLID" | "DASHED",
+    opacity? : number
+};
+
+export interface IAnimationTweenOption {
+    label : string,
+    start : number,
+    end : number,
+    id : string,
+    from : string | number,
+    to : string | number
+};
+
+export interface IAnimationTrackOption {
+    type : AnimationTrackTypeOption,
+    label : string,
+    locked : boolean,
+    active : boolean,
+    id : string,
+    tweenList : IAnimationTweenOption[]
 };
