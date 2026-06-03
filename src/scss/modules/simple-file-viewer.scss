@@ -26,6 +26,9 @@
         align-items: center;
         overflow: hidden;
         cursor: zoom-in;
+        background-image: url("../asset/alpha-background/alpha-background.png");
+        background-size: 250px;
+        image-rendering: pixelated;
         #simple-preview-container-zoom-area{
             position: absolute;
             width: 150px;

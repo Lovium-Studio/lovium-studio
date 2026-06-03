@@ -191,8 +191,8 @@ $tracker-color: var(--color-e);
     .tracker-handle{
         background: var(--color-c);
         cursor: w-resize;
-        width: 3px;
-        min-width: 3px;
+        width: 1px;
+        min-width: 1px;
         height: 100%;
         box-sizing: border-box;
         display: flex;
@@ -244,6 +244,7 @@ $tracker-color: var(--color-e);
             outline: none;
             background: none;
             text-align: center;
+            cursor : default;
         }
         .tracker-value{
             position: absolute;

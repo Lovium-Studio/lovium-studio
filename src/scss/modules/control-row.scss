@@ -341,3 +341,41 @@ $control-row-container-inside-gap: 5px;
         }
     }
 }
+
+.row-button-secondary{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    background: var(--color-f);
+    outline: none;
+    border: none;
+    font-family: $app-font;
+    font-size: $text-1x;
+    font-weight: inherit;
+    color: var(--color-c);
+    gap: 3px;
+    @include click();
+    i{
+        font-size: $icon-size;
+    }
+};
+
+.row-button-primary{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    background: var(--color-b);
+    outline: none;
+    border: none;
+    font-family: $app-font;
+    font-size: $text-1x;
+    font-weight: inherit;
+    color : var(--color-e);
+    gap: 3px;
+    @include click();
+    i{
+        font-size: $icon-size;
+    }
+};

@@ -655,6 +655,56 @@
   color: var(--color-c);
 }
 
+.row-button-secondary {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  background: var(--color-f);
+  outline: none;
+  border: none;
+  font-family: arial;
+  font-size: 11px;
+  font-weight: inherit;
+  color: var(--color-c);
+  gap: 3px;
+}
+.row-button-secondary:hover {
+  opacity: 90%;
+  cursor: pointer;
+}
+.row-button-secondary:active {
+  opacity: 100%;
+}
+.row-button-secondary i {
+  font-size: 12px;
+}
+
+.row-button-primary {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  background: var(--color-b);
+  outline: none;
+  border: none;
+  font-family: arial;
+  font-size: 11px;
+  font-weight: inherit;
+  color: var(--color-e);
+  gap: 3px;
+}
+.row-button-primary:hover {
+  opacity: 90%;
+  cursor: pointer;
+}
+.row-button-primary:active {
+  opacity: 100%;
+}
+.row-button-primary i {
+  font-size: 12px;
+}
+
 #window-menu-container {
   position: absolute;
   left: 10px;
@@ -1470,6 +1520,9 @@
   align-items: center;
   overflow: hidden;
   cursor: zoom-in;
+  background-image: url("../asset/alpha-background/alpha-background.png");
+  background-size: 250px;
+  image-rendering: pixelated;
 }
 #simple-file-viewer .simple-preview-container #simple-preview-container-zoom-area {
   position: absolute;
@@ -2278,8 +2331,8 @@
 .tracker .tracker-handle {
   background: var(--color-c);
   cursor: w-resize;
-  width: 3px;
-  min-width: 3px;
+  width: 1px;
+  min-width: 1px;
   height: 100%;
   box-sizing: border-box;
   display: flex;
@@ -2325,6 +2378,7 @@
   outline: none;
   background: none;
   text-align: center;
+  cursor: default;
 }
 .tracker .tracker-valuer-container .tracker-value {
   position: absolute;
@@ -2770,7 +2824,7 @@
 }
 
 .asset-tab-delete-button {
-  background: var(--red-color);
+  background: var(--color-b);
 }
 
 #asset-tab-info-table {
@@ -2782,6 +2836,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  gap: 3px;
 }
 #asset-tab-info-table .info-table-row {
   position: relative;
@@ -2791,17 +2846,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-#asset-tab-info-table .info-table-row::after {
-  position: absolute;
-  bottom: 0px;
-  width: 90%;
-  height: 1px;
-  background: var(--color-e);
-  content: "";
-}
-#asset-tab-info-table .info-table-row:last-of-type::after {
-  display: none;
 }
 #asset-tab-info-table .info-table-row span {
   position: absolute;

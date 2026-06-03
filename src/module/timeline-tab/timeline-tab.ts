@@ -25,7 +25,7 @@ export const timeline = () : void => {
 
     gui.timelineTab.timelineNeedle.addEventListener("mouseenter", function() {
         gui.timelineTab.timelinePreNeedle.style.display = "none";
-    });
+    });   
 
     gui.timelineTab.timelineForwardAnimationButton.addEventListener("click", function() {
         NEEDLE_X += NEEDLE_SNAP;
@@ -69,7 +69,6 @@ export const timeline = () : void => {
 
         if (state) {
 
-            stopAnimationButtonIcon.style.color = "var(--color-b)"; 
 
             INTERVAL_ID = setInterval(() => { 
  
@@ -86,18 +85,15 @@ export const timeline = () : void => {
 
         } else {
             clearInterval(INTERVAL_ID);
-            stopAnimationButtonIcon.style.color = "";
         };
     };
 
     gui.timelineTab.timelineStopButton.addEventListener("click", function() {
         NEEDLE_X = 0;
         gui.timelineTab.timelineNeedle.style.left = "0px";
-        stopAnimationButtonIcon.style.color = "";
         clearInterval(INTERVAL_ID);
         ANIMATION_STATE = false;
         playAnimationButtonIcon.className = "ri-play-fill";
-        playAnimationButtonIcon.style.color = "";
     });
 
     gui.timelineTab.timelinePlayButton.addEventListener("click", function() {
@@ -106,11 +102,9 @@ export const timeline = () : void => {
 
         playAnimation(ANIMATION_STATE);
         if (ANIMATION_STATE) {
-            playAnimationButtonIcon.style.color = "var(--color-a)";
             playAnimationButtonIcon.className = "ri-pause-mini-fill";
             console("animação pausada", "LOG");
         } else {
-            playAnimationButtonIcon.style.color = "";
             playAnimationButtonIcon.className = "ri-play-fill";
         };
     });
@@ -251,8 +245,9 @@ const loadAnimation = ( trackList : IAnimationTrackOption[] ) : void => {
             const trackerInputContainer = document.createElement("div"); // Alterado para 'div' caso 'tracker-valuer-container' não seja um elemento customizado
             trackerInputContainer.classList.add("tracker-valuer-container");
 
-            const trackerNameInput = document.createElement("input");
+            const trackerNameInput = document.createElement("input"); 
             trackerNameInput.classList.add("tracker-name");
+            trackerNameInput.spellcheck = false;
             trackerNameInput.value = `${trackerName}`;
 
             const trackerStartPointContainer = document.createElement("div");
@@ -496,7 +491,7 @@ const simpleAnimation : IAnimationTrackOption[] = [
                 start : 20,
                 end : 150,
                 id : "tween_009",
-                from : 0,
+                from : 0, 
                 to : 1
             },
             {

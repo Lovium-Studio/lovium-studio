@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 // ASSET TAB : 
 
 #asset-tab{
@@ -18,7 +12,7 @@
     align-items: center;
     flex-direction: column;
     gap: $inside-tab-gap;
-} 
+};
 
 // ASSET TAB BUTTON : 
 
@@ -43,7 +37,7 @@
 // ASSET TAB BUTTON DELETE BUTTON : 
 
 .asset-tab-delete-button{
-    background: var(--red-color);
+    background: var(--color-b);
 }
 
 // ASSET TAB INFO TABLE : 
@@ -57,7 +51,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    // gap: $inside-tab-gap;
+    gap: $inside-tab-gap;
     .info-table-row{
         position: relative;
         width: 100%;
@@ -66,19 +60,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        &::after{
-            position: absolute;
-            bottom: 0px;
-            width: 90%;
-            height: 1px;
-            background: var(--color-e);
-            content: '';
-        }
-        &:last-of-type{
-            &::after{
-                display: none;
-            }
-        }
         span{ 
             position: absolute;
             font-family: $app-font;
