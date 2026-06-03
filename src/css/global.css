@@ -668,6 +668,10 @@
   font-weight: inherit;
   color: var(--color-c);
   gap: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
 }
 .row-button-secondary:hover {
   opacity: 90%;
@@ -693,6 +697,10 @@
   font-weight: inherit;
   color: var(--color-e);
   gap: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
 }
 .row-button-primary:hover {
   opacity: 90%;
@@ -1997,7 +2005,7 @@
   left: 10px;
   height: 100%;
   width: 1px;
-  border-left: 1px dashed var(--color-b);
+  border-left: 1px dashed var(--color-c);
   box-sizing: border-box;
   content: "";
 }
@@ -2005,7 +2013,7 @@
   height: 12px;
   top: 0px;
   width: 5px;
-  border-bottom: 1px dashed var(--color-b);
+  border-bottom: 1px dashed var(--color-c);
 }
 .explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row:hover {
   background: var(--color-e);

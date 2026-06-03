@@ -355,6 +355,10 @@ $control-row-container-inside-gap: 5px;
     font-weight: inherit;
     color: var(--color-c);
     gap: 3px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
     @include click();
     i{
         font-size: $icon-size;
@@ -374,6 +378,10 @@ $control-row-container-inside-gap: 5px;
     font-weight: inherit;
     color : var(--color-e);
     gap: 3px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
     @include click();
     i{
         font-size: $icon-size;
