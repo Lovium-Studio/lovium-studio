@@ -1,5 +1,20 @@
 
-// FUNCION FOR GET ELEMENTS OF DOM : 
+/**************************************************************************/
+/*                                                                        */
+/*                         This file is part of :                         */
+/*                             Lovium Studio                              */
+/*              https://github.com/Lovium-Studio/lovium-studio            */
+/*                                                                        */
+/*                             MIT LICENSE                                */
+/*                                                                        */
+/*                (C) 2026 - YYYY Lovium Studio & Community               */
+/*                (C) 2026 - YYYY Rhyan Eduardo Ferreira.                 */
+/*                                                                        */
+/*                   https://opensource.org/license/mit                   */
+/*                                                                        */
+/**************************************************************************/
+
+// GET UI ( ELEMENT FROM DOM ) : 
 
 export const getUi = (selector: string, node: Document | HTMLElement = document): any => {
 

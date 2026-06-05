@@ -18,7 +18,7 @@ let ANIMATION_STATE : boolean = false;
 let NEEDLE_X : number = 0; 
 let INTERVAL_ID : number | undefined = undefined;
 
-export const timeline = () : void => {
+export const timelineTab = () : void => {
 
     const playAnimationButtonIcon = gui.timelineTab.timelinePlayButton.getElementsByTagName("i")[0];
     const stopAnimationButtonIcon = gui.timelineTab.timelineStopButton.getElementsByTagName("i")[0];
@@ -93,19 +93,19 @@ export const timeline = () : void => {
         gui.timelineTab.timelineNeedle.style.left = "0px";
         clearInterval(INTERVAL_ID);
         ANIMATION_STATE = false;
-        playAnimationButtonIcon.className = "ri-play-fill";
+        playAnimationButtonIcon.className = "ri-play-circle-fill";
     });
 
     gui.timelineTab.timelinePlayButton.addEventListener("click", function() {
 
         ANIMATION_STATE = !ANIMATION_STATE;
 
-        playAnimation(ANIMATION_STATE);
-        if (ANIMATION_STATE) {
-            playAnimationButtonIcon.className = "ri-pause-mini-fill";
+        playAnimation(ANIMATION_STATE);  
+        if (ANIMATION_STATE) { 
+            playAnimationButtonIcon.className = "ri-pause-circle-fill";
             console("animação pausada", "LOG");
         } else {
-            playAnimationButtonIcon.className = "ri-play-fill";
+            playAnimationButtonIcon.className = "ri-play-circle-fill";
         };
     });
 
@@ -186,24 +186,24 @@ const loadAnimation = ( trackList : IAnimationTrackOption[] ) : void => {
         timelineTrackLockButtonIcon.classList.add("ri-lock-fill");
 
         const timelineTrackDeleteButtonIcon = document.createElement("i");
-        timelineTrackDeleteButtonIcon.classList.add("ri-delete-bin-fill");
-
+        timelineTrackDeleteButtonIcon.classList.add("ri-indeterminate-circle-fill");
+ 
         const timelineTrackVisibleButtonIcon = document.createElement("i");
-        timelineTrackVisibleButtonIcon.classList.add("ri-eye-fill");
-
+        timelineTrackVisibleButtonIcon.classList.add("ri-eye-fill"); 
+  
         const timelineTrackSettingsButtonIcon = document.createElement("i");
         timelineTrackSettingsButtonIcon.classList.add("ri-settings-4-fill");
 
         const timelineTrackAddButtonIcon = document.createElement("i");
-        timelineTrackAddButtonIcon.classList.add("ri-add-large-fill");
+        timelineTrackAddButtonIcon.classList.add("ri-add-circle-fill");
 
         timelineTrackSettingsButton.appendChild(timelineTrackSettingsButtonIcon);
         timelineTrackLockButton.appendChild(timelineTrackLockButtonIcon);
         timelineTrackDeleteButton.appendChild(timelineTrackDeleteButtonIcon);
         timelineTrackVisibleButton.appendChild(timelineTrackVisibleButtonIcon);
         timelineTrackAddButton.appendChild(timelineTrackAddButtonIcon);
-        timelineTrackControl.appendChild(timelineTrackSettingsButton);
-        timelineTrackControl.appendChild(timelineTrackLockButton);
+        // timelineTrackControl.appendChild(timelineTrackSettingsButton);
+        // timelineTrackControl.appendChild(timelineTrackLockButton);
         timelineTrackControl.appendChild(timelineTrackDeleteButton);
         timelineTrackControl.appendChild(timelineTrackVisibleButton); 
         timelineTrackControl.appendChild(timelineTrackAddButton);

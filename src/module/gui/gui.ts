@@ -1,10 +1,26 @@
 
+/**************************************************************************/
+/*                                                                        */
+/*                         This file is part of :                         */
+/*                             Lovium Studio                              */
+/*              https://github.com/Lovium-Studio/lovium-studio            */
+/*                                                                        */
+/*                             MIT LICENSE                                */
+/*                                                                        */
+/*                (C) 2026 - YYYY Lovium Studio & Community               */
+/*                (C) 2026 - YYYY Rhyan Eduardo Ferreira.                 */
+/*                                                                        */
+/*                   https://opensource.org/license/mit                   */
+/*                                                                        */
+/**************************************************************************/
+
 // GUI : 
 
 import { getUi } from "../get-ui/get-ui.js";
 
 export const gui = {
     mainContainer : getUi("main-container") as HTMLDivElement,
+    mainShield : getUi("ui-shild") as HTMLDivElement,
     assetTab : {
         simpleImagePreview : getUi("simple-image-preview") as HTMLDivElement,
         simplePreviewContainer : getUi("simple-preview-container") as HTMLDivElement,
@@ -56,7 +72,7 @@ export const gui = {
         boardContainer : getUi("viewport-ui") as HTMLDivElement
     },
     timelineTab : {
-        timelinePlayButton : getUi("play-animation") as HTMLButtonElement,
+        timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,
         timelinePreNeedle : getUi("pre-needle") as HTMLDivElement,
         timelineForwardAnimationButton : getUi("forward-animation") as HTMLButtonElement,
@@ -66,5 +82,25 @@ export const gui = {
         timelineTrackControlContainer : getUi("sequence-control-container") as HTMLDivElement,
         timelineTrackContainer : getUi("sequence-tracker-container") as HTMLDivElement,
     },
-    custom : (el : any) => getUi(el)
+    tab : {
+        tabLeftContainer : getUi("") as HTMLDivElement,
+        tabRightContainer : getUi("ui-right-container") as HTMLDivElement,
+        tabBottomContainer : getUi("ui-bottom-container") as HTMLDivElement,
+        tabTopContainer : getUi("ui-top-container") as HTMLDivElement,
+        tabCenterContainer : getUi("ui-center-container") as HTMLDivElement,
+    },
+    splitter : {
+        splitterLeft : getUi("splitter-a") as HTMLDivElement,
+        splitterBottom : getUi("splitter-b") as HTMLDivElement,
+        splitterRight : getUi("splitter-c") as HTMLDivElement,
+    },
+    statusBar : {
+        statusBarLeftContainer : getUi("status-bar-left-container") as  HTMLDivElement,
+        statusBarRightContainer : getUi("status-bar-right-container") as  HTMLDivElement
+    },
+    terminalTab : {
+        terminalTab : getUi("terminal-tab") as HTMLDivElement,
+        terminalInput : getUi("terminal-input") as HTMLInputElement
+    },
+    custom : (el : any) => getUi(el)  
 }; 

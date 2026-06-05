@@ -18,8 +18,8 @@
 
 .timeline-left-container{
     position: relative;
-    width: 160px;
-    min-width: 160px;
+    width: 170px;
+    min-width: 170px;
     height: 100%;
     box-sizing: border-box; 
 }
@@ -117,12 +117,13 @@ $tracker-in-border: 2px;
     justify-content: flex-end;
     align-items: center;
     flex-direction: row;
-    padding-right: 3px;
+    padding-right: 11px;
+    gap : 17px;
     &::after{
         position: absolute;
         width: 1px;
         height: 10px;
-        background: var(--color-d);
+        background: var(--color-c);
         right: 0px;
         z-index: 200; 
         content: '';
