@@ -14,6 +14,8 @@
 /*                                                                        */
 /**************************************************************************/
 
+import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
+
 // TAB LOCATION TYPE : 
 
 export type TabLocationOption = "BOTTOM" | "TOP" | "LEFT" | "RIGHT";
@@ -37,6 +39,18 @@ export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" 
 // STATUS BAR SIDE TYPE : 
 
 export type StatusBadgeSideType = "RIGHT" | "LEFT";
+
+// CONTROL TYPE : 
+
+export type ControlType = "TEXT_CONTROL" | "PASSWORD_CONTROL" | "SLIDER_CONTROL" | "NUMBER_CONTROL" | "DROPDOWN_CONTROL";
+
+// CONTROL GROUP CONTROL TYPE : 
+
+export type ControlGroupAddType = TextControl | NumberControl | SliderControl | DropdownControl;
+
+// INSPECTOR CONTROL GROUP TYOE : 
+
+export type InspectorControlGroupType = "TRANSFORM";
 
 // TAB OPTION : 
 
@@ -140,21 +154,44 @@ export interface IStatusBadge {
     position : StatusBadgeSideType
 };
 
-// WINDOW RESIZE DIRECTION TYPE : 
+// TEXT CONTROL OPTION : 
 
-export type WindowResizeDirectionType = "HORIZONTAL" | "VERTICAL" | "ALL";
+export interface ITextControl {
+    label : string,
+    placeholder ? : string
+};
 
-// WINDOW OPTION : 
+// NUMBER CONTROL OPTION : 
 
-export interface IWindowOption {
-    width?: number;
-    height?: number;
-    name?: string;
-    icon?: string;
-    x?: number;
-    y?: number;
-    shild?: boolean;
-    windowCloseVisible?: boolean;
-    resize?: WindowResizeDirectionType;
-    center?: boolean;
+export interface INumberControl {
+    label : string,
+    placeholder ? : string
+};
+
+// SLIDER CONTROL OPTION : 
+
+export interface ISliderControl {
+    label : string
+};
+
+// DROPDOWN CONTROL OPTION : 
+
+export interface IDropdownControl {
+    label : string
+};
+
+
+// CONTROL GROUP OPTION : 
+
+export interface IControlGroupOption {
+    label : string,
+    container : HTMLDivElement
+};
+
+// INSPECTOR CONTROL TREE OPTION : 
+
+export interface IInspectorControlOption {
+    type : ControlType,
+    control : ControlGroupAddType,
+    groupType : InspectorControlGroupType
 };

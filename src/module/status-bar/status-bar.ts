@@ -21,7 +21,7 @@ import { contextMenu } from "../context-menu/context-menu.js";
 import { IStatusBadge } from "../../../typescript/types.js";
 import { gui } from "../gui/gui.js";
 
-export const statusBarLoader = ( badgeList : IStatusBadge[] ) : void => {
+export const statusBar = ( badgeList : IStatusBadge[] ) : void => {
 
     badgeList.forEach((badge) => {
 

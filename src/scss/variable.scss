@@ -31,13 +31,21 @@ $inside-tab-gap: 3px;
 
 @mixin click{
     &:hover{
-        opacity: 90%;
+        // opacity: 90%;
         cursor: pointer;
+        // i{
+
+        //     color : var(--color-b);
+        // }
     }
     &:active{
-        opacity: 100%;
+        // opacity: 100%;
+        i{
+            color : var(--color-b);
+
+        }
     }
-}
+} 
 
 @mixin buttonIcon{
         height: 25px;

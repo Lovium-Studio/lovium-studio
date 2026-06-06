@@ -1,20 +1,17 @@
 
-
-
-
-
-
-
-
-
-
 // CONTROL ROW : 
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 // control-row CONTAINER : 
 
 $control-row-container-gap: $inside-tab-gap;
 
-.control-row-container{
+.control-group-container{
     position: relative;
     // border: $control-row-container-gap solid var(--color-d); 
     // border-top: none;
@@ -48,7 +45,7 @@ $control-row-container-row-padding: 5px;
 
 // control-row CONTAINER LABEL : 
 
-.control-row-contaier-label{
+.control-group-label{
     position: relative;
     width: 100%; 
     height: $control-row-container-row-height;
@@ -64,6 +61,19 @@ $control-row-container-row-padding: 5px;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+}
+
+// CONTROL GROUP CONTROL CONTAINER : 
+
+.control-group-control-container{
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
 }
 
 // control-row CONTAINER LABEL CONTAINER :
@@ -129,7 +139,10 @@ $control-row-container-inside-gap: 5px;
             border-color: var(--color-b);
         }
     }
-    .input-incrementor{
+    
+}
+
+.input-incrementor{
         position: absolute;
         width: auto;
         height: auto;
@@ -150,7 +163,6 @@ $control-row-container-inside-gap: 5px;
             }
         }
     }
-}
 
 // CONTROL ROW BUTTON : 
 
@@ -226,7 +238,10 @@ $control-row-container-inside-gap: 5px;
             border-color: var(--color-b);
         }
     }
-    .dropdown-arrow{   
+    
+}
+
+.dropdown-arrow{   
         position: absolute;
         width: auto;
         height: auto;
@@ -246,7 +261,6 @@ $control-row-container-inside-gap: 5px;
             }
         }
     }
-}
 
 // control-row CONTAINER RANGE CONTAINER : 
 

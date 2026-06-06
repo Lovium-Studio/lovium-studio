@@ -270,11 +270,10 @@
   cursor: pointer;
 }
 .window-title-bar .window-close:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.window-title-bar .window-close:active {
-  opacity: 100%;
+.window-title-bar .window-close:active i {
+  color: var(--color-b);
 }
 
 .window-content-container {
@@ -348,7 +347,13 @@
   cursor: n-resize;
 }
 
-.control-row-container {
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.control-group-container {
   position: relative;
   width: 100%;
   height: auto;
@@ -372,7 +377,7 @@
   border-top: none;
 }
 
-.control-row-contaier-label {
+.control-group-label {
   position: relative;
   width: 100%;
   height: 30px;
@@ -388,6 +393,17 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
+}
+
+.control-group-control-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .control-row-container-label-container {
@@ -444,7 +460,8 @@
 .control-row-container-input-container input:focus {
   border-color: var(--color-b);
 }
-.control-row-container-input-container .input-incrementor {
+
+.input-incrementor {
   position: absolute;
   width: auto;
   height: auto;
@@ -455,12 +472,12 @@
   z-index: 1;
   cursor: w-resize;
 }
-.control-row-container-input-container .input-incrementor i {
+.input-incrementor i {
   position: relative;
   font-size: 12px;
   color: var(--color-c);
 }
-.control-row-container-input-container .input-incrementor:active i {
+.input-incrementor:active i {
   color: var(--color-b);
 }
 
@@ -482,11 +499,10 @@
   color: var(--color-c);
 }
 .control-row-icon-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.control-row-icon-button:active {
-  opacity: 100%;
+.control-row-icon-button:active i {
+  color: var(--color-b);
 }
 
 .control-row-text-button {
@@ -503,11 +519,10 @@
   color: var(--color-c);
 }
 .control-row-text-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.control-row-text-button:active {
-  opacity: 100%;
+.control-row-text-button:active i {
+  color: var(--color-b);
 }
 
 .control-row-container-dropdown-container {
@@ -547,7 +562,8 @@
 .control-row-container-dropdown-container .control-row-dropdown:focus {
   border-color: var(--color-b);
 }
-.control-row-container-dropdown-container .dropdown-arrow {
+
+.dropdown-arrow {
   position: absolute;
   width: auto;
   height: auto;
@@ -557,12 +573,12 @@
   right: 3px;
   z-index: 1;
 }
-.control-row-container-dropdown-container .dropdown-arrow i {
+.dropdown-arrow i {
   position: relative;
   font-size: 12px;
   color: var(--color-c);
 }
-.control-row-container-dropdown-container .dropdown-arrow:active i {
+.dropdown-arrow:active i {
   color: var(--color-b);
 }
 
@@ -674,11 +690,10 @@
   flex-direction: row;
 }
 .row-button-secondary:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.row-button-secondary:active {
-  opacity: 100%;
+.row-button-secondary:active i {
+  color: var(--color-b);
 }
 .row-button-secondary i {
   font-size: 12px;
@@ -703,11 +718,10 @@
   flex-direction: row;
 }
 .row-button-primary:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.row-button-primary:active {
-  opacity: 100%;
+.row-button-primary:active i {
+  color: var(--color-b);
 }
 .row-button-primary i {
   font-size: 12px;
@@ -1244,11 +1258,10 @@
   cursor: pointer;
 }
 .code-editor-menu-right-container .code-editor-menu-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.code-editor-menu-right-container .code-editor-menu-button:active {
-  opacity: 100%;
+.code-editor-menu-right-container .code-editor-menu-button:active i {
+  color: var(--color-b);
 }
 .code-editor-menu-right-container .code-editor-menu-button i {
   position: absolute;
@@ -1280,11 +1293,10 @@
   cursor: pointer;
 }
 .code-editor-menu-left-container .code-editor-menu-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.code-editor-menu-left-container .code-editor-menu-button:active {
-  opacity: 100%;
+.code-editor-menu-left-container .code-editor-menu-button:active i {
+  color: var(--color-b);
 }
 .code-editor-menu-left-container .code-editor-menu-button i {
   position: absolute;
@@ -1561,11 +1573,10 @@
   align-items: center;
 }
 #simple-file-viewer .simple-menu-container button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-#simple-file-viewer .simple-menu-container button:active {
-  opacity: 100%;
+#simple-file-viewer .simple-menu-container button:active i {
+  color: var(--color-b);
 }
 #simple-file-viewer .simple-menu-container button i {
   position: absolute;
@@ -1672,11 +1683,10 @@
   margin-bottom: 1px;
 }
 .camera-view-setting-container:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.camera-view-setting-container:active {
-  opacity: 100%;
+.camera-view-setting-container:active i {
+  color: var(--color-b);
 }
 .camera-view-setting-container i {
   position: relative;
@@ -1709,11 +1719,10 @@
   padding: 0px;
 }
 #rocon-create-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-#rocon-create-button:active {
-  opacity: 100%;
+#rocon-create-button:active i {
+  color: var(--color-b);
 }
 
 .window-create-content-right {
@@ -1777,11 +1786,10 @@
   top: 23px;
 }
 .preset-container:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.preset-container:active {
-  opacity: 100%;
+.preset-container:active i {
+  color: var(--color-b);
 }
 
 #console-tab {
@@ -1950,11 +1958,10 @@
   cursor: pointer;
 }
 .explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button:active {
-  opacity: 100%;
+.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button:active i {
+  color: var(--color-b);
 }
 .explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button i {
   position: absolute;
@@ -2098,11 +2105,10 @@
   cursor: pointer;
 }
 .viewport-menu-right-container .viewport-menu-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.viewport-menu-right-container .viewport-menu-button:active {
-  opacity: 100%;
+.viewport-menu-right-container .viewport-menu-button:active i {
+  color: var(--color-b);
 }
 .viewport-menu-right-container .viewport-menu-button i {
   position: absolute;
@@ -2134,11 +2140,10 @@
   cursor: pointer;
 }
 .viewport-menu-left-container .viewport-menu-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.viewport-menu-left-container .viewport-menu-button:active {
-  opacity: 100%;
+.viewport-menu-left-container .viewport-menu-button:active i {
+  color: var(--color-b);
 }
 .viewport-menu-left-container .viewport-menu-button i {
   position: absolute;
@@ -2220,11 +2225,10 @@
   cursor: pointer;
 }
 .timeline-header-control-container button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.timeline-header-control-container button:active {
-  opacity: 100%;
+.timeline-header-control-container button:active i {
+  color: var(--color-b);
 }
 .timeline-header-control-container button i {
   position: absolute;
@@ -2288,11 +2292,10 @@
   width: 17px;
 }
 .timeline-tracker-control button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.timeline-tracker-control button:active {
-  opacity: 100%;
+.timeline-tracker-control button:active i {
+  color: var(--color-b);
 }
 .timeline-tracker-control button i {
   position: absolute;
@@ -2526,11 +2529,10 @@
   outline: none;
 }
 .timeline-create-tracker:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.timeline-create-tracker:active {
-  opacity: 100%;
+.timeline-create-tracker:active i {
+  color: var(--color-b);
 }
 .timeline-create-tracker::after {
   position: absolute;
@@ -2822,11 +2824,10 @@
   color: var(--color-c);
 }
 .asset-tab-button:hover {
-  opacity: 90%;
   cursor: pointer;
 }
-.asset-tab-button:active {
-  opacity: 100%;
+.asset-tab-button:active i {
+  color: var(--color-b);
 }
 .asset-tab-button i {
   font-size: 12px;
@@ -2887,7 +2888,7 @@ body input::selection {
   background-color: var(--color-c);
 }
 body i {
-  text-rendering: geometricPrecision;
+  text-rendering: pixelated;
 }
 
 #main-container {

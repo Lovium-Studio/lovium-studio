@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IStatusBadge, ITab } from "../../../typescript/types.js";
+import { IInspectorControlOption, IStatusBadge, ITab } from "../../../typescript/types.js";
 import { assetTab } from "../asset-tab/asset-tab.js";
 import { codeTab } from "../code-tab/code-tab.js";
 import { console } from "../console/console.js";
@@ -22,9 +22,11 @@ import { inspectorTab } from "../inspector-tab/inspector-tab.js";
 import { splitter } from "../splitter/splitter.js";
 import { timelineTab } from "../timeline-tab/timeline-tab.js";
 import { viewport } from "../viewport/viewport.js";
-import { statusBarLoader } from "../status-bar/status-bar.js"; 
+import { statusBar } from "../status-bar/status-bar.js"; 
 import { gui } from "../gui/gui.js";
 import { tabManager } from "../tab-manager/tab-manager.js";
+import { NumberControl, TextControl } from "../control/control.js";
+import { ControlGroup } from "../control-group/control-group.js";
 
 // APP LOAD :  
 
@@ -32,7 +34,7 @@ export const appLoad = () : void  => {
 
     splitter();
     inspectorTab();
-    tabLoad();
+    tabLoader();
         viewport({
         gridWidth : 25,
         gridHeight : 25  
@@ -40,14 +42,15 @@ export const appLoad = () : void  => {
     codeTab();
     assetTab();
     timelineTab();
-    loadStatusBar();
+    statusBarLoader();
     console("Application Started...", "LOG");
+    inspectorLoader()
 
 };
 
 // STATUS BAR LOAD : 
 
-const loadStatusBar =  () : void => {
+const statusBarLoader =  () : void => {
 
     const statusBarBadgeList : IStatusBadge[] = [
         {
@@ -87,12 +90,12 @@ const loadStatusBar =  () : void => {
         }
     ];  
 
-    statusBarLoader(statusBarBadgeList);
+    statusBar(statusBarBadgeList);
 };
 
 // TAB LOAD : 
 
-export const tabLoad = () : ITab[] => {
+export const tabLoader = () : void => {
  
     const tabList : ITab[] = [
         {
@@ -147,8 +150,41 @@ export const tabLoad = () : ITab[] => {
 
     tabManager(tabList);
 
-    return tabList;
-    
 };
 
+// INSPECTOR LOAD :
 
+const inspectorTransformControlGroup: ControlGroup = new ControlGroup({
+    label: "Transform",
+    container: gui.nativeTab.inspectorTab
+});
+
+const scaleXControl: NumberControl = new NumberControl({
+    label: "Scale X"
+});
+
+const scaleYControl: NumberControl = new NumberControl({
+    label: "Scale Y"
+});
+
+scaleXControl.joinControl(scaleYControl);
+
+const controlList: IInspectorControlOption[] = [
+    {
+        type: "NUMBER_CONTROL",
+        control: scaleXControl,
+        groupType: "TRANSFORM"
+    }
+];
+
+const groupMap = {
+    TRANSFORM: inspectorTransformControlGroup
+};
+
+const inspectorLoader = (): void => {
+    controlList.forEach(control => {
+        const group = groupMap[control.groupType as keyof typeof groupMap];
+        if (group) group.addControl(control.control);
+    });
+
+};
