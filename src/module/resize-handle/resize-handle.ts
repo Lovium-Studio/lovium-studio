@@ -139,6 +139,67 @@ class ResizeHandle {
         });
     };
 
+    public setX = (x: number): void => {
+        this.handleRect.style.left = `${x}px`;
+        this.notifyListeners();
+    };
+
+    public setY = (y: number): void => {
+        this.handleRect.style.top = `${y}px`;
+        this.notifyListeners();
+    };
+
+    public setWidth = (width: number): void => {
+        this.handleRect.style.width = `${width}px`;
+        this.notifyListeners();
+    };
+
+    public setHeight = (height: number): void => {
+        this.handleRect.style.height = `${height}px`;
+        this.notifyListeners();
+    };
+
+    public getX = (): number =>
+    this.handleRect.offsetLeft + this.padding;
+
+    public getY = (): number =>
+        this.handleRect.offsetTop + this.padding;
+
+    public getWidth = (): number =>
+        this.handleRect.offsetWidth - (this.padding * 2);
+
+    public getHeight = (): number =>
+        this.handleRect.offsetHeight - (this.padding * 2);
+
+    public getRotation = (): number => {
+
+        const transform =
+            getComputedStyle(this.handleRect).transform;
+
+        if (transform === "none") {
+            return 0;
+        }
+
+        const values =
+            transform.match(/matrix\((.+)\)/);
+
+        if (!values) {
+            return 0; 
+        }
+
+        const matrix = values[1].split(",").map(Number);
+
+        const angle = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
+
+        return angle;
+    };
+
+    public setRotation = (rotation: number): void => {
+        this.handleRect.style.transform = `rotate(${rotation}deg)`;
+
+        this.notifyListeners();
+    };
+
     public setHandle = (option: IResizeHandle): void => {
 
         this.handleRect.style.left = `${option.x}px`;
@@ -177,7 +238,7 @@ class ResizeHandle {
             this.handleRightCenter.style.height = "30px";
         }
 
-        // this.notifyListeners();    
+        this.notifyListeners();    
     };
 
     public config = ( option : IResizeHandleConfigOption) : void => {
@@ -187,7 +248,7 @@ class ResizeHandle {
         if(option.padding)  this.padding = option.padding;
     };
 
-    public onChange = (callback: (coordinate: IResizeHandleCoordinate) => void): IResizeHandleCoordinate => {
+    public onTransform = (callback: (coordinate: IResizeHandleCoordinate) => void): IResizeHandleCoordinate => {
         this.changeListeners.push(callback);
         return this.getCoordinate();
     };

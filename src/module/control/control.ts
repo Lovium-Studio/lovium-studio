@@ -270,12 +270,9 @@ export class NumberControl {
         const value =
             this.dragStartValue + deltaX;
 
-        this.controlNumberInput.value =
-            value.toString();
+        this.controlNumberInput.value = value.toString();
 
-        this.onWriteCallbackList.forEach(
-            callback => callback(this.controlNumberInput.value)
-        );
+        this.onWriteCallbackList.forEach(callback => callback(this.controlNumberInput.value));
     };
 
     public onKeyboardEnter = (callback: (value: string) => void) : void => {

@@ -30,6 +30,7 @@ export const codeTab = () : void => {
 
     editor.session.setMode("ace/mode/lua");
 
+
     editor.setTheme("ace/theme/monokai");
 
     editor.setOptions({

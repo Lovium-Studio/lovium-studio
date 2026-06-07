@@ -50,7 +50,7 @@ export type ControlGroupAddType = TextControl | NumberControl | SliderControl | 
 
 // INSPECTOR CONTROL GROUP TYOE : 
 
-export type InspectorControlGroupType = "TRANSFORM";
+export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEARANCE" | "ANIMATION" | "GRID" | "COLLISION";
 
 // TAB OPTION : 
 
@@ -191,7 +191,6 @@ export interface IControlGroupOption {
 // INSPECTOR CONTROL TREE OPTION : 
 
 export interface IInspectorControlOption {
-    type : ControlType,
     control : ControlGroupAddType,
     groupType : InspectorControlGroupType
 };

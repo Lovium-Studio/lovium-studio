@@ -18,15 +18,14 @@ import { IInspectorControlOption, IStatusBadge, ITab } from "../../../typescript
 import { assetTab } from "../asset-tab/asset-tab.js";
 import { codeTab } from "../code-tab/code-tab.js";
 import { console } from "../console/console.js";
-import { inspectorTab } from "../inspector-tab/inspector-tab.js";
+import { INSPECTOR_ANCHOR_POINT_X_CONTROL, INSPECTOR_APPEARANCE_CONTROL_GROUP, INSPECTOR_NODE_CONTROL_GROUP, INSPECTOR_SPRITE_CONTROL_GROUP, inspectorTab, INESPECTOR_TRANSFORM_CONTROL_GROUP, INSPECTOR_NODE_ID_CONTROL, INSPECTOR_NODE_NAME_CONTROL, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SPRITE_DEPTH_CONTROL, INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_SPRITE_VISIBILITY_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_ANIMATION_CONTROL_GROUP, INSPECTOR_SPRITE_ANIMATION_CONTROL, INSPECTOR_ANIMATION_FPS_CONTROL, INSPECTOR_ANIMATION_SPEED_CONTROL, INSPECTOR_ANIMATION_CURRENT_FRAME_CONTROL, INSPECTOR_GRID_CONTROL_GROUP, INSPECTOR_SPRITE_GRID_CONTROL, INSPECTOR_COLLISION_CONTROL_GROUP, INSPECTOR_COLLISION_CONTROL, INSPECTOR_COLLISION_VISIBILITY_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { splitter } from "../splitter/splitter.js";
 import { timelineTab } from "../timeline-tab/timeline-tab.js";
 import { viewport } from "../viewport/viewport.js";
 import { statusBar } from "../status-bar/status-bar.js"; 
 import { gui } from "../gui/gui.js";
 import { tabManager } from "../tab-manager/tab-manager.js";
-import { NumberControl, TextControl } from "../control/control.js";
-import { ControlGroup } from "../control-group/control-group.js";
+
 
 // APP LOAD :  
 
@@ -154,37 +153,92 @@ export const tabLoader = () : void => {
 
 // INSPECTOR LOAD :
 
-const inspectorTransformControlGroup: ControlGroup = new ControlGroup({
-    label: "Transform",
-    container: gui.nativeTab.inspectorTab
-});
-
-const scaleXControl: NumberControl = new NumberControl({
-    label: "Scale X"
-});
-
-const scaleYControl: NumberControl = new NumberControl({
-    label: "Scale Y"
-});
-
-scaleXControl.joinControl(scaleYControl);
-
-const controlList: IInspectorControlOption[] = [
-    {
-        type: "NUMBER_CONTROL",
-        control: scaleXControl,
-        groupType: "TRANSFORM"
-    }
-];
-
-const groupMap = {
-    TRANSFORM: inspectorTransformControlGroup
-};
-
 const inspectorLoader = (): void => {
+    
+    const GROUP_MAP = {
+        TRANSFORM: INESPECTOR_TRANSFORM_CONTROL_GROUP,
+        SPRITE: INSPECTOR_SPRITE_CONTROL_GROUP,
+        NODE : INSPECTOR_NODE_CONTROL_GROUP,
+        APPEARANCE : INSPECTOR_APPEARANCE_CONTROL_GROUP,
+        ANIMATION : INSPECTOR_ANIMATION_CONTROL_GROUP,
+        GRID : INSPECTOR_GRID_CONTROL_GROUP,
+        COLLISION : INSPECTOR_COLLISION_CONTROL_GROUP
+    };
+
+    const controlList: IInspectorControlOption[] = [
+        {
+            control: INSPECTOR_SCALE_X_CONTROL,
+            groupType: "TRANSFORM"
+        },
+        {
+            control: INSPECTOR_TRANSLATE_X_CONTROL,
+            groupType: "TRANSFORM" 
+        },
+        { 
+            control: INSPECTOR_ROTATE_CONTROL,
+            groupType: "TRANSFORM" 
+        }, 
+        { 
+            control: INSPECTOR_ANCHOR_POINT_X_CONTROL,
+            groupType: "TRANSFORM" 
+        },
+        {
+            control: INPSECTOR_SPRITE_START_CONTROL, 
+            groupType: "SPRITE" 
+        },
+        {
+            control: INSPECTOR_SPRITE_DEPTH_CONTROL, 
+            groupType: "SPRITE" 
+        },
+        {
+            control: INSPECTOR_NODE_NAME_CONTROL,  
+            groupType: "NODE" 
+        },
+        {
+            control: INSPECTOR_NODE_ID_CONTROL, 
+            groupType: "NODE" 
+        },
+        {
+            control: INSPECTOR_SPRITE_VISIBILITY_CONTROL, 
+            groupType: "SPRITE" 
+        }, 
+        {
+            control: INSPECTOR_OPACITY_CONTROL, 
+            groupType: "APPEARANCE" 
+        },
+        {
+            control: INSPECTOR_SPRITE_ANIMATION_CONTROL,  
+            groupType: "ANIMATION" 
+        },
+        {
+            control: INSPECTOR_ANIMATION_FPS_CONTROL,  
+            groupType: "ANIMATION" 
+        },
+        {
+            control: INSPECTOR_ANIMATION_SPEED_CONTROL, 
+            groupType: "ANIMATION" 
+        },
+        {
+            control: INSPECTOR_ANIMATION_CURRENT_FRAME_CONTROL, 
+            groupType: "ANIMATION" 
+        },
+        {
+            control: INSPECTOR_SPRITE_GRID_CONTROL, 
+            groupType: "GRID" 
+        },
+        {
+            control: INSPECTOR_COLLISION_CONTROL, 
+            groupType: "COLLISION" 
+        },
+        {
+            control: INSPECTOR_COLLISION_VISIBILITY_CONTROL, 
+            groupType: "COLLISION" 
+        }
+    ];
+
     controlList.forEach(control => {
-        const group = groupMap[control.groupType as keyof typeof groupMap];
-        if (group) group.addControl(control.control);
+        const g = GROUP_MAP[control.groupType as keyof typeof GROUP_MAP];
+        if (g) g.addControl(control.control);
     });
 
 };

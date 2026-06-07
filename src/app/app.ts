@@ -17,115 +17,51 @@
 // APP : 
 
 import { getUi } from "../module/get-ui/get-ui.js";
-import { console } from "../module/console/console.js";
 import { windowMenu } from "../module/menu-window/window-menu.js";
 import { resizeHandle } from "../module/resize-handle/resize-handle.js"
 import { gui } from "../module/gui/gui.js";
 import { appLoad } from "../module/app-load/app-load.js";
-import { ControlGroup } from "../module/control-group/control-group.js";
-import { DropdownControl, NumberControl, SliderControl, TextControl } from "../module/control/control.js";
+import { INSPECTOR_SCALE_X_CONTROL ,INSPECTOR_SCALE_Y_CONTROL,  INSPECTOR_TRANSLATE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL , INSPECTOR_ROTATE_CONTROL } from "../module/inspector-tab/inspector-tab.js";
 
 // APP LOAD : 
 
 document.addEventListener("DOMContentLoaded",appLoad);
 
 resizeHandle.config({
-    lineType : "DASHED" 
+    lineType : "DASHED"  
 });
 
-const myTextControl = new TextControl({
-    label : "Text Simple"
-})
-
-const myTextControl2 = new TextControl({
-    label : "Text Simple 2"
-})
-
-
-const controlGroupTest = new ControlGroup({
-    label : "Hello World",
-    container : gui.nativeTab.inspectorTab
-}) 
-
-const myNumberControl = new NumberControl({
-    label : "Text Simple 2"
-})
-
-const slideA = new SliderControl({
-    label : "Opacity"
-})
-
-const dropdownA = new DropdownControl({
-    label : "Selecione"
-})
-
-controlGroupTest.addControl(myTextControl);
-controlGroupTest.addControl(myNumberControl);
-controlGroupTest.addControl(slideA); 
-controlGroupTest.addControl(dropdownA); 
-
-myTextControl.joinControl(myTextControl2) 
- 
-
-myTextControl2.onWrite((context)=> {
-    console(context);
-});
-
-myTextControl2.onKeyboardEnter((context)=> {
-    console(context);
-});
-
-myTextControl2.onMouseBlur((context)=> {
-    console(context);
-});
- 
  
 
 const dt = gui.custom("divtestb") as HTMLDivElement;
 
-dt.addEventListener("click",function(){
 
-    console("IMG CLICKED ")
-
-    const dtRect = dt.getBoundingClientRect(); 
- 
-    resizeHandle.setHandle({ 
-        x : dtRect.x,
-        y : dtRect.y,  
-        width : dtRect.width,
-        height : dtRect.height,
-        type : "SINGLE_OBJECT",   
-        rotate : true, 
-        object : "HTML"
-    });
-});
-
-slideA.onDrag((value )=> {
-    dt.style.opacity = `${value}%`
-})
-
-setTimeout(() => {
-        console("IMG CLICKED ")
-
-    const dtRect = dt.getBoundingClientRect(); 
- 
-    resizeHandle.setHandle({ 
-        x : dtRect.x,
-        y : dtRect.y,  
-        width : dtRect.width,  
-        height : dtRect.height, 
-        type : "SINGLE_OBJECT",  
-        rotate : true, 
-        object : "HTML"
-    });
-}, 5000);
-
-resizeHandle.onChange(coord=>{
-    myTextControl2.setValue(coord.x.toString())
+resizeHandle.onTransform(coord=>{
+    INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString())
+    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString())
+    INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString())
+    INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString()) 
     dt.style.left = coord.x + "px";
     dt.style.top = coord.y + "px";
-    dt.style.width = coord.width + "px";
+    dt.style.width = coord.width + "px"; 
     dt.style.height = coord.height + "px";
+})  
+
+INSPECTOR_SCALE_X_CONTROL.onWrite((value) => { 
+    // dt.style.width = value + "px"; 
+    resizeHandle.setWidth(parseInt(value))
+
+}); 
+
+INSPECTOR_TRANSLATE_Y_CONTROL.onWrite((value) => {  
+    // dt.style.top = value + "px";  
+    resizeHandle.setY(parseInt(value))    
+
+});
+
+INSPECTOR_ROTATE_CONTROL.onWrite((value)=>{
+    dt.style.transform = `rotate(${value}deg)`;  
+    // resizeHandle.setRotation(parseInt(value))   
 })
 
 
