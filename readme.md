@@ -1,4 +1,4 @@
-<img width="100%" alt="lovium-studio-github-readme-banner" src="https://github.com/user-attachments/assets/ad4bfa47-6ea1-416b-b565-ca0025f604e6" />
+<img width="100%" alt="lovium-studio-github-readme-banner (1)" src="https://github.com/user-attachments/assets/2c411ece-1199-4696-8400-400b4b372414" />
 
 # Lovium Studio
 
