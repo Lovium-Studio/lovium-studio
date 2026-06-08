@@ -4,6 +4,8 @@
 
 Lovium Studio is an editor for [LÖVE](https://love2d.org/) that provides a complete set of integrated tools for game development, including scene management, asset management, animation editing, code editing, an inspector, debugging tools, and much more.
 
+<img width="80%" alt="overview-lovium-studio" src="https://github.com/user-attachments/assets/4e499f6c-c3a8-46fc-aa71-0f993f11d4ae" />
+
 ## Features
 
 - Scene Editor
