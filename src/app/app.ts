@@ -18,46 +18,51 @@
 
 import { getUi } from "../module/get-ui/get-ui.js";
 import { windowMenu } from "../module/menu-window/window-menu.js";
-import { resizeHandle } from "../module/resize-handle/resize-handle.js"
+// import { resizeHandle } from "../module/resize-handle/resize-handle.js"
 import { gui } from "../module/gui/gui.js";
 import { appLoad } from "../module/app-load/app-load.js";
 import { INSPECTOR_SCALE_X_CONTROL ,INSPECTOR_SCALE_Y_CONTROL,  INSPECTOR_TRANSLATE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL , INSPECTOR_ROTATE_CONTROL } from "../module/inspector-tab/inspector-tab.js";
+// import { SAFE_AREA_2D } from "../module/scene-tab/scene-tab.js";
 
 // APP LOAD : 
 
 document.addEventListener("DOMContentLoaded",appLoad);
 
-resizeHandle.config({
-    lineType : "DASHED"  
-});
+// resizeHandle.config({
+//     lineType : "DASHED"  
+// });
 
  
 
 const dt = gui.custom("divtestb") as HTMLDivElement;
 
 
-resizeHandle.onTransform(coord=>{
-    INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString())
-    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString())
-    INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString())
-    INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString()) 
-    dt.style.left = coord.x + "px";
-    dt.style.top = coord.y + "px";
-    dt.style.width = coord.width + "px"; 
-    dt.style.height = coord.height + "px";
-})  
+// resizeHandle.onTransform(coord=>{
+//     INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString())
+//     INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString())
+//     INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString())
+//     INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString()) 
+//     // dt.style.left = coord.x + "px";
+//     // dt.style.top = coord.y + "px";
+//     // dt.style.width = coord.width + "px"; 
+//     // dt.style.height = coord.height + "px";
+//     // SAFE_AREA_2D.setX(coord.x);
+//     // SAFE_AREA_2D.setY(coord.y); 
+//     // SAFE_AREA_2D.setWidth(coord.width);
+//     // SAFE_AREA_2D.setHeight(coord.height);
+// })  
 
-INSPECTOR_SCALE_X_CONTROL.onWrite((value) => { 
-    // dt.style.width = value + "px"; 
-    resizeHandle.setWidth(parseInt(value))
+// INSPECTOR_SCALE_X_CONTROL.onWrite((value) => { 
+//     // dt.style.width = value + "px"; 
+//     resizeHandle.setWidth(parseInt(value))
+ 
+// }); 
 
-}); 
+// INSPECTOR_TRANSLATE_Y_CONTROL.onWrite((value) => {  
+//     // dt.style.top = value + "px";  
+//     resizeHandle.setY(parseInt(value))    
 
-INSPECTOR_TRANSLATE_Y_CONTROL.onWrite((value) => {  
-    // dt.style.top = value + "px";  
-    resizeHandle.setY(parseInt(value))    
-
-});
+// });
 
 INSPECTOR_ROTATE_CONTROL.onWrite((value)=>{
     dt.style.transform = `rotate(${value}deg)`;  

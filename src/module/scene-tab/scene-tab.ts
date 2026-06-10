@@ -1,3 +1,4 @@
+
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -12,40 +13,40 @@
 /*                   https://opensource.org/license/mit                   */
 /*                                                                        */
 /**************************************************************************/
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-export {};
-// function drawGrid(cellWidth, cellHeight) {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.beginPath();
-//         ctx.strokeStyle = '#ddd';
-//         ctx.lineWidth = lineThickness;
-//         for (let x = offsetX % cellWidth; x < canvas.width; x += cellWidth) {
-//             ctx.moveTo(x, 0);
-//             ctx.lineTo(x, canvas.height);
-//         }
-//         for (let y = offsetY % cellHeight; y < canvas.height; y += cellHeight) {
-//             ctx.moveTo(0, y);
-//             ctx.lineTo(canvas.width, y);
-//         }
-//         ctx.stroke();
-//     }
+
+// SCENE TAB : 
+
+import { gui } from "../gui/gui.js";
+import { scene2d } from "../scene-2d/scene-2d.js";
+
+// SCENE TAB :
+
+const CONTEXT_2D = gui.sceneTab.sceneCanvas.getContext("2d")!;
+const SCENE_2D = scene2d;
+
+const resizeCanvas = (): void => {
+    const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
+    gui.sceneTab.sceneCanvas.width = rect.width - 1;
+    gui.sceneTab.sceneCanvas.height = rect.height - 2; 
+};
+
+new ResizeObserver(() => {   
+    resizeCanvas(); 
+}).observe(gui.sceneTab.sceneCanvasContainer);  
+
+const render = (): void => {
+
+    CONTEXT_2D.clearRect( 0,0,gui.sceneTab.sceneCanvas.width,gui.sceneTab.sceneCanvas.height);
+    SCENE_2D.renderScene(CONTEXT_2D); 
+}; 
+
+const frameLoop = (): void => {  
+    render();
+    requestAnimationFrame(frameLoop);
+};
+
+export const sceneTab = (): void => { 
+
+    resizeCanvas();    
+    frameLoop();
+};

@@ -71,6 +71,10 @@ export const gui = {
     boardTab : {
         boardContainer : getUi("viewport-ui") as HTMLDivElement
     },
+    sceneTab : {
+        sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
+        sceneCanvasContainer : getUi("scene-canvas-container") as
+    },
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,

@@ -19,7 +19,7 @@
 import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../typescript/types.js";
 import { gui } from "../gui/gui.js";
 
-class ResizeHandle {
+export class ResizeHandle {
 
     private container: HTMLDivElement;
 
@@ -49,6 +49,7 @@ class ResizeHandle {
     private isResizing: boolean;
     private isMoving: boolean;
     private padding : number;
+    private isVisible : boolean;
 
     private changeListeners: ((coordinate: IResizeHandleCoordinate) => void)[] = [];
 
@@ -65,6 +66,7 @@ class ResizeHandle {
         this.isResizing = false;
         this.isMoving = false; 
         this.padding = 0;
+        this.isVisible = false;
 
         this.handleRect = document.createElement("div");
         this.handleRect.classList.add("resize-handle-rect");
@@ -130,7 +132,6 @@ class ResizeHandle {
     }
 
     private setup(): void {
-        this.handleRect.style.display = "flex";
 
         this.handleRect.addEventListener('mousedown', (event) => this.onMouseDown(event, this.handleRect));
 
@@ -139,8 +140,11 @@ class ResizeHandle {
         });
     };
 
+    public show = () : string => this.handleRect.style.display = "flex";
+    public hide = () : string => this.handleRect.style.display = "none";
+
     public setX = (x: number): void => {
-        this.handleRect.style.left = `${x}px`;
+        this.handleRect.style.left = `${x}px`; 
         this.notifyListeners();
     };
 
@@ -352,5 +356,3 @@ class ResizeHandle {
         document.addEventListener('mouseup', this.onMouseUp);
     };
 };
-
-export const resizeHandle : ResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);

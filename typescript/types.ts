@@ -15,6 +15,7 @@
 /**************************************************************************/
 
 import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
+import { SafeArea2d } from "../src/module/safe-area-2d/safe-area-2d.js";
 
 // TAB LOCATION TYPE : 
 
@@ -52,7 +53,18 @@ export type ControlGroupAddType = TextControl | NumberControl | SliderControl | 
 
 export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEARANCE" | "ANIMATION" | "GRID" | "COLLISION";
 
+// SCENE 2D NODE TYPE : 
+
+export type Scene2dNodeType = "SPRITE_NODE";
+
+// CAMERA TYPE : 
+
+export type CameraType = "CAMERA_2D" | "CAMERA_3D";
+
 // TAB OPTION : 
+
+export type SceneNode =  SafeArea2d;
+// export type SceneNode = NodeSpriteOption | SafeArea2d;
 
 export interface ITab {
     name: string,
@@ -194,3 +206,56 @@ export interface IInspectorControlOption {
     control : ControlGroupAddType,
     groupType : InspectorControlGroupType
 };
+
+// SCENE NODE OPTION : 
+
+export interface NodeSpriteOption {
+    type : Scene2dNodeType,
+
+};
+
+// SCENE OPTION : 
+
+export interface IScene2dOption {
+    name : string,
+    id : string, 
+    nodeList : SceneNode[],
+};
+
+// CAMERA 2D OPTION : 
+
+export interface Camera2dOption {
+    x : number,
+    y : number,
+    width : number,
+    height : number
+};
+
+// SAFE AREA 2D : 
+
+export interface SafeArea2dOption {
+    width : number,
+    height : number,
+    y : number,
+    x : number
+};
+
+
+// function drawGrid(cellWidth, cellHeight) {
+//         ctx.clearRect(0, 0, canvas.width, canvas.height);
+//         ctx.beginPath();
+//         ctx.strokeStyle = '#ddd';
+//         ctx.lineWidth = lineThickness;
+
+//         for (let x = offsetX % cellWidth; x < canvas.width; x += cellWidth) {
+//             ctx.moveTo(x, 0);
+//             ctx.lineTo(x, canvas.height);
+//         }
+
+//         for (let y = offsetY % cellHeight; y < canvas.height; y += cellHeight) {
+//             ctx.moveTo(0, y);
+//             ctx.lineTo(canvas.width, y);
+//         }
+
+//         ctx.stroke();
+//     }

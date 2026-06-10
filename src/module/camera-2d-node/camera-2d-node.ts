@@ -1,3 +1,4 @@
+
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -12,40 +13,24 @@
 /*                   https://opensource.org/license/mit                   */
 /*                                                                        */
 /**************************************************************************/
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-export {};
-// function drawGrid(cellWidth, cellHeight) {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.beginPath();
-//         ctx.strokeStyle = '#ddd';
-//         ctx.lineWidth = lineThickness;
-//         for (let x = offsetX % cellWidth; x < canvas.width; x += cellWidth) {
-//             ctx.moveTo(x, 0);
-//             ctx.lineTo(x, canvas.height);
-//         }
-//         for (let y = offsetY % cellHeight; y < canvas.height; y += cellHeight) {
-//             ctx.moveTo(0, y);
-//             ctx.lineTo(canvas.width, y);
-//         }
-//         ctx.stroke();
-//     }
+
+import { Camera2dOption, CameraType } from "../../../typescript/types.js";
+
+// CAMERA 2D : 
+
+export class Camera2d {
+
+    private type : CameraType;
+    private x : number;
+    private y : number;
+    private width : number;
+    private height : number;
+
+    constructor ( option : Camera2dOption ) {
+        this.type = "CAMERA_2D";
+        this.x = option.x;
+        this.y = option.y;
+        this.width = option.width;
+        this.height = option.height;
+    };
+};

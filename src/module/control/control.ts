@@ -158,8 +158,6 @@ export class NumberControl {
     private onKeyBoardEnterCallbackList : ((value: string) => void)[] = [];
     private onMouseLeaveCallbackList : ((value: string) => void)[] = [];
 
-    private dragStartX = 0;
-    private dragStartValue = 0;
     private isDragging = false;
 
     constructor( option : ITextControl ) {
@@ -241,19 +239,19 @@ export class NumberControl {
 
         e.preventDefault();
 
-        this.isDragging = true;
+        this.controlNumberInputINCDEC.requestPointerLock();
 
-        this.dragStartX = e.clientX;
-
-        this.dragStartValue = parseFloat(this.controlNumberInput.value) || 0;
+        this.isDragging = true;   
 
         document.addEventListener("mousemove",this.onIncrementorDragMove);
         document.addEventListener("mouseup",this.onIncrementorDragEnd);
     };
 
     private onIncrementorDragEnd = (): void => {
-
-        this.isDragging = false;
+ 
+        this.isDragging = false; 
+ 
+        document.exitPointerLock(); 
 
         document.removeEventListener("mousemove",this.onIncrementorDragMove);
         document.removeEventListener("mouseup",this.onIncrementorDragEnd);
@@ -265,14 +263,19 @@ export class NumberControl {
             return;
         };
 
-        const deltaX = e.clientX - this.dragStartX;
+        const currentValue =
+            parseFloat(this.controlNumberInput.value) || 0;
+
+        const sensitivity = 1; 
 
         const value =
-            this.dragStartValue + deltaX;
+            currentValue + (e.movementX * sensitivity);
 
         this.controlNumberInput.value = value.toString();
 
-        this.onWriteCallbackList.forEach(callback => callback(this.controlNumberInput.value));
+        this.onWriteCallbackList.forEach(
+            callback => callback(this.controlNumberInput.value)
+        );
     };
 
     public onKeyboardEnter = (callback: (value: string) => void) : void => {

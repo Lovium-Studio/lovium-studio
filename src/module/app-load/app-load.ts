@@ -21,10 +21,10 @@ import { console } from "../console/console.js";
 import { INSPECTOR_ANCHOR_POINT_X_CONTROL, INSPECTOR_APPEARANCE_CONTROL_GROUP, INSPECTOR_NODE_CONTROL_GROUP, INSPECTOR_SPRITE_CONTROL_GROUP, inspectorTab, INESPECTOR_TRANSFORM_CONTROL_GROUP, INSPECTOR_NODE_ID_CONTROL, INSPECTOR_NODE_NAME_CONTROL, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SPRITE_DEPTH_CONTROL, INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_SPRITE_VISIBILITY_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_ANIMATION_CONTROL_GROUP, INSPECTOR_SPRITE_ANIMATION_CONTROL, INSPECTOR_ANIMATION_FPS_CONTROL, INSPECTOR_ANIMATION_SPEED_CONTROL, INSPECTOR_ANIMATION_CURRENT_FRAME_CONTROL, INSPECTOR_GRID_CONTROL_GROUP, INSPECTOR_SPRITE_GRID_CONTROL, INSPECTOR_COLLISION_CONTROL_GROUP, INSPECTOR_COLLISION_CONTROL, INSPECTOR_COLLISION_VISIBILITY_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { splitter } from "../splitter/splitter.js";
 import { timelineTab } from "../timeline-tab/timeline-tab.js";
-import { viewport } from "../viewport/viewport.js";
 import { statusBar } from "../status-bar/status-bar.js"; 
 import { gui } from "../gui/gui.js";
 import { tabManager } from "../tab-manager/tab-manager.js";
+import { sceneTab } from "../scene-tab/scene-tab.js";
 
 
 // APP LOAD :  
@@ -32,18 +32,15 @@ import { tabManager } from "../tab-manager/tab-manager.js";
 export const appLoad = () : void  => { 
 
     splitter();
-    inspectorTab();
+    inspectorTab(); 
     tabLoader();
-        viewport({
-        gridWidth : 25,
-        gridHeight : 25  
-    })   
     codeTab();
     assetTab();
     timelineTab();
     statusBarLoader();
+    inspectorLoader();
+    sceneTab();
     console("Application Started...", "LOG");
-    inspectorLoader()
 
 };
 
@@ -116,10 +113,10 @@ export const tabLoader = () : void => {
             location: "BOTTOM"
         },
         {
-            name: "Board",
+            name: "2D Scene",
             content: gui.nativeTab.boardTab,
             id: "TABTgL",
-            location: "TOP"
+            location: "TOP" 
         },
         {
             name: "Inspector",
