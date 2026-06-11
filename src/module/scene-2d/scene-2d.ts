@@ -43,6 +43,10 @@ class Scene2d {
 
         this.scene2dResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
 
+        // this.scene2dResizeHandle.config({
+        //     padding : 10 
+        // }) 
+
         // SAFE AREA 2D : 
 
         this.safeArea2d = new SafeArea2d({
@@ -110,6 +114,10 @@ class Scene2d {
         this.nodeList = scene.nodeList;
         this.isScene = true;
     };   
+
+    public getScene = () : void => {
+        
+    };
 
     public clearScene = () : void => {
         this.isScene = false;
