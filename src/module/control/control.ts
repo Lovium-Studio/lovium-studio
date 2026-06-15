@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, ITextControl } from "../../../typescript/types.js";
+import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, ITextControl } from "../../../ts/types.js";
 
 // CONTROL : 
 

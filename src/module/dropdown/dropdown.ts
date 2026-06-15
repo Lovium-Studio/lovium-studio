@@ -16,7 +16,7 @@
 
 // DROPDOWN : 
 
-import { IDropdown } from "../../../typescript/types.js";
+import { IDropdown } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 import { shild } from "../shild/shild.js";
 

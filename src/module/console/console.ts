@@ -16,7 +16,7 @@
 
 // CONSOLE TAB : 
 
-import { ConsoleTypeOption } from "../../../typescript/types.js";
+import { ConsoleTypeOption } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 const ALERT_COLOR : string = "--color-a";

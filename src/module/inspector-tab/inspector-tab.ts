@@ -22,7 +22,7 @@ import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
 import { DropdownControl, NumberControl, SliderControl, TextControl } from "../control/control.js";
 import { ControlGroup } from "../control-group/control-group.js";
-import { IInspectorControlOption } from "../../../typescript/types.js";
+import { IInspectorControlOption } from "../../../ts/types.js";
 
 export const inspectorTab = () : void => {
 

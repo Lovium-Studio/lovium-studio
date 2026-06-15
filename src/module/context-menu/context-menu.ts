@@ -16,7 +16,7 @@
 
 // CONTEXT MENU : 
 
-import { IContextMenu } from "../../../typescript/types.js";
+import { IContextMenu } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 export const contextMenu = (buttonList : IContextMenu[] , event : MouseEvent ) : void =>  {

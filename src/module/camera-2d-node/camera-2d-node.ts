@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { Camera2dOption, CameraType } from "../../../typescript/types.js";
+import { Camera2dOption, CameraType } from "../../../ts/types.js";
 
 // CAMERA 2D : 
 

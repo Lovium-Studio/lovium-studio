@@ -16,8 +16,10 @@
 
 // SCENE TAB : 
 
+import { IScene2dOption } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 import { scene2d } from "../scene-2d/scene-2d.js";
+import { SpriteNode } from "../sprite-node/sprite-node.js";
 
 // SCENE TAB :
 
@@ -32,7 +34,27 @@ const resizeCanvas = (): void => {
 
 new ResizeObserver(() => {   
     resizeCanvas(); 
-}).observe(gui.sceneTab.sceneCanvasContainer);  
+}).observe(gui.sceneTab.sceneCanvasContainer);
+
+const spriteTest = new SpriteNode({
+    src : "https://cdn.gamedevmarket.net/wp-content/uploads/20200917133059/3af0c8e7df0b43d37fcd5cc736fc559d.png",
+    width : 200,
+    height : 200,
+    y : 50,
+    x : 50 
+})
+
+const sceneTemlate : IScene2dOption = {
+    name : "Stage 1",
+    id : "4454",
+    nodeList : [
+        {
+            node : spriteTest
+        }
+    ]
+}
+
+SCENE_2D.loadScene(sceneTemlate)
 
 const render = (): void => {
 
@@ -42,7 +64,7 @@ const render = (): void => {
 
 const frameLoop = (): void => {  
     render();
-    requestAnimationFrame(frameLoop);
+    requestAnimationFrame(frameLoop); 
 };
 
 export const sceneTab = (): void => { 

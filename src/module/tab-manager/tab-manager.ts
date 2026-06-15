@@ -4,7 +4,7 @@
 import { getUi } from "../get-ui/get-ui.js";
 import { console } from "../console/console.js";
 import { contextMenu } from "../context-menu/context-menu.js";
-import { ITab, TabLocationOption } from "../../../typescript/types.js";
+import { ITab, TabLocationOption } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 // SETUP : 

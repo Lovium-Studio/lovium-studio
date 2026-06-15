@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { SafeArea2dOption } from "../../../typescript/types.js";
+import { SafeArea2dOption } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 
 // SAFE AREA 2D : 

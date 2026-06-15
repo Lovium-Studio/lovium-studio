@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SceneNode } from "../../../typescript/types.js";
+import { IScene2dOption, SceneNode, SceneNodeOption } from "../../../ts/types.js";
 import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
 import { INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
@@ -25,27 +25,29 @@ import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
 
 class Scene2d {
 
-    private nodeList : SceneNode[];
+    private nodeList : SceneNodeOption[];
     private name : string ;
     private id : string;
     private isScene : boolean;
     private safeArea2d : SafeArea2d;
     private scene2dResizeHandle : ResizeHandle;
+    private lastSelectedNode : SceneNode | null;
 
     constructor(){
 
         this.nodeList = [];
         this.name = "";
         this.id = "";
-        this.isScene = false;   
+        this.isScene = false;  
+        this.lastSelectedNode = null; 
 
         // RESIZE HANDLE : 
 
         this.scene2dResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
 
-        // this.scene2dResizeHandle.config({
-        //     padding : 10 
-        // }) 
+        this.scene2dResizeHandle.config({
+            lineType : "DASHED"
+        })  
 
         // SAFE AREA 2D : 
 
@@ -56,7 +58,9 @@ class Scene2d {
             height: 400
         }); 
 
-        this.insertNode(this.safeArea2d);  
+        this.insertNode({ 
+            node : this.safeArea2d
+        });  
 
         // EVENT : 
         
@@ -67,25 +71,30 @@ class Scene2d {
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
 
-            this.nodeList.find(node => {
+            this.nodeList.find(n => { 
 
-                if(mouseX >= node.x && mouseX <= node.x + node.width && mouseY >= node.y && mouseY <= node.y + node.height && !node.isSelected){
+                if(mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height && !n.node.isSelected){
+
+                    if(this.lastSelectedNode && this.lastSelectedNode != n.node) {
+                        n.node.setSelected(false);  
+                        this.lastSelectedNode = n.node;  
+                    }; 
 
                     this.scene2dResizeHandle.setHandle({
-                        x : node.x,
-                        y : node.y,
-                        width : node.width,
-                        height : node.height,
+                        x : n.node.x,
+                        y : n.node.y,
+                        width : n.node.width,
+                        height : n.node.height,
                         rotate : false,   
                         type : "SINGLE_OBJECT",
                         object : "CANVAS"
                     }); 
 
                     this.scene2dResizeHandle.onTransform((coord => {
-                        node.setX(coord.x); 
-                        node.setY(coord.y);
-                        node.setWidth(coord.width);
-                        node.setHeight(coord.height);
+                        n.node.setX(coord.x); 
+                        n.node.setY(coord.y);
+                        n.node.setWidth(coord.width);
+                        n.node.setHeight(coord.height);
                         INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString());
                         INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString());
                         INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString());
@@ -99,21 +108,21 @@ class Scene2d {
 
                     this.scene2dResizeHandle.show();
 
-                    node.setSelected(true);  
+                    n.node.setSelected(true);  
 
                     return true; 
                 };
 
                 return false;
-            }); 
-
+            });  
+ 
         });
-    };
+    }; 
 
     public loadScene = ( scene : IScene2dOption ) : void => {
-        this.nodeList = scene.nodeList;
+        this.nodeList.push(...scene.nodeList) ;
         this.isScene = true;
-    };   
+    };    
 
     public getScene = () : void => {
         
@@ -124,7 +133,7 @@ class Scene2d {
         this.nodeList = [];
     };
 
-    public insertNode = ( node : SceneNode ) : void => {
+    public insertNode = ( node : SceneNodeOption ) : void => {
         this.nodeList.push(node);
         this.isScene = true;
     };
@@ -138,7 +147,7 @@ class Scene2d {
     }; 
 
     public renderScene = ( context : CanvasRenderingContext2D ) : void => {
-        if(this.isScene) this.nodeList.forEach(node => node.render(context));
+        if(this.isScene) this.nodeList.forEach(n => n.node.render(context));
     };
 };
 

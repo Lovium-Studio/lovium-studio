@@ -16,7 +16,7 @@
 
 // RESIZE HANDLE : 
 
-import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../typescript/types.js";
+import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 export class ResizeHandle {

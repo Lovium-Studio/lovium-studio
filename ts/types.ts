@@ -16,6 +16,7 @@
 
 import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
 import { SafeArea2d } from "../src/module/safe-area-2d/safe-area-2d.js";
+import { SpriteNode } from "../src/module/sprite-node/sprite-node.js";
 
 // TAB LOCATION TYPE : 
 
@@ -63,7 +64,7 @@ export type CameraType = "CAMERA_2D" | "CAMERA_3D";
 
 // TAB OPTION : 
 
-export type SceneNode =  SafeArea2d;
+export type SceneNode =  SafeArea2d | SpriteNode;
 // export type SceneNode = NodeSpriteOption | SafeArea2d;
 
 export interface ITab {
@@ -219,7 +220,13 @@ export interface NodeSpriteOption {
 export interface IScene2dOption {
     name : string,
     id : string, 
-    nodeList : SceneNode[],
+    nodeList : SceneNodeOption[],
+};
+
+// SCENE NODE OPTION : 
+
+export interface SceneNodeOption {
+    node : SceneNode
 };
 
 // CAMERA 2D OPTION : 
@@ -234,6 +241,16 @@ export interface Camera2dOption {
 // SAFE AREA 2D : 
 
 export interface SafeArea2dOption {
+    width : number,
+    height : number,
+    y : number,
+    x : number
+};
+
+// SPRITE NODE OTPION : 
+
+export interface SpriteNodeOption {
+    src : string,
     width : number,
     height : number,
     y : number,

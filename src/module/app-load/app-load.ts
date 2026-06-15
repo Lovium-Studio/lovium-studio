@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IInspectorControlOption, IStatusBadge, ITab } from "../../../typescript/types.js";
+import { IInspectorControlOption, IStatusBadge, ITab } from "../../../ts/types.js";
 import { assetTab } from "../asset-tab/asset-tab.js";
 import { codeTab } from "../code-tab/code-tab.js";
 import { console } from "../console/console.js";
@@ -25,7 +25,6 @@ import { statusBar } from "../status-bar/status-bar.js";
 import { gui } from "../gui/gui.js";
 import { tabManager } from "../tab-manager/tab-manager.js";
 import { sceneTab } from "../scene-tab/scene-tab.js";
-
 
 // APP LOAD :  
 

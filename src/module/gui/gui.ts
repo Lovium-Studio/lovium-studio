@@ -73,12 +73,12 @@ export const gui = {
     },
     sceneTab : {
         sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
-        sceneCanvasContainer : getUi("scene-canvas-container") as
-    },
+        sceneCanvasContainer : getUi("scene-canvas-container") as HTMLCanvasElement
+    }, 
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,
-        timelinePreNeedle : getUi("pre-needle") as HTMLDivElement,
+        timelinePreNeedle : getUi("pre-needle") as HTMLDivElement, 
         timelineForwardAnimationButton : getUi("forward-animation") as HTMLButtonElement,
         timelineBackwardAnimationButton : getUi("backward-animation") as HTMLButtonElement,
         timelineRuler : getUi("track-ruler") as HTMLDivElement,

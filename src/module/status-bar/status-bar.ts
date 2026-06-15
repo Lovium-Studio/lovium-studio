@@ -18,7 +18,7 @@
 
 import { getUi } from "../get-ui/get-ui.js";
 import { contextMenu } from "../context-menu/context-menu.js";
-import { IStatusBadge } from "../../../typescript/types.js";
+import { IStatusBadge } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 export const statusBar = ( badgeList : IStatusBadge[] ) : void => {

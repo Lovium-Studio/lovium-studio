@@ -4,7 +4,7 @@
 import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
 import { contextMenu } from "../context-menu/context-menu.js";
-import { IAnimationTrackOption } from "../../../typescript/types.js";
+import { IAnimationTrackOption } from "../../../ts/types.js";
 
 // SETUP :  
 

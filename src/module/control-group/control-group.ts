@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ControlGroupAddType, IControlGroupOption } from "../../../typescript/types.js";
+import { ControlGroupAddType, IControlGroupOption } from "../../../ts/types.js";
 
 // CONTROL GROUP : 
 

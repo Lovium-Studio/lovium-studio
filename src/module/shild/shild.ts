@@ -16,7 +16,7 @@
 
 // UI SHILD : 
 
-import { IMainShield } from "../../../typescript/types.js";
+import { IMainShield } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 const uiShild = gui.mainShield;
