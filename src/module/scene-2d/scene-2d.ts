@@ -25,131 +25,222 @@ import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
 
 class Scene2d {
 
-    private nodeList : SceneNodeOption[];
-    private name : string ;
-    private id : string;
-    private isScene : boolean;
-    private safeArea2d : SafeArea2d;
-    private scene2dResizeHandle : ResizeHandle;
-    private lastSelectedNode : SceneNode | null;
+    private nodeList: SceneNodeOption[];
+    private name: string;
+    private id: string;
+    private isScene: boolean;
+    private safeArea2d: SafeArea2d;
+    private scene2dResizeHandle: ResizeHandle;
+    private lastSelectedNode: SceneNode | null;
 
-    constructor(){
+    constructor() {
 
         this.nodeList = [];
         this.name = "";
         this.id = "";
-        this.isScene = false;  
-        this.lastSelectedNode = null; 
+        this.isScene = false;
+        this.lastSelectedNode = null;
 
-        // RESIZE HANDLE : 
+        // RESIZE HANDLE :
 
         this.scene2dResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
 
         this.scene2dResizeHandle.config({
-            lineType : "DASHED"
-        })  
+            lineType: "DASHED",
+        }); 
 
-        // SAFE AREA 2D : 
+        // SAFE AREA 2D :
 
         this.safeArea2d = new SafeArea2d({
             x: 200,
             y: 100,
             width: 500,
             height: 400
-        }); 
+        });
 
-        this.insertNode({ 
-            node : this.safeArea2d
-        });  
+        this.insertNode({
+            node: this.safeArea2d
+        });
 
-        // EVENT : 
-        
-        gui.sceneTab.sceneCanvasContainer.addEventListener("click",(e: MouseEvent)=>{
+        // RESIZE HANDLE EVENT :
 
-            const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect();
+        this.scene2dResizeHandle.onTransform(coord => {
+
+            if (!this.lastSelectedNode) return;
+            
+            this.lastSelectedNode.setX(coord.x);
+            this.lastSelectedNode.setY(coord.y);
+            this.lastSelectedNode.setWidth(coord.width);
+            this.lastSelectedNode.setHeight(coord.height);
+
+            INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString());
+            INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString());
+            INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString());
+            INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString());
+
+        });
+
+        // INSPECTOR EVENT :
+
+        INSPECTOR_SCALE_X_CONTROL.onWrite(value => {
+
+            this.scene2dResizeHandle.setWidth(parseInt(value));
+
+        });
+
+        INSPECTOR_SCALE_Y_CONTROL.onWrite(value => {
+
+            this.scene2dResizeHandle.setHeight(parseInt(value));
+
+        });
+
+        INSPECTOR_TRANSLATE_X_CONTROL.onWrite(value => { 
+
+            this.scene2dResizeHandle.setX(parseInt(value));
+
+        });
+
+        INSPECTOR_TRANSLATE_Y_CONTROL.onWrite(value => {
+
+            this.scene2dResizeHandle.setY(parseInt(value));
+
+        });
+
+        // SCENE CLICK EVENT : 
+
+        gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
+
+            const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
 
-            this.nodeList.find(n => { 
+            this.nodeList.find(n => {
 
-                if(mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height && !n.node.isSelected){
+                if (mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height) {
 
-                    if(this.lastSelectedNode && this.lastSelectedNode != n.node) {
-                        n.node.setSelected(false);  
-                        this.lastSelectedNode = n.node;  
-                    }; 
+                    // DESELECT OLD NODE :
+
+                    if (this.lastSelectedNode && this.lastSelectedNode !== n.node) {
+
+                        this.lastSelectedNode.setSelected(false);
+
+                    };
+
+                    // SELECT NEW NODE :
+
+                    this.lastSelectedNode = n.node;
+
+                    n.node.setSelected(true);
+
+                    // UPDATE RESIZE HANDLE :
 
                     this.scene2dResizeHandle.setHandle({
-                        x : n.node.x,
-                        y : n.node.y,
-                        width : n.node.width,
-                        height : n.node.height,
-                        rotate : false,   
-                        type : "SINGLE_OBJECT",
-                        object : "CANVAS"
+                        x: n.node.x,
+                        y: n.node.y,
+                        width: n.node.width,
+                        height: n.node.height,
+                        rotate: false,
+                        type: "SINGLE_OBJECT",
+                        object: "CANVAS"
                     }); 
-
-                    this.scene2dResizeHandle.onTransform((coord => {
-                        n.node.setX(coord.x); 
-                        n.node.setY(coord.y);
-                        n.node.setWidth(coord.width);
-                        n.node.setHeight(coord.height);
-                        INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString());
-                        INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString());
-                        INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString());
-                        INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString());
-                    }));  
-
-                    INSPECTOR_SCALE_X_CONTROL.onWrite(value=> this.scene2dResizeHandle.setWidth(parseInt(value)));
-                    INSPECTOR_SCALE_Y_CONTROL.onWrite(value=> this.scene2dResizeHandle.setHeight(parseInt(value)));
-                    INSPECTOR_TRANSLATE_X_CONTROL.onWrite(value=> this.scene2dResizeHandle.setX(parseInt(value)));
-                    INSPECTOR_TRANSLATE_Y_CONTROL.onWrite(value=> this.scene2dResizeHandle.setY(parseInt(value))); 
 
                     this.scene2dResizeHandle.show();
 
-                    n.node.setSelected(true);  
+                    // UPDATE INSPECTOR :  
 
-                    return true; 
+                    INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width.toString());
+                    INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height.toString());
+                    INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x.toString());
+                    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(n.node.y.toString()); 
+
+                    return true;
                 };
 
                 return false;
-            });  
- 
+            });
+
         });
-    }; 
 
-    public loadScene = ( scene : IScene2dOption ) : void => {
-        this.nodeList.push(...scene.nodeList) ;
-        this.isScene = true;
-    };    
-
-    public getScene = () : void => {
-        
     };
 
-    public clearScene = () : void => {
+    public loadScene = (scene: IScene2dOption): void => {
+
+        this.nodeList.push(...scene.nodeList);
+
+        this.isScene = true;
+
+    };
+
+    public getScene = (): SceneNodeOption[] => {
+
+        return this.nodeList;
+
+    };
+
+    public clearScene = (): void => {
+
         this.isScene = false;
+
         this.nodeList = [];
+
+        this.lastSelectedNode = null;
+
+        this.scene2dResizeHandle.hide();
+
     };
 
-    public insertNode = ( node : SceneNodeOption ) : void => {
+    public insertNode = (node: SceneNodeOption): void => {
+
         this.nodeList.push(node);
+
         this.isScene = true;
-    };
- 
-    public deleteNode = ( node : SceneNode ) : void => {
 
     };
 
-    public updateNode = ( node : SceneNode ) : void => {
+    public deleteNode = (node: SceneNode): void => {
 
-    }; 
+        this.nodeList = this.nodeList.filter(n => n.node !== node); 
 
-    public renderScene = ( context : CanvasRenderingContext2D ) : void => {
-        if(this.isScene) this.nodeList.forEach(n => n.node.render(context));
+        if (this.lastSelectedNode === node) {
+
+            this.lastSelectedNode = null;
+
+            this.scene2dResizeHandle.hide();
+
+        };
+
     };
-};
+
+    public updateNode = (node: SceneNode): void => {
+
+        if (this.lastSelectedNode === node) {
+
+            this.scene2dResizeHandle.setHandle({
+                x: node.x,
+                y: node.y,
+                width: node.width,
+                height: node.height,
+                rotate: false,
+                type: "SINGLE_OBJECT",
+                object: "CANVAS"
+            });
+
+        };
+
+    };
+
+    public renderScene = (context: CanvasRenderingContext2D): void => {
+
+        if (this.isScene) {
+
+            this.nodeList.forEach(n => n.node.render(context));
+
+        };
+
+    };
+
+}
 
 export const scene2d : Scene2d = new Scene2d();
 

@@ -156,7 +156,7 @@ export class ResizeHandle {
     public setWidth = (width: number): void => {
         this.handleRect.style.width = `${width}px`;
         this.notifyListeners();
-    };
+    };  
 
     public setHeight = (height: number): void => {
         this.handleRect.style.height = `${height}px`;
@@ -242,7 +242,7 @@ export class ResizeHandle {
             this.handleRightCenter.style.height = "30px";
         }
 
-        this.notifyListeners();    
+        this.notifyListeners();      
     };
 
     public config = ( option : IResizeHandleConfigOption) : void => {
@@ -267,8 +267,8 @@ export class ResizeHandle {
         return {
             x: this.handleRect.offsetLeft + this.padding,
             y: this.handleRect.offsetTop + this.padding,
-            width: this.handleRect.offsetWidth - this.padding * 2,
-            height: this.handleRect.offsetHeight - this.padding * 2
+            width: this.handleRect.offsetWidth - this.padding * 2 ,
+            height: this.handleRect.offsetHeight - this.padding * 2  
         };
     };
 
@@ -313,7 +313,7 @@ export class ResizeHandle {
                     this.handleRect.style.width = `${Math.max(this.startWidth + dx, 20)}px`;
                     break;
             }
-        } else if (this.isMoving) {
+        } else if (this.isMoving) { 
             const dx = event.clientX - this.startX;
             const dy = event.clientY - this.startY;
             this.handleRect.style.left = `${this.startLeft + dx}px`;
