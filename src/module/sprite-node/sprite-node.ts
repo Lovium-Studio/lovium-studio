@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { SpriteNodeOption } from "../../../ts/types.js";
+import { NodeLocation, Scene2dNodeType, SpriteNodeOption } from "../../../ts/types.js";
 
 // SPRITE NODE : 
 
@@ -26,6 +26,9 @@ export class SpriteNode {
     public height : number;
     public image : HTMLImageElement;
     public isSelected : boolean;
+    public type : Scene2dNodeType;
+    public location : NodeLocation;
+    public isSelectable : boolean;
     
     private src : string;
     private isLoaded : boolean;
@@ -33,12 +36,15 @@ export class SpriteNode {
     constructor(option : SpriteNodeOption){ 
 
         this.src = option.src;
-        this.x = 0;
-        this.y = 0;
-        this.isLoaded = false;
+        this.x = option.x;
+        this.y = option.y; 
+        this.isLoaded = false; 
         this.width = option.width;
         this.height = option.height;
         this.isSelected = false;
+        this.type = "SPRITE_NODE";
+        this.location = "FOREIGNER";
+        this.isSelectable = true;
 
         this.image = new Image();
         this.image.src = this.src;

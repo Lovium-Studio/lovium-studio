@@ -18,6 +18,7 @@
 
 import { IScene2dOption } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
+import { nodeProcessor } from "../node-processor/node-processor.js";
 import { scene2d } from "../scene-2d/scene-2d.js";
 import { SpriteNode } from "../sprite-node/sprite-node.js";
 
@@ -30,31 +31,87 @@ const resizeCanvas = (): void => {
     const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
     gui.sceneTab.sceneCanvas.width = rect.width - 1;
     gui.sceneTab.sceneCanvas.height = rect.height - 2; 
-};
+}; 
 
 new ResizeObserver(() => {   
     resizeCanvas(); 
 }).observe(gui.sceneTab.sceneCanvasContainer);
 
-const spriteTest = new SpriteNode({
-    src : "https://cdn.gamedevmarket.net/wp-content/uploads/20200917133059/3af0c8e7df0b43d37fcd5cc736fc559d.png",
-    width : 200,
-    height : 200,
-    y : 50,
-    x : 50 
-})
 
 const sceneTemlate : IScene2dOption = {
     name : "Stage 1",
+    type : "2D_SCENE",
     id : "4454",
     nodeList : [
         {
-            node : spriteTest
+            type : "SPRITE_NODE",
+            x : 100,
+            y : 100, 
+            width : 100,
+            height : 100,
+            src : "../.././src/asset/asset-template/grassHalf.png",
+            location : "FOREIGNER"
+        },
+        {
+            type : "SPRITE_NODE",
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,
+            src : "../.././src/asset/asset-template/grassHalfLeft.png",
+            location : "FOREIGNER"
+        },
+        {
+            type : "SPRITE_NODE",
+            x : 300,
+            y : 100, 
+            width : 100,
+            height : 100, 
+            src : "../.././src/asset/asset-template/grassHalfMid.png",
+            location : "FOREIGNER"
+        },
+        {
+            type : "SPRITE_NODE", 
+            x : 400,
+            y : 200, 
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/grassHalfRight.png",
+            location : "FOREIGNER"
+        },
+        {
+            type : "SPRITE_NODE",
+            x : 300,
+            y : 100, 
+            width : 100,
+            height : 100, 
+            src : "../.././src/asset/asset-template/fence.png",
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100, 
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/box.png",
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/signExit.png", 
+            location : "FOREIGNER"
         }
     ]
 }
 
-SCENE_2D.loadScene(sceneTemlate)
+const processor = nodeProcessor(sceneTemlate);
+
+SCENE_2D.loadScene(processor);
 
 const render = (): void => {
 

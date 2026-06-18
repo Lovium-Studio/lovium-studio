@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SceneNode, SceneNodeOption } from "../../../ts/types.js";
+import { IScene2dOption, SceneNode, SceneNodeOption,SceneNodeListType } from "../../../ts/types.js";
 import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
 import { INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
@@ -25,13 +25,15 @@ import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
 
 class Scene2d {
 
-    private nodeList: SceneNodeOption[];
+    private nodeList: SceneNodeListType[];
     private name: string;
     private id: string;
     private isScene: boolean;
     private safeArea2d: SafeArea2d;
     private scene2dResizeHandle: ResizeHandle;
     private lastSelectedNode: SceneNode | null;
+    private selectedNode: SceneNode | null;
+    private sceneContainerRect : DOMRect;
 
     constructor() {
 
@@ -40,7 +42,9 @@ class Scene2d {
         this.id = "";
         this.isScene = false;
         this.lastSelectedNode = null;
-
+        this.selectedNode = null;
+        this.sceneContainerRect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
+        
         // RESIZE HANDLE :
 
         this.scene2dResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
@@ -51,15 +55,23 @@ class Scene2d {
 
         // SAFE AREA 2D :
 
+        const safeAreaStartPadding : number = 20;
+
         this.safeArea2d = new SafeArea2d({
-            x: 200,
-            y: 100,
-            width: 500,
-            height: 400
+            x: safeAreaStartPadding,   
+            y: safeAreaStartPadding,
+            width: 700,
+            height: 350 
         });
 
         this.insertNode({
-            node: this.safeArea2d
+            node: this.safeArea2d, 
+            type : "SAFE_AREA_NODE", 
+            width : 200,
+            height : 100, 
+            y : 200,
+            x : 100, 
+            location : "NATIVE"
         });
 
         // RESIZE HANDLE EVENT :
@@ -117,7 +129,9 @@ class Scene2d {
 
             this.nodeList.find(n => {
 
-                if (mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height) {
+                if(!n.node) return;
+
+                if (mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height && n.node.isSelectable) {
 
                     // DESELECT OLD NODE :
 
@@ -127,12 +141,13 @@ class Scene2d {
 
                     };
 
-                    // SELECT NEW NODE :
+                    // SELECT NEW NODE : 
 
-                    this.lastSelectedNode = n.node;
+                    this.lastSelectedNode = n.node; 
+                    this.selectedNode = n.node; 
 
                     n.node.setSelected(true);
-
+ 
                     // UPDATE RESIZE HANDLE :
 
                     this.scene2dResizeHandle.setHandle({
@@ -164,7 +179,7 @@ class Scene2d {
 
     };
 
-    public loadScene = (scene: IScene2dOption): void => {
+    public loadScene = (scene: IScene2dOption ): void => {
 
         this.nodeList.push(...scene.nodeList);
 
@@ -172,7 +187,7 @@ class Scene2d {
 
     };
 
-    public getScene = (): SceneNodeOption[] => {
+    public getScene = (): SceneNodeListType[] => {
 
         return this.nodeList;
 
@@ -190,7 +205,7 @@ class Scene2d {
 
     };
 
-    public insertNode = (node: SceneNodeOption): void => {
+    public insertNode = (node: SceneNodeListType): void => {
 
         this.nodeList.push(node);
 
@@ -234,7 +249,9 @@ class Scene2d {
 
         if (this.isScene) {
 
-            this.nodeList.forEach(n => n.node.render(context));
+            this.nodeList.forEach(n =>{ 
+                if(n.node) n.node.render(context)
+            });
 
         };
 

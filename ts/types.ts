@@ -56,16 +56,27 @@ export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEA
 
 // SCENE 2D NODE TYPE : 
 
-export type Scene2dNodeType = "SPRITE_NODE";
+export type Scene2dNodeType = "SPRITE_NODE" | "SAFE_AREA_NODE";
 
 // CAMERA TYPE : 
 
 export type CameraType = "CAMERA_2D" | "CAMERA_3D";
 
+// NODE LOCATION TYPE : 
+
+export type NodeLocation = "NATIVE" | "FOREIGNER";
+
+// SCENE TYPE : 
+
+export type SceneType = "2D_SCENE" | "25D_SCENE" | "3D_SCENE";
+
+// NODE PROPERTY CONTROL TYPE : 
+
+export type NodePropertyControlType = "TRANSLASTE_X"
+
 // TAB OPTION : 
 
 export type SceneNode =  SafeArea2d | SpriteNode;
-// export type SceneNode = NodeSpriteOption | SafeArea2d;
 
 export interface ITab {
     name: string,
@@ -214,18 +225,40 @@ export interface NodeSpriteOption {
 
 };
 
+export type SceneNodeListType = SceneSpriteNodeOption | SceneSafeAreaNodeOption
+
 // SCENE OPTION : 
 
 export interface IScene2dOption {
     name : string,
     id : string, 
-    nodeList : SceneNodeOption[],
+    type : SceneType,
+    nodeList : SceneNodeListType[],
 };
 
-// SCENE NODE OPTION : 
+// SCENE SAFE AREA NOE OPTION : 
 
-export interface SceneNodeOption {
-    node : SceneNode
+export interface SceneSafeAreaNodeOption {
+    node ? : SafeArea2d | null,
+    type : Scene2dNodeType,
+    width : number,
+    height : number,
+    y : number,
+    x : number,
+    location : NodeLocation
+}
+
+// SCENE SPRITE NODE OPTION : 
+
+export interface SceneSpriteNodeOption {
+    node ? : SpriteNode | null,
+    type : Scene2dNodeType,
+    x : number,
+    y : number,
+    width : number,
+    height : number,
+    src : string,
+    location : NodeLocation
 };
 
 // CAMERA 2D OPTION : 
@@ -235,6 +268,13 @@ export interface Camera2dOption {
     y : number,
     width : number,
     height : number
+};
+
+// SCENE NODE OPTION : 
+
+export interface SceneNodeOption {
+    node : SceneNode | null
+    config : SpriteNodeOption | SafeArea2dOption
 };
 
 // SAFE AREA 2D : 
@@ -249,6 +289,7 @@ export interface SafeArea2dOption {
 // SPRITE NODE OTPION : 
 
 export interface SpriteNodeOption {
+    type : Scene2dNodeType
     src : string,
     width : number,
     height : number,

@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { SafeArea2dOption } from "../../../ts/types.js";
+import { NodeLocation, SafeArea2dOption, Scene2dNodeType } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 
 // SAFE AREA 2D : 
@@ -28,6 +28,10 @@ export class SafeArea2d {
     public width : number;
     public height : number;
     public isSelected : boolean;
+    public type : Scene2dNodeType;
+    public location : NodeLocation;
+    public isSelectable : boolean;
+    public padding : number;
 
     constructor ( option : SafeArea2dOption ) {
         this.x = option.x;
@@ -36,17 +40,50 @@ export class SafeArea2d {
         this.height = option.height;  
         this.isStatic = true;
         this.isSelected = false;
+        this.type = "SAFE_AREA_NODE";
+        this.location = "NATIVE";
+        this.isSelectable = false;
+        this.padding = 10;
     };
 
     public setSelected = (state : boolean ) : boolean => this.isSelected = state;
 
-    public render = ( context : CanvasRenderingContext2D ) : void => {
+    public render = (context: CanvasRenderingContext2D): void => {
 
-        context.strokeStyle = getCSSVar("--color-a");
-        context.lineWidth = 1;
-        context.strokeRect(this.x, this.y, this.width, this.height);
+        const x: number = Math.floor(this.x) + 0.5;
+        const y: number = Math.floor(this.y) + 0.5;
+        
+        const width: number = Math.floor(this.width);
+        const height: number = Math.floor(this.height);
+        const padding: number = Math.floor(this.padding);
 
-    }; 
+        context.strokeStyle = getCSSVar("--color-b");
+        context.lineWidth = 1; 
+
+        context.strokeRect(x, y, width, height);
+        context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
+
+        context.beginPath();
+        context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
+        context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
+        context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
+        context.lineTo(Math.floor(x + width / 2) + 0.5, y);
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
+        context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
+        context.stroke();
+
+    };
 
     public setCoordinate = (x : number , y : number) : void => {
         if(x) this.x = x;
