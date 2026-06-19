@@ -16,6 +16,7 @@
 
 import { NodeLocation, SafeArea2dOption, Scene2dNodeType } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
+import { INSPECTOR_SAFE_AREA_SCALE_X_CONTROL, INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 
 // SAFE AREA 2D : 
 
@@ -34,6 +35,7 @@ export class SafeArea2d {
     public padding : number;
 
     constructor ( option : SafeArea2dOption ) {
+
         this.x = option.x;
         this.y = option.y;
         this.width = option.width; 
@@ -44,6 +46,31 @@ export class SafeArea2d {
         this.location = "NATIVE";
         this.isSelectable = false;
         this.padding = 10;
+
+        INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.onWrite(value => {
+            this.setWidth(Number(value));
+        });
+
+        INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.setValue(this.width.toString());
+
+        INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL.onWrite(value => {
+            this.setHeight(Number(value));
+        });
+
+        INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL.setValue(this.height.toString());
+
+        INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.onWrite(value => {
+            this.setX(Number(value));
+        });
+
+        INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.setValue(this.x.toString());
+
+        INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL.onWrite(value => {
+            this.setY(Number(value));
+        });
+ 
+        INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL.setValue(this.y.toString()); 
+
     };
 
     public setSelected = (state : boolean ) : boolean => this.isSelected = state;

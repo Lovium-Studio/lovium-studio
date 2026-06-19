@@ -88,6 +88,15 @@ const sceneTemlate : IScene2dOption = {
             src : "../.././src/asset/asset-template/fence.png",
             location : "FOREIGNER"
         },
+        {
+            type : "SPRITE_NODE",
+            x : 300,
+            y : 100, 
+            width : 100,
+            height : 100, 
+            src : "../.././src/asset/asset-template/p1_stand.png",
+            location : "FOREIGNER"
+        },
         { 
             type : "SPRITE_NODE", 
             x : 300,

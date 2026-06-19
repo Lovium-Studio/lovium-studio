@@ -52,7 +52,7 @@ export type ControlGroupAddType = TextControl | NumberControl | SliderControl | 
 
 // INSPECTOR CONTROL GROUP TYOE : 
 
-export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEARANCE" | "ANIMATION" | "GRID" | "COLLISION";
+export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEARANCE" | "ANIMATION" | "GRID" | "COLLISION" | "SAFE_AREA";
 
 // SCENE 2D NODE TYPE : 
 

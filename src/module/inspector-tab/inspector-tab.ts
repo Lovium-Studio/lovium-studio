@@ -193,3 +193,31 @@ export const INSPECTOR_COLLISION_CONTROL : DropdownControl = new DropdownControl
 export const INSPECTOR_COLLISION_VISIBILITY_CONTROL : DropdownControl = new DropdownControl({
     label : "Visibility"
 });
+
+// SAFE AREA CONTROL GROUP : 
+
+export const INSPECTOR_SAFE_AREA_CONTROL_GROUP : ControlGroup = new ControlGroup({
+    label : "Safe Area",
+    container : gui.nativeTab.inspectorTab
+});
+
+export const INSPECTOR_SAFE_AREA_SCALE_X_CONTROL : NumberControl = new NumberControl({
+    label: "Scale"
+});
+
+export const INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL : NumberControl = new NumberControl({
+    label: "Scale"
+});
+
+INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.joinControl(INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL);
+
+export const INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL : NumberControl = new NumberControl({
+    label: "Translate"
+});
+
+export const INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL : NumberControl = new NumberControl({
+    label: "Translate"
+});
+
+INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.joinControl(INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL);
+
