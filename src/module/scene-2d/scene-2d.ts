@@ -16,6 +16,7 @@
 
 import { IScene2dOption, SceneNode, SceneNodeOption,SceneNodeListType } from "../../../ts/types.js";
 import { console } from "../console/console.js";
+import { CrossGuide } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
 import { INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { ResizeHandle } from "../resize-handle/resize-handle.js";
@@ -34,6 +35,7 @@ class Scene2d {
     private lastSelectedNode: SceneNode | null;
     private selectedNode: SceneNode | null;
     private sceneContainerRect : DOMRect;
+    private crossGuide : CrossGuide;
 
     constructor() {
 
@@ -72,6 +74,13 @@ class Scene2d {
             y : 200,
             x : 100, 
             location : "NATIVE"
+        });
+
+        // CORSS GUIDE : 
+
+        this.crossGuide = new CrossGuide({
+            safeArea2d : this.safeArea2d,
+            resizeHandle : this.scene2dResizeHandle
         });
 
         // RESIZE HANDLE EVENT :
@@ -245,7 +254,13 @@ class Scene2d {
 
     };
 
+    private renderNative = (context: CanvasRenderingContext2D) : void => {
+        this.crossGuide.render(context)
+    };
+
     public renderScene = (context: CanvasRenderingContext2D): void => {
+
+        this.renderNative(context);
 
         if (this.isScene) {
 
