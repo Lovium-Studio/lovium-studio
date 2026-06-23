@@ -193,3 +193,12 @@ body{
     box-sizing: border-box;
     background: var(--color-d);
 }
+
+.menu-horizontal-separator{
+    position: relative;
+    width: 1px; 
+    height: 30%;
+    background: var(--color-c);
+    margin-left: 5px;
+    margin-right: 5px;
+}

@@ -55,7 +55,7 @@ export class SceneLabel {
 
     public setX = ( x : number ) : void => {
         this.x = x; 
-        this.updateTransform();
+        this.updateTransform();  
     };
 
     public setY = ( y : number ) : void => {

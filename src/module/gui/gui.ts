@@ -71,8 +71,9 @@ export const gui = {
     sceneTab : {
         sceneGUIContainer : getUi("scene-gui-container") as HTMLDivElement,
         sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
-        sceneCanvasContainer : getUi("scene-canvas-container") as HTMLDivElement
-    }, 
+        sceneCanvasContainer : getUi("scene-canvas-container") as HTMLDivElement,
+        scene2dAlignHorizontalButton : getUi("scene-2d-align-horizontal-button") as HTMLButtonElement
+    },
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,

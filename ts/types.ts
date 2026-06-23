@@ -77,7 +77,7 @@ export type NodePropertyControlType = "TRANSLASTE_X"
 
 // TAB OPTION : 
 
-export type SceneNode =  SafeArea2d | SpriteNode;
+export type SceneNode = SpriteNode;
 
 export interface ITab {
     name: string,
@@ -196,7 +196,11 @@ export interface INumberControl {
 // SLIDER CONTROL OPTION : 
 
 export interface ISliderControl {
-    label : string
+    label : string,
+    min : number,
+    max : number,
+    step ? : number
+    value : number
 };
 
 // DROPDOWN CONTROL OPTION : 
@@ -226,7 +230,7 @@ export interface NodeSpriteOption {
 
 };
 
-export type SceneNodeListType = SceneSpriteNodeOption | SceneSafeAreaNodeOption
+export type SceneNodeListType = SceneSpriteNodeOption
 
 // SCENE OPTION : 
 
@@ -259,7 +263,8 @@ export interface SceneSpriteNodeOption {
     width : number,
     height : number,
     src : string,
-    location : NodeLocation
+    location : NodeLocation,
+    opacity : number
 };
 
 // CAMERA 2D OPTION : 
@@ -295,7 +300,8 @@ export interface SpriteNodeOption {
     width : number,
     height : number,
     y : number,
-    x : number
+    x : number,
+    opacity : number
 };
 
 // CROSS GUIDE OPTION : 
@@ -311,22 +317,12 @@ export interface ISceneLabel {
     container : HTMLDivElement
 }
 
+// GRID 2D : 
 
-// function drawGrid(cellWidth, cellHeight) {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.beginPath();
-//         ctx.strokeStyle = '#ddd';
-//         ctx.lineWidth = lineThickness;
-
-//         for (let x = offsetX % cellWidth; x < canvas.width; x += cellWidth) {
-//             ctx.moveTo(x, 0);
-//             ctx.lineTo(x, canvas.height);
-//         }
-
-//         for (let y = offsetY % cellHeight; y < canvas.height; y += cellHeight) {
-//             ctx.moveTo(0, y);
-//             ctx.lineTo(canvas.width, y);
-//         }
-
-//         ctx.stroke();
-//     }
+export interface IGrid2D {
+    canvas : HTMLCanvasElement,
+    width : number,
+    height : number,
+    x : number,
+    y : number
+};

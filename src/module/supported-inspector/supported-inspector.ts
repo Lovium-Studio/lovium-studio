@@ -14,40 +14,8 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SpriteNodeOption } from "../../../ts/types.js";
-import { SpriteNode } from "../sprite-node/sprite-node.js";
+// SUPPORTED INSPECTOR : 
 
-// NODE PROCESSOR : 
-
-type SceneType = IScene2dOption;
-
-export const nodeProcessor = ( scene : SceneType ) : SceneType => {
-
-    const nodeList = scene.nodeList;
-    
-    nodeList.forEach(node => {
-
-        switch (node.type) {
-
-            case "SPRITE_NODE":  
-
-                const n : SpriteNodeOption = node;
-
-                const SPRITE_NODE = new SpriteNode({
-                    type : n.type,
-                    src : n.src, 
-                    width : n.width,
-                    height : n.height,
-                    x : n.x, 
-                    y : n.y,
-                    opacity : n.opacity
-                });
-
-                node.node = SPRITE_NODE;
-
-            break;
-        };
-    });
-    
-    return scene;
-};
+export const SUPPORTED_INSPECTOR = [
+    "ALIGN_HORIZONTAL"
+];

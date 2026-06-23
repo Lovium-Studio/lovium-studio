@@ -2897,7 +2897,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 3px;
   padding-left: 5px;
   padding-right: 5px;
-  transform-origin: center center;
+  transform-origin: center;
 }
 
 #scene-gui-container {
@@ -2906,7 +2906,6 @@ input[type=number]::-webkit-outer-spin-button {
   height: 100%;
   box-sizing: border-box;
   z-index: 10;
-  border: 1px solid red;
 }
 
 body {
@@ -3035,6 +3034,15 @@ body i {
   height: 100%;
   box-sizing: border-box;
   background: var(--color-d);
+}
+
+.menu-horizontal-separator {
+  position: relative;
+  width: 1px;
+  height: 30%;
+  background: var(--color-c);
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /*# sourceMappingURL=global.css.map */

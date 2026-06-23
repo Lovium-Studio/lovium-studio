@@ -15,10 +15,11 @@
 /**************************************************************************/
 
 import { IScene2dOption, SceneNode, SceneNodeOption,SceneNodeListType } from "../../../ts/types.js";
+import { Grid2D } from "../2d-grid/2d-grid.js";
 import { console } from "../console/console.js";
 import { CrossGuide } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
-import { INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
+import { INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { ResizeHandle } from "../resize-handle/resize-handle.js";
 import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
 
@@ -37,6 +38,7 @@ class Scene2d {
     private SAFE_AREAD_2D : SafeArea2d;
     private RESIZE_HANDLE : ResizeHandle;
     private CROSS_GUIDE : CrossGuide;
+    private GRID_2D : Grid2D;
 
     constructor() {
 
@@ -67,15 +69,15 @@ class Scene2d {
             height: 350 
         });
 
-        this.insertNode({
-            node: this.SAFE_AREAD_2D, 
-            type : "SAFE_AREA_NODE", 
-            width : 200,
-            height : 100, 
-            y : 200,
-            x : 100, 
-            location : "NATIVE"
-        });
+        // 2D GRID : 
+
+        this.GRID_2D = new Grid2D({
+            canvas : gui.sceneTab.sceneCanvas,
+            width : 10,
+            height : 10,
+            x : 0,
+            y : 0
+        }); 
 
         // CORSS GUIDE : 
 
@@ -100,6 +102,23 @@ class Scene2d {
             INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString());
             INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString());
 
+        });
+
+        gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{
+            if(this.selectedNode){
+
+                const x = ( this.SAFE_AREAD_2D.x + this.SAFE_AREAD_2D.width ) / 2 - this.selectedNode.width / 2;
+                this.selectedNode.setX(x) 
+                this.RESIZE_HANDLE.setNode(this.selectedNode) 
+ 
+            }; 
+        });
+
+        INSPECTOR_OPACITY_CONTROL.onDrag(value => {
+            if(this.selectedNode?.type === "SPRITE_NODE"){
+                this.selectedNode.setOpacity(parseFloat(value))
+                console(value) 
+            };
         });
 
         // this.RESIZE_HANDLE.onHandleMouseUp((handle : any)=>{
@@ -145,8 +164,12 @@ class Scene2d {
 
         });
 
-        // SCENE CLICK EVENT : 
+        INSPECTOR_ROTATE_CONTROL.onWrite(value => {
+            this.GRID_2D.setX(parseInt(value)) 
+        });
 
+        // SCENE CLICK EVENT : 
+ 
         gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
             const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
@@ -163,9 +186,7 @@ class Scene2d {
                     // DESELECT OLD NODE :
 
                     if (this.lastSelectedNode && this.lastSelectedNode !== n.node) {
-
                         this.lastSelectedNode.setSelected(false);
-
                     };
 
                     // SELECT NEW NODE : 
@@ -188,6 +209,12 @@ class Scene2d {
                     }); 
 
                     this.RESIZE_HANDLE.show();
+
+                    // GET OPACITY :   
+
+                    if (this.selectedNode?.type === "SPRITE_NODE") {
+                        INSPECTOR_OPACITY_CONTROL.setValue(this.selectedNode.opacity); 
+                    }; 
 
                     // UPDATE INSPECTOR :  
 
@@ -272,21 +299,34 @@ class Scene2d {
 
     };
 
-    private renderNative = (context: CanvasRenderingContext2D) : void => {
-        this.CROSS_GUIDE.render(context)
+
+
+    private renderAbove = (context: CanvasRenderingContext2D) : void => {
+        this.CROSS_GUIDE.render(context);
+        this.SAFE_AREAD_2D.render(context);
+    };
+
+    private renderBelow = (context: CanvasRenderingContext2D) : void => {
+        this.GRID_2D.render(context) 
     };
 
     public renderScene = (context: CanvasRenderingContext2D): void => {
 
+        context.save();
+
+        this.renderBelow(context); 
+
         if (this.isScene) {
 
             this.nodeList.forEach(n =>{ 
-                if(n.node) n.node.render(context)
-                });
+                if(n.node) n.node.render(context);
+            });
             
         };
 
-        this.renderNative(context);
+        this.renderAbove(context);
+
+        context.restore();
 
     };
 

@@ -36,19 +36,5 @@
 ;
 ;
 ;
+;
 export {};
-// function drawGrid(cellWidth, cellHeight) {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         ctx.beginPath();
-//         ctx.strokeStyle = '#ddd';
-//         ctx.lineWidth = lineThickness;
-//         for (let x = offsetX % cellWidth; x < canvas.width; x += cellWidth) {
-//             ctx.moveTo(x, 0);
-//             ctx.lineTo(x, canvas.height);
-//         }
-//         for (let y = offsetY % cellHeight; y < canvas.height; y += cellHeight) {
-//             ctx.moveTo(0, y);
-//             ctx.lineTo(canvas.width, y);
-//         }
-//         ctx.stroke();
-//     }

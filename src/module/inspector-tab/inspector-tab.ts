@@ -142,7 +142,11 @@ export const INSPECTOR_APPEARANCE_CONTROL_GROUP : ControlGroup = new ControlGrou
 });
 
 export const INSPECTOR_OPACITY_CONTROL : SliderControl = new SliderControl({
-    label : "Opacity"
+    label : "Opacity",
+    min : 0,
+    max : 1,
+    step : 0.1,
+    value : 1
 })
 
 // ANIMATION GRUP :  

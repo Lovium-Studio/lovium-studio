@@ -16,7 +16,7 @@
 
 // RESIZE HANDLE : 
 
-import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../ts/types.js";
+import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate, SceneNode } from "../../../ts/types.js";
 
 type ResizeHandleSideOption = "TOP" | "BOTTOM" | "LEFT" | "RIGHT" | "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT";
 
@@ -409,5 +409,12 @@ export class ResizeHandle {
 
         this.container.addEventListener('mousemove', this.onMouseMove);
         document.addEventListener('mouseup', this.onMouseUp);
+    };
+
+    public setNode = ( node : SceneNode ) : void => {
+        this.setX(node.x);
+        this.setY(node.y);
+        this.setWidth(node.width);
+        this.setHeight(node.height);
     };
 };

@@ -36,7 +36,7 @@
     padding: 3px;
     padding-left: 5px;
     padding-right: 5px;
-    transform-origin: center center;
+    transform-origin: center; 
 }
 
 #scene-gui-container{
@@ -45,5 +45,4 @@
     height: 100%;
     box-sizing: border-box;
     z-index: 10; 
-    border: 1px solid red;
 }

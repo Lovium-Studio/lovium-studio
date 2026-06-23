@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, ITextControl } from "../../../ts/types.js";
+import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, ISliderControl, ITextControl } from "../../../ts/types.js";
 
 // CONTROL : 
 
@@ -311,8 +311,6 @@ export class NumberControl {
 export class SliderControl {
 
     private label : string;
-    private placeholder : string;
-
     private controlContainer : HTMLDivElement;
     private controlLabelContainer : HTMLDivElement;
     private controlLabel : HTMLSpanElement;
@@ -321,14 +319,21 @@ export class SliderControl {
     private controlInput : HTMLInputElement;
     private controlType : ControlType;
     private controlSliderLabelValue : HTMLSpanElement;
+    private min : number;
+    private max : number;
+    private step : number;
+    private value : number;
 
     private onDragCallbackList : ((value: string) => void)[] = [];
 
-    constructor( option : ITextControl ) {
+    constructor( option : ISliderControl ) {
 
         this.label = option.label || "NO_NAME";
-        this.placeholder = option.placeholder || "ABC";
         this.controlType = "SLIDER_CONTROL";
+        this.max = option.max;
+        this.min = option.min;
+        this.step = option.step || 0;
+        this.value = option.value;
 
         this.controlContainer = document.createElement("div");
         this.controlContainer.classList.add("control-row-container-row");
@@ -352,7 +357,14 @@ export class SliderControl {
         this.controlInput = document.createElement("input");
         this.controlInput.type = "range";
         this.controlInput.classList.add("control-row-range");
-        this.controlInput.placeholder = this.placeholder;
+
+        this.controlInput.max = this.max.toString();
+        this.controlInput.min = this.min.toString();
+        this.controlInput.value = this.value.toString();
+
+        if(this.step > 0) this.controlInput.step = this.step.toString();
+
+
 
         // APPEND : 
 
@@ -384,7 +396,7 @@ export class SliderControl {
 
     public getInputContainer = (): HTMLDivElement => {
         return this.controlInputContainer;
-    };
+    }; 
 
     public getValue = () : string => this.controlInput.value;
 
@@ -392,7 +404,10 @@ export class SliderControl {
         this.onDragCallbackList.push(callback);
     };
 
-    public setValue = (value : string ) : string => this.controlInput.value = value;
+    public setValue = (value : number ) : void => {
+        this.controlInput.value = value.toString();
+        this.controlSliderLabelValue.textContent = value.toString();
+    }; 
 
     public joinControl = (control: SliderControl): void => {
 

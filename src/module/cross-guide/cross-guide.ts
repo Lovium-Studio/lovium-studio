@@ -129,6 +129,7 @@ export class CrossGuide {
         // BOTTOM GUIDE : 
 
         if(this.showSide === "ALL" || this.showSide === "BOTTOM"){
+            
             context.beginPath();   
             context.moveTo(centerX, Math.floor(this.resizeHandleY + this.resizeHandleHeight) + 0.5);  
             context.lineTo(centerX, Math.floor(this.safeArea2dY + this.safeArea2dHeight) + 0.5); 
