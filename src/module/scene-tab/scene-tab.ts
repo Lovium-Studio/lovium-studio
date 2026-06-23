@@ -43,7 +43,16 @@ const sceneTemlate : IScene2dOption = {
     type : "2D_SCENE",
     id : "4454",
     nodeList : [
-        {
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/bg.png", 
+            location : "FOREIGNER"
+        },
+        {  
             type : "SPRITE_NODE",
             x : 100,
             y : 100, 
@@ -114,9 +123,54 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/signExit.png", 
             location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/signExit.png", 
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/cloud1.png", 
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/flagRed.png", 
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300, 
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/springboardUp.png", 
+            location : "FOREIGNER"
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 300,
+            y : 100,  
+            width : 100,
+            height : 100,  
+            src : "../.././src/asset/asset-template/switchRight.png", 
+            location : "FOREIGNER"
         }
     ]
-}
+};
 
 const processor = nodeProcessor(sceneTemlate);
 

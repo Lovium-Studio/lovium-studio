@@ -68,12 +68,10 @@ export const gui = {
         windowMenuContainer : getUi("window-menu-container") as HTMLDivElement,
         windowMenuBar : getUi("menu-bar") as HTMLDivElement
     },
-    boardTab : {
-        boardContainer : getUi("viewport-ui") as HTMLDivElement
-    },
     sceneTab : {
+        sceneGUIContainer : getUi("scene-gui-container") as HTMLDivElement,
         sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
-        sceneCanvasContainer : getUi("scene-canvas-container") as HTMLCanvasElement
+        sceneCanvasContainer : getUi("scene-canvas-container") as HTMLDivElement
     }, 
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,

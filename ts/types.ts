@@ -305,6 +305,12 @@ export interface CrossGuideOption {
     resizeHandle : ResizeHandle
 }
 
+// SCENE LABEL OPTION : 
+
+export interface ISceneLabel {
+    container : HTMLDivElement
+}
+
 
 // function drawGrid(cellWidth, cellHeight) {
 //         ctx.clearRect(0, 0, canvas.width, canvas.height);

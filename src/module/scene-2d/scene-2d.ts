@@ -30,12 +30,13 @@ class Scene2d {
     private name: string;
     private id: string;
     private isScene: boolean;
-    private safeArea2d: SafeArea2d;
-    private scene2dResizeHandle: ResizeHandle;
     private lastSelectedNode: SceneNode | null;
     private selectedNode: SceneNode | null;
     private sceneContainerRect : DOMRect;
-    private crossGuide : CrossGuide;
+    
+    private SAFE_AREAD_2D : SafeArea2d;
+    private RESIZE_HANDLE : ResizeHandle;
+    private CROSS_GUIDE : CrossGuide;
 
     constructor() {
 
@@ -49,9 +50,9 @@ class Scene2d {
         
         // RESIZE HANDLE :
 
-        this.scene2dResizeHandle = new ResizeHandle(gui.boardTab.boardContainer);
+        this.RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer);
 
-        this.scene2dResizeHandle.config({
+        this.RESIZE_HANDLE.config({
             lineType: "DASHED",
         }); 
 
@@ -59,7 +60,7 @@ class Scene2d {
 
         const safeAreaStartPadding : number = 20;
 
-        this.safeArea2d = new SafeArea2d({
+        this.SAFE_AREAD_2D = new SafeArea2d({
             x: safeAreaStartPadding,   
             y: safeAreaStartPadding,
             width: 700,
@@ -67,7 +68,7 @@ class Scene2d {
         });
 
         this.insertNode({
-            node: this.safeArea2d, 
+            node: this.SAFE_AREAD_2D, 
             type : "SAFE_AREA_NODE", 
             width : 200,
             height : 100, 
@@ -78,14 +79,14 @@ class Scene2d {
 
         // CORSS GUIDE : 
 
-        this.crossGuide = new CrossGuide({
-            safeArea2d : this.safeArea2d,
-            resizeHandle : this.scene2dResizeHandle
+        this.CROSS_GUIDE = new CrossGuide({
+            safeArea2d : this.SAFE_AREAD_2D,
+            resizeHandle : this.RESIZE_HANDLE
         });
 
         // RESIZE HANDLE EVENT :
 
-        this.scene2dResizeHandle.onTransform(coord => {
+        this.RESIZE_HANDLE.onTransform(coord => {
 
             if (!this.lastSelectedNode) return;
             
@@ -101,29 +102,46 @@ class Scene2d {
 
         });
 
+        // this.RESIZE_HANDLE.onHandleMouseUp((handle : any)=>{
+        //     if(handle === "LEFT") this.CROSS_GUIDE.setSide(handle);  
+        // }) 
+  
+        this.RESIZE_HANDLE.onResizeHandleMouseDown(()=> {
+            crossHideVisibility(true);
+        });
+ 
+        this.RESIZE_HANDLE.onResizeHandleMouseUp(()=> {
+            crossHideVisibility(false);
+        }); 
+
+        const crossHideVisibility = ( state : boolean ) : void => {
+            state ? this.CROSS_GUIDE.show() : this.CROSS_GUIDE.hide();
+            // this.CROSS_GUIDE.setSide("LEFT")
+        };
+
         // INSPECTOR EVENT :
 
         INSPECTOR_SCALE_X_CONTROL.onWrite(value => {
 
-            this.scene2dResizeHandle.setWidth(parseInt(value));
+            this.RESIZE_HANDLE.setWidth(parseInt(value));
 
         });
 
         INSPECTOR_SCALE_Y_CONTROL.onWrite(value => {
 
-            this.scene2dResizeHandle.setHeight(parseInt(value));
+            this.RESIZE_HANDLE.setHeight(parseInt(value));
 
         });
 
         INSPECTOR_TRANSLATE_X_CONTROL.onWrite(value => { 
 
-            this.scene2dResizeHandle.setX(parseInt(value));
+            this.RESIZE_HANDLE.setX(parseInt(value));
 
         });
 
         INSPECTOR_TRANSLATE_Y_CONTROL.onWrite(value => {
 
-            this.scene2dResizeHandle.setY(parseInt(value));
+            this.RESIZE_HANDLE.setY(parseInt(value));
 
         });
 
@@ -159,7 +177,7 @@ class Scene2d {
  
                     // UPDATE RESIZE HANDLE :
 
-                    this.scene2dResizeHandle.setHandle({
+                    this.RESIZE_HANDLE.setHandle({
                         x: n.node.x,
                         y: n.node.y,
                         width: n.node.width,
@@ -169,7 +187,7 @@ class Scene2d {
                         object: "CANVAS"
                     }); 
 
-                    this.scene2dResizeHandle.show();
+                    this.RESIZE_HANDLE.show();
 
                     // UPDATE INSPECTOR :  
 
@@ -210,7 +228,7 @@ class Scene2d {
 
         this.lastSelectedNode = null;
 
-        this.scene2dResizeHandle.hide();
+        this.RESIZE_HANDLE.hide();
 
     };
 
@@ -230,7 +248,7 @@ class Scene2d {
 
             this.lastSelectedNode = null;
 
-            this.scene2dResizeHandle.hide();
+            this.RESIZE_HANDLE.hide();
 
         };
 
@@ -240,7 +258,7 @@ class Scene2d {
 
         if (this.lastSelectedNode === node) {
 
-            this.scene2dResizeHandle.setHandle({
+            this.RESIZE_HANDLE.setHandle({
                 x: node.x,
                 y: node.y,
                 width: node.width,
@@ -255,20 +273,20 @@ class Scene2d {
     };
 
     private renderNative = (context: CanvasRenderingContext2D) : void => {
-        this.crossGuide.render(context)
+        this.CROSS_GUIDE.render(context)
     };
 
     public renderScene = (context: CanvasRenderingContext2D): void => {
-
-        this.renderNative(context);
 
         if (this.isScene) {
 
             this.nodeList.forEach(n =>{ 
                 if(n.node) n.node.render(context)
-            });
-
+                });
+            
         };
+
+        this.renderNative(context);
 
     };
 

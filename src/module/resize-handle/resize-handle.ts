@@ -17,7 +17,8 @@
 // RESIZE HANDLE : 
 
 import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate } from "../../../ts/types.js";
-import { gui } from "../gui/gui.js";
+
+type ResizeHandleSideOption = "TOP" | "BOTTOM" | "LEFT" | "RIGHT" | "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT";
 
 export class ResizeHandle {
 
@@ -50,8 +51,16 @@ export class ResizeHandle {
     private isMoving: boolean;
     private padding : number;
     private isVisible : boolean;
+    private onHandleMouseUpCallbackList : Function[] = []
 
     private changeListeners: ((coordinate: IResizeHandleCoordinate) => void)[] = [];
+    private onResizeHandleMouseUpCallbackList : Function[];
+    private onResizeHandleMouseDownCallbackList : Function[];
+
+    public x : number;
+    public y : number;
+    public width : number;
+    public height : number;
 
     constructor(container: HTMLDivElement) {
 
@@ -67,6 +76,13 @@ export class ResizeHandle {
         this.isMoving = false; 
         this.padding = 0;
         this.isVisible = false;
+        this.onResizeHandleMouseUpCallbackList = [];
+        this.onResizeHandleMouseDownCallbackList = [];
+        this.onHandleMouseUpCallbackList = [];
+        this.x = 0;
+        this.y = 0;
+        this.width = 0;
+        this.height = 0;
 
         this.handleRect = document.createElement("div");
         this.handleRect.classList.add("resize-handle-rect");
@@ -119,7 +135,7 @@ export class ResizeHandle {
         this.handleRect.appendChild(this.handleBottomRight);
         this.handleRect.appendChild(this.handleBottomLeft);
 
-        this.container.appendChild(this.handleRect);
+        this.container.appendChild(this.handleRect); 
 
         this.setup();
     }
@@ -128,8 +144,12 @@ export class ResizeHandle {
         return [
             this.handleTopCenter, this.handleLeftCenter, this.handleBottomCenter, this.handleRightCenter,
             this.handleTopLeft, this.handleTopRight, this.handleBottomLeft, this.handleBottomRight
-        ];
+        ]; 
     }
+
+    public onHandleMouseUp = (callback = Function) : void => {
+        this.onHandleMouseUpCallbackList.push(callback);
+    };
 
     private setup(): void {
 
@@ -138,6 +158,21 @@ export class ResizeHandle {
         this.resizeHandles.forEach(handle => {
             handle.addEventListener('mousedown', (event) => this.onMouseDown(event, handle));
         });
+
+        const onResizeHandleMouse_Up = this.onResizeHandleMouseUpCallbackList;
+        const onResizeHandleMouse_Dpwn = this.onResizeHandleMouseDownCallbackList;
+
+        this.handleRect.addEventListener("mouseup",function(){
+            onResizeHandleMouse_Up.forEach( callback => callback())
+        });
+
+        this.handleRect.addEventListener("mousedown",function(){
+            onResizeHandleMouse_Dpwn.forEach( callback => callback())
+        });
+
+        this.handleLeftCenter.addEventListener("click",()=>{
+            this.onHandleMouseUpCallbackList.forEach(callback => callback("LEFT"));
+        })
     };
 
     public show = () : string => this.handleRect.style.display = "flex";
@@ -242,7 +277,7 @@ export class ResizeHandle {
             this.handleRightCenter.style.height = "30px";
         }
 
-        this.notifyListeners();      
+        this.notifyListeners();       
     };
 
     public config = ( option : IResizeHandleConfigOption) : void => {
@@ -264,6 +299,11 @@ export class ResizeHandle {
     };
 
     public getCoordinate(): IResizeHandleCoordinate {
+        this.x = this.handleRect.offsetLeft + this.padding;
+        this.y = this.handleRect.offsetTop + this.padding;
+        this.width = this.handleRect.offsetWidth - this.padding * 2;
+        this.height = this.handleRect.offsetHeight - this.padding * 2  
+
         return {
             x: this.handleRect.offsetLeft + this.padding,
             y: this.handleRect.offsetTop + this.padding,
@@ -272,8 +312,20 @@ export class ResizeHandle {
         };
     };
 
+    public onResizeHandleMouseUp = ( callback : Function ) : void => {
+        this.onResizeHandleMouseUpCallbackList.push(callback);
+    };
+
+    public onResizeHandleMouseDown = ( callback : Function ) : void => {
+        this.onResizeHandleMouseDownCallbackList.push(callback);
+    };
+
+    public getElement = () : HTMLDivElement => this.handleRect;
+
     private onMouseMove = (event: MouseEvent): void => {
+
         if (this.isResizing) {
+
             const dx = event.clientX - this.startX;
             const dy = event.clientY - this.startY;
 
@@ -338,6 +390,9 @@ export class ResizeHandle {
     public getHandleArea = () : HTMLDivElement => this.handleRect;
 
     private onMouseDown = (event: MouseEvent, handle: HTMLDivElement): void => {
+
+        this.onHandleMouseUpCallbackList.forEach(callback => callback(""));
+
         this.startX = event.clientX;
         this.startY = event.clientY;
         this.startWidth = parseInt(getComputedStyle(this.handleRect).width, 10);
