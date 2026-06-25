@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SpriteNodeOption } from "../../../ts/types.js";
+import { IScene2dOption, ISpriteNode } from "../../../ts/types.js";
 import { SpriteNode } from "../sprite-node/sprite-node.js";
 
 // NODE PROCESSOR : 
@@ -31,19 +31,22 @@ export const nodeProcessor = ( scene : SceneType ) : SceneType => {
 
             case "SPRITE_NODE":  
 
-                const n : SpriteNodeOption = node;
+                const NODE_DATA : ISpriteNode = node;
 
                 const SPRITE_NODE = new SpriteNode({
-                    type : n.type,
-                    src : n.src, 
-                    width : n.width,
-                    height : n.height,
-                    x : n.x, 
-                    y : n.y,
-                    opacity : n.opacity
+                    type : NODE_DATA.type,
+                    src : NODE_DATA.src, 
+                    width : NODE_DATA.width,
+                    height : NODE_DATA.height,
+                    x : NODE_DATA.x, 
+                    y : NODE_DATA.y,
+                    opacity : NODE_DATA.opacity,
+                    location : "FOREIGNER",
+                    rotation : NODE_DATA.rotation,
+                    anchorPoint : NODE_DATA.anchorPoint
                 });
 
-                node.node = SPRITE_NODE;
+                node.node = SPRITE_NODE; 
 
             break;
         };

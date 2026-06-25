@@ -51,19 +51,22 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/bg.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1, 
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         {  
             type : "SPRITE_NODE",
             x : 100,
             y : 100, 
-            width : 100,
+            width : 100, 
             height : 100,
             src : "../.././src/asset/asset-template/grassHalf.png",
             location : "FOREIGNER",
-            opacity : 1
-
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
         },
         {
             type : "SPRITE_NODE",
@@ -73,7 +76,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,
             src : "../.././src/asset/asset-template/grassHalfLeft.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         {
@@ -84,7 +90,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100, 
             src : "../.././src/asset/asset-template/grassHalfMid.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         {
@@ -95,7 +104,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/grassHalfRight.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         {
@@ -106,7 +118,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100, 
             src : "../.././src/asset/asset-template/fence.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         {
@@ -117,7 +132,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100, 
             src : "../.././src/asset/asset-template/p1_stand.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         {
@@ -128,7 +146,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/box.png",
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         { 
@@ -139,7 +160,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/signExit.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         { 
@@ -150,7 +174,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/signExit.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         { 
@@ -161,7 +188,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/cloud1.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 0.5,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         { 
@@ -172,7 +202,10 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/flagRed.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
 
         },
         { 
@@ -183,18 +216,22 @@ const sceneTemlate : IScene2dOption = {
             height : 100,  
             src : "../.././src/asset/asset-template/springboardUp.png", 
             location : "FOREIGNER",
-            opacity : 1
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
+
         },
         { 
             type : "SPRITE_NODE", 
             x : 300,
-            y : 100,  
+            y : 100,   
             width : 100,
             height : 100,  
             src : "../.././src/asset/asset-template/switchRight.png", 
             location : "FOREIGNER",
-            opacity : 1
-
+            opacity : 1,
+            rotation : 0,
+            anchorPoint : [0,0]
         }
     ]
 };

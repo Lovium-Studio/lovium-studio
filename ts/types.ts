@@ -186,11 +186,19 @@ export interface ITextControl {
     placeholder ? : string
 };
 
+export type GuideLineSideOption = "ALL" | "TOP" | "BOTTOM" | "RIGHT" | "LEFT" | "VERTICAL" | "HORIZONTAL";
+
+
 // NUMBER CONTROL OPTION : 
 
 export interface INumberControl {
     label : string,
-    placeholder ? : string
+    placeholder ? : string,
+    max? : number | null,
+    min? : number | null,
+    prefix? : string,
+    sufix? : string,
+    value : number
 };
 
 // SLIDER CONTROL OPTION : 
@@ -230,7 +238,7 @@ export interface NodeSpriteOption {
 
 };
 
-export type SceneNodeListType = SceneSpriteNodeOption
+export type SceneNodeListType = ISpriteNode
 
 // SCENE OPTION : 
 
@@ -253,20 +261,6 @@ export interface SceneSafeAreaNodeOption {
     location : NodeLocation
 }
 
-// SCENE SPRITE NODE OPTION : 
-
-export interface SceneSpriteNodeOption {
-    node ? : SpriteNode | null,
-    type : Scene2dNodeType,
-    x : number,
-    y : number,
-    width : number,
-    height : number,
-    src : string,
-    location : NodeLocation,
-    opacity : number
-};
-
 // CAMERA 2D OPTION : 
 
 export interface Camera2dOption {
@@ -274,13 +268,6 @@ export interface Camera2dOption {
     y : number,
     width : number,
     height : number
-};
-
-// SCENE NODE OPTION : 
-
-export interface SceneNodeOption {
-    node : SceneNode | null
-    config : SpriteNodeOption | SafeArea2dOption
 };
 
 // SAFE AREA 2D : 
@@ -294,14 +281,18 @@ export interface SafeArea2dOption {
 
 // SPRITE NODE OTPION : 
 
-export interface SpriteNodeOption {
+export interface ISpriteNode {
     type : Scene2dNodeType
     src : string,
     width : number,
     height : number,
     y : number,
     x : number,
-    opacity : number
+    location : NodeLocation,
+    opacity : number,
+    node ? : SceneNode,
+    rotation : number
+    anchorPoint : [number,number]
 };
 
 // CROSS GUIDE OPTION : 

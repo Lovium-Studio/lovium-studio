@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, ISliderControl, ITextControl } from "../../../ts/types.js";
+import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, INumberControl, ISliderControl, ITextControl } from "../../../ts/types.js";
 
 // CONTROL : 
 
@@ -143,6 +143,13 @@ export class NumberControl {
 
     private label : string;
     private placeholder : string;
+    private controlType : ControlType;
+    private max : number | null;
+    private min : number | null;
+    private prefix : string;
+    private sufix : string;
+    private lastValue : number;
+    private value : number
 
     private controlContainer : HTMLDivElement;
     private controlLabelContainer : HTMLDivElement;
@@ -152,22 +159,29 @@ export class NumberControl {
     private controlNumberInputIconContainer : HTMLDivElement;
     private controlNumberInputINCDEC : HTMLElement;
     private controlNumberInput : HTMLInputElement;
-    private controlType : ControlType;
 
     private onWriteCallbackList : ((value: string) => void)[] = [];
     private onKeyBoardEnterCallbackList : ((value: string) => void)[] = [];
     private onMouseLeaveCallbackList : ((value: string) => void)[] = [];
+    private onIncrementorStartCallbackList : Function[] = [];
+    private onIncrementorEndCallbackList : Function[] = [];
 
     private isDragging = false;
 
-    constructor( option : ITextControl ) {
-
+    constructor( option : INumberControl ) {
+ 
         this.label = option.label || "NO_NAME";
         this.placeholder = option.placeholder || "0";
         this.controlType = "NUMBER_CONTROL"; 
+        this.max = option.max ?? null;
+        this.min = option.min ?? null;
+        this.prefix = option.prefix || "";
+        this.sufix = option.sufix || "";
+        this.value = option.value; 
+        this.lastValue = option.value;
 
         this.controlContainer = document.createElement("div");
-        this.controlContainer.classList.add("control-row-container-row");
+        this.controlContainer.classList.add("control-row-container-row"); 
 
         this.controlLabelContainer = document.createElement("div");
         this.controlLabelContainer.classList.add("control-row-container-label-container");
@@ -187,8 +201,9 @@ export class NumberControl {
         this.controlNumberInputINCDEC.classList.add("ri-expand-left-right-fill"); 
 
         this.controlNumberInput = document.createElement("input");
-        this.controlNumberInput.type = "number";
+        this.controlNumberInput.type = "text";
         this.controlNumberInput.placeholder = this.placeholder;
+        this.setInputValue(this.value.toString());
 
         // APPEND : 
 
@@ -207,8 +222,42 @@ export class NumberControl {
 
         // EVENT :  
 
-        this.controlNumberInput.addEventListener("input", ()=> {
-            this.onWriteCallbackList?.forEach( c => c(this.controlNumberInput.value));
+        this.controlNumberInput.addEventListener("beforeinput", (e: InputEvent) => {
+            if (e.data && !/^[0-9.-]+$/.test(e.data)) {
+                e.preventDefault();
+            }
+        });
+
+        this.controlNumberInput.addEventListener("input", () => {
+            let cleanText = this.controlNumberInput.value.replace(/[^-0-9.]/g, "");
+            if (cleanText === "" || cleanText === "-") return;
+
+            let inputValue = Number(cleanText);
+
+            if (this.max !== null && inputValue > this.max) {
+                inputValue = this.max;
+                this.controlNumberInput.value = this.max.toString();
+            }
+            if (this.min !== null && inputValue < this.min) {
+                inputValue = this.min;
+                this.controlNumberInput.value = this.min.toString();
+            }   
+
+            this.value = inputValue;
+            this.onWriteCallbackList?.forEach(c => c(inputValue.toString())); 
+        });
+
+        this.controlNumberInput.addEventListener("focus", () => {
+            this.controlNumberInput.value = this.value.toString();
+        });
+
+        this.controlNumberInput.addEventListener("blur", () => {
+            this.controlNumberInput.value = `${this.prefix || ""}${this.value}${this.sufix || ""}`;
+            this.onKeyBoardEnterCallbackList?.forEach(c => c(this.value.toString()));
+        });
+
+        this.controlNumberInput.addEventListener("keydown", (e: KeyboardEvent) => {
+            if (e.code === "Enter") this.controlNumberInput.blur();
         });
 
         this.controlNumberInput.addEventListener("blur", ()=> {
@@ -223,6 +272,14 @@ export class NumberControl {
 
     };
 
+    public onIncrementorStart = ( callback : Function ) : void => {
+        this.onIncrementorStartCallbackList.push(callback);
+    };
+
+    public onIncrementorEnd = ( callback : Function ) : void => {
+        this.onIncrementorEndCallbackList.push(callback);
+    };
+
     public getControlContainer = () : HTMLDivElement => this.controlContainer;
 
     public getInputContainer = (): HTMLDivElement => {
@@ -235,11 +292,18 @@ export class NumberControl {
         this.onWriteCallbackList.push(callback);
     };
 
-    private onIncrementorDragStart = (e: MouseEvent): void => {
+    private setInputValue = ( value : string ) : void => {
+        this.controlNumberInput.value = this.prefix + value + this.sufix;
+    };
+
+    private onIncrementorDragStart = (e: MouseEvent): void => {  
 
         e.preventDefault();
 
-        this.controlNumberInputINCDEC.requestPointerLock();
+        if(Array.isArray(this.onIncrementorStartCallbackList) && this.onIncrementorStartCallbackList.length > 0)
+        this.onIncrementorStartCallbackList.forEach(callback => callback());
+
+        this.controlNumberInputINCDEC.requestPointerLock(); 
 
         this.isDragging = true;   
 
@@ -248,9 +312,12 @@ export class NumberControl {
     };
 
     private onIncrementorDragEnd = (): void => {
+
+        if(Array.isArray(this.onIncrementorEndCallbackList) && this.onIncrementorEndCallbackList.length > 0)   
+        this.onIncrementorEndCallbackList.forEach(callback => callback());
  
         this.isDragging = false; 
- 
+
         document.exitPointerLock(); 
 
         document.removeEventListener("mousemove",this.onIncrementorDragMove);
@@ -258,25 +325,21 @@ export class NumberControl {
     };
 
     private onIncrementorDragMove = (e: MouseEvent): void => {
+    if (!this.isDragging) return;
+    
+    const currentValue = parseFloat(this.controlNumberInput.value) || 0;
+    const sensitivity = 1; 
+    let newValue = currentValue + (e.movementX * sensitivity);
 
-        if (!this.isDragging) {
-            return;
-        };
+    if (this.max !== null && newValue > this.max) newValue = this.max;  
+    if (this.min !== null && newValue < this.min) newValue = this.min;
 
-        const currentValue =
-            parseFloat(this.controlNumberInput.value) || 0;
+    this.value = newValue;
+    this.lastValue = newValue; 
+    this.controlNumberInput.value = this.prefix + newValue.toString() + this.sufix;
 
-        const sensitivity = 1; 
-
-        const value =
-            currentValue + (e.movementX * sensitivity);
-
-        this.controlNumberInput.value = value.toString();
-
-        this.onWriteCallbackList.forEach(
-            callback => callback(this.controlNumberInput.value)
-        );
-    };
+    this.onWriteCallbackList.forEach(callback => callback(this.value.toString()));
+};
 
     public onKeyboardEnter = (callback: (value: string) => void) : void => {
         this.onKeyBoardEnterCallbackList.push(callback);
@@ -286,7 +349,10 @@ export class NumberControl {
         this.onMouseLeaveCallbackList.push(callback);
     };
 
-    public setValue = (value : string ) : string => this.controlNumberInput.value = value;
+    public setValue = (value : number ) : void => {
+        this.value = value;
+        this.setInputValue(this.value.toString());
+    };
 
     public joinControl = (control: NumberControl ): void => {
 

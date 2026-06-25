@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { CrossGuideOption } from "../../../ts/types.js";
+import { CrossGuideOption, GuideLineSideOption } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { gui } from "../gui/gui.js";
 import { ResizeHandle } from "../resize-handle/resize-handle.js";
@@ -23,7 +23,6 @@ import { SceneLabel } from "../scene-label/scene-label.js";
 
 // CROSS GUIDE :  
 
-type GuideLineSideOption = "ALL" | "TOP" | "BOTTOM" | "RIGHT" | "LEFT";
 
 export class CrossGuide {
 
@@ -33,11 +32,6 @@ export class CrossGuide {
     private guideRightLabel : SceneLabel;
     private guideTopLabel : SceneLabel;
     private guideBottomLabel : SceneLabel;
-
-    private safeArea2dWidth : number;
-    private safeArea2dHeight : number;
-    private safeArea2dX : number;
-    private safeArea2dY : number;
 
     private resizeHandleWidth : number;
     private resizeHandleHeight : number;
@@ -53,13 +47,9 @@ export class CrossGuide {
         this.isVisible = false;
         this.showSide = "ALL"; 
 
-        this.safeArea2d = option.safeArea2d;
+        this.safeArea2d = option.safeArea2d; 
         this.resizeHandle = option.resizeHandle;
 
-        this.safeArea2dWidth = this.safeArea2d.width;
-        this.safeArea2dHeight = this.safeArea2d.height;
-        this.safeArea2dX = this.safeArea2d.x;
-        this.safeArea2dY = this.safeArea2d.y;
         this.labelCorrection = 8;
 
         this.resizeHandleWidth = 0;
@@ -112,83 +102,90 @@ export class CrossGuide {
 
         // TOP GUIDE : 
 
-        if(this.showSide === "ALL" || this.showSide === "TOP"){
+        if(this.showSide === "ALL" || this.showSide === "TOP" || this.showSide == "VERTICAL"){
             context.beginPath();   
-            context.moveTo(centerX, Math.floor(this.safeArea2dY) + 0.5); 
+            context.moveTo(centerX, Math.floor(this.safeArea2d.y) + 0.5); 
             context.lineTo(centerX, Math.floor(this.resizeHandleY) + 0.5); 
             context.stroke();      
 
-            const guideTopY = (this.safeArea2dY + this.resizeHandleY) / 2;
-            const distanceTop = Math.abs(this.resizeHandleY - this.safeArea2dY);
+            const guideTopY = (this.safeArea2d.y + this.resizeHandleY) / 2;
+            const distanceTop = Math.abs(this.resizeHandleY - this.safeArea2d.y);
 
             this.guideTopLabel.setX(centerX - 20);
             this.guideTopLabel.setY(guideTopY - this.labelCorrection);
             this.guideTopLabel.setContent(`${Math.round(distanceTop)} PX`);
+
+            this.guideTopLabel.show();
+
         };
 
         // BOTTOM GUIDE : 
 
-        if(this.showSide === "ALL" || this.showSide === "BOTTOM"){
-            
+        if(this.showSide === "ALL" || this.showSide === "BOTTOM" || this.showSide == "VERTICAL"){
+
             context.beginPath();   
             context.moveTo(centerX, Math.floor(this.resizeHandleY + this.resizeHandleHeight) + 0.5);  
-            context.lineTo(centerX, Math.floor(this.safeArea2dY + this.safeArea2dHeight) + 0.5); 
+            context.lineTo(centerX, Math.floor(this.safeArea2d.y + this.safeArea2d.height) + 0.5); 
             context.stroke();   
 
             const startY = this.resizeHandleY + this.resizeHandleHeight;
-            const endY = this.safeArea2dY + this.safeArea2dHeight;
+            const endY = this.safeArea2d.y + this.safeArea2d.height;
             const guideBottomY = (startY + endY) / 2;
             const distanceBottom = Math.abs(endY - startY);
 
             this.guideBottomLabel.setX(centerX - 20);
             this.guideBottomLabel.setY(guideBottomY - this.labelCorrection);
             this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`);
+
+            this.guideBottomLabel.show();
         };
 
         // LEFT GUIDE :
 
-        if(this.showSide === "ALL" || this.showSide === "LEFT"){
+        if(this.showSide === "ALL" || this.showSide === "LEFT" || this.showSide == "HORIZONTAL"){
 
             context.beginPath();
-            context.moveTo(Math.floor(this.safeArea2dX) + 0.5, centerY);
+            context.moveTo(Math.floor(this.safeArea2d.x) + 0.5, centerY);
             context.lineTo(Math.floor(this.resizeHandleX) + 0.5, centerY);
             context.stroke(); 
 
-            const guideLeftX = (this.safeArea2dX + this.resizeHandleX) / 2;
-            const distanceLeft = Math.abs(this.resizeHandleX - this.safeArea2dX);
+            const guideLeftX = (this.safeArea2d.x + this.resizeHandleX) / 2;
+            const distanceLeft = Math.abs(this.resizeHandleX - this.safeArea2d.x);
 
             this.guideLeftLabel.setY(centerY - this.labelCorrection);
             this.guideLeftLabel.setX(guideLeftX);
             this.guideLeftLabel.setContent(`${Math.round(distanceLeft)} PX`); 
+
+            this.guideLeftLabel.show();
+
         };  
 
         // RIGHT GUIDE : 
 
-        if(this.showSide === "ALL" || this.showSide === "RIGHT"){
+        if(this.showSide === "ALL" || this.showSide === "RIGHT" || this.showSide == "HORIZONTAL"){
             context.beginPath();
             context.moveTo(Math.floor(this.resizeHandleX + this.resizeHandleWidth) + 0.5, centerY);
-            context.lineTo(Math.floor(this.safeArea2dX + this.safeArea2dWidth) + 0.5, centerY);
+            context.lineTo(Math.floor(this.safeArea2d.x + this.safeArea2d.width) + 0.5, centerY);
             context.stroke();
 
             // Centro geométrico do segmento horizontal direito
             const startX = this.resizeHandleX + this.resizeHandleWidth;
-            const endX = this.safeArea2dX + this.safeArea2dWidth;
+            const endX = this.safeArea2d.x + this.safeArea2d.width;
             const guideRightX = (startX + endX) / 2;
             const distanceRight = Math.abs(endX - startX);
 
             this.guideRightLabel.setY(centerY - this.labelCorrection);
             this.guideRightLabel.setX(guideRightX); 
             this.guideRightLabel.setContent(`${Math.round(distanceRight)} PX`); 
+
+            this.guideRightLabel.show();
+
         };
 
     };
 
     public show = () : void => {
         this.isVisible = true;
-        this.guideLeftLabel.show();
-        this.guideRightLabel.show();
-        this.guideTopLabel.show();
-        this.guideBottomLabel.show();
     }
     
     public hide = () : void => {

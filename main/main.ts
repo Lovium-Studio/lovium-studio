@@ -15,14 +15,10 @@ import * as fs from 'fs';
 if (!app.isPackaged) {
     try {
         require("electron-reloader")(module, {
-            ignore: [
-                "node_modules",
-                "dist",
-                "out"
-            ]
+            ignore: ["node_modules","dist","out"]
         });
     } catch {}
-}
+};
 
 
 // SETUP : 
@@ -89,7 +85,7 @@ function createMainWindow(): void {
 
 // CREATE SPLASH WINDOW : 
 
-function createSplashWIndow(): void{
+function createSplashWindow(): void{
 
     SPLASH_WINDOW = new BrowserWindow({
         width: 700,
@@ -117,15 +113,14 @@ function createSplashWIndow(): void{
 
 app.whenReady().then(() => {
 
-    createSplashWIndow();
+    createSplashWindow();
     createMainWindow();
 
-});
-
+}); 
+ 
 setTimeout(() => {
     SPLASH_WINDOW.hide();
-    MAIN_WINDOW.show();
-
-    SPLASH_WINDOW.webContents.openDevTools();
-    MAIN_WINDOW.webContents.openDevTools();
-}, 5000);
+    MAIN_WINDOW.show();  
+    SPLASH_WINDOW.webContents.openDevTools(); 
+    MAIN_WINDOW.webContents.openDevTools();  
+}, 10000);

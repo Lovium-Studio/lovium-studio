@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
     <title></title>
 </head>
 <body>
@@ -26,16 +27,16 @@
         }
 
         #splash-progress{
-                position: absolute;
-                bottom: 0px;
-                left: 0px;
-                width: 0px;
-                height: 4px;
-                background: #19A727;
-                z-index: 10; 
-                box-sizing: border-box;
-                animation: LoadbarAnimation 10s linear both;
-            }
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 0px;
+            height: 4px;
+            background: var(--color-b);
+            z-index: 10; 
+            box-sizing: border-box;
+            animation: LoadbarAnimation 10s linear both;
+        }
 
             @keyframes LoadbarAnimation {  
                 1%{
@@ -78,9 +79,8 @@
 
             .splash-copyright-container{
                 position: absolute;
-                left: 48px;
+                left: 20px;
                 bottom: 20px;
-                border: 1px solid red;
                 display: flex;
                 justify-content: center;
                 align-items: left;
@@ -94,7 +94,7 @@
                 font-family: arial;
                 font-size: 9px;
                 font-weight: initial;
-                color: #D9D9D9;
+                color: #858585;
                 z-index: 10;
                 user-select: none;
                 -webkit-user-drag: none;
@@ -106,25 +106,25 @@
                 font-family: arial;
                 font-size: 9px;
                 font-weight: initial;
-                color: #D9D9D9;
+                color: #ffffff;
                 z-index: 10;
                 user-select: none;
                 -webkit-user-drag: none;
                 right: 20px;
-                bottom: 27px;
+                bottom: 20px;
                 text-align: right;
             }
 
     </style>
 
-    <img class="splash-screen-art" src="../asset/splash/rocon-studio-splash-screen.svg"/>
+    <img class="splash-screen-art" src="../asset/splash-screen/lovium-studio-desktop-splash-screen.svg"/>
     <div id="splash-progress"></div>
     <div class="splash-copyright-container">
-        <span class="splash-copyright-text">BioBit Interactive CO.</span>
-        <span class="splash-copyright-text splash-copyright-label">&copy; 2024</span>
+        <span class="splash-copyright-text">Lovium Studio & Community</span> 
+        <span class="splash-copyright-text splash-copyright-label">&copy; 2026 &bull; 2026</span>
     </div>
 
-    <span class="splash-version-text">V. 1.0 PRE-ALPHA</span>
+    <span class="splash-version-text">V. 0.1.3 PREVIEW</span>
 
 </body>
 </html>

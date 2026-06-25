@@ -67,35 +67,45 @@ export const INESPECTOR_TRANSFORM_CONTROL_GROUP : ControlGroup = new ControlGrou
 });
 
 export const INSPECTOR_SCALE_X_CONTROL: NumberControl = new NumberControl({
-    label: "Scale"
+    label: "Scale",
+    value : 0
 });
  
 export const INSPECTOR_SCALE_Y_CONTROL: NumberControl = new NumberControl({
-    label: "Scale"
+    label: "Scale",
+    value : 0
 });
 
 INSPECTOR_SCALE_X_CONTROL.joinControl(INSPECTOR_SCALE_Y_CONTROL);
   
 export const INSPECTOR_TRANSLATE_X_CONTROL : NumberControl = new NumberControl({
-    label: "Translate"
+    label: "Translate",
+    value : 0
 });
 
 export const INSPECTOR_TRANSLATE_Y_CONTROL : NumberControl = new NumberControl({
-    label: "Translate"
+    label: "Translate",
+    value : 0
 });
 
 INSPECTOR_TRANSLATE_X_CONTROL.joinControl(INSPECTOR_TRANSLATE_Y_CONTROL);
 
 export const INSPECTOR_ROTATE_CONTROL = new NumberControl({
-    label: "Rotation"
+    label: "Rotation",
+    max : 360,
+    min : 0,
+    value : 0,
+    sufix : "º"
 });
 
 export const INSPECTOR_ANCHOR_POINT_X_CONTROL: NumberControl = new NumberControl({
-    label: "Anchor Point"
+    label: "Anchor Point",
+    value : 0
 });
  
 export const INSPECTOR_ANCHOR_POINT_Y_CONTROL: NumberControl = new NumberControl({
-    label: "Scale"
+    label: "Scale",
+    value : 0
 });
 
 INSPECTOR_ANCHOR_POINT_X_CONTROL.joinControl(INSPECTOR_ANCHOR_POINT_Y_CONTROL);
@@ -108,11 +118,13 @@ export const INSPECTOR_SPRITE_CONTROL_GROUP : ControlGroup = new ControlGroup({
 });
 
 export const INPSECTOR_SPRITE_START_CONTROL = new NumberControl({
-    label: "Sprite Start"
+    label: "Sprite Start",
+    value : 0
 });
 
 export const INSPECTOR_SPRITE_DEPTH_CONTROL = new NumberControl({
-    label: "Sprite Depth"
+    label: "Sprite Depth",
+    value : 0
 });
 
 export const INSPECTOR_SPRITE_VISIBILITY_CONTROL = new DropdownControl({
@@ -161,15 +173,18 @@ export const INSPECTOR_SPRITE_ANIMATION_CONTROL : DropdownControl = new Dropdown
 });
 
 export const INSPECTOR_ANIMATION_FPS_CONTROL : NumberControl = new NumberControl({
-    label : "FPS"
+    label : "FPS",
+    value : 0
 });
 
 export const INSPECTOR_ANIMATION_SPEED_CONTROL : NumberControl = new NumberControl({
-    label : "Speed"
+    label : "Speed",
+    value : 0
 });
 
 export const INSPECTOR_ANIMATION_CURRENT_FRAME_CONTROL : NumberControl = new NumberControl({
-    label : "Frame"
+    label : "Frame",
+    value : 0
 });
 
 // GRID GROUP : 
@@ -206,21 +221,25 @@ export const INSPECTOR_SAFE_AREA_CONTROL_GROUP : ControlGroup = new ControlGroup
 });
 
 export const INSPECTOR_SAFE_AREA_SCALE_X_CONTROL : NumberControl = new NumberControl({
-    label: "Scale"
+    label: "Scale",
+    value : 0
 });
 
 export const INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL : NumberControl = new NumberControl({
-    label: "Scale"
+    label: "Scale",
+    value : 0 
 });
 
 INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.joinControl(INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL);
 
 export const INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL : NumberControl = new NumberControl({
-    label: "Translate"
+    label: "Translate",
+    value : 0
 });
 
 export const INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL : NumberControl = new NumberControl({
-    label: "Translate"
+    label: "Translate",
+    value : 0
 });
 
 INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.joinControl(INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL);

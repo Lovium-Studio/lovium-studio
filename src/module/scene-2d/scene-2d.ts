@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SceneNode, SceneNodeOption,SceneNodeListType } from "../../../ts/types.js";
+import { IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
 import { Grid2D } from "../2d-grid/2d-grid.js";
 import { console } from "../console/console.js";
 import { CrossGuide } from "../cross-guide/cross-guide.js";
@@ -97,10 +97,10 @@ class Scene2d {
             this.lastSelectedNode.setWidth(coord.width);
             this.lastSelectedNode.setHeight(coord.height);
 
-            INSPECTOR_SCALE_X_CONTROL.setValue(coord.width.toString());
-            INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height.toString());
-            INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x.toString());
-            INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y.toString());
+            INSPECTOR_SCALE_X_CONTROL.setValue(coord.width);
+            INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height);
+            INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x);
+            INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y);
 
         });
 
@@ -135,7 +135,7 @@ class Scene2d {
 
         const crossHideVisibility = ( state : boolean ) : void => {
             state ? this.CROSS_GUIDE.show() : this.CROSS_GUIDE.hide();
-            // this.CROSS_GUIDE.setSide("LEFT")
+            this.CROSS_GUIDE.setSide("ALL") 
         };
 
         // INSPECTOR EVENT :
@@ -164,9 +164,39 @@ class Scene2d {
 
         });
 
-        INSPECTOR_ROTATE_CONTROL.onWrite(value => {
-            this.GRID_2D.setX(parseInt(value)) 
+        INSPECTOR_TRANSLATE_Y_CONTROL.onIncrementorStart(()=>{ 
+            this.CROSS_GUIDE.show();
+            this.CROSS_GUIDE.setSide("VERTICAL");   
+            console("TESTE 1")
+
+        }); 
+
+        INSPECTOR_TRANSLATE_Y_CONTROL.onIncrementorEnd(()=>{
+            this.CROSS_GUIDE.hide();   
+            this.CROSS_GUIDE.setSide("VERTICAL");
+            console("TESTE 2")
+
         });
+
+        INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorStart(()=>{ 
+            this.CROSS_GUIDE.show();
+            this.CROSS_GUIDE.setSide("HORIZONTAL");   
+            console("TESTE 1")
+
+        }); 
+
+        INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorEnd(()=>{  
+            this.CROSS_GUIDE.hide();   
+            this.CROSS_GUIDE.setSide("HORIZONTAL");
+            console("TESTE 2")
+
+        });
+
+        INSPECTOR_ROTATE_CONTROL.onWrite(value => {
+            if(this.selectedNode?.type === "SPRITE_NODE"){
+                this.selectedNode.setRotation(parseInt(value));
+            };
+        }); 
 
         // SCENE CLICK EVENT : 
  
@@ -210,18 +240,19 @@ class Scene2d {
 
                     this.RESIZE_HANDLE.show();
 
-                    // GET OPACITY :   
+                    // GET OPACITY :    
 
                     if (this.selectedNode?.type === "SPRITE_NODE") {
                         INSPECTOR_OPACITY_CONTROL.setValue(this.selectedNode.opacity); 
-                    }; 
+                        INSPECTOR_ROTATE_CONTROL.setValue(this.selectedNode.rotation);  
+                    };
 
                     // UPDATE INSPECTOR :  
 
-                    INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width.toString());
-                    INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height.toString());
-                    INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x.toString());
-                    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(n.node.y.toString()); 
+                    INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
+                    INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height);
+                    INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x);
+                    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(n.node.y); 
 
                     return true;
                 };
@@ -316,7 +347,7 @@ class Scene2d {
 
         this.renderBelow(context); 
 
-        if (this.isScene) {
+        if (this.isScene) { 
 
             this.nodeList.forEach(n =>{ 
                 if(n.node) n.node.render(context);

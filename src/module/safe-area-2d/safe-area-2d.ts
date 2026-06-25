@@ -51,25 +51,25 @@ export class SafeArea2d {
             this.setWidth(Number(value));
         });
 
-        INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.setValue(this.width.toString());
+        INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.setValue(this.width);
 
         INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL.onWrite(value => {
             this.setHeight(Number(value));
         });
 
-        INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL.setValue(this.height.toString());
+        INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL.setValue(this.height);
 
         INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.onWrite(value => {
             this.setX(Number(value));
         });
 
-        INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.setValue(this.x.toString());
+        INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.setValue(this.x);
 
         INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL.onWrite(value => {
             this.setY(Number(value));
         });
  
-        INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL.setValue(this.y.toString()); 
+        INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL.setValue(this.y); 
 
     };
 

@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { NodeLocation, Scene2dNodeType, SpriteNodeOption } from "../../../ts/types.js";
+import { NodeLocation, Scene2dNodeType, ISpriteNode } from "../../../ts/types.js";
 
 // SPRITE NODE : 
 
@@ -26,15 +26,17 @@ export class SpriteNode {
     public height : number;
     public image : HTMLImageElement;
     public isSelected : boolean;
-    public type : Scene2dNodeType;
+public type : Scene2dNodeType;
     public location : NodeLocation;
     public isSelectable : boolean;
     public opacity : number;
+    public rotation : number;
+    public anchorPoint : [number,number];
     
     private src : string;
     private isLoaded : boolean;
 
-    constructor(option : SpriteNodeOption){ 
+    constructor(option : ISpriteNode){ 
 
         this.src = option.src;
         this.x = option.x;
@@ -47,6 +49,8 @@ export class SpriteNode {
         this.location = "FOREIGNER";
         this.isSelectable = true;
         this.opacity = option.opacity;
+        this.rotation = option.rotation;
+        this.anchorPoint = option.anchorPoint;
 
         this.image = new Image();
         this.image.src = this.src;
@@ -54,13 +58,22 @@ export class SpriteNode {
         
     };
 
-    public render( context : CanvasRenderingContext2D ): void {
+   public render( context : CanvasRenderingContext2D ): void {
 
-        if (!this.isLoaded) return;
+    if (!this.isLoaded) return;
 
-        context.globalAlpha = this.opacity;
-        context.drawImage(this.image, this.x, this.y,this.width,this.height);
-        context.globalAlpha = 1;
+        context.save();
+
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        context.translate(centerX, centerY); 
+    
+        context.rotate(this.rotation * (Math.PI / 180)); 
+        context.globalAlpha = this.opacity; 
+        
+        context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+
+        context.restore(); 
 
     };
     
@@ -77,5 +90,6 @@ export class SpriteNode {
     public setHeight = ( height : number) : number => this.height = height;
     public setSelected = (state : boolean ) : boolean => this.isSelected = state;
     public setOpacity = ( opacity : number ) : number => this.opacity = opacity;
-
+    public setRotation = ( rotation : number ) : number => this.rotation = rotation;
+ 
 };
