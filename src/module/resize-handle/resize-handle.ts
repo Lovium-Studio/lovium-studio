@@ -51,11 +51,12 @@ export class ResizeHandle {
     private isMoving: boolean;
     private padding : number;
     private isVisible : boolean;
-    private onHandleMouseUpCallbackList : Function[] = []
 
+    private onHandleMouseUpCallbackList : Function[] = []
     private changeListeners: ((coordinate: IResizeHandleCoordinate) => void)[] = [];
     private onResizeHandleMouseUpCallbackList : Function[];
     private onResizeHandleMouseDownCallbackList : Function[];
+    private isInsideContainer : boolean;
 
     public x : number;
     public y : number;
@@ -83,6 +84,7 @@ export class ResizeHandle {
         this.y = 0;
         this.width = 0;
         this.height = 0;
+        this.isInsideContainer = false;
 
         this.handleRect = document.createElement("div");
         this.handleRect.classList.add("resize-handle-rect");
@@ -173,6 +175,19 @@ export class ResizeHandle {
         this.handleLeftCenter.addEventListener("click",()=>{
             this.onHandleMouseUpCallbackList.forEach(callback => callback("LEFT"));
         })
+
+    
+        this.container.addEventListener("mouseenter", () => { this.isInsideContainer = true; });
+        this.container.addEventListener("mouseleave", () => { this.isInsideContainer = false; });
+
+        document.addEventListener("keydown", (e: KeyboardEvent) => {    
+            if (e.code === "ArrowRight" || e.code === "KeyD" && this.isInsideContainer) this.moveRight(); 
+            if (e.code === "ArrowLeft" || e.code === "KeyA"  && this.isInsideContainer) this.moveLeft(); 
+            if (e.code === "ArrowUp" || e.code === "KeyW"  && this.isInsideContainer) this.moveTop(); 
+            if (e.code === "ArrowDown" || e.code === "KeyS"  && this.isInsideContainer) this.moveBottom();  
+        });
+
+
     };
 
     public show = () : string => this.handleRect.style.display = "flex";
@@ -296,6 +311,26 @@ export class ResizeHandle {
         if (this.changeListeners.length === 0) return;
         const currentCoords = this.getCoordinate();
         this.changeListeners.forEach(listener => listener(currentCoords));
+    };
+
+    private moveRight = () : void => { 
+        this.x = this.getX() + 1; 
+        this.setX(this.x);  
+    };
+
+    private moveLeft = () : void => { 
+        this.x = this.getX() - 1; 
+        this.setX(this.x);  
+    };
+
+    private moveTop = () : void => { 
+        this.x = this.getY() - 1; 
+        this.setY(this.x);  
+    };
+
+    private moveBottom = () : void => { 
+        this.x = this.getY() + 1; 
+        this.setY(this.x);  
     };
 
     public getCoordinate(): IResizeHandleCoordinate {

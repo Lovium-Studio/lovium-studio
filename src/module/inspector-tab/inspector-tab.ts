@@ -174,7 +174,10 @@ export const INSPECTOR_SPRITE_ANIMATION_CONTROL : DropdownControl = new Dropdown
 
 export const INSPECTOR_ANIMATION_FPS_CONTROL : NumberControl = new NumberControl({
     label : "FPS",
-    value : 0
+    value : 0,
+    min : 1,
+    max : 60,
+    sufix : " FPS"  
 });
 
 export const INSPECTOR_ANIMATION_SPEED_CONTROL : NumberControl = new NumberControl({

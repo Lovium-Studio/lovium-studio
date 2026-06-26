@@ -90,6 +90,11 @@ export class CrossGuide {
 
     public setSide = ( side : GuideLineSideOption ) : GuideLineSideOption => this.showSide = side;
 
+    private getGuideLabelRect = ( label : SceneLabel ) : DOMRect => {
+        const rect = label.getHTMLElement().getBoundingClientRect();
+        return rect;
+    };
+
     public render = ( context : CanvasRenderingContext2D ) : void => {
 
         if (!this.isVisible) return;
@@ -131,11 +136,24 @@ export class CrossGuide {
             const startY = this.resizeHandleY + this.resizeHandleHeight;
             const endY = this.safeArea2d.y + this.safeArea2d.height;
             const guideBottomY = (startY + endY) / 2;
-            const distanceBottom = Math.abs(endY - startY);
+            const distanceBottom = Math.abs(endY - startY); 
 
+            const labelBottomRect = this.getGuideLabelRect(this.guideBottomLabel);
+
+            if(distanceBottom > 60) {
+                this.guideBottomLabel.setY(guideBottomY - this.labelCorrection); 
+                this.guideBottomLabel.getHTMLElement().style.borderTopRightRadius = ""; 
+                this.guideBottomLabel.getHTMLElement().style.borderBottomRightRadius = "";      
+            }
+ 
+            if(distanceBottom < 60) { 
+                this.guideBottomLabel.setY(this.safeArea2d.y + this.safeArea2d.height + labelBottomRect.height - this.safeArea2d.padding);
+                this.guideBottomLabel.getHTMLElement().style.borderTopRightRadius = "0px";   
+                this.guideBottomLabel.getHTMLElement().style.borderBottomRightRadius = "0px";     
+            }
+                
             this.guideBottomLabel.setX(centerX - 20);
-            this.guideBottomLabel.setY(guideBottomY - this.labelCorrection);
-            this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`);
+            this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`); 
 
             this.guideBottomLabel.show();
         };

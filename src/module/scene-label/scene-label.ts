@@ -61,13 +61,15 @@ export class SceneLabel {
     public setY = ( y : number ) : void => {
         this.y = y; 
         this.updateTransform();
-    };
-
+    };  
+ 
     public setRotation = ( rotation : number ) : void => {
         if(rotation < 0 || rotation > 360) return;
         this.rotation = rotation;
         this.updateTransform();
     };
+
+    public getHTMLElement = () : HTMLSpanElement => this.label;
 
     public show = () : string => this.label.style.display = "flex";
     public hide = () : string => this.label.style.display = "none";

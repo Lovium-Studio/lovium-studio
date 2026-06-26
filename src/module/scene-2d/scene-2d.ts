@@ -22,6 +22,7 @@ import { gui } from "../gui/gui.js";
 import { INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { ResizeHandle } from "../resize-handle/resize-handle.js";
 import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
+import { SelectRegion2D } from "../select-region-2d/select-region-2d.js";
 
 // SCENE 2D : 
 
@@ -31,14 +32,17 @@ class Scene2d {
     private name: string;
     private id: string;
     private isScene: boolean;
-    private lastSelectedNode: SceneNode | null;
-    private selectedNode: SceneNode | null;
     private sceneContainerRect : DOMRect;
+
+    private LAST_SELECTED_NODE: SceneNode | null;
+    private SELECTED_NODE: SceneNode | null;
+    private SELECTED_NODE_LIST : SceneNode[] | null;
     
     private SAFE_AREAD_2D : SafeArea2d;
     private RESIZE_HANDLE : ResizeHandle;
     private CROSS_GUIDE : CrossGuide;
     private GRID_2D : Grid2D;
+    private SELECT_REGION_2D : SelectRegion2D;
 
     constructor() {
 
@@ -46,8 +50,9 @@ class Scene2d {
         this.name = "";
         this.id = "";
         this.isScene = false;
-        this.lastSelectedNode = null;
-        this.selectedNode = null;
+        this.LAST_SELECTED_NODE = null; 
+        this.SELECTED_NODE = null;
+        this.SELECTED_NODE_LIST = null;
         this.sceneContainerRect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
         
         // RESIZE HANDLE :
@@ -68,6 +73,10 @@ class Scene2d {
             width: 700,
             height: 350 
         });
+ 
+        // SELECT REGION :  
+
+        this.SELECT_REGION_2D = new SelectRegion2D(gui.sceneTab.sceneCanvasContainer);
 
         // 2D GRID : 
 
@@ -90,12 +99,12 @@ class Scene2d {
 
         this.RESIZE_HANDLE.onTransform(coord => {
 
-            if (!this.lastSelectedNode) return;
+            if (!this.LAST_SELECTED_NODE) return;
             
-            this.lastSelectedNode.setX(coord.x);
-            this.lastSelectedNode.setY(coord.y);
-            this.lastSelectedNode.setWidth(coord.width);
-            this.lastSelectedNode.setHeight(coord.height);
+            this.LAST_SELECTED_NODE.setX(coord.x);
+            this.LAST_SELECTED_NODE.setY(coord.y);
+            this.LAST_SELECTED_NODE.setWidth(coord.width);
+            this.LAST_SELECTED_NODE.setHeight(coord.height);
 
             INSPECTOR_SCALE_X_CONTROL.setValue(coord.width);
             INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height);
@@ -105,25 +114,21 @@ class Scene2d {
         });
 
         gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{
-            if(this.selectedNode){
+            if(this.SELECTED_NODE){
 
-                const x = ( this.SAFE_AREAD_2D.x + this.SAFE_AREAD_2D.width ) / 2 - this.selectedNode.width / 2;
-                this.selectedNode.setX(x) 
-                this.RESIZE_HANDLE.setNode(this.selectedNode) 
+                const x = ( this.SAFE_AREAD_2D.x + this.SAFE_AREAD_2D.width ) / 2 - this.SELECTED_NODE.width / 2;
+                this.SELECTED_NODE.setX(x) 
+                this.RESIZE_HANDLE.setNode(this.SELECTED_NODE) 
  
             }; 
         });
 
         INSPECTOR_OPACITY_CONTROL.onDrag(value => {
-            if(this.selectedNode?.type === "SPRITE_NODE"){
-                this.selectedNode.setOpacity(parseFloat(value))
+            if(this.SELECTED_NODE?.type === "SPRITE_NODE"){
+                this.SELECTED_NODE.setOpacity(parseFloat(value))
                 console(value) 
             };
         });
-
-        // this.RESIZE_HANDLE.onHandleMouseUp((handle : any)=>{
-        //     if(handle === "LEFT") this.CROSS_GUIDE.setSide(handle);  
-        // }) 
   
         this.RESIZE_HANDLE.onResizeHandleMouseDown(()=> {
             crossHideVisibility(true);
@@ -179,7 +184,7 @@ class Scene2d {
         });
 
         INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorStart(()=>{ 
-            this.CROSS_GUIDE.show();
+        this.CROSS_GUIDE.show();
             this.CROSS_GUIDE.setSide("HORIZONTAL");   
             console("TESTE 1")
 
@@ -193,8 +198,8 @@ class Scene2d {
         });
 
         INSPECTOR_ROTATE_CONTROL.onWrite(value => {
-            if(this.selectedNode?.type === "SPRITE_NODE"){
-                this.selectedNode.setRotation(parseInt(value));
+            if(this.SELECTED_NODE?.type === "SPRITE_NODE"){
+                this.SELECTED_NODE.setRotation(parseInt(value));
             };
         }); 
 
@@ -215,14 +220,14 @@ class Scene2d {
 
                     // DESELECT OLD NODE :
 
-                    if (this.lastSelectedNode && this.lastSelectedNode !== n.node) {
-                        this.lastSelectedNode.setSelected(false);
+                    if (this.LAST_SELECTED_NODE && this.LAST_SELECTED_NODE !== n.node) {
+                        this.LAST_SELECTED_NODE.setSelected(false);
                     };
 
                     // SELECT NEW NODE : 
 
-                    this.lastSelectedNode = n.node; 
-                    this.selectedNode = n.node; 
+                    this.LAST_SELECTED_NODE = n.node; 
+                    this.SELECTED_NODE = n.node; 
 
                     n.node.setSelected(true);
  
@@ -242,9 +247,9 @@ class Scene2d {
 
                     // GET OPACITY :    
 
-                    if (this.selectedNode?.type === "SPRITE_NODE") {
-                        INSPECTOR_OPACITY_CONTROL.setValue(this.selectedNode.opacity); 
-                        INSPECTOR_ROTATE_CONTROL.setValue(this.selectedNode.rotation);  
+                    if (this.SELECTED_NODE?.type === "SPRITE_NODE") {
+                        INSPECTOR_OPACITY_CONTROL.setValue(this.SELECTED_NODE.opacity); 
+                        INSPECTOR_ROTATE_CONTROL.setValue(this.SELECTED_NODE.rotation);  
                     };
 
                     // UPDATE INSPECTOR :  
@@ -284,7 +289,7 @@ class Scene2d {
 
         this.nodeList = [];
 
-        this.lastSelectedNode = null;
+        this.LAST_SELECTED_NODE = null;
 
         this.RESIZE_HANDLE.hide();
 
@@ -302,9 +307,9 @@ class Scene2d {
 
         this.nodeList = this.nodeList.filter(n => n.node !== node); 
 
-        if (this.lastSelectedNode === node) {
+        if (this.LAST_SELECTED_NODE === node) {
 
-            this.lastSelectedNode = null;
+            this.LAST_SELECTED_NODE = null;
 
             this.RESIZE_HANDLE.hide();
 
@@ -314,7 +319,7 @@ class Scene2d {
 
     public updateNode = (node: SceneNode): void => {
 
-        if (this.lastSelectedNode === node) {
+        if (this.LAST_SELECTED_NODE === node) {
 
             this.RESIZE_HANDLE.setHandle({
                 x: node.x,
@@ -335,10 +340,11 @@ class Scene2d {
     private renderAbove = (context: CanvasRenderingContext2D) : void => {
         this.CROSS_GUIDE.render(context);
         this.SAFE_AREAD_2D.render(context);
+        this.SELECT_REGION_2D.render(context);
     };
 
     private renderBelow = (context: CanvasRenderingContext2D) : void => {
-        this.GRID_2D.render(context) 
+        this.GRID_2D.render(context);
     };
 
     public renderScene = (context: CanvasRenderingContext2D): void => {
