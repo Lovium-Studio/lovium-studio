@@ -17,12 +17,11 @@
 import { CrossGuideOption, GuideLineSideOption } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { gui } from "../gui/gui.js";
-import { ResizeHandle } from "../resize-handle/resize-handle.js";
-import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";
+import { ResizeHandle, SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
+import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SceneLabel } from "../scene-label/scene-label.js";
 
 // CROSS GUIDE :  
-
 
 export class CrossGuide {
 
@@ -209,8 +208,10 @@ export class CrossGuide {
     public hide = () : void => {
         this.isVisible = false;
         this.guideLeftLabel.hide();
-        this.guideRightLabel.hide();
+        this.guideRightLabel.hide(); 
         this.guideTopLabel.hide();
         this.guideBottomLabel.hide();
     }
 };
+
+export const SCENE_2D_CROSS_GUIDE = new CrossGuide({safeArea2d : SCENE_2D_SAFE_AREA,resizeHandle : SCENE_2D_RESIZE_HANDLE})

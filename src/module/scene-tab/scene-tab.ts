@@ -16,16 +16,29 @@
 
 // SCENE TAB : 
 
-import { IScene2dOption } from "../../../ts/types.js";
+import { IScene2dOption, SceneNode } from "../../../ts/types.js";
+import { SCENE_2D_GRID_2D } from "../2d-grid/2d-grid.js";
+import { console } from "../console/console.js";
+import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";
+import { SCENE_2D_CROSS_GUIDE } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
+import { INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { nodeProcessor } from "../node-processor/node-processor.js";
-import { scene2d } from "../scene-2d/scene-2d.js";
-import { SpriteNode } from "../sprite-node/sprite-node.js";
+import { SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
+import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
+import { SCENE_2D } from "../scene-2d/scene-2d.js";
+import { SCENE_2D_SELECT_REGION_2D } from "../select-region-2d/select-region-2d.js";
 
-// SCENE TAB :
+const SCENE_NODE_LIST = SCENE_2D.getScene();
 
-const CONTEXT_2D = gui.sceneTab.sceneCanvas.getContext("2d")!;
-const SCENE_2D = scene2d;
+SCENE_2D.insertSceneBelow(SCENE_2D_GRID_2D);
+SCENE_2D.insertSceneBelow(SCENE_2D_SAFE_AREA); 
+
+SCENE_2D.insertSceneAbove(SCENE_2D_CROSS_GUIDE); 
+SCENE_2D.insertSceneAbove(SCENE_2D_SELECT_REGION_2D);  
+
+let sceneSelectedNode : SceneNode | null; 
+let lastSelectedNode : SceneNode | null;
 
 const resizeCanvas = (): void => {
     const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
@@ -33,10 +46,8 @@ const resizeCanvas = (): void => {
     gui.sceneTab.sceneCanvas.height = rect.height - 2; 
 }; 
 
-new ResizeObserver(() => {   
-    resizeCanvas(); 
-}).observe(gui.sceneTab.sceneCanvasContainer);
-
+const canvasSizeObserver = new ResizeObserver(resizeCanvas)
+canvasSizeObserver.observe(gui.sceneTab.sceneCanvasContainer);
 
 const sceneTemlate : IScene2dOption = {
     name : "Stage 1",
@@ -241,9 +252,8 @@ const processor = nodeProcessor(sceneTemlate);
 SCENE_2D.loadScene(processor);
 
 const render = (): void => {
-
-    CONTEXT_2D.clearRect( 0,0,gui.sceneTab.sceneCanvas.width,gui.sceneTab.sceneCanvas.height);
-    SCENE_2D.renderScene(CONTEXT_2D); 
+    SCENE_2D_CONTEXT.clearRect( 0,0,gui.sceneTab.sceneCanvas.width,gui.sceneTab.sceneCanvas.height);
+    SCENE_2D.renderScene(SCENE_2D_CONTEXT); 
 }; 
 
 const frameLoop = (): void => {  
@@ -252,7 +262,154 @@ const frameLoop = (): void => {
 };
 
 export const sceneTab = (): void => { 
-
     resizeCanvas();    
     frameLoop();
 };
+
+SCENE_2D_RESIZE_HANDLE.config({
+    lineType: "DASHED",
+}); 
+
+// RESIZE HANDLE EVENT :
+
+SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
+
+    if (!lastSelectedNode) return; 
+    
+    lastSelectedNode.setX(coord.x);
+    lastSelectedNode.setY(coord.y);
+    lastSelectedNode.setWidth(coord.width);
+    lastSelectedNode.setHeight(coord.height);
+
+    INSPECTOR_SCALE_X_CONTROL.setValue(coord.width);
+    INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height);
+    INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x);
+    INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y);
+
+});
+
+gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{
+    if(sceneSelectedNode){
+        const x = ( SCENE_2D_SAFE_AREA.x + SCENE_2D_SAFE_AREA.width ) / 2 - sceneSelectedNode.width / 2;
+        sceneSelectedNode.setX(x) 
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode) 
+    }; 
+});
+
+INSPECTOR_OPACITY_CONTROL.onDrag(value => {
+    if(sceneSelectedNode?.type === "SPRITE_NODE"){
+        sceneSelectedNode.setOpacity(parseFloat(value))
+        console(value) 
+    };
+});
+
+SCENE_2D_RESIZE_HANDLE.onResizeHandleMouseDown(()=> {
+    crossHideVisibility(true);
+});
+
+SCENE_2D_RESIZE_HANDLE.onResizeHandleMouseUp(()=> {
+    crossHideVisibility(false);
+}); 
+
+const crossHideVisibility = ( state : boolean ) : void => {
+    state ? SCENE_2D_CROSS_GUIDE.show() : SCENE_2D_CROSS_GUIDE.hide();
+    SCENE_2D_CROSS_GUIDE.setSide("ALL") 
+};
+
+// INSPECTOR EVENT :
+
+INSPECTOR_SCALE_X_CONTROL.onWrite(value => {
+    SCENE_2D_RESIZE_HANDLE.setWidth(parseInt(value));
+});
+
+INSPECTOR_SCALE_Y_CONTROL.onWrite(value => {
+    SCENE_2D_RESIZE_HANDLE.setHeight(parseInt(value));
+});
+
+INSPECTOR_TRANSLATE_X_CONTROL.onWrite(value => { 
+    SCENE_2D_RESIZE_HANDLE.setX(parseInt(value));
+});
+
+INSPECTOR_TRANSLATE_Y_CONTROL.onWrite(value => {
+    SCENE_2D_RESIZE_HANDLE.setY(parseInt(value));
+});
+
+INSPECTOR_TRANSLATE_Y_CONTROL.onIncrementorStart(()=>{ 
+    SCENE_2D_CROSS_GUIDE.show();
+    SCENE_2D_CROSS_GUIDE.setSide("VERTICAL");   
+}); 
+
+INSPECTOR_TRANSLATE_Y_CONTROL.onIncrementorEnd(()=>{
+    SCENE_2D_CROSS_GUIDE.hide();   
+    SCENE_2D_CROSS_GUIDE.setSide("VERTICAL");
+});
+
+INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorStart(()=>{ 
+    SCENE_2D_CROSS_GUIDE.show();
+    SCENE_2D_CROSS_GUIDE.setSide("HORIZONTAL");   
+}); 
+
+INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorEnd(()=>{  
+    SCENE_2D_CROSS_GUIDE.hide();   
+    SCENE_2D_CROSS_GUIDE.setSide("HORIZONTAL");
+});
+
+INSPECTOR_ROTATE_CONTROL.onWrite(value => {
+    if(sceneSelectedNode?.type === "SPRITE_NODE"){
+        sceneSelectedNode.setRotation(parseInt(value));
+    };
+}); 
+
+// SCENE 2D SELECT NODE : 
+
+gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
+
+    const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    SCENE_NODE_LIST.find(n => {
+
+        if(!n.node) return;
+
+        if (mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height && n.node.isSelectable) {
+
+            if (lastSelectedNode && lastSelectedNode !== n.node) {
+                lastSelectedNode.setSelected(false);
+            }; 
+
+            lastSelectedNode = n.node; 
+            sceneSelectedNode = n.node; 
+
+            n.node.setSelected(true);
+
+            SCENE_2D_RESIZE_HANDLE.setHandle({
+                x: n.node.x,
+                y: n.node.y,
+                width: n.node.width,
+                height: n.node.height,
+                rotate: false,
+                type: "SINGLE_OBJECT",
+                object: "CANVAS"
+            }); 
+
+            SCENE_2D_RESIZE_HANDLE.show();
+
+            if (sceneSelectedNode?.type === "SPRITE_NODE") {
+                INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
+                INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
+            };
+
+            INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
+            INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height);
+            INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x);
+            INSPECTOR_TRANSLATE_Y_CONTROL.setValue(n.node.y); 
+
+            return true;
+        };
+
+        return false;
+    });
+
+});

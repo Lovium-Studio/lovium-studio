@@ -15,6 +15,7 @@
 /**************************************************************************/
 
 import { getCSSVar } from "../anchor-node/theme/theme.js";
+import { gui } from "../gui/gui.js";
 
 // SELECT REGION 2D : 
 
@@ -104,3 +105,5 @@ export class SelectRegion2D {
     public hide = () : boolean => this.isEnabled = false;
     
 };
+
+export const SCENE_2D_SELECT_REGION_2D = new SelectRegion2D(gui.sceneTab.sceneCanvasContainer)

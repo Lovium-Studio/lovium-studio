@@ -17,12 +17,13 @@
 // RESIZE HANDLE : 
 
 import { IResizeHandle, IResizeHandleConfigOption, IResizeHandleCoordinate, SceneNode } from "../../../ts/types.js";
+import { gui } from "../gui/gui.js";
 
 type ResizeHandleSideOption = "TOP" | "BOTTOM" | "LEFT" | "RIGHT" | "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT";
 
 export class ResizeHandle {
 
-    private container: HTMLDivElement;
+private container: HTMLDivElement;
 
     private handleRect: HTMLDivElement;
     private handleAnchorPoint: HTMLElement; 
@@ -453,3 +454,5 @@ export class ResizeHandle {
         this.setHeight(node.height);
     };
 };
+
+export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer)

@@ -16,6 +16,7 @@
 
 import { IGrid2D } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
+import { gui } from "../gui/gui.js";
 
 // 2D GRID : 
 
@@ -66,5 +67,6 @@ export class Grid2D {
     public setWidth = ( width : number) : number => this.width = width;
     public setHeight = ( height : number) : number => this.height = height;
 
-
 };
+
+export const SCENE_2D_GRID_2D = new Grid2D({ canvas : gui.sceneTab.sceneCanvas,width : 10,height : 10,x : 0,y : 0})

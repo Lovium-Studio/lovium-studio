@@ -15,6 +15,7 @@
 /**************************************************************************/
 
 import { NodeLocation, Scene2dNodeType, ISpriteNode } from "../../../ts/types.js";
+import { getCSSVar } from "../anchor-node/theme/theme.js";
 
 // SPRITE NODE : 
 
@@ -69,7 +70,11 @@ public type : Scene2dNodeType;
         context.translate(centerX, centerY); 
     
         context.rotate(this.rotation * (Math.PI / 180)); 
-        context.globalAlpha = this.opacity; 
+        context.globalAlpha = this.opacity;
+ 
+        // context.strokeStyle = getCSSVar("--color-c");  
+        // context.lineWidth = 1;
+        // context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
         
         context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
 

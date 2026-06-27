@@ -128,3 +128,5 @@ export class SafeArea2d {
     public setHeight = ( height : number) : number => this.height = height;
     
 };
+
+export const SCENE_2D_SAFE_AREA = new SafeArea2d({x: 20, y: 20, width: 700, height: 350})
