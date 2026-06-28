@@ -14,7 +14,8 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
+import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
+import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 // SCENE 2D : 
 
@@ -26,8 +27,12 @@ class Scene2d {
     private isScene: boolean;
     private sceneRenderAboveList : any[];
     private sceneRenderBelowList : any[];
+    private sceneRenderOverlayAboveList : any[];
+    private sceneRenderOverlayBelowList : any[];
+    
+    public zoom : number;
 
-    constructor() {
+    constructor( option : IScene2D ) {
 
         this.nodeList = [];
         this.name = "";
@@ -35,15 +40,20 @@ class Scene2d {
         this.isScene = false;
         this.sceneRenderAboveList = [];
         this.sceneRenderBelowList = [];
+        this.sceneRenderOverlayAboveList = [];
+        this.sceneRenderOverlayBelowList = [];
+        this.zoom = option.viewport.currentZoom;
+
+        option.viewport.onZoom((zoom : number) => this.zoom = zoom);
         
-    };
+    }; 
 
     public loadScene = (scene: IScene2dOption ): void => {
         this.nodeList.push(...scene.nodeList);
         this.isScene = true;
     };
 
-    public getScene = (): SceneNodeListType[] => this.nodeList;
+    public getNodeList = (): SceneNodeListType[] => this.nodeList;
     
     public clearScene = (): void => {
         this.isScene = false;
@@ -70,6 +80,8 @@ class Scene2d {
 
     public insertSceneAbove = ( element : any ) : any => this.sceneRenderAboveList.push(element);
     public insertSceneBelow = ( element : any ) : any => this.sceneRenderBelowList.push(element);
+    public insertSceneOverlayAbove = ( element : any ) : any => this.sceneRenderOverlayAboveList.push(element);
+    public insertSceneOverlayBelow = ( element : any ) : any => this.sceneRenderOverlayBelowList.push(element);
 
     private renderAbove = (context: CanvasRenderingContext2D) : void => {
         if(Array.isArray(this.sceneRenderAboveList) && this.sceneRenderAboveList.length > 0){
@@ -78,18 +90,33 @@ class Scene2d {
     };
 
     private renderBelow = (context: CanvasRenderingContext2D) : void => {
-          if(Array.isArray(this.sceneRenderBelowList) && this.sceneRenderBelowList.length > 0){
+        if(Array.isArray(this.sceneRenderBelowList) && this.sceneRenderBelowList.length > 0){
             this.sceneRenderBelowList.forEach( element => element.render(context));
+        };
+    };
+
+    private renderOverlayAbove = (context: CanvasRenderingContext2D) : void => {
+        if(Array.isArray(this.sceneRenderOverlayAboveList) && this.sceneRenderOverlayAboveList.length > 0){
+            this.sceneRenderOverlayAboveList.forEach( element => element.render(context));
+        };
+    };
+
+    private renderOverlayBelow = (context: CanvasRenderingContext2D) : void => {
+        if(Array.isArray(this.sceneRenderOverlayBelowList) && this.sceneRenderOverlayBelowList.length > 0){
+            this.sceneRenderOverlayBelowList.forEach( element => element.render(context));
         };
     };
 
     public renderScene = (context: CanvasRenderingContext2D): void => {
         context.save();
+        this.renderOverlayBelow(context);
+        context.scale(this.zoom,this.zoom); 
         this.renderBelow(context); 
         if (this.isScene) this.nodeList.forEach(n => n.node?.render(context));
         this.renderAbove(context);
         context.restore();
+        this.renderOverlayAbove(context);
     };
 };
 
-export const SCENE_2D = new Scene2d();
+export const SCENE_2D = new Scene2d({ viewport : SCENE_2D_VIEWPORT_2D});

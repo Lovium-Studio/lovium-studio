@@ -9,7 +9,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background: var(--color-f); 
+    background: var(--color-d); 
     overflow: hidden;
     z-index: 2;
 }
@@ -63,7 +63,6 @@ $timeline-header-height: $tab-header-height;
     align-items: center;
     flex-direction: row; 
     background: var(--color-f);
-    border-bottom: 2px solid var(--color-d);
     // gap: 3px;
     // padding-right: 3px;
     padding-right: 3px;
@@ -110,8 +109,6 @@ $tracker-in-border: 2px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    border-top: $tracker-in-border solid var(--color-d);
-    border-bottom: $tracker-in-border solid var(--color-d);
     background: var(--color-f);
     display: flex;
     justify-content: flex-end;
@@ -157,15 +154,11 @@ $tracker-in-border: 2px;
 // TIMELINE TRACKER ROW : 
 
 .timeline-tracker-row{
-    border-top: 2px solid var(--color-d);
-    border-bottom: 2px solid var(--color-d);
     background: var(--color-f);
     &::after{
         position: absolute;
         width: 100%;
         height: 100%;
-        border-top: 2px solid var(--color-d);
-        border-bottom: 2px solid var(--color-d);
         background: var(--color-f);
         z-index: 2;
         content: '';
@@ -232,11 +225,13 @@ $tracker-color: var(--color-e);
         display: flex; 
         justify-content: center;  
         align-items: center;
-        background-image: url('.././asset/timeline/tween-diagonal-line.png') ;
-        background-size: 50px;
-        background-repeat: repeat; 
+        // background-image: url('.././asset/timeline/tween-diagonal-line.png') ;
+        // background-size: 50px;
+        // background-repeat: repeat; 
         .tracker-name{ 
             position: absolute;
+            width : 70%;
+            box-sizing: border-box;
             font-family: arial;
             font-weight: initial;
             font-size: $text-1x;
@@ -285,7 +280,6 @@ $tracker-color: var(--color-e);
     align-items: center;
     flex-direction: row;
     background: var(--color-f);
-    border-bottom: 2px solid var(--color-d);
     .timeline-ruler-value{
         position: relative;
         font-family: $app-font;

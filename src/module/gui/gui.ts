@@ -72,8 +72,11 @@ export const gui = {
         sceneGUIContainer : getUi("scene-gui-container") as HTMLDivElement,
         sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
         sceneCanvasContainer : getUi("scene-canvas-container") as HTMLDivElement,
-        scene2dAlignHorizontalButton : getUi("scene-2d-align-horizontal-button") as HTMLButtonElement
-    },
+        scene2dAlignHorizontalButton : getUi("scene-2d-align-horizontal-button") as HTMLButtonElement,
+        scene2dZoomInButton : getUi("scene-2d-zoom-in-button") as HTMLButtonElement,
+        scene2dZoomOutButton : getUi("scene-2d-zoom-out-button") as HTMLButtonElement,
+        scene2dSelectRegionButton : getUi("scene-2d-select-region-button") as HTMLButtonElement
+},
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,

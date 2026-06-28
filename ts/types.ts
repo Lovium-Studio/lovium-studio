@@ -18,6 +18,7 @@ import { DropdownControl, NumberControl, SliderControl, TextControl } from "../s
 import { ResizeHandle } from "../src/module/resize-handle/resize-handle.js";
 import { SafeArea2d } from "../src/module/safe-area-2d/safe-area-2d.js";
 import { SpriteNode } from "../src/module/sprite-node/sprite-node.js";
+import { Viewport2D } from "../src/module/viewport-2d/viewport-2d.js";
 
 // TAB LOCATION TYPE : 
 
@@ -119,7 +120,7 @@ export interface IResizeHandle {
     y: number,
     width: number,
     height: number,
-    rotate: boolean
+    rotate: number
     object  : ResizeHandleObjectType
 };
 
@@ -318,3 +319,17 @@ export interface IGrid2D {
     y : number
 };
 
+// VIEWPORT 2D : 
+
+export interface IViewport2D {
+    width : number,
+    height : number,
+    offsetX : number,
+    offsetY : number
+}
+
+// SCENE 2D : 
+
+export interface IScene2D {
+    viewport : Viewport2D
+};

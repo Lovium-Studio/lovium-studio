@@ -28,23 +28,35 @@ import { SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D } from "../scene-2d/scene-2d.js";
 import { SCENE_2D_SELECT_REGION_2D } from "../select-region-2d/select-region-2d.js";
+import { SCENE_2D_VIEWPORT_2D } from "../viewport-2d/viewport-2d.js";
+import { Toggle } from "../../util/toggle/toggle.js";
+import { getCSSVar } from "../anchor-node/theme/theme.js";
 
-const SCENE_NODE_LIST = SCENE_2D.getScene();
+const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
-SCENE_2D.insertSceneBelow(SCENE_2D_GRID_2D);
+SCENE_2D.insertSceneOverlayBelow(SCENE_2D_GRID_2D);
 SCENE_2D.insertSceneBelow(SCENE_2D_SAFE_AREA); 
 
-SCENE_2D.insertSceneAbove(SCENE_2D_CROSS_GUIDE); 
-SCENE_2D.insertSceneAbove(SCENE_2D_SELECT_REGION_2D);  
-
+SCENE_2D.insertSceneAbove(SCENE_2D_CROSS_GUIDE);  
+SCENE_2D.insertSceneAbove(SCENE_2D_SELECT_REGION_2D);    
+SCENE_2D.insertSceneAbove(SCENE_2D_RESIZE_HANDLE);    
+ 
 let sceneSelectedNode : SceneNode | null; 
-let lastSelectedNode : SceneNode | null;
+let lastSelectedNode : SceneNode | null;    
 
 const resizeCanvas = (): void => {
     const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
     gui.sceneTab.sceneCanvas.width = rect.width - 1;
     gui.sceneTab.sceneCanvas.height = rect.height - 2; 
 }; 
+
+gui.sceneTab.scene2dZoomInButton.addEventListener("click",()=>{
+    SCENE_2D_VIEWPORT_2D.zoomIn();
+})
+
+gui.sceneTab.scene2dZoomOutButton.addEventListener("click",()=>{
+    SCENE_2D_VIEWPORT_2D.zoomOut();
+})
 
 const canvasSizeObserver = new ResizeObserver(resizeCanvas)
 canvasSizeObserver.observe(gui.sceneTab.sceneCanvasContainer);
@@ -134,7 +146,7 @@ const sceneTemlate : IScene2dOption = {
             anchorPoint : [0,0]
 
 
-        },
+        },  
         {
             type : "SPRITE_NODE",
             x : 300,
@@ -274,19 +286,19 @@ SCENE_2D_RESIZE_HANDLE.config({
 
 SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
 
-    if (!lastSelectedNode) return; 
+    if (!sceneSelectedNode) return; 
     
-    lastSelectedNode.setX(coord.x);
-    lastSelectedNode.setY(coord.y);
-    lastSelectedNode.setWidth(coord.width);
-    lastSelectedNode.setHeight(coord.height);
+    sceneSelectedNode.setX(coord.x);
+    sceneSelectedNode.setY(coord.y);
+    sceneSelectedNode.setWidth(coord.width);
+    sceneSelectedNode.setHeight(coord.height);
 
     INSPECTOR_SCALE_X_CONTROL.setValue(coord.width);
     INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height);
     INSPECTOR_TRANSLATE_X_CONTROL.setValue(coord.x);
     INSPECTOR_TRANSLATE_Y_CONTROL.setValue(coord.y);
 
-});
+});   
 
 gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{
     if(sceneSelectedNode){
@@ -316,7 +328,7 @@ const crossHideVisibility = ( state : boolean ) : void => {
     SCENE_2D_CROSS_GUIDE.setSide("ALL") 
 };
 
-// INSPECTOR EVENT :
+// INSPECTOR :
 
 INSPECTOR_SCALE_X_CONTROL.onWrite(value => {
     SCENE_2D_RESIZE_HANDLE.setWidth(parseInt(value));
@@ -360,18 +372,33 @@ INSPECTOR_ROTATE_CONTROL.onWrite(value => {
     };
 }); 
 
+// TOGGLE SELECT REGION : 
+
+const toggleSelectRegion = new Toggle(false);
+
+gui.sceneTab.scene2dSelectRegionButton.addEventListener("click",()=>toggleSelectRegion.press());
+const icon = gui.sceneTab.scene2dSelectRegionButton.querySelector("i") as HTMLElement;
+ 
+toggleSelectRegion.onToggle(state =>{   
+    icon.style.color = state ? getCSSVar("--color-b") : ""; 
+});     
+
 // SCENE 2D SELECT NODE : 
 
 gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
     const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+        const zoom = SCENE_2D.zoom;
+        const mouseX = (e.clientX - rect.left) / zoom;
+        const mouseY = (e.clientY - rect.top) / zoom;
 
-    SCENE_NODE_LIST.find(n => {
+        // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transform = `scale(${zoom})`;   
+        // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transformOrigin = "top left";
 
-        if(!n.node) return;
+        SCENE_NODE_LIST.find(n => {     
+
+        if(!n.node) return; 
 
         if (mouseX >= n.node.x && mouseX <= n.node.x + n.node.width && mouseY >= n.node.y && mouseY <= n.node.y + n.node.height && n.node.isSelectable) {
 
@@ -380,35 +407,35 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
             }; 
 
             lastSelectedNode = n.node; 
-            sceneSelectedNode = n.node; 
+            sceneSelectedNode = n.node;  
 
             n.node.setSelected(true);
 
-            SCENE_2D_RESIZE_HANDLE.setHandle({
-                x: n.node.x,
-                y: n.node.y,
-                width: n.node.width,
-                height: n.node.height,
-                rotate: false,
-                type: "SINGLE_OBJECT",
-                object: "CANVAS"
-            }); 
+SCENE_2D_RESIZE_HANDLE.setHandle({
+    x: n.node.x * zoom,
+    y: n.node.y * zoom,
+    width: n.node.width * zoom,
+    height: n.node.height * zoom,
+    rotate: false,
+    type: "SINGLE_OBJECT",  
+    object: "CANVAS"
+});
 
             SCENE_2D_RESIZE_HANDLE.show();
 
             if (sceneSelectedNode?.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
                 INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
-            };
+            };    
 
             INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
-            INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height);
-            INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x);
+            INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height); 
+            INSPECTOR_TRANSLATE_X_CONTROL.setValue(n.node.x); 
             INSPECTOR_TRANSLATE_Y_CONTROL.setValue(n.node.y); 
 
             return true;
         };
-
+ 
         return false;
     });
 

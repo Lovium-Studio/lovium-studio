@@ -1052,6 +1052,7 @@ input[type=number]::-webkit-outer-spin-button {
   left: 0px;
   top: 0px;
   z-index: 100;
+  opacity: 0;
 }
 
 .handle-top-center {
@@ -2157,7 +2158,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: none;
   justify-content: center;
   align-items: center;
-  background: var(--color-f);
+  background: var(--color-d);
   overflow: hidden;
   z-index: 2;
 }
@@ -2199,7 +2200,6 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   flex-direction: row;
   background: var(--color-f);
-  border-bottom: 2px solid var(--color-d);
   padding-right: 3px;
 }
 .timeline-header-control-container button {
@@ -2253,8 +2253,6 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border-top: 2px solid var(--color-d);
-  border-bottom: 2px solid var(--color-d);
   background: var(--color-f);
   display: flex;
   justify-content: flex-end;
@@ -2303,16 +2301,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .timeline-tracker-row {
-  border-top: 2px solid var(--color-d);
-  border-bottom: 2px solid var(--color-d);
   background: var(--color-f);
 }
 .timeline-tracker-row::after {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-top: 2px solid var(--color-d);
-  border-bottom: 2px solid var(--color-d);
   background: var(--color-f);
   z-index: 2;
   content: "";
@@ -2367,12 +2361,11 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(".././asset/timeline/tween-diagonal-line.png");
-  background-size: 50px;
-  background-repeat: repeat;
 }
 .tracker .tracker-valuer-container .tracker-name {
   position: absolute;
+  width: 70%;
+  box-sizing: border-box;
   font-family: arial;
   font-weight: initial;
   font-size: 11px;
@@ -2413,7 +2406,6 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   flex-direction: row;
   background: var(--color-f);
-  border-bottom: 2px solid var(--color-d);
 }
 .timeline-tracker-header .timeline-ruler-value {
   position: relative;

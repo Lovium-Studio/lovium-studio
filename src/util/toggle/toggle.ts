@@ -1,3 +1,4 @@
+
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -12,28 +13,36 @@
 /*                   https://opensource.org/license/mit                   */
 /*                                                                        */
 /**************************************************************************/
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-export {};
+
+// TOGGLE : 
+
+export class Toggle {
+
+    private state : boolean;
+    private toggleCallbackList : (( state : boolean )=> void)[] = []; 
+
+    constructor( startState : boolean) {
+        this.state = startState;
+    };
+
+    public press = () : void => {
+        this.state = !this.state;  
+        this.invokeCallback();
+    }; 
+
+    private invokeCallback = () : void => {
+        if (this.toggleCallbackList.length > 0) {
+            this.toggleCallbackList.forEach(callback => callback(this.state));
+        };
+    };
+
+    public disarm = () : void => {
+        if(this.state === false) return;
+        this.state = false;
+        this.invokeCallback();
+    };
+
+    public onToggle = ( callback : ( state : boolean )=> void) : void => {
+        this.toggleCallbackList.push(callback); 
+    }; 
+};
