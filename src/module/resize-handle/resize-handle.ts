@@ -19,12 +19,14 @@
 import {IResizeHandle,IResizeHandleConfigOption,IResizeHandleCoordinate,SceneNode} from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { gui } from "../gui/gui.js";
+import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 type ResizeHandleSideOption = | "MOVE"| "TOP"| "BOTTOM"| "LEFT"| "RIGHT"| "TOP_LEFT"| "TOP_RIGHT"| "BOTTOM_LEFT"| "BOTTOM_RIGHT";
 
 export class ResizeHandle {
 
     private container: HTMLDivElement;
+    private viewport : Viewport2D;
 
     private currentHandle: ResizeHandleSideOption | null;
 
@@ -62,9 +64,10 @@ export class ResizeHandle {
 
     public rotation: number;
 
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLDivElement, viewport : Viewport2D) {
 
         this.container = container;
+        this.viewport = viewport;
 
         this.currentHandle = null;
 
@@ -94,7 +97,7 @@ export class ResizeHandle {
 
         this.isInsideContainer = false;
 
-        this.handleSize = 8;
+        this.handleSize = 6; 
 
         this.setup();
     }
@@ -379,10 +382,7 @@ export class ResizeHandle {
         };
     };
 
-    private getHandleAtPosition(
-        mouseX: number,
-        mouseY: number
-    ): ResizeHandleSideOption | null {
+    private getHandleAtPosition(mouseX: number,mouseY: number): ResizeHandleSideOption | null {
 
         const rect =
             this.container.getBoundingClientRect();
@@ -683,36 +683,40 @@ export class ResizeHandle {
         this.setHeight(node.height);
     };
 
-    public render = ( context:CanvasRenderingContext2D ): void => {
+    public render = (context: CanvasRenderingContext2D): void => {
 
         if (!this.isVisible) return;
-    
+
+        
         context.save();
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
 
         if (this.rotation !== 0) {
 
             const centerX = this.x + this.width / 2;
-            const centerY = this.y + this.height / 2;
+            const centerY = this.y + this.height / 2 ; 
 
-            context.translate(centerX,centerY);
+            context.translate(centerX, centerY);
             context.rotate((this.rotation * Math.PI) / 180);
-            context.translate(-centerX,-centerY);
+            context.translate(-centerX, -centerY);
         };
 
-        context.strokeStyle = getCSSVar("--color-b") || "#0066ff";
-        context.lineWidth = 1;
-        context.setLineDash([]);
-        context.strokeRect(this.x,this.y,this.width,this.height);
+        const px = 0.5;
+
+        context.strokeStyle = getCSSVar("--color-c") 
+        context.lineWidth = 1; 
+        context.setLineDash([3,3]);  
+
+        context.strokeRect(Math.round(this.x) + px,Math.round(this.y) + px,Math.round(this.width),Math.round(this.height));
 
         const hs = this.handleSize;
-
         const hh = hs / 2;
 
-        context.fillStyle = getCSSVar("--color-b") || "#0066ff";
-
-        context.strokeStyle = "#ffffff";
-
+        context.fillStyle = getCSSVar("--color-b") 
+        context.strokeStyle = getCSSVar("--color-c") ;
         context.lineWidth = 1;
+        context.setLineDash([]);   
 
         const handles = [
             { x: this.x - hh, y: this.y - hh },
@@ -725,12 +729,19 @@ export class ResizeHandle {
             { x: this.x + this.width - hh, y: this.y + this.height - hh }
         ];
 
+
         handles.forEach(handle => {
-            context.fillRect(handle.x,handle.y,hs,hs);
-            context.strokeRect(handle.x,handle.y,hs,hs);
+
+            const x = Math.round(handle.x);
+            const y = Math.round(handle.y); 
+
+            context.fillRect(x, y, hs, hs);
+            context.strokeRect(x + px, y + px, hs,hs );
         });
 
-        context.restore();
+        context.scale(this.viewport.currentZoom,this.viewport.currentZoom) 
+
+        context.restore(); 
     };
 
     public destroy = (): void => {
@@ -750,4 +761,4 @@ export class ResizeHandle {
     };
 };
 
-export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer);
+export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer, SCENE_2D_VIEWPORT_2D);

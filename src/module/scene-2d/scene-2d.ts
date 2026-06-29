@@ -75,7 +75,7 @@ class Scene2d {
             if(property.height) node.setHeight(property.height);
             if(property.x) node.setX(property.x);
             if(property.y) node.setY(property.y);
-        };
+    };
     };
 
     public insertSceneAbove = ( element : any ) : any => this.sceneRenderAboveList.push(element);

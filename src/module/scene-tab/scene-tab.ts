@@ -411,15 +411,15 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
             n.node.setSelected(true);
 
-SCENE_2D_RESIZE_HANDLE.setHandle({
-    x: n.node.x * zoom,
-    y: n.node.y * zoom,
-    width: n.node.width * zoom, 
-    height: n.node.height * zoom,
-    rotate: 0,
-    type: "SINGLE_OBJECT",  
-    object: "CANVAS" 
-});
+            SCENE_2D_RESIZE_HANDLE.setHandle({
+                x: n.node.x * zoom,  
+                y: n.node.y * zoom,
+                width: n.node.width * zoom, 
+                height: n.node.height * zoom,
+                rotate: 0,
+                type: "SINGLE_OBJECT",  
+                object: "CANVAS" 
+            });
 
             SCENE_2D_RESIZE_HANDLE.show();
 
