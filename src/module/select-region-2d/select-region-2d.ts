@@ -35,7 +35,7 @@ export class SelectRegion2D {
         this.height = 0;
         this.y = 0;
         this.x = 0; 
-        this.isEnabled = true;
+        this.isEnabled = false;
         this.container = container;
         this.isResizing = false;
 
@@ -76,7 +76,7 @@ export class SelectRegion2D {
 
     public render = ( context : CanvasRenderingContext2D ) : void => {
 
-        if(this.width !== 0 && this.height !== 0){
+        if(this.width !== 0 && this.height !== 0 && this.isEnabled){
 
             context.strokeStyle = getCSSVar("--color-c");
             context.lineWidth = 1;
@@ -101,8 +101,8 @@ export class SelectRegion2D {
     public setY = (y : number) : number => this.y = y;
     public setWidth = ( width : number) : number => this.width = width;
     public setHeight = ( height : number) : number => this.height = height;
-    public show = () : boolean => this.isEnabled = true;
-    public hide = () : boolean => this.isEnabled = false;
+    public enabled = () : boolean => this.isEnabled = true;
+    public desabled = () : boolean => this.isEnabled = false;
     
 };
 

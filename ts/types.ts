@@ -32,9 +32,6 @@ export type ConsoleTypeOption = "ALERT" | "ERROR" | "LOG";
 
 export type ResizeHandleTypeOption = "SINGLE_OBJECT" | "GROUP_OBJECT" | "ASPECT_RATIO_OBJECT" | "PATTERN_OBJECT";
 
-// RESIZE HANDLE OBJECT TYPE :
-
-export type ResizeHandleObjectType = "HTML" | "CANVAS";
 
 // TIMELINE TRACK TYPE : 
 
@@ -121,7 +118,6 @@ export interface IResizeHandle {
     width: number,
     height: number,
     rotate: number
-    object  : ResizeHandleObjectType
 };
 
 // RESIZE HANDLE COORDINATE RETURN : 
@@ -331,5 +327,6 @@ export interface IViewport2D {
 // SCENE 2D : 
 
 export interface IScene2D {
-    viewport : Viewport2D
-};
+    viewport : Viewport2D,
+    safeArea : SafeArea2d
+};  

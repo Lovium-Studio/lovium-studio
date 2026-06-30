@@ -50,7 +50,7 @@ export class Viewport2D {
             this.currentZoom * 1.1  
         );
  
-        this.notifyOnZoomCallback();
+        this.notifyOnZoomCallback();  
     };
 
     public zoomOut = (): void => {

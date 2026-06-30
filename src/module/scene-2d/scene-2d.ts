@@ -15,6 +15,7 @@
 /**************************************************************************/
 
 import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
+import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 // SCENE 2D : 
@@ -29,6 +30,7 @@ class Scene2d {
     private sceneRenderBelowList : any[];
     private sceneRenderOverlayAboveList : any[];
     private sceneRenderOverlayBelowList : any[];
+    private safeArea : SafeArea2d;
     
     public zoom : number;
 
@@ -43,6 +45,7 @@ class Scene2d {
         this.sceneRenderOverlayAboveList = [];
         this.sceneRenderOverlayBelowList = [];
         this.zoom = option.viewport.currentZoom;
+        this.safeArea = option.safeArea;
 
         option.viewport.onZoom((zoom : number) => this.zoom = zoom);
         
@@ -108,15 +111,26 @@ class Scene2d {
     };
 
     public renderScene = (context: CanvasRenderingContext2D): void => {
+
         context.save();
+
         this.renderOverlayBelow(context);
+
         context.scale(this.zoom,this.zoom); 
+
         this.renderBelow(context); 
-        if (this.isScene) this.nodeList.forEach(n => n.node?.render(context));
-        this.renderAbove(context);
+
+        if (this.isScene) {
+            context.translate(this.safeArea.x,this.safeArea.y)
+            this.nodeList.forEach(n => n.node?.render(context)); 
+        };
+
+        this.renderAbove(context);  
+ 
         context.restore();
+
         this.renderOverlayAbove(context);
     };
 };
 
-export const SCENE_2D = new Scene2d({ viewport : SCENE_2D_VIEWPORT_2D});
+export const SCENE_2D = new Scene2d({ viewport : SCENE_2D_VIEWPORT_2D , safeArea : SCENE_2D_SAFE_AREA});

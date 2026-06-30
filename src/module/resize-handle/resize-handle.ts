@@ -1,4 +1,3 @@
-
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -18,15 +17,18 @@
 
 import {IResizeHandle,IResizeHandleConfigOption,IResizeHandleCoordinate,SceneNode} from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
+import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
+import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 type ResizeHandleSideOption = | "MOVE"| "TOP"| "BOTTOM"| "LEFT"| "RIGHT"| "TOP_LEFT"| "TOP_RIGHT"| "BOTTOM_LEFT"| "BOTTOM_RIGHT";
 
-export class ResizeHandle {
+export class ResizeHandle { 
 
     private container: HTMLDivElement;
     private viewport : Viewport2D;
+    private safeArea : SafeArea2d;
 
     private currentHandle: ResizeHandleSideOption | null;
 
@@ -43,15 +45,12 @@ export class ResizeHandle {
     private isMoving: boolean;
 
     private padding: number;
-    private isVisible: boolean;
+    private isEnabled: boolean;
     private handleSize: number;
 
     private onHandleMouseUpCallbackList:Function[] = [];
-
     private changeListeners:((coordinate: IResizeHandleCoordinate) => void)[] = [];
-
     private onResizeHandleMouseUpCallbackList:Function[] = [];
-
     private onResizeHandleMouseDownCallbackList:Function[] = [];
 
     private isInsideContainer: boolean;
@@ -61,13 +60,14 @@ export class ResizeHandle {
 
     public width: number;
     public height: number;
+ 
+    public rotation: number; 
 
-    public rotation: number;
-
-    constructor(container: HTMLDivElement, viewport : Viewport2D) {
+    constructor(container: HTMLDivElement, viewport : Viewport2D, safeArea : SafeArea2d) {
 
         this.container = container;
         this.viewport = viewport;
+        this.safeArea = safeArea;
 
         this.currentHandle = null;
 
@@ -75,7 +75,7 @@ export class ResizeHandle {
         this.startY = 0;
 
         this.startWidth = 0;
-        this.startHeight = 0;
+        this.startHeight = 0; 
 
         this.startLeft = 0;
         this.startTop = 0;
@@ -85,7 +85,7 @@ export class ResizeHandle {
 
         this.padding = 0;
 
-        this.isVisible = false;
+        this.isEnabled = false;
 
         this.x = 0;
         this.y = 0;
@@ -164,18 +164,12 @@ export class ResizeHandle {
         );
     }
 
-    public show = (): void => {
-
-        this.isVisible = true;
-
-        this.notifyListeners(); 
+    public enabled = (): void => {
+        this.isEnabled = true;
     };
 
-    public hide = (): void => {
-
-        this.isVisible = false;
-
-        this.notifyListeners();
+    public desabled = (): void => {
+        this.isEnabled = false;
     };
 
     public setX = (x: number): void => {
@@ -225,18 +219,12 @@ export class ResizeHandle {
     public getRotation = (): number =>
         this.rotation;
 
-    public setRotation = (
-        rotation: number
-    ): void => {
-
+    public setRotation = (rotation: number): void => {
         this.rotation = rotation;
-
         this.notifyListeners();
     };
 
-    public setHandle = (
-        option: IResizeHandle
-    ): void => {
+    public setHandle = (option: IResizeHandle): void => {
 
         this.x = option.x;
         this.y = option.y;
@@ -250,9 +238,9 @@ export class ResizeHandle {
 
             this.rotation =
                 option.rotate;
-        }
+        } 
 
-        this.notifyListeners();
+        // this.notifyListeners();   
     };
 
     public config = (
@@ -289,8 +277,7 @@ export class ResizeHandle {
             return;
         }
 
-        const currentCoords =
-            this.getCoordinate();
+        const currentCoords = this.getCoordinate();
 
         this.changeListeners.forEach(
             listener => listener(currentCoords)
@@ -329,27 +316,16 @@ export class ResizeHandle {
         this.setY(this.y);
     };
 
-    public getCoordinate():
-        IResizeHandleCoordinate {
-
-        return {
-
-            x:
-                this.x + this.padding,
-
-            y:
-                this.y + this.padding,
-
-            width:
-                this.width -
-                (this.padding * 2),
-
-            height:
-                this.height -
-                (this.padding * 2)
-
-        };
-    }
+    public getCoordinate = () : IResizeHandleCoordinate => {
+        const zoom = this.viewport.currentZoom; 
+        console("Zoom atual : " + zoom)  
+        return { 
+            x: this.x + this.padding / zoom,
+            y: this.y + this.padding / zoom,
+            width: this.width - ((this.padding * 2) / zoom),
+            height: this.height - ((this.padding * 2) / zoom)
+        }; 
+    }; 
 
     public onResizeHandleMouseUp = (
         callback: Function
@@ -382,22 +358,28 @@ export class ResizeHandle {
         };
     };
 
-    private getHandleAtPosition(mouseX: number,mouseY: number): ResizeHandleSideOption | null {
+    // Converte coordenadas da tela (mouse) para coordenadas do safe area
+    private screenToSafeArea(mouseX: number, mouseY: number): { x: number, y: number } {
+        const rect = this.container.getBoundingClientRect();
+        
+        // Coordenadas relativas ao container
+        const canvasX = mouseX - rect.left;
+        const canvasY = mouseY - rect.top;
+        
+        // Ajusta pelo zoom e offset do safe area
+        const zoom = this.viewport.currentZoom;
+        const safeX = (canvasX / zoom) - this.safeArea.x;
+        const safeY = (canvasY / zoom) - this.safeArea.y;
+        
+        return { x: safeX, y: safeY };
+    }
 
-        const rect =
-            this.container.getBoundingClientRect();
-
-        const canvasX =
-            mouseX - rect.left;
-
-        const canvasY =
-            mouseY - rect.top;
-
-        const hs =
-            this.handleSize;
-
-        const hh =
-            hs / 2;
+    private getHandleAtPosition(mouseX: number, mouseY: number): ResizeHandleSideOption | null {
+        // Converte coordenadas do mouse para o sistema de coordenadas do safe area
+        const pos = this.screenToSafeArea(mouseX, mouseY);
+        
+        const hs = this.handleSize;
+        const hh = hs / 2;
 
         const handles = [
 
@@ -486,11 +468,11 @@ export class ResizeHandle {
 
             if (
 
-                canvasX >= handle.x &&
-                canvasX <= handle.x + hs &&
+                pos.x >= handle.x &&
+                pos.x <= handle.x + hs &&
 
-                canvasY >= handle.y &&
-                canvasY <= handle.y + hs
+                pos.y >= handle.y &&
+                pos.y <= handle.y + hs
 
             ) {
 
@@ -500,11 +482,11 @@ export class ResizeHandle {
 
         if (
 
-            canvasX >= this.x &&
-            canvasX <= this.x + this.width &&
+            pos.x >= this.x &&
+            pos.x <= this.x + this.width &&
 
-            canvasY >= this.y &&
-            canvasY <= this.y + this.height
+            pos.y >= this.y &&
+            pos.y <= this.y + this.height
 
         ) {
 
@@ -544,14 +526,16 @@ export class ResizeHandle {
 
     private onMouseDown = (event: MouseEvent): void => {
 
-        if (!this.isVisible) return;
+        if (!this.isEnabled) return;
         
         const handle = this.getHandleAtPosition(event.clientX,event.clientY);
 
         if (!handle) return;
         
-        this.startX = event.clientX;
-        this.startY = event.clientY;
+        // Armazena as coordenadas iniciais já convertidas para o sistema do safe area
+        const startPos = this.screenToSafeArea(event.clientX, event.clientY);
+        this.startX = startPos.x;
+        this.startY = startPos.y;
         this.startWidth = this.width;
         this.startHeight = this.height;
         this.startLeft = this.x;
@@ -575,15 +559,15 @@ export class ResizeHandle {
 
     private onMouseMove = (event: MouseEvent): void => {
 
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+        // Converte a posição atual do mouse para coordenadas do safe area
+        const currentPos = this.screenToSafeArea(event.clientX, event.clientY);
 
         if (this.isResizing && this.currentHandle) {
 
             this.container.style.cursor = this.getCursorStyle(this.currentHandle);
 
-            const dx = mouseX - this.startX;
-            const dy = mouseY - this.startY;
+            const dx = currentPos.x - this.startX;
+            const dy = currentPos.y - this.startY;    
 
             switch (this.currentHandle) { 
 
@@ -639,8 +623,8 @@ export class ResizeHandle {
 
             this.container.style.cursor = "move";
 
-            const dx = mouseX - this.startX;
-            const dy = mouseY - this.startY;
+            const dx = currentPos.x - this.startX;
+            const dy = currentPos.y - this.startY;
 
             this.x = this.startLeft + dx;
             this.y = this.startTop + dy;
@@ -650,7 +634,7 @@ export class ResizeHandle {
             return;
         };
 
-        const handle = this.getHandleAtPosition(mouseX, mouseY);
+        const handle = this.getHandleAtPosition(event.clientX, event.clientY);
 
         if (handle && handle !== "MOVE" ) {
 
@@ -685,12 +669,14 @@ export class ResizeHandle {
 
     public render = (context: CanvasRenderingContext2D): void => {
 
-        if (!this.isVisible) return;
+        if (!this.isEnabled) return;
 
         
         context.save();
 
         context.setTransform(1, 0, 0, 1, 0, 0);
+
+        context.translate(this.safeArea.x, this.safeArea.y);
 
         if (this.rotation !== 0) {
 
@@ -699,10 +685,10 @@ export class ResizeHandle {
 
             context.translate(centerX, centerY);
             context.rotate((this.rotation * Math.PI) / 180);
-            context.translate(-centerX, -centerY);
-        };
+            context.translate(-centerX, -centerY);  
+        }; 
 
-        const px = 0.5;
+        const px = 0.5; 
 
         context.strokeStyle = getCSSVar("--color-c") 
         context.lineWidth = 1; 
@@ -761,4 +747,4 @@ export class ResizeHandle {
     };
 };
 
-export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer, SCENE_2D_VIEWPORT_2D);
+export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer, SCENE_2D_VIEWPORT_2D,SCENE_2D_SAFE_AREA);

@@ -287,7 +287,7 @@ SCENE_2D_RESIZE_HANDLE.config({
 SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
 
     if (!sceneSelectedNode) return; 
-    
+
     sceneSelectedNode.setX(coord.x);
     sceneSelectedNode.setY(coord.y);
     sceneSelectedNode.setWidth(coord.width);
@@ -380,6 +380,12 @@ gui.sceneTab.scene2dSelectRegionButton.addEventListener("click",()=>toggleSelect
 const icon = gui.sceneTab.scene2dSelectRegionButton.querySelector("i") as HTMLElement;
  
 toggleSelectRegion.onToggle(state =>{   
+    if(state){
+        SCENE_2D_SELECT_REGION_2D.enabled();  
+        SCENE_2D_RESIZE_HANDLE.desabled();
+    }else{
+        SCENE_2D_SELECT_REGION_2D.desabled();  
+    }
     icon.style.color = state ? getCSSVar("--color-b") : ""; 
 });     
 
@@ -417,11 +423,10 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
                 width: n.node.width * zoom, 
                 height: n.node.height * zoom,
                 rotate: 0,
-                type: "SINGLE_OBJECT",  
-                object: "CANVAS" 
+                type: "SINGLE_OBJECT"
             });
 
-            SCENE_2D_RESIZE_HANDLE.show();
+            SCENE_2D_RESIZE_HANDLE.enabled();
 
             if (sceneSelectedNode?.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 

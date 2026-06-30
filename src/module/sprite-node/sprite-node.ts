@@ -65,6 +65,8 @@ public type : Scene2dNodeType;
 
         context.save();
 
+        context.imageSmoothingEnabled = false;   
+
         const centerX = this.x + this.width / 2;
         const centerY = this.y + this.height / 2;
         context.translate(centerX, centerY); 
