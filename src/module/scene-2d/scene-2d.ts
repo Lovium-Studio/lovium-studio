@@ -17,6 +17,8 @@
 import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
 import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
+import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
+
 
 // SCENE 2D : 
 
@@ -121,7 +123,7 @@ class Scene2d {
         this.renderBelow(context); 
 
         if (this.isScene) {
-            context.translate(this.safeArea.x,this.safeArea.y)
+            context.translate(SCENE_2D_ORIGIN_2D.x, SCENE_2D_ORIGIN_2D.y)
             this.nodeList.forEach(n => n.node?.render(context)); 
         };
 

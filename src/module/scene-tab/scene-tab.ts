@@ -31,6 +31,7 @@ import { SCENE_2D_SELECT_REGION_2D } from "../select-region-2d/select-region-2d.
 import { SCENE_2D_VIEWPORT_2D } from "../viewport-2d/viewport-2d.js";
 import { Toggle } from "../../util/toggle/toggle.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
+import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 
 const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
@@ -287,11 +288,12 @@ SCENE_2D_RESIZE_HANDLE.config({
 SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
 
     if (!sceneSelectedNode) return; 
+    
 
     sceneSelectedNode.setX(coord.x);
     sceneSelectedNode.setY(coord.y);
     sceneSelectedNode.setWidth(coord.width);
-    sceneSelectedNode.setHeight(coord.height);
+    sceneSelectedNode.setHeight(coord.height); 
 
     INSPECTOR_SCALE_X_CONTROL.setValue(coord.width);
     INSPECTOR_SCALE_Y_CONTROL.setValue(coord.height);
@@ -396,8 +398,8 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
     const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
         const zoom = SCENE_2D.zoom;
-        const mouseX = (e.clientX - rect.left) / zoom;
-        const mouseY = (e.clientY - rect.top) / zoom;
+const mouseX = (e.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
+const mouseY = (e.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
 
         // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transform = `scale(${zoom})`;   
         // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transformOrigin = "top left";
@@ -418,10 +420,10 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
             n.node.setSelected(true);
 
             SCENE_2D_RESIZE_HANDLE.setHandle({
-                x: n.node.x * zoom,  
-                y: n.node.y * zoom,
-                width: n.node.width * zoom, 
-                height: n.node.height * zoom,
+                x: n.node.x,
+                y: n.node.y,
+                width: n.node.width, 
+                height: n.node.height, 
                 rotate: 0,
                 type: "SINGLE_OBJECT"
             });

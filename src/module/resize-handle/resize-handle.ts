@@ -19,16 +19,16 @@ import {IResizeHandle,IResizeHandleConfigOption,IResizeHandleCoordinate,SceneNod
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";
-import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
+import { Origin2D, SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 type ResizeHandleSideOption = | "MOVE"| "TOP"| "BOTTOM"| "LEFT"| "RIGHT"| "TOP_LEFT"| "TOP_RIGHT"| "BOTTOM_LEFT"| "BOTTOM_RIGHT";
 
-export class ResizeHandle { 
+export class ResizeHandle {  
 
-    private container: HTMLDivElement;
-    private viewport : Viewport2D;
-    private safeArea : SafeArea2d;
+    private container: HTMLDivElement; 
+    private viewport : Viewport2D; 
+    private origin2d : Origin2D; 
 
     private currentHandle: ResizeHandleSideOption | null;
 
@@ -63,11 +63,11 @@ export class ResizeHandle {
  
     public rotation: number; 
 
-    constructor(container: HTMLDivElement, viewport : Viewport2D, safeArea : SafeArea2d) {
+    constructor(container: HTMLDivElement, viewport : Viewport2D, origin2d : Origin2D) {
 
         this.container = container;
         this.viewport = viewport;
-        this.safeArea = safeArea;
+        this.origin2d = origin2d;
 
         this.currentHandle = null;
 
@@ -368,133 +368,46 @@ export class ResizeHandle {
         
         // Ajusta pelo zoom e offset do safe area
         const zoom = this.viewport.currentZoom;
-        const safeX = (canvasX / zoom) - this.safeArea.x;
-        const safeY = (canvasY / zoom) - this.safeArea.y;
+        const safeX = (canvasX / zoom) - this.origin2d.x;
+        const safeY = (canvasY / zoom) - this.origin2d.y;
         
         return { x: safeX, y: safeY };
     }
 
     private getHandleAtPosition(mouseX: number, mouseY: number): ResizeHandleSideOption | null {
-        // Converte coordenadas do mouse para o sistema de coordenadas do safe area
-        const pos = this.screenToSafeArea(mouseX, mouseY);
-        
-        const hs = this.handleSize;
-        const hh = hs / 2;
 
-        const handles = [
+    const pos = this.screenToSafeArea(mouseX, mouseY);
+    const zoom = this.viewport.currentZoom;
 
-            {
-                id: "TOP_LEFT" as const,
-                x: this.x - hh,
-                y: this.y - hh
-            },
+    // tamanho visual é fixo em tela; converte pra espaço de nó pra bater com o hit-test
+    const hs = this.handleSize / zoom;
+    const hh = hs / 2;
 
-            {
-                id: "TOP" as const,
-                x:
-                    this.x +
-                    (this.width / 2) - hh,
+    const handles = [
+        { id: "TOP_LEFT" as const,     x: this.x - hh,                      y: this.y - hh },
+        { id: "TOP" as const,          x: this.x + (this.width/2) - hh,     y: this.y - hh },
+        { id: "TOP_RIGHT" as const,    x: this.x + this.width - hh,         y: this.y - hh },
+        { id: "LEFT" as const,         x: this.x - hh,                      y: this.y + (this.height/2) - hh },
+        { id: "RIGHT" as const,        x: this.x + this.width - hh,         y: this.y + (this.height/2) - hh },
+        { id: "BOTTOM_LEFT" as const,  x: this.x - hh,                      y: this.y + this.height - hh },
+        { id: "BOTTOM" as const,       x: this.x + (this.width/2) - hh,     y: this.y + this.height - hh },
+        { id: "BOTTOM_RIGHT" as const, x: this.x + this.width - hh,         y: this.y + this.height - hh },
+    ];
 
-                y:
-                    this.y - hh
-            },
+    for (const handle of handles) {
+        if (pos.x >= handle.x && pos.x <= handle.x + hs &&
+            pos.y >= handle.y && pos.y <= handle.y + hs) {
+            return handle.id;
+        };
+    };
 
-            {
-                id: "TOP_RIGHT" as const,
-                x:
-                    this.x +
-                    this.width - hh,
+    if (pos.x >= this.x && pos.x <= this.x + this.width &&
+        pos.y >= this.y && pos.y <= this.y + this.height) {
+        return "MOVE";
+    };
 
-                y:
-                    this.y - hh
-            },
-
-            {
-                id: "LEFT" as const,
-                x:
-                    this.x - hh,
-
-                y:
-                    this.y +
-                    (this.height / 2) - hh
-            },
-
-            {
-                id: "RIGHT" as const,
-                x:
-                    this.x +
-                    this.width - hh,
-
-                y:
-                    this.y +
-                    (this.height / 2) - hh
-            },
-
-            {
-                id: "BOTTOM_LEFT" as const,
-                x:
-                    this.x - hh,
-
-                y:
-                    this.y +
-                    this.height - hh
-            },
-
-            {
-                id: "BOTTOM" as const,
-                x:
-                    this.x +
-                    (this.width / 2) - hh,
-
-                y:
-                    this.y +
-                    this.height - hh
-            },
-
-            {
-                id: "BOTTOM_RIGHT" as const,
-                x:
-                    this.x +
-                    this.width - hh,
-
-                y:
-                    this.y +
-                    this.height - hh
-            }
-
-        ];
-
-        for (const handle of handles) {
-
-            if (
-
-                pos.x >= handle.x &&
-                pos.x <= handle.x + hs &&
-
-                pos.y >= handle.y &&
-                pos.y <= handle.y + hs
-
-            ) {
-
-                return handle.id;
-            }
-        }
-
-        if (
-
-            pos.x >= this.x &&
-            pos.x <= this.x + this.width &&
-
-            pos.y >= this.y &&
-            pos.y <= this.y + this.height
-
-        ) {
-
-            return "MOVE";
-        }
-
-        return null;
-    }
+    return null;
+};
 
     private getCursorStyle(handle:ResizeHandleSideOption): string {
 
@@ -669,67 +582,79 @@ export class ResizeHandle {
 
     public render = (context: CanvasRenderingContext2D): void => {
 
-        if (!this.isEnabled) return;
+    if (!this.isEnabled) return;
 
-        
-        context.save();
+    const zoom = this.viewport.currentZoom;
 
-        context.setTransform(1, 0, 0, 1, 0, 0);
+    // ---- CAIXA : desenhada no MESMO espaço dos nodes (scale + origin), então sempre alinha com o elemento ----
 
-        context.translate(this.safeArea.x, this.safeArea.y);
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.scale(zoom, zoom);
+    context.translate(this.origin2d.x, this.origin2d.y);
 
-        if (this.rotation !== 0) {
-
-            const centerX = this.x + this.width / 2;
-            const centerY = this.y + this.height / 2 ; 
-
-            context.translate(centerX, centerY);
-            context.rotate((this.rotation * Math.PI) / 180);
-            context.translate(-centerX, -centerY);  
-        }; 
-
-        const px = 0.5; 
-
-        context.strokeStyle = getCSSVar("--color-c") 
-        context.lineWidth = 1; 
-        context.setLineDash([3,3]);  
-
-        context.strokeRect(Math.round(this.x) + px,Math.round(this.y) + px,Math.round(this.width),Math.round(this.height));
-
-        const hs = this.handleSize;
-        const hh = hs / 2;
-
-        context.fillStyle = getCSSVar("--color-b") 
-        context.strokeStyle = getCSSVar("--color-c") ;
-        context.lineWidth = 1;
-        context.setLineDash([]);   
-
-        const handles = [
-            { x: this.x - hh, y: this.y - hh },
-            { x: this.x + (this.width / 2) - hh, y: this.y - hh },
-            { x: this.x + this.width - hh, y: this.y - hh },
-            { x: this.x - hh, y: this.y + (this.height / 2) - hh },
-            { x: this.x + this.width - hh, y: this.y + (this.height / 2) - hh },
-            { x: this.x - hh, y: this.y + this.height - hh },
-            { x: this.x + (this.width / 2) - hh, y: this.y + this.height - hh },
-            { x: this.x + this.width - hh, y: this.y + this.height - hh }
-        ];
-
-
-        handles.forEach(handle => {
-
-            const x = Math.round(handle.x);
-            const y = Math.round(handle.y); 
-
-            context.fillRect(x, y, hs, hs);
-            context.strokeRect(x + px, y + px, hs,hs );
-        });
-
-        context.scale(this.viewport.currentZoom,this.viewport.currentZoom) 
-
-        context.restore(); 
+    if (this.rotation !== 0) {
+        const centerX = this.x + this.width / 2;
+        const centerY = this.y + this.height / 2;
+        context.translate(centerX, centerY);
+        context.rotate((this.rotation * Math.PI) / 180);
+        context.translate(-centerX, -centerY);
     };
 
+    context.strokeStyle = getCSSVar("--color-c");
+    context.lineWidth = 1 / zoom;
+    context.setLineDash([3 / zoom, 3 / zoom]);
+    context.strokeRect(this.x, this.y, this.width, this.height);
+
+    context.restore();
+
+    // ---- HANDLES : desenhados direto em espaço de tela, tamanho fixo, não escalam com o zoom ----
+
+    const screenX = (this.origin2d.x + this.x) * zoom;
+    const screenY = (this.origin2d.y + this.y) * zoom;
+    const screenW = this.width * zoom;
+    const screenH = this.height * zoom;
+
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+
+    if (this.rotation !== 0) {
+        const cx = screenX + screenW / 2;
+        const cy = screenY + screenH / 2;
+        context.translate(cx, cy);
+        context.rotate((this.rotation * Math.PI) / 180);
+        context.translate(-cx, -cy);
+    };
+
+    const hs = this.handleSize;
+    const hh = hs / 2;
+    const px = 0.5;
+
+    context.fillStyle = getCSSVar("--color-b");
+    context.strokeStyle = getCSSVar("--color-c");
+    context.lineWidth = 1;
+    context.setLineDash([]);
+
+    const handles = [
+        { x: screenX - hh,             y: screenY - hh },
+        { x: screenX + screenW/2 - hh, y: screenY - hh },
+        { x: screenX + screenW - hh,   y: screenY - hh },
+        { x: screenX - hh,             y: screenY + screenH/2 - hh },
+        { x: screenX + screenW - hh,   y: screenY + screenH/2 - hh },
+        { x: screenX - hh,             y: screenY + screenH - hh },
+        { x: screenX + screenW/2 - hh, y: screenY + screenH - hh },
+        { x: screenX + screenW - hh,   y: screenY + screenH - hh },
+    ];
+
+    handles.forEach(handle => {
+        const x = Math.round(handle.x);
+        const y = Math.round(handle.y);
+        context.fillRect(x, y, hs, hs);
+        context.strokeRect(x + px, y + px, hs, hs);
+    });
+
+    context.restore();
+};
     public destroy = (): void => {
 
         this.container.removeEventListener("mousedown",this.onMouseDown);
@@ -747,4 +672,4 @@ export class ResizeHandle {
     };
 };
 
-export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer, SCENE_2D_VIEWPORT_2D,SCENE_2D_SAFE_AREA);
+export const SCENE_2D_RESIZE_HANDLE = new ResizeHandle(gui.sceneTab.sceneGUIContainer, SCENE_2D_VIEWPORT_2D, SCENE_2D_ORIGIN_2D);

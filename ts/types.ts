@@ -15,6 +15,7 @@
 /**************************************************************************/
 
 import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
+import { Origin2D } from "../src/module/origin-2d/origin-2d.js";
 import { ResizeHandle } from "../src/module/resize-handle/resize-handle.js";
 import { SafeArea2d } from "../src/module/safe-area-2d/safe-area-2d.js";
 import { SpriteNode } from "../src/module/sprite-node/sprite-node.js";
@@ -296,7 +297,8 @@ export interface ISpriteNode {
 
 export interface CrossGuideOption {
     safeArea2d : SafeArea2d,
-    resizeHandle : ResizeHandle
+    resizeHandle : ResizeHandle,
+    origin2d : Origin2D
 }
 
 // SCENE LABEL OPTION : 

@@ -1,4 +1,3 @@
-
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -17,6 +16,7 @@
 import { CrossGuideOption, GuideLineSideOption } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { gui } from "../gui/gui.js";
+import { Origin2D, SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { ResizeHandle, SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SceneLabel } from "../scene-label/scene-label.js";
@@ -31,6 +31,7 @@ export class CrossGuide {
     private guideRightLabel : SceneLabel;
     private guideTopLabel : SceneLabel;
     private guideBottomLabel : SceneLabel;
+    private origin2d : Origin2D;
 
     private resizeHandleWidth : number;
     private resizeHandleHeight : number;
@@ -48,6 +49,7 @@ export class CrossGuide {
 
         this.safeArea2d = option.safeArea2d; 
         this.resizeHandle = option.resizeHandle;
+        this.origin2d = option.origin2d;
 
         this.labelCorrection = 8;
 
@@ -94,124 +96,155 @@ export class CrossGuide {
         return rect;
     };
 
-    public render = ( context : CanvasRenderingContext2D ) : void => {
+    public render = (context: CanvasRenderingContext2D): void => {
 
-        if (!this.isVisible) return;
-    
-        context.strokeStyle = getCSSVar("--color-b");  
-        context.lineWidth = 1;    
-        
-        const centerX = Math.floor(this.resizeHandleX + this.resizeHandleWidth / 2) + 0.5;
-        const centerY = Math.floor(this.resizeHandleY + this.resizeHandleHeight / 2) + 0.5;
+    if (!this.isVisible) return;
 
-        // TOP GUIDE : 
+    context.save();
 
-        if(this.showSide === "ALL" || this.showSide === "TOP" || this.showSide == "VERTICAL"){
-            context.beginPath();   
-            context.moveTo(centerX, Math.floor(this.safeArea2d.y) + 0.5); 
-            context.lineTo(centerX, Math.floor(this.resizeHandleY) + 0.5); 
-            context.stroke();      
+    context.translate(this.origin2d.x, this.origin2d.y);
 
-            const guideTopY = (this.safeArea2d.y + this.resizeHandleY) / 2;
-            const distanceTop = Math.abs(this.resizeHandleY - this.safeArea2d.y);
+    context.strokeStyle = getCSSVar("--color-b");
+    context.lineWidth = 1;
 
-            this.guideTopLabel.setX(centerX - 20);
-            this.guideTopLabel.setY(guideTopY - this.labelCorrection);
-            this.guideTopLabel.setContent(`${Math.round(distanceTop)} PX`);
+    const relResizeX = this.resizeHandleX;
+    const relResizeY = this.resizeHandleY;
 
-            this.guideTopLabel.show();
+    const safeX = this.safeArea2d.x;
+    const safeY = this.safeArea2d.y;
 
-        };
+    const safeWidth = this.safeArea2d.width;
+    const safeHeight = this.safeArea2d.height;
 
-        // BOTTOM GUIDE : 
+    const centerX = Math.floor(relResizeX + this.resizeHandleWidth / 2) + 0.5;
+    const centerY = Math.floor(relResizeY + this.resizeHandleHeight / 2) + 0.5;
 
-        if(this.showSide === "ALL" || this.showSide === "BOTTOM" || this.showSide == "VERTICAL"){
+    // TOP GUIDE :
 
-            context.beginPath();   
-            context.moveTo(centerX, Math.floor(this.resizeHandleY + this.resizeHandleHeight) + 0.5);  
-            context.lineTo(centerX, Math.floor(this.safeArea2d.y + this.safeArea2d.height) + 0.5); 
-            context.stroke();   
+    if (this.showSide === "ALL" || this.showSide === "TOP" || this.showSide === "VERTICAL") {
 
-            const startY = this.resizeHandleY + this.resizeHandleHeight;
-            const endY = this.safeArea2d.y + this.safeArea2d.height;
-            const guideBottomY = (startY + endY) / 2;
-            const distanceBottom = Math.abs(endY - startY); 
+        context.beginPath();
 
-            const labelBottomRect = this.getGuideLabelRect(this.guideBottomLabel);
+        context.moveTo(centerX, Math.floor(safeY) + 0.5);
 
-            if(distanceBottom > 60) {
-                this.guideBottomLabel.setY(guideBottomY - this.labelCorrection); 
-                this.guideBottomLabel.getHTMLElement().style.borderTopRightRadius = ""; 
-                this.guideBottomLabel.getHTMLElement().style.borderBottomRightRadius = "";      
-            }
- 
-            if(distanceBottom < 60) { 
-                this.guideBottomLabel.setY(this.safeArea2d.y + this.safeArea2d.height + labelBottomRect.height - this.safeArea2d.padding);
-                this.guideBottomLabel.getHTMLElement().style.borderTopRightRadius = "0px";   
-                this.guideBottomLabel.getHTMLElement().style.borderBottomRightRadius = "0px";     
-            }
-                
-            this.guideBottomLabel.setX(centerX - 20);
-            this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`); 
+        context.lineTo(centerX, Math.floor(relResizeY) + 0.5);
 
-            this.guideBottomLabel.show();
-        };
+        context.stroke();
 
-        // LEFT GUIDE :
+        const guideTopY = (safeY + relResizeY) / 2;
 
-        if(this.showSide === "ALL" || this.showSide === "LEFT" || this.showSide == "HORIZONTAL"){
+        const distanceTop = Math.abs(relResizeY - safeY);
 
-            context.beginPath();
-            context.moveTo(Math.floor(this.safeArea2d.x) + 0.5, centerY);
-            context.lineTo(Math.floor(this.resizeHandleX) + 0.5, centerY);
-            context.stroke(); 
+        this.guideTopLabel.setX(centerX - 20);
 
-            const guideLeftX = (this.safeArea2d.x + this.resizeHandleX) / 2;
-            const distanceLeft = Math.abs(this.resizeHandleX - this.safeArea2d.x);
+        this.guideTopLabel.setY(guideTopY - this.labelCorrection);
 
-            this.guideLeftLabel.setY(centerY - this.labelCorrection);
-            this.guideLeftLabel.setX(guideLeftX);
-            this.guideLeftLabel.setContent(`${Math.round(distanceLeft)} PX`); 
+        this.guideTopLabel.setContent(`${Math.round(distanceTop)} PX`);
 
-            this.guideLeftLabel.show();
-
-        };  
-
-        // RIGHT GUIDE : 
-
-        if(this.showSide === "ALL" || this.showSide === "RIGHT" || this.showSide == "HORIZONTAL"){
-            context.beginPath();
-            context.moveTo(Math.floor(this.resizeHandleX + this.resizeHandleWidth) + 0.5, centerY);
-            context.lineTo(Math.floor(this.safeArea2d.x + this.safeArea2d.width) + 0.5, centerY);
-            context.stroke();
-
-            // Centro geométrico do segmento horizontal direito
-            const startX = this.resizeHandleX + this.resizeHandleWidth;
-            const endX = this.safeArea2d.x + this.safeArea2d.width;
-            const guideRightX = (startX + endX) / 2;
-            const distanceRight = Math.abs(endX - startX);
-
-            this.guideRightLabel.setY(centerY - this.labelCorrection);
-            this.guideRightLabel.setX(guideRightX); 
-            this.guideRightLabel.setContent(`${Math.round(distanceRight)} PX`); 
-
-            this.guideRightLabel.show();
-
-        };
-
+        this.guideTopLabel.show();
     };
+
+    // BOTTOM GUIDE :
+
+    if (this.showSide === "ALL" || this.showSide === "BOTTOM" || this.showSide === "VERTICAL") {
+
+        const relResizeBottom = relResizeY + this.resizeHandleHeight;
+
+        const safeBottom = safeY + safeHeight;
+
+        context.beginPath();
+
+        context.moveTo(centerX, Math.floor(relResizeBottom) + 0.5);
+
+        context.lineTo(centerX, Math.floor(safeBottom) + 0.5);
+
+        context.stroke();
+
+        const guideBottomY = (relResizeBottom + safeBottom) / 2;
+
+        const distanceBottom = Math.abs(relResizeBottom - safeBottom);
+
+        this.guideBottomLabel.setX(centerX - 20);
+
+        this.guideBottomLabel.setY(guideBottomY - this.labelCorrection);
+
+        this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`);
+
+        this.guideBottomLabel.show();
+    };
+
+    // LEFT GUIDE :
+
+    if (this.showSide === "ALL" || this.showSide === "LEFT" || this.showSide === "HORIZONTAL") {
+
+        context.beginPath();
+
+        context.moveTo(Math.floor(safeX) + 0.5, centerY);
+
+        context.lineTo(Math.floor(relResizeX) + 0.5, centerY);
+
+        context.stroke();
+
+        const guideLeftX = (safeX + relResizeX) / 2;
+
+        const distanceLeft = Math.abs(relResizeX - safeX);
+
+        this.guideLeftLabel.setX(guideLeftX);
+
+        this.guideLeftLabel.setY(centerY - this.labelCorrection);
+
+        this.guideLeftLabel.setContent(`${Math.round(distanceLeft)} PX`);
+
+        this.guideLeftLabel.show();
+    };
+
+    // RIGHT GUIDE :
+
+    if (this.showSide === "ALL" || this.showSide === "RIGHT" || this.showSide === "HORIZONTAL") {
+
+        const relResizeRight = relResizeX + this.resizeHandleWidth;
+
+        const safeRight = safeX + safeWidth;
+
+        context.beginPath();
+
+        context.moveTo(Math.floor(relResizeRight) + 0.5, centerY);
+
+        context.lineTo(Math.floor(safeRight) + 0.5, centerY);
+
+        context.stroke();
+
+        const guideRightX = (relResizeRight + safeRight) / 2; 
+
+        const distanceRight = Math.abs(relResizeRight - safeRight);
+
+        this.guideRightLabel.setX(guideRightX); 
+
+        this.guideRightLabel.setY(centerY - this.labelCorrection);
+
+        this.guideRightLabel.setContent(`${Math.round(distanceRight)} PX`);
+
+        this.guideRightLabel.show();
+    }; 
+
+    context.restore();
+};
 
     public show = () : void => {
         this.isVisible = true;
     }
-    
+     
     public hide = () : void => {
-        this.isVisible = false;
+        this.isVisible = false; 
         this.guideLeftLabel.hide();
         this.guideRightLabel.hide(); 
         this.guideTopLabel.hide();
         this.guideBottomLabel.hide();
-    }
+    };
 };
 
-export const SCENE_2D_CROSS_GUIDE = new CrossGuide({safeArea2d : SCENE_2D_SAFE_AREA,resizeHandle : SCENE_2D_RESIZE_HANDLE})
+export const SCENE_2D_CROSS_GUIDE = new CrossGuide({
+    safeArea2d : SCENE_2D_SAFE_AREA, 
+    resizeHandle : SCENE_2D_RESIZE_HANDLE ,  
+    origin2d : SCENE_2D_ORIGIN_2D
+});
