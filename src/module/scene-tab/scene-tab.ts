@@ -309,7 +309,6 @@ SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
 
     if (!sceneSelectedNode) return; 
     
-
     sceneSelectedNode.setX(coord.x);
     sceneSelectedNode.setY(coord.y);
     sceneSelectedNode.setWidth(coord.width);
@@ -322,13 +321,56 @@ SCENE_2D_RESIZE_HANDLE.onTransform(coord => {
 
 });   
 
-gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{
+// ALIGN NODE : 
+
+gui.sceneTab.scene2dAlignHorizontalButton.addEventListener("click",()=>{ 
     if(sceneSelectedNode){
-        const x = ( SCENE_2D_SAFE_AREA.x + SCENE_2D_SAFE_AREA.width ) / 2 - sceneSelectedNode.width / 2;
-        sceneSelectedNode.setX(x) 
-        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode) 
+        const x = ( SCENE_2D_SAFE_AREA.width - sceneSelectedNode.width ) / 2 + 0.5;
+        sceneSelectedNode.setX(x)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)    
+    }; 
+});  
+
+gui.sceneTab.scene2dAlignVerticalButton.addEventListener("click",()=>{ 
+    if(sceneSelectedNode){
+        const y = ( SCENE_2D_SAFE_AREA.height - sceneSelectedNode.height ) / 2 + 0.5;  
+        sceneSelectedNode.setY(y)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)      
     }; 
 });
+  
+gui.sceneTab.scene2dAlignLeftButton.addEventListener("click",()=>{ 
+    if(sceneSelectedNode){
+        const x = 0;   
+        sceneSelectedNode.setX(x)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)         
+    }; 
+});
+
+gui.sceneTab.scene2dAlignTopButton.addEventListener("click",()=>{ 
+    if(sceneSelectedNode){
+        const y = 0;   
+        sceneSelectedNode.setY(y)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)       
+    }; 
+});
+
+gui.sceneTab.scene2dAlignRightButton.addEventListener("click",()=>{ 
+    if(sceneSelectedNode){
+        const x = ( SCENE_2D_SAFE_AREA.width - sceneSelectedNode.width );    
+        sceneSelectedNode.setX(x)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)       
+    }; 
+});
+
+gui.sceneTab.scene2dAlignBottomButton.addEventListener("click",()=>{ 
+    if(sceneSelectedNode){
+        const y = ( SCENE_2D_SAFE_AREA.height - sceneSelectedNode.height );   
+        sceneSelectedNode.setY(y)  
+        SCENE_2D_RESIZE_HANDLE.setNode(sceneSelectedNode)        
+    };  
+});
+
 
 INSPECTOR_OPACITY_CONTROL.onDrag(value => {
     if(sceneSelectedNode?.type === "SPRITE_NODE"){

@@ -572,10 +572,12 @@ export class ResizeHandle {
     };
 
     public setNode = (node: SceneNode): void => {
-        this.setX(node.x);
-        this.setY(node.y);
-        this.setWidth(node.width);
-        this.setHeight(node.height);
+        this.x = node.x;
+        this.y = node.y;
+        this.width = node.width;
+        this.height = node.height; 
+
+        this.notifyListeners();
     };
 
     public render = (context: CanvasRenderingContext2D): void => {

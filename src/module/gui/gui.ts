@@ -63,20 +63,25 @@ export const gui = {
     },
     inspectorTab : {
         inspectorFontWheightDropdown : getUi("inspector-dropdown-font-wheight") as HTMLDivElement
-    },
+},
     windowMenu : {
         windowMenuContainer : getUi("window-menu-container") as HTMLDivElement,
         windowMenuBar : getUi("menu-bar") as HTMLDivElement
     },
-    sceneTab : {
+    sceneTab : {    
         sceneGUIContainer : getUi("scene-gui-container") as HTMLDivElement,
         sceneCanvas : getUi("scene-canvas") as HTMLCanvasElement,
         sceneCanvasContainer : getUi("scene-canvas-container") as HTMLDivElement,
         scene2dAlignHorizontalButton : getUi("scene-2d-align-horizontal-button") as HTMLButtonElement,
+        scene2dAlignVerticalButton : getUi("scene-2d-align-vertical-button") as HTMLButtonElement,
+        scene2dAlignLeftButton : getUi("scene-2d-align-left-button") as HTMLButtonElement,
+        scene2dAlignRightButton : getUi("scene-2d-align-right-button") as HTMLButtonElement,
+        scene2dAlignTopButton : getUi("scene-2d-align-top-button") as HTMLButtonElement,
+        scene2dAlignBottomButton : getUi("scene-2d-align-bottom-button") as HTMLButtonElement,
         scene2dZoomInButton : getUi("scene-2d-zoom-in-button") as HTMLButtonElement,
         scene2dZoomOutButton : getUi("scene-2d-zoom-out-button") as HTMLButtonElement,
         scene2dSelectRegionButton : getUi("scene-2d-select-region-button") as HTMLButtonElement
-},
+    },   
     timelineTab : {
         timelinePlayButton : getUi("timeline-play-animation-button") as HTMLButtonElement,
         timelineNeedle : getUi("needle") as HTMLDivElement,
