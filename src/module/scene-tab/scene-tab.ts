@@ -66,6 +66,77 @@ INPSECTOR_SPRITE_START_CONTROL.onWrite((value)=> {
     SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value) ) 
 })
 
+
+let isDragging = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+gui.sceneTab.sceneCanvasContainer.addEventListener("mousedown", (e: MouseEvent) => {
+
+    if (e.button !== 2) return;
+
+    isDragging = true;
+
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+
+    gui.sceneTab.sceneCanvasContainer.style.cursor = "move";  
+
+});
+
+gui.sceneTab.sceneCanvasContainer.addEventListener("contextmenu", (e: MouseEvent) => {
+    e.preventDefault();
+});
+// VIEWPORT ZOOM (MOUSE WHEEL, ANCORADO NO CURSOR) :
+
+gui.sceneTab.sceneCanvasContainer.addEventListener("wheel", (e: WheelEvent) => {
+
+    e.preventDefault();
+
+    const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    SCENE_2D_VIEWPORT_2D.setZoomOffsetX(mouseX);
+    SCENE_2D_VIEWPORT_2D.setZoomOffsetY(mouseY);
+
+    if (e.deltaY < 0) {
+        SCENE_2D_VIEWPORT_2D.zoomIn();
+    } else {
+        SCENE_2D_VIEWPORT_2D.zoomOut();
+    };
+
+});
+
+document.addEventListener("mousemove", (e: MouseEvent) => {
+
+    if (!isDragging) return;
+
+    const dx = e.clientX - lastMouseX;
+    const dy = e.clientY - lastMouseY;
+
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+
+    const value = SCENE_2D_VIEWPORT_2D.offsetX + dx;
+    const valueY = SCENE_2D_VIEWPORT_2D.offsetY + dy;
+
+    SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value)); 
+    SCENE_2D_VIEWPORT_2D.setOffsetY(Number(valueY));
+
+});
+
+document.addEventListener("mouseup", (e: MouseEvent) => {
+
+    if (e.button !== 2) return;
+ 
+    isDragging = false;
+
+    gui.sceneTab.sceneCanvasContainer.style.cursor = "default";
+
+});
+
 const canvasSizeObserver = new ResizeObserver(resizeCanvas)
 canvasSizeObserver.observe(gui.sceneTab.sceneCanvasContainer);
 

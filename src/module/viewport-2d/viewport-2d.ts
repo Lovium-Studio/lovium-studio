@@ -1,4 +1,3 @@
-
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -23,11 +22,15 @@ export class Viewport2D {
     public currentZoom : number;
     public offsetX : number;
     public offsetY : number;
+    public zoomOffsetX : number;
+    public zoomOffsetY : number;
+
     
     private width : number;
     private height : number;
     private zoomMax : number;
     private zoomMin : number;
+
 
     private onZoomCallbackList : Function[] = [];
     private onOffsetCallbackList : Function[] = [];
@@ -40,17 +43,42 @@ export class Viewport2D {
         this.zoomMax = 5;
         this.zoomMin = 0.2; 
         this.currentZoom = 1;
+        this.zoomOffsetX = 0;
+        this.zoomOffsetY = 0;
+    };
+
+    // aplica o ponto de ancoragem (zoomOffsetX/Y) pra manter o mesmo local sob o cursor durante o zoom
+    private applyZoomAnchor = ( oldZoom : number, newZoom : number ) : void => {
+
+        const factor = (1 / newZoom) - (1 / oldZoom);
+
+        this.offsetX += this.zoomOffsetX * factor;
+        this.offsetY += this.zoomOffsetY * factor;
+
+        this.notifyOnOffsetCallback();
     };
 
     public zoomIn = (): void => {
         if (this.currentZoom >= this.zoomMax) return;
-        this.currentZoom = Math.min(this.zoomMax, this.currentZoom * 1.1);
+
+        const oldZoom = this.currentZoom;
+        const newZoom = Math.min(this.zoomMax, this.currentZoom * 1.1);
+
+        this.applyZoomAnchor(oldZoom, newZoom);
+
+        this.currentZoom = newZoom;
         this.notifyOnZoomCallback();  
     };
 
     public zoomOut = (): void => {
         if (this.currentZoom <= this.zoomMin) return;
-        this.currentZoom = Math.max(this.zoomMin, this.currentZoom / 1.1);
+
+        const oldZoom = this.currentZoom;
+        const newZoom = Math.max(this.zoomMin, this.currentZoom / 1.1);
+
+        this.applyZoomAnchor(oldZoom, newZoom);
+
+        this.currentZoom = newZoom;
         this.notifyOnZoomCallback();
     };
 
@@ -74,6 +102,14 @@ export class Viewport2D {
     public setOffsetY = ( offsetY : number ) : void => {
         this.offsetY = offsetY;
         this.notifyOnOffsetCallback();
+    };
+
+    public setZoomOffsetX = ( offsetX : number ) : void => {
+        this.zoomOffsetX = offsetX;
+    };
+
+    public setZoomOffsetY = ( offsetY : number ) : void => {
+        this.zoomOffsetY = offsetY;
     };
 
     public onZoom = ( callback : Function ) : void => {

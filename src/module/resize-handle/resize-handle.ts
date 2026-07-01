@@ -115,7 +115,7 @@ export class ResizeHandle {
 
             this.isInsideContainer = false;
 
-            if (!this.isMoving && !this.isResizing) {
+                if (!this.isMoving && !this.isResizing) {
 
                     this.container.style.cursor = "default";
                 }
