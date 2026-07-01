@@ -21,11 +21,11 @@ import { IViewport2D } from "../../../ts/types.js";
 export class Viewport2D {
     
     public currentZoom : number;
+    public offsetX : number;
+    public offsetY : number;
     
     private width : number;
     private height : number;
-    private offsetX : number;
-    private offsetY : number; 
     private zoomMax : number;
     private zoomMin : number;
 
@@ -44,23 +44,13 @@ export class Viewport2D {
 
     public zoomIn = (): void => {
         if (this.currentZoom >= this.zoomMax) return;
-
-        this.currentZoom = Math.min(
-            this.zoomMax,
-            this.currentZoom * 1.1  
-        );
- 
+        this.currentZoom = Math.min(this.zoomMax, this.currentZoom * 1.1);
         this.notifyOnZoomCallback();  
     };
 
     public zoomOut = (): void => {
         if (this.currentZoom <= this.zoomMin) return;
-
-        this.currentZoom = Math.max(
-            this.zoomMin,
-            this.currentZoom / 1.1
-        );
-
+        this.currentZoom = Math.max(this.zoomMin, this.currentZoom / 1.1);
         this.notifyOnZoomCallback();
     };
 

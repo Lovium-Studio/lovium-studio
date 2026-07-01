@@ -17,8 +17,9 @@
 import { NodeLocation, SafeArea2dOption, Scene2dNodeType } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { INSPECTOR_SAFE_AREA_SCALE_X_CONTROL, INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
+import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
-// SAFE AREA 2D : 
+// SAFE AREA 2D :          
 
 export class SafeArea2d {
 
@@ -34,7 +35,9 @@ export class SafeArea2d {
     public isSelectable : boolean;
     public padding : number;
 
-    constructor ( option : SafeArea2dOption ) {
+    private viewport : Viewport2D;
+
+    constructor ( option : SafeArea2dOption, viewport : Viewport2D ) {
 
         this.x = option.x;
         this.y = option.y;
@@ -46,6 +49,8 @@ export class SafeArea2d {
         this.location = "NATIVE";
         this.isSelectable = false;
         this.padding = 10;
+
+        this.viewport = viewport;
 
         INSPECTOR_SAFE_AREA_SCALE_X_CONTROL.onWrite(value => {
             this.setWidth(Number(value));
@@ -77,40 +82,44 @@ export class SafeArea2d {
 
     public render = (context: CanvasRenderingContext2D): void => {
 
-        const x: number = Math.floor(this.x) + 0.5;
-        const y: number = Math.floor(this.y) + 0.5;
-        
-        const width: number = Math.floor(this.width);
-        const height: number = Math.floor(this.height);
-        const padding: number = Math.floor(this.padding);
+    const zoom = this.viewport.currentZoom;
+    const offsetX = this.viewport.offsetX;
+    const offsetY = this.viewport.offsetY;
 
-        context.strokeStyle = getCSSVar("--color-b");
-        context.lineWidth = 1; 
+    const x: number = Math.floor(this.x + offsetX) + 0.5;
+    const y: number = Math.floor(this.y + offsetY) + 0.5;
+    
+    const width: number = Math.floor(this.width);
+    const height: number = Math.floor(this.height);
+    const padding: number = Math.floor(this.padding);
 
-        context.strokeRect(x, y, width, height);
-        context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
+    context.strokeStyle = getCSSVar("--color-b");
+    context.lineWidth = 1 / zoom;
 
-        context.beginPath();
-        context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
-        context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
-        context.stroke();
+    context.strokeRect(x, y, width, height);
+    context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
 
-        context.beginPath();
-        context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
-        context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
-        context.stroke();
+    context.beginPath();
+    context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
+    context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
+    context.stroke();
 
-        context.beginPath();
-        context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
-        context.lineTo(Math.floor(x + width / 2) + 0.5, y);
-        context.stroke();
+    context.beginPath();
+    context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
+    context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
+    context.stroke();
 
-        context.beginPath();
-        context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
-        context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
-        context.stroke();
+    context.beginPath();
+    context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
+    context.lineTo(Math.floor(x + width / 2) + 0.5, y);
+    context.stroke();
 
-    };
+    context.beginPath();
+    context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
+    context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
+    context.stroke();
+
+};
 
     public setCoordinate = (x : number , y : number) : void => {
         if(x) this.x = x;
@@ -129,4 +138,4 @@ export class SafeArea2d {
     
 };
 
-export const SCENE_2D_SAFE_AREA = new SafeArea2d({x: 20, y: 20, width: 700, height: 350})
+export const SCENE_2D_SAFE_AREA = new SafeArea2d({x: 20, y: 20, width: 700, height: 350}, SCENE_2D_VIEWPORT_2D)

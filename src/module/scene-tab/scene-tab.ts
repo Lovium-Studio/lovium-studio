@@ -22,7 +22,7 @@ import { console } from "../console/console.js";
 import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";
 import { SCENE_2D_CROSS_GUIDE } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
-import { INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
+import { INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { nodeProcessor } from "../node-processor/node-processor.js";
 import { SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
@@ -57,6 +57,10 @@ gui.sceneTab.scene2dZoomInButton.addEventListener("click",()=>{
 
 gui.sceneTab.scene2dZoomOutButton.addEventListener("click",()=>{
     SCENE_2D_VIEWPORT_2D.zoomOut();
+})
+
+INPSECTOR_SPRITE_START_CONTROL.onWrite((value)=> { 
+    SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value) ) 
 })
 
 const canvasSizeObserver = new ResizeObserver(resizeCanvas)
