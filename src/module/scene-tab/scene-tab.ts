@@ -149,193 +149,133 @@ const sceneTemlate : IScene2dOption = {
     nodeList : [ 
         { 
             type : "SPRITE_NODE", 
-            x : 0,
-            y : 0,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/bg.png", 
+            x : 100,
+            y : 100,  
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile65.png", 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
             anchorPoint : [300,100] 
 
         },
-        {  
-            type : "SPRITE_NODE",
+        { 
+            type : "SPRITE_NODE", 
             x : 100,
-            y : 100, 
-            width : 100, 
-            height : 100,
-            src : "../.././src/asset/asset-template/grassHalf.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-        },
-        {
-            type : "SPRITE_NODE",
-            x : 300,
             y : 100,  
-            width : 100,
-            height : 100,
-            src : "../.././src/asset/asset-template/grassHalfLeft.png",
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile68.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
-
-        },
-        {
-            type : "SPRITE_NODE",
-            x : 300,
-            y : 100, 
-            width : 100,
-            height : 100, 
-            src : "../.././src/asset/asset-template/grassHalfMid.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
-
-        },
-        {
-            type : "SPRITE_NODE", 
-            x : 400,
-            y : 200, 
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/grassHalfRight.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
-
-        },
-        {
-            type : "SPRITE_NODE",
-            x : 300,
-            y : 100, 
-            width : 100,
-            height : 100, 
-            src : "../.././src/asset/asset-template/fence.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
-
-        },  
-        {
-            type : "SPRITE_NODE",
-            x : 300,
-            y : 100, 
-            width : 100,
-            height : 100, 
-            src : "../.././src/asset/asset-template/p1_stand.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
-
-        },
-        {
-            type : "SPRITE_NODE", 
-            x : 300,
-            y : 100, 
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/box.png",
-            location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300,
+            x : 100,
             y : 100,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/signExit.png", 
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile69.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300,
+            x : 100,
             y : 100,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/signExit.png", 
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile70.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300,
+            x : 100,
             y : 100,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/cloud1.png", 
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile71.png", 
             location : "FOREIGNER",
-            opacity : 0.5,
-            rotation : 0,
-            anchorPoint : [0,0]
-
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300,
+            x : 100,
             y : 100,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/flagRed.png", 
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/tile72.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
-
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300, 
+            x : 100,
             y : 100,  
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/springboardUp.png", 
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/pointer.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
 
         },
         { 
             type : "SPRITE_NODE", 
-            x : 300,
-            y : 100,   
-            width : 100,
-            height : 100,  
-            src : "../.././src/asset/asset-template/switchRight.png", 
+            x : 100,
+            y : 100,  
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/rectangle2.png", 
             location : "FOREIGNER",
-            opacity : 1,
-            rotation : 0,
-            anchorPoint : [0,0]
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/rectangle3.png", 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100]  
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 80,
+            height : 80,  
+            src : "../.././src/asset/asset-template/trees1_1.png", 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
         }
     ]
 };

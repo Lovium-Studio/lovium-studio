@@ -48,6 +48,8 @@ export class ResizeHandle {
     private isEnabled: boolean;
     private handleSize: number;
 
+    private hideShowTimeout : ReturnType<typeof setTimeout> | null;
+
     private onHandleMouseUpCallbackList:Function[] = [];
     private changeListeners:((coordinate: IResizeHandleCoordinate) => void)[] = [];
     private onResizeHandleMouseUpCallbackList:Function[] = [];
@@ -68,6 +70,7 @@ export class ResizeHandle {
         this.container = container;
         this.viewport = viewport;
         this.origin2d = origin2d;
+        this.hideShowTimeout = null;
 
         this.currentHandle = null;
 
@@ -101,6 +104,12 @@ export class ResizeHandle {
 
         this.setup();
     }
+
+    private hideShow = () : void => {
+        if (this.hideShowTimeout) clearTimeout(this.hideShowTimeout);
+        this.isEnabled = false; 
+        this.hideShowTimeout = setTimeout(() => this.isEnabled = true, 500);                 
+    }; 
 
     private setup(): void {
 
@@ -285,35 +294,27 @@ export class ResizeHandle {
     }
 
     private moveRight = (): void => {
-
-        this.x =
-            this.getX() + 1;
-
+        this.x = this.getX() + 1;
         this.setX(this.x);
+        this.hideShow();
     };
 
     private moveLeft = (): void => {
-
-        this.x =
-            this.getX() - 1;
-
+        this.x = this.getX() - 1;
         this.setX(this.x);
+        this.hideShow();
     };
 
     private moveTop = (): void => {
-
-        this.y =
-            this.getY() - 1;
-
+        this.y = this.getY() - 1;
         this.setY(this.y);
+        this.hideShow();
     };
 
     private moveBottom = (): void => {
-
-        this.y =
-            this.getY() + 1;
-
+        this.y = this.getY() + 1;
         this.setY(this.y);
+        this.hideShow();
     };
 
     public getCoordinate = () : IResizeHandleCoordinate => {
@@ -450,7 +451,7 @@ export class ResizeHandle {
         this.startTop = this.y;
 
         if (handle === "MOVE") {
-
+ 
             this.isMoving = true;
             this.currentHandle = null;
             this.container.style.cursor = "move";
