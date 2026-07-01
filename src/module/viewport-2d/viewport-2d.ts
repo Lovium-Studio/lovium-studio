@@ -114,12 +114,12 @@ export class Viewport2D {
 
     public onZoom = ( callback : Function ) : void => {
         this.onZoomCallbackList.push(callback);
-    };
+    }; 
 
     public onOffset = ( callback : Function ) : void => {
         this.onOffsetCallbackList.push(callback);
     };
-
+ 
     public setWidth = ( width : number  ) : number => this.width = width;
     public setHeight = ( height : number  ) : number => this.height = height;
 };   

@@ -117,12 +117,14 @@ document.addEventListener("mousemove", (e: MouseEvent) => {
     const dy = e.clientY - lastMouseY;
 
     lastMouseX = e.clientX;
-    lastMouseY = e.clientY;
+    lastMouseY = e.clientY; 
 
-    const value = SCENE_2D_VIEWPORT_2D.offsetX + dx;
-    const valueY = SCENE_2D_VIEWPORT_2D.offsetY + dy;
+    const zoom = SCENE_2D_VIEWPORT_2D.currentZoom;
 
-    SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value)); 
+    const value = SCENE_2D_VIEWPORT_2D.offsetX + (dx / zoom);
+    const valueY = SCENE_2D_VIEWPORT_2D.offsetY + (dy / zoom);
+ 
+    SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value));
     SCENE_2D_VIEWPORT_2D.setOffsetY(Number(valueY));
 
 });
