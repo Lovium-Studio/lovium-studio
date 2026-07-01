@@ -32,6 +32,7 @@ import { SCENE_2D_VIEWPORT_2D } from "../viewport-2d/viewport-2d.js";
 import { Toggle } from "../../util/toggle/toggle.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
+import { GuideLabel } from "../guide-label/guide-label.js";
 
 const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
@@ -49,6 +50,8 @@ const resizeCanvas = (): void => {
     const rect = gui.sceneTab.sceneCanvasContainer.getBoundingClientRect();
     gui.sceneTab.sceneCanvas.width = rect.width - 1;
     gui.sceneTab.sceneCanvas.height = rect.height - 2; 
+    SCENE_2D_VIEWPORT_2D.setWidth(rect.width - 1);
+    SCENE_2D_VIEWPORT_2D.setHeight(rect.height - 2);
 }; 
 
 gui.sceneTab.scene2dZoomInButton.addEventListener("click",()=>{
@@ -70,16 +73,16 @@ const sceneTemlate : IScene2dOption = {
     name : "Stage 1",
     type : "2D_SCENE",
     id : "4454",
-    nodeList : [
+    nodeList : [ 
         { 
             type : "SPRITE_NODE", 
-            x : 300,
-            y : 100,  
+            x : 0,
+            y : 0,  
             width : 100,
             height : 100,  
             src : "../.././src/asset/asset-template/bg.png", 
             location : "FOREIGNER",
-            opacity : 1, 
+            opacity : 1,  
             rotation : 0, 
             anchorPoint : [300,100] 
 

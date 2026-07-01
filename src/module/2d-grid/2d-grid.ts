@@ -56,7 +56,6 @@ export class Grid2D {
         context.lineWidth = 1 / zoom;
         context.globalAlpha = 0.2;
 
-        // limites visíveis em espaço local (mundo), considerando pan e zoom
         const worldLeft = -offsetX;
         const worldTop = -offsetY;
         const worldRight = (this.canvas.width / zoom) - offsetX;
@@ -89,7 +88,12 @@ export class Grid2D {
 
 };
 
-export const SCENE_2D_GRID_2D = new Grid2D(
-    { canvas : gui.sceneTab.sceneCanvas, width : 10, height : 10, x : 0, y : 0 },
+export const SCENE_2D_GRID_2D = new Grid2D({ 
+    canvas : gui.sceneTab.sceneCanvas, 
+    width : 10, 
+    height : 10, 
+    x : 0, 
+    y : 0 
+},
     SCENE_2D_VIEWPORT_2D
 );

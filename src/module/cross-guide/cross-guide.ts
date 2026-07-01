@@ -15,11 +15,10 @@
 
 import { ICrossGuide, GuideLineSideOption } from "../../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
-import { gui } from "../gui/gui.js";
 import { Origin2D, SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { ResizeHandle, SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
-import { SceneLabel } from "../scene-label/scene-label.js";
+import { GuideLabel } from "../guide-label/guide-label.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 
 // CROSS GUIDE :  
@@ -29,10 +28,10 @@ export class CrossGuide {
     private safeArea2d : SafeArea2d;
     private resizeHandle : ResizeHandle;
     private viewport : Viewport2D;
-    private guideLeftLabel : SceneLabel;
-    private guideRightLabel : SceneLabel;
-    private guideTopLabel : SceneLabel;
-    private guideBottomLabel : SceneLabel;
+    private guideLeftLabel : GuideLabel;
+    private guideRightLabel : GuideLabel;
+    private guideTopLabel : GuideLabel;
+    private guideBottomLabel : GuideLabel;
     private origin2d : Origin2D;
 
     private resizeHandleWidth : number;
@@ -68,26 +67,21 @@ export class CrossGuide {
             this.resizeHandleY = coord.y;
         });
 
-        // SCENE LABELS : 
+        // GUIDE LABELS :
 
-        this.guideLeftLabel = new SceneLabel({ container : gui.sceneTab.sceneGUIContainer });
-        this.guideRightLabel = new SceneLabel({ container : gui.sceneTab.sceneGUIContainer });
+        this.guideLeftLabel = new GuideLabel();
+        this.guideRightLabel = new GuideLabel();
 
-        this.guideTopLabel = new SceneLabel({ container : gui.sceneTab.sceneGUIContainer });
-        this.guideTopLabel.setRotation(270)
+        this.guideTopLabel = new GuideLabel();
+        this.guideTopLabel.setRotation(-Math.PI / 2); // 270deg -> radianos
 
-        this.guideBottomLabel = new SceneLabel({ container : gui.sceneTab.sceneGUIContainer });
-        this.guideBottomLabel.setRotation(270)
+        this.guideBottomLabel = new GuideLabel();
+        this.guideBottomLabel.setRotation(-Math.PI / 2);
 
     };
 
     public setSide = ( side : GuideLineSideOption ) : GuideLineSideOption => this.showSide = side;
 
-    private getGuideLabelRect = ( label : SceneLabel ) : DOMRect => {
-        return label.getHTMLElement().getBoundingClientRect();
-    };
-
-    // converte coordenada local (espaço do node / safe area) pra pixel de tela
     private toScreen = ( localX : number, localY : number ) : { x : number, y : number } => {
         const zoom = this.viewport.currentZoom;
         return {
@@ -113,7 +107,6 @@ export class CrossGuide {
         const relResizeX = this.resizeHandleX;
         const relResizeY = this.resizeHandleY;
 
-        // a safe area já É a origem, então no espaço local ela começa em (0,0), não em (safeArea.x, safeArea.y)
         const safeX = 0;
         const safeY = 0;
 
@@ -124,6 +117,7 @@ export class CrossGuide {
         const centerY = relResizeY + this.resizeHandleHeight / 2;
 
         // TOP GUIDE :
+
         if (this.showSide === "ALL" || this.showSide === "TOP" || this.showSide === "VERTICAL") {
 
             context.beginPath();
@@ -134,7 +128,7 @@ export class CrossGuide {
             const guideTopY = (safeY + relResizeY) / 2;
             const distanceTop = Math.abs(relResizeY - safeY);
 
-            const p = this.toScreen(centerX - 20, guideTopY - this.labelCorrection);
+            const p = this.toScreen(centerX, guideTopY);
             this.guideTopLabel.setX(p.x);
             this.guideTopLabel.setY(p.y);
             this.guideTopLabel.setContent(`${Math.round(distanceTop)} PX`);
@@ -142,6 +136,7 @@ export class CrossGuide {
         };
 
         // BOTTOM GUIDE :
+
         if (this.showSide === "ALL" || this.showSide === "BOTTOM" || this.showSide === "VERTICAL") {
 
             const relResizeBottom = relResizeY + this.resizeHandleHeight;
@@ -155,7 +150,7 @@ export class CrossGuide {
             const guideBottomY = (relResizeBottom + safeBottom) / 2;
             const distanceBottom = Math.abs(relResizeBottom - safeBottom);
 
-            const p = this.toScreen(centerX - 20, guideBottomY - this.labelCorrection);
+            const p = this.toScreen(centerX, guideBottomY);
             this.guideBottomLabel.setX(p.x);
             this.guideBottomLabel.setY(p.y);
             this.guideBottomLabel.setContent(`${Math.round(distanceBottom)} PX`);
@@ -163,6 +158,7 @@ export class CrossGuide {
         };
 
         // LEFT GUIDE :
+
         if (this.showSide === "ALL" || this.showSide === "LEFT" || this.showSide === "HORIZONTAL") {
 
             context.beginPath();
@@ -173,7 +169,7 @@ export class CrossGuide {
             const guideLeftX = (safeX + relResizeX) / 2;
             const distanceLeft = Math.abs(relResizeX - safeX);
 
-            const p = this.toScreen(guideLeftX, centerY - this.labelCorrection);
+            const p = this.toScreen(guideLeftX, centerY);
             this.guideLeftLabel.setX(p.x);
             this.guideLeftLabel.setY(p.y);
             this.guideLeftLabel.setContent(`${Math.round(distanceLeft)} PX`);
@@ -181,6 +177,7 @@ export class CrossGuide {
         };
 
         // RIGHT GUIDE :
+
         if (this.showSide === "ALL" || this.showSide === "RIGHT" || this.showSide === "HORIZONTAL") {
 
             const relResizeRight = relResizeX + this.resizeHandleWidth;
@@ -192,14 +189,24 @@ export class CrossGuide {
             context.stroke();
 
             const guideRightX = (relResizeRight + safeRight) / 2;
-            const distanceRight = Math.abs(relResizeRight - safeRight);
+            const distanceRight = Math.abs(relResizeRight - safeRight); 
 
-            const p = this.toScreen(guideRightX, centerY - this.labelCorrection);
-            this.guideRightLabel.setX(p.x);
+            const p = this.toScreen(guideRightX, centerY);
+            this.guideRightLabel.setX(p.x); 
             this.guideRightLabel.setY(p.y);
             this.guideRightLabel.setContent(`${Math.round(distanceRight)} PX`);
             this.guideRightLabel.show();
         };
+
+        context.restore();
+
+        context.save();
+        context.setTransform(1, 0, 0, 1, 0, 0); 
+
+        this.guideTopLabel.render(context);
+        this.guideBottomLabel.render(context); 
+        this.guideLeftLabel.render(context);
+        this.guideRightLabel.render(context);
 
         context.restore();
     };

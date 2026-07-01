@@ -358,15 +358,12 @@ export class ResizeHandle {
         };
     };
 
-    // Converte coordenadas da tela (mouse) para coordenadas do safe area
     private screenToSafeArea(mouseX: number, mouseY: number): { x: number, y: number } {
         const rect = this.container.getBoundingClientRect();
         
-        // Coordenadas relativas ao container
         const canvasX = mouseX - rect.left;
         const canvasY = mouseY - rect.top;
         
-        // Ajusta pelo zoom e offset do safe area
         const zoom = this.viewport.currentZoom;
         const safeX = (canvasX / zoom) - this.origin2d.x;
         const safeY = (canvasY / zoom) - this.origin2d.y;
@@ -379,7 +376,6 @@ export class ResizeHandle {
     const pos = this.screenToSafeArea(mouseX, mouseY);
     const zoom = this.viewport.currentZoom;
 
-    // tamanho visual é fixo em tela; converte pra espaço de nó pra bater com o hit-test
     const hs = this.handleSize / zoom;
     const hh = hs / 2;
 
@@ -445,7 +441,6 @@ export class ResizeHandle {
 
         if (!handle) return;
         
-        // Armazena as coordenadas iniciais já convertidas para o sistema do safe area
         const startPos = this.screenToSafeArea(event.clientX, event.clientY);
         this.startX = startPos.x;
         this.startY = startPos.y;
@@ -472,7 +467,6 @@ export class ResizeHandle {
 
     private onMouseMove = (event: MouseEvent): void => {
 
-        // Converte a posição atual do mouse para coordenadas do safe area
         const currentPos = this.screenToSafeArea(event.clientX, event.clientY);
 
         if (this.isResizing && this.currentHandle) {
@@ -586,8 +580,6 @@ export class ResizeHandle {
 
     const zoom = this.viewport.currentZoom;
 
-    // ---- CAIXA : desenhada no MESMO espaço dos nodes (scale + origin), então sempre alinha com o elemento ----
-
     context.save();
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.scale(zoom, zoom);
@@ -607,8 +599,6 @@ export class ResizeHandle {
     context.strokeRect(this.x, this.y, this.width, this.height);
 
     context.restore();
-
-    // ---- HANDLES : desenhados direto em espaço de tela, tamanho fixo, não escalam com o zoom ----
 
     const screenX = (this.origin2d.x + this.x) * zoom;
     const screenY = (this.origin2d.y + this.y) * zoom;

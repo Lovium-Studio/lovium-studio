@@ -82,44 +82,44 @@ export class SafeArea2d {
 
     public render = (context: CanvasRenderingContext2D): void => {
 
-    const zoom = this.viewport.currentZoom;
-    const offsetX = this.viewport.offsetX;
-    const offsetY = this.viewport.offsetY;
+        const zoom = this.viewport.currentZoom;
+        const offsetX = this.viewport.offsetX;
+        const offsetY = this.viewport.offsetY;
 
-    const x: number = Math.floor(this.x + offsetX) + 0.5;
-    const y: number = Math.floor(this.y + offsetY) + 0.5;
-    
-    const width: number = Math.floor(this.width);
-    const height: number = Math.floor(this.height);
-    const padding: number = Math.floor(this.padding);
+        const x: number = Math.floor(this.x + offsetX) + 0.5;
+        const y: number = Math.floor(this.y + offsetY) + 0.5;
+        
+        const width: number = Math.floor(this.width);
+        const height: number = Math.floor(this.height);
+        const padding: number = Math.floor(this.padding);
 
-    context.strokeStyle = getCSSVar("--color-b");
-    context.lineWidth = 1 / zoom;
+        context.strokeStyle = getCSSVar("--color-b");
+        context.lineWidth = 1 / zoom;
 
-    context.strokeRect(x, y, width, height);
-    context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
+        context.strokeRect(x, y, width, height);
+        context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
 
-    context.beginPath();
-    context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
-    context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
-    context.stroke();
+        context.beginPath();
+        context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
+        context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
+        context.stroke();
 
-    context.beginPath();
-    context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
-    context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
-    context.stroke();
+        context.beginPath();
+        context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
+        context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
+        context.stroke();
 
-    context.beginPath();
-    context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
-    context.lineTo(Math.floor(x + width / 2) + 0.5, y);
-    context.stroke();
+        context.beginPath();
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
+        context.lineTo(Math.floor(x + width / 2) + 0.5, y);
+        context.stroke();
 
-    context.beginPath();
-    context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
-    context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
-    context.stroke();
+        context.beginPath();
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
+        context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
+        context.stroke();
 
-};
+    };
 
     public setCoordinate = (x : number , y : number) : void => {
         if(x) this.x = x;

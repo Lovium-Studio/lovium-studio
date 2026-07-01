@@ -88,7 +88,6 @@ export class SelectRegion2D {
 
     };
 
-    // converte coordenada de tela (mouse) pro mesmo espaço local usado pelos nodes/resize handle
     private screenToLocal = ( clientX : number, clientY : number ) : { x : number, y : number } => {
 
         const rect = this.container.getBoundingClientRect();
