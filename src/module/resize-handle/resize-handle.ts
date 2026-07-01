@@ -455,7 +455,7 @@ export class ResizeHandle {
             this.currentHandle = null;
             this.container.style.cursor = "move";
 
-        } else {
+        } else { 
 
             this.currentHandle = handle;
             this.isResizing = true;
@@ -463,6 +463,9 @@ export class ResizeHandle {
         };
 
         this.onResizeHandleMouseDownCallbackList.forEach(callback => callback());
+
+            this.notifyListeners();
+ 
     };
 
     private onMouseMove = (event: MouseEvent): void => {
@@ -576,75 +579,76 @@ export class ResizeHandle {
 
     public render = (context: CanvasRenderingContext2D): void => {
 
-    if (!this.isEnabled) return;
+        if (!this.isEnabled) return;
 
-    const zoom = this.viewport.currentZoom;
+        const zoom = this.viewport.currentZoom;
 
-    context.save();
-    context.setTransform(1, 0, 0, 1, 0, 0);
-    context.scale(zoom, zoom);
-    context.translate(this.origin2d.x, this.origin2d.y);
+        context.save();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.scale(zoom, zoom);
+        context.translate(this.origin2d.x, this.origin2d.y);
 
-    if (this.rotation !== 0) {
-        const centerX = this.x + this.width / 2;
-        const centerY = this.y + this.height / 2;
-        context.translate(centerX, centerY);
-        context.rotate((this.rotation * Math.PI) / 180);
-        context.translate(-centerX, -centerY);
+        if (this.rotation !== 0) {
+            const centerX = this.x + this.width / 2;
+            const centerY = this.y + this.height / 2;
+            context.translate(centerX, centerY);
+            context.rotate((this.rotation * Math.PI) / 180);
+            context.translate(-centerX, -centerY);
+        };
+
+        context.strokeStyle = getCSSVar("--color-c");
+        context.lineWidth = 1 / zoom;
+        context.setLineDash([3 / zoom, 3 / zoom]);
+        context.strokeRect(this.x, this.y, this.width, this.height);
+
+        context.restore();
+
+        const screenX = (this.origin2d.x + this.x) * zoom;
+        const screenY = (this.origin2d.y + this.y) * zoom;
+        const screenW = this.width * zoom;
+        const screenH = this.height * zoom;
+
+        context.save();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+
+        if (this.rotation !== 0) {
+            const cx = screenX + screenW / 2;
+            const cy = screenY + screenH / 2;
+            context.translate(cx, cy);
+            context.rotate((this.rotation * Math.PI) / 180);
+            context.translate(-cx, -cy);
+        };
+
+        const hs = this.handleSize;
+        const hh = hs / 2;
+        const px = 0.5;
+
+        context.fillStyle = getCSSVar("--color-b");
+        context.strokeStyle = getCSSVar("--color-c");
+        context.lineWidth = 1;
+        context.setLineDash([]);
+
+        const handles = [
+            { x: screenX - hh,             y: screenY - hh },
+            { x: screenX + screenW/2 - hh, y: screenY - hh },
+            { x: screenX + screenW - hh,   y: screenY - hh },
+            { x: screenX - hh,             y: screenY + screenH/2 - hh },
+            { x: screenX + screenW - hh,   y: screenY + screenH/2 - hh },
+            { x: screenX - hh,             y: screenY + screenH - hh },
+            { x: screenX + screenW/2 - hh, y: screenY + screenH - hh },
+            { x: screenX + screenW - hh,   y: screenY + screenH - hh },
+        ];
+
+        handles.forEach(handle => {
+            const x = Math.round(handle.x);
+            const y = Math.round(handle.y);
+            context.fillRect(x, y, hs, hs);
+            context.strokeRect(x + px, y + px, hs, hs);
+        });
+
+        context.restore();
     };
 
-    context.strokeStyle = getCSSVar("--color-c");
-    context.lineWidth = 1 / zoom;
-    context.setLineDash([3 / zoom, 3 / zoom]);
-    context.strokeRect(this.x, this.y, this.width, this.height);
-
-    context.restore();
-
-    const screenX = (this.origin2d.x + this.x) * zoom;
-    const screenY = (this.origin2d.y + this.y) * zoom;
-    const screenW = this.width * zoom;
-    const screenH = this.height * zoom;
-
-    context.save();
-    context.setTransform(1, 0, 0, 1, 0, 0);
-
-    if (this.rotation !== 0) {
-        const cx = screenX + screenW / 2;
-        const cy = screenY + screenH / 2;
-        context.translate(cx, cy);
-        context.rotate((this.rotation * Math.PI) / 180);
-        context.translate(-cx, -cy);
-    };
-
-    const hs = this.handleSize;
-    const hh = hs / 2;
-    const px = 0.5;
-
-    context.fillStyle = getCSSVar("--color-b");
-    context.strokeStyle = getCSSVar("--color-c");
-    context.lineWidth = 1;
-    context.setLineDash([]);
-
-    const handles = [
-        { x: screenX - hh,             y: screenY - hh },
-        { x: screenX + screenW/2 - hh, y: screenY - hh },
-        { x: screenX + screenW - hh,   y: screenY - hh },
-        { x: screenX - hh,             y: screenY + screenH/2 - hh },
-        { x: screenX + screenW - hh,   y: screenY + screenH/2 - hh },
-        { x: screenX - hh,             y: screenY + screenH - hh },
-        { x: screenX + screenW/2 - hh, y: screenY + screenH - hh },
-        { x: screenX + screenW - hh,   y: screenY + screenH - hh },
-    ];
-
-    handles.forEach(handle => {
-        const x = Math.round(handle.x);
-        const y = Math.round(handle.y);
-        context.fillRect(x, y, hs, hs);
-        context.strokeRect(x + px, y + px, hs, hs);
-    });
-
-    context.restore();
-};
     public destroy = (): void => {
 
         this.container.removeEventListener("mousedown",this.onMouseDown);

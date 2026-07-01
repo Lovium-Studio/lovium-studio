@@ -118,7 +118,7 @@ export class Viewport2D {
 
     public onOffset = ( callback : Function ) : void => {
         this.onOffsetCallbackList.push(callback);
-    };
+    }; 
  
     public setWidth = ( width : number  ) : number => this.width = width;
     public setHeight = ( height : number  ) : number => this.height = height;
