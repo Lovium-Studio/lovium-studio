@@ -398,11 +398,8 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
     const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
         const zoom = SCENE_2D.zoom;
-const mouseX = (e.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
-const mouseY = (e.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
-
-        // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transform = `scale(${zoom})`;   
-        // SCENE_2D_RESIZE_HANDLE.getHandleArea().style.transformOrigin = "top left";
+        const mouseX = (e.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
+        const mouseY = (e.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
 
         SCENE_NODE_LIST.find(n => {     
 
@@ -433,7 +430,7 @@ const mouseY = (e.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
             if (sceneSelectedNode?.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
                 INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
-            };    
+            };     
 
             INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
             INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height); 

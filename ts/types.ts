@@ -295,10 +295,11 @@ export interface ISpriteNode {
 
 // CROSS GUIDE OPTION : 
 
-export interface CrossGuideOption {
+export interface ICrossGuide {
     safeArea2d : SafeArea2d,
     resizeHandle : ResizeHandle,
-    origin2d : Origin2D
+    origin2d : Origin2D,
+    viewport : Viewport2D
 }
 
 // SCENE LABEL OPTION : 
