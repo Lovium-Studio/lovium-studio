@@ -274,8 +274,15 @@ const sceneTemlate : IScene2dOption = {
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
-            anchorPoint : [300,100] 
+            anchorPoint : [300,100]  
 
+        },
+        {
+            type : "CAMERA_2D_NODE",
+            x : 100,
+            y : 200, 
+            width : 500,
+            height : 400
         }
     ]
 };

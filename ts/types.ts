@@ -14,6 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+import { Camera2DNode } from "../src/module/camera-2d-node/camera-2d-node.js";
 import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
 import { Origin2D } from "../src/module/origin-2d/origin-2d.js";
 import { ResizeHandle } from "../src/module/resize-handle/resize-handle.js";
@@ -34,10 +35,6 @@ export type ConsoleTypeOption = "ALERT" | "ERROR" | "LOG";
 export type ResizeHandleTypeOption = "SINGLE_OBJECT" | "GROUP_OBJECT" | "ASPECT_RATIO_OBJECT" | "PATTERN_OBJECT";
 
 
-// TIMELINE TRACK TYPE : 
-
-export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" | "SCALE" | "OPACITY";
-
 // STATUS BAR SIDE TYPE : 
 
 export type StatusBadgeSideType = "RIGHT" | "LEFT";
@@ -56,7 +53,7 @@ export type InspectorControlGroupType = "TRANSFORM" | "SPRITE" | "NODE" | "APPEA
 
 // SCENE 2D NODE TYPE : 
 
-export type Scene2dNodeType = "SPRITE_NODE" | "SAFE_AREA_NODE";
+export type Scene2dNodeType = "SPRITE_NODE" | "CAMERA_2D_NODE";
 
 // CAMERA TYPE : 
 
@@ -76,7 +73,12 @@ export type NodePropertyControlType = "TRANSLASTE_X"
 
 // TAB OPTION : 
 
-export type SceneNode = SpriteNode;
+export type SceneNode = SpriteNode | Camera2DNode;
+
+
+// TIMELINE TRACK TYPE : 
+
+export type AnimationTrackTypeOption = "TRANSLATE_X" | "TRANSLATE_Y" | "ROTATE" | "SCALE" | "OPACITY";
 
 export interface ITab {
     name: string,
@@ -236,7 +238,7 @@ export interface NodeSpriteOption {
 
 };
 
-export type SceneNodeListType = ISpriteNode
+export type SceneNodeListType = ISpriteNode | ICamera2DNode;
 
 // SCENE OPTION : 
 
@@ -253,7 +255,7 @@ export interface SceneSafeAreaNodeOption {
     node ? : SafeArea2d | null,
     type : Scene2dNodeType,
     width : number,
-    height : number,
+height : number,
     y : number,
     x : number,
     location : NodeLocation
@@ -261,16 +263,22 @@ export interface SceneSafeAreaNodeOption {
 
 // CAMERA 2D OPTION : 
 
-export interface Camera2dOption {
+export interface ICamera2DNode {
+    node ? : Camera2DNode | null,
+    type : "CAMERA_2D_NODE",
     x : number,
     y : number,
     width : number,
-    height : number
+    height : number,
+    viewport? : Viewport2D,
+    origin2d? : Origin2D,
+    safeArea? : SafeArea2d
 };
 
 // SAFE AREA 2D : 
 
 export interface SafeArea2dOption {
+    type : "SAFE_AREA_NODE",
     width : number,
     height : number,
     y : number,
@@ -280,7 +288,7 @@ export interface SafeArea2dOption {
 // SPRITE NODE OTPION : 
 
 export interface ISpriteNode {
-    type : Scene2dNodeType
+    type : "SPRITE_NODE"
     src : string,
     width : number,
     height : number,

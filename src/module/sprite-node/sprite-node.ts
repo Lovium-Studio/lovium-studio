@@ -27,7 +27,7 @@ export class SpriteNode {
     public height : number;
     public image : HTMLImageElement;
     public isSelected : boolean;
-public type : Scene2dNodeType;
+    public type : "SPRITE_NODE";
     public location : NodeLocation;
     public isSelectable : boolean;
     public opacity : number;

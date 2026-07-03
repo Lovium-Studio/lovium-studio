@@ -30,7 +30,7 @@ export class SafeArea2d {
     public width : number;
     public height : number;
     public isSelected : boolean;
-    public type : Scene2dNodeType;
+    public type : "SAFE_AREA_NODE";
     public location : NodeLocation;
     public isSelectable : boolean;
     public padding : number;
@@ -138,4 +138,4 @@ export class SafeArea2d {
     
 };
 
-export const SCENE_2D_SAFE_AREA = new SafeArea2d({x: 20, y: 20, width: 700, height: 350}, SCENE_2D_VIEWPORT_2D)
+export const SCENE_2D_SAFE_AREA = new SafeArea2d({x: 20, y: 20, width: 700, height: 350 , type : "SAFE_AREA_NODE"}, SCENE_2D_VIEWPORT_2D)
