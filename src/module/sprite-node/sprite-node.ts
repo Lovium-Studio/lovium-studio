@@ -1,4 +1,3 @@
-
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -33,15 +32,19 @@ export class SpriteNode {
     public opacity : number;
     public rotation : number;
     public anchorPoint : [number,number];
+    public spriteSlot : number;
+    public spriteSlotMin : number;
+    public spriteSlotMax : number; 
     
-    private src : string;
+    private src : string[];  
     private isLoaded : boolean;
+    private imageCache : Map<string, HTMLImageElement>;
 
     constructor(option : ISpriteNode){ 
 
         this.src = option.src;
         this.x = option.x;
-        this.y = option.y; 
+        this.y = option.y;  
         this.isLoaded = false; 
         this.width = option.width;
         this.height = option.height;
@@ -52,11 +55,52 @@ export class SpriteNode {
         this.opacity = option.opacity;
         this.rotation = option.rotation;
         this.anchorPoint = option.anchorPoint;
+        this.spriteSlot = 0;
+        this.spriteSlotMin = 0;
+        this.spriteSlotMax = option.src.length;
 
+        this.imageCache = new Map();
         this.image = new Image();
-        this.image.src = this.src;
-        this.image.onload = () : boolean => this.isLoaded = true;
+
+        this.preloadAll(this.src, () => {
+            this.setActiveImage(this.src[this.spriteSlot]);
+        });
         
+    };
+
+    private preloadAll = ( srcList : string[], onAllLoaded : () => void ) : void => {
+
+        let pending = srcList.length;
+
+        if (pending === 0) return;
+
+        srcList.forEach(path => {
+
+            if (this.imageCache.has(path)) {
+                pending--;
+                if (pending === 0) onAllLoaded();
+                return;
+            };
+
+            const img = new Image();
+            img.src = path;
+
+            img.onload = () : void => {
+                this.imageCache.set(path, img);
+                pending--;
+                if (pending === 0) onAllLoaded();
+            };
+        });
+    };
+
+    private setActiveImage = ( path : string ) : void => {
+
+        const cached = this.imageCache.get(path);
+
+        if (cached) {
+            this.image = cached;
+            this.isLoaded = true;
+        };
     };
 
    public render( context : CanvasRenderingContext2D ): void {
@@ -83,13 +127,6 @@ export class SpriteNode {
         context.restore(); 
 
     };
-    
-    public setSrc(newPath: string): void {
-        this.isLoaded = false; 
-        this.image = new Image();
-        this.image.src = newPath;
-        this.image.onload = () : boolean => this.isLoaded = true;
-    };
 
     public setX = (x : number) : number => this.x = x;
     public setY = (y : number) : number => this.y = y;
@@ -98,5 +135,22 @@ export class SpriteNode {
     public setSelected = (state : boolean ) : boolean => this.isSelected = state;
     public setOpacity = ( opacity : number ) : number => this.opacity = opacity;
     public setRotation = ( rotation : number ) : number => this.rotation = rotation;
+
+    public setSpriteSlot = ( slot : number ) : void => {
+        if(slot < this.spriteSlotMin || slot >= this.spriteSlotMax) return;
+
+        this.spriteSlot = slot;
+        this.setActiveImage(this.src[slot]);
+    }; 
+
+    public setSrcList = ( newSrcList : string[] ) : void => {
+        this.src = newSrcList;
+        this.spriteSlotMax = newSrcList.length;
+        this.imageCache.clear();
+
+        this.preloadAll(this.src, () => {
+            this.setSpriteSlot(0);
+        });
+    };
  
 };

@@ -22,7 +22,7 @@ import { console } from "../console/console.js";
 import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";
 import { SCENE_2D_CROSS_GUIDE } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
-import { INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL, INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL, INSPECTOR_CAMERA_ZOOM, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
+import { INPSECTOR_SPRITE_SLOT_CONTROL, INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL, INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL, INSPECTOR_CAMERA_ZOOM, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { nodeProcessor } from "../node-processor/node-processor.js";
 import { SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
@@ -64,8 +64,10 @@ gui.sceneTab.scene2dZoomOutButton.addEventListener("click",()=>{
     SCENE_2D_VIEWPORT_2D.zoomOut();
 })
 
-INPSECTOR_SPRITE_START_CONTROL.onWrite((value)=> { 
-    SCENE_2D_VIEWPORT_2D.setOffsetX(Number(value) ) 
+INPSECTOR_SPRITE_SLOT_CONTROL.onWrite((value)=> { 
+    if(sceneSelectedNode?.type === "SPRITE_NODE"){
+        sceneSelectedNode.setSpriteSlot(parseInt(value))
+    }
 })
 
 
@@ -155,7 +157,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile65.png", 
+            src : ["../.././src/asset/asset-template/tile65.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -168,7 +170,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile68.png", 
+            src : ["../.././src/asset/asset-template/tile68.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -181,7 +183,27 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile69.png", 
+            src : ["../.././src/asset/asset-template/tile69.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,   
+            width : 60,
+            height : 60,  
+            src : [
+                "../.././src/asset/sprite-animation/sprite (2).png",
+                "../.././src/asset/sprite-animation/sprite (3).png",
+                "../.././src/asset/sprite-animation/sprite (4).png",
+                "../.././src/asset/sprite-animation/sprite (5).png",
+                "../.././src/asset/sprite-animation/sprite (6).png",
+                "../.././src/asset/sprite-animation/sprite (7).png",
+            ], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -194,7 +216,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile70.png", 
+            src : ["../.././src/asset/asset-template/tile70.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -207,7 +229,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile71.png", 
+            src : ["../.././src/asset/asset-template/tile71.png","../.././src/asset/asset-template/tile72.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -220,7 +242,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/tile72.png", 
+            src : ["../.././src/asset/asset-template/tile72.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -233,7 +255,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/pointer.png", 
+            src : ["../.././src/asset/asset-template/pointer.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -246,7 +268,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/rectangle2.png", 
+            src : ["../.././src/asset/asset-template/rectangle2.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -259,7 +281,7 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
-            src : "../.././src/asset/asset-template/rectangle3.png", 
+            src : ["../.././src/asset/asset-template/rectangle3.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
@@ -272,7 +294,7 @@ const sceneTemlate : IScene2dOption = {
             y : 60,  
             width : 60,
             height : 60,    
-            src : "../.././src/asset/asset-template/trees1_1.png", 
+            src : ["../.././src/asset/asset-template/trees1_1.png"], 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 

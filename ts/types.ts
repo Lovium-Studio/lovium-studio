@@ -198,7 +198,9 @@ export interface INumberControl {
     min? : number | null,
     prefix? : string,
     sufix? : string,
-    value : number
+    value : number,
+    loop ? : boolean,
+    sensitivity ? : number
 };
 
 // SLIDER CONTROL OPTION : 
@@ -290,7 +292,7 @@ export interface SafeArea2dOption {
 
 export interface ISpriteNode {
     type : "SPRITE_NODE"
-    src : string,
+    src : string[],
     width : number,
     height : number,
     y : number,

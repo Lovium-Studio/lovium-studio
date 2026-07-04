@@ -117,12 +117,16 @@ export const INSPECTOR_SPRITE_CONTROL_GROUP : ControlGroup = new ControlGroup({
     container: gui.nativeTab.inspectorTab
 });
 
-export const INPSECTOR_SPRITE_START_CONTROL = new NumberControl({
-    label: "Sprite Start",
-    value : 0
+export const INPSECTOR_SPRITE_SLOT_CONTROL = new NumberControl({
+    label: "Sprite Slot",
+    value : 0,  
+    min : 0, 
+    max : 6,
+    loop : true,
+    sensitivity : 1  
 });
 
-export const INSPECTOR_SPRITE_DEPTH_CONTROL = new NumberControl({
+export const INSPECTOR_SPRITE_DEPTH_CONTROL = new NumberControl({  
     label: "Sprite Depth",
     value : 0
 });

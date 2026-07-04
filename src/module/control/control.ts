@@ -149,7 +149,9 @@ export class NumberControl {
     private prefix : string;
     private sufix : string;
     private lastValue : number;
-    private value : number
+    private value : number;
+    private loop : boolean;
+    private sensitivity : number;
 
     private controlContainer : HTMLDivElement;
     private controlLabelContainer : HTMLDivElement;
@@ -179,6 +181,8 @@ export class NumberControl {
         this.sufix = option.sufix || "";
         this.value = option.value; 
         this.lastValue = option.value;
+        this.loop = option.loop || false;
+        this.sensitivity = option.sensitivity || 1;
 
         this.controlContainer = document.createElement("div");
         this.controlContainer.classList.add("control-row-container-row"); 
@@ -325,19 +329,25 @@ export class NumberControl {
     };
 
     private onIncrementorDragMove = (e: MouseEvent): void => {
+
     if (!this.isDragging) return;
     
     const currentValue = parseFloat(this.controlNumberInput.value) || 0;
-    const sensitivity = 1; 
-    let newValue = currentValue + (e.movementX * sensitivity);
+    let newValue = currentValue + (e.movementX * this.sensitivity);
 
-    if (this.max !== null && newValue > this.max) newValue = this.max;  
-    if (this.min !== null && newValue < this.min) newValue = this.min;
+    if (this.loop && this.min !== null && this.max !== null) {
+        const range = this.max - this.min;
+        if (newValue > this.max) newValue = this.min + ((newValue - this.max - 1) % range);
+        if (newValue < this.min) newValue = this.max - ((this.min - newValue - 1) % range);
+    } else {
+        if (this.max !== null && newValue > this.max) newValue = this.max;  
+        if (this.min !== null && newValue < this.min) newValue = this.min;
+    }; 
 
     this.value = newValue;
     this.lastValue = newValue; 
     this.controlNumberInput.value = this.prefix + newValue.toString() + this.sufix;
-
+ 
     this.onWriteCallbackList.forEach(callback => callback(this.value.toString()));
 };
 
