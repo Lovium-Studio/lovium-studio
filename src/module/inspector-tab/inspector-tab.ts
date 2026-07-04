@@ -247,3 +247,66 @@ export const INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL : NumberControl = new Numbe
 
 INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL.joinControl(INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL);
 
+export const INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL : NumberControl = new NumberControl({
+    label: "Horizontal Offset",
+    value : 0,
+    min : 10
+});
+
+export const INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL : NumberControl = new NumberControl({
+    label: "Horizontal Offset",
+    value : 0,
+    min : 10
+
+});   
+
+INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL.joinControl(INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL)
+
+export const INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL : NumberControl = new NumberControl({
+    label: "Vertical Offset", 
+    value : 0,
+    min : 10 
+
+});
+
+export const INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL : NumberControl = new NumberControl({
+    label: "Vertical Offset",
+    value : 0,
+    min : 10
+
+});
+
+INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL.joinControl(INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL)
+
+// CAMERA CONTROL GROUP : 
+
+export const INSPECTOR_CAMERA_CONTROL_GROUP : ControlGroup = new ControlGroup({
+    label : "Camera Control",
+    container : gui.nativeTab.inspectorTab
+});
+
+export const INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL : NumberControl = new NumberControl({
+    label: "Gap",
+    value : 0,  
+    min : 1
+});
+
+export const INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL : NumberControl = new NumberControl({
+    label: "Gap",
+    value : 0,
+    min : 0 
+});
+
+INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL.joinControl(INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL);
+
+export const INSPECTOR_CAMERA_DROPDOWN_CONTROL : DropdownControl = new DropdownControl({
+    label : "Canera"
+});  
+
+export const INSPECTOR_CAMERA_ZOOM : SliderControl = new SliderControl({
+    label : "Zoom",
+    min : 1,
+    max : 100,
+    step : 1,  
+    value : 1,
+})

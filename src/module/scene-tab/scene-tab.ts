@@ -22,7 +22,7 @@ import { console } from "../console/console.js";
 import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";
 import { SCENE_2D_CROSS_GUIDE } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
-import { INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
+import { INPSECTOR_SPRITE_START_CONTROL, INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL, INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL, INSPECTOR_CAMERA_ZOOM, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SCALE_Y_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { nodeProcessor } from "../node-processor/node-processor.js";
 import { SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";
 import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
@@ -151,8 +151,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile65.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -164,8 +164,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile68.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -177,8 +177,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile69.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -190,8 +190,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile70.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -203,8 +203,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile71.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -216,8 +216,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/tile72.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -229,8 +229,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/pointer.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -242,8 +242,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/rectangle2.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -255,8 +255,8 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,  
-            width : 80,
-            height : 80,  
+            width : 60,
+            height : 60,  
             src : "../.././src/asset/asset-template/rectangle3.png", 
             location : "FOREIGNER",
             opacity : 1,  
@@ -267,22 +267,22 @@ const sceneTemlate : IScene2dOption = {
         { 
             type : "SPRITE_NODE", 
             x : 100,
-            y : 100,  
-            width : 80,
-            height : 80,  
+            y : 60,  
+            width : 60,
+            height : 60,    
             src : "../.././src/asset/asset-template/trees1_1.png", 
             location : "FOREIGNER",
             opacity : 1,  
             rotation : 0, 
-            anchorPoint : [300,100]  
+            anchorPoint : [300,100]   
 
         },
         {
             type : "CAMERA_2D_NODE",
             x : 100,
-            y : 200, 
-            width : 500,
-            height : 400
+            y : 50, 
+            width : 500, 
+            height : 240 
         }
     ]
 };
@@ -378,6 +378,7 @@ gui.sceneTab.scene2dAlignBottomButton.addEventListener("click",()=>{
     };  
 });
 
+// INSPECTOR NODE OPACITY : 
 
 INSPECTOR_OPACITY_CONTROL.onDrag(value => {
     if(sceneSelectedNode?.type === "SPRITE_NODE"){
@@ -439,7 +440,45 @@ INSPECTOR_TRANSLATE_X_CONTROL.onIncrementorEnd(()=>{
 
 INSPECTOR_ROTATE_CONTROL.onWrite(value => {
     if(sceneSelectedNode?.type === "SPRITE_NODE"){
-        sceneSelectedNode.setRotation(parseInt(value));
+        sceneSelectedNode.setRotation(parseInt(value)); 
+    };
+}); 
+
+// INEPSCTOR SAFEA AREA : 
+
+INSPECTOR_SAFE_AREA_OFFSET_RIGHT_CONTROL.onWrite(value =>{
+    SCENE_2D_SAFE_AREA.setOffsetRight(parseInt(value));
+});  
+
+INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL.onWrite(value =>{
+    SCENE_2D_SAFE_AREA.setOffsetLeft(parseInt(value)); 
+}); 
+
+INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL.onWrite(value =>{
+    SCENE_2D_SAFE_AREA.setOffsetTop(parseInt(value));
+}); 
+
+INSPECTOR_SAFE_AREA_OFFSET_BOTTOM_CONTROL.onWrite(value =>{
+    SCENE_2D_SAFE_AREA.setOffsetBottom(parseInt(value));
+}); 
+
+// CAMERA CONTROL : 
+
+INSPECTOR_CAMERA_ZOOM.onDrag(value => {
+    if(sceneSelectedNode?.type === "CAMERA_2D_NODE"){
+        sceneSelectedNode.setZoom(parseInt(value));
+    };
+}); 
+
+INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL.onWrite(value => {
+    if(sceneSelectedNode?.type === "CAMERA_2D_NODE"){
+        sceneSelectedNode.setHorizontalGap(parseInt(value)); 
+    };
+}); 
+
+INSPECTOR_CAMERA_VERTICAL_GAP_CONTROL.onWrite(value => {
+    if(sceneSelectedNode?.type === "CAMERA_2D_NODE"){
+        sceneSelectedNode.setVerticalGap(parseInt(value));
     };
 }); 
 

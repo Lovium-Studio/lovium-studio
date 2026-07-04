@@ -33,7 +33,10 @@ export class SafeArea2d {
     public type : "SAFE_AREA_NODE";
     public location : NodeLocation;
     public isSelectable : boolean;
-    public padding : number;
+    public offsetTop : number;
+    public offsetBottom : number;
+    public offsetLeft : number;
+    public offsetRight : number;
 
     private viewport : Viewport2D;
 
@@ -48,7 +51,10 @@ export class SafeArea2d {
         this.type = "SAFE_AREA_NODE";
         this.location = "NATIVE";
         this.isSelectable = false;
-        this.padding = 10;
+        this.offsetBottom = 10;
+        this.offsetTop = 10;
+        this.offsetLeft = 10;
+        this.offsetRight = 10; 
 
         this.viewport = viewport;
 
@@ -91,35 +97,42 @@ export class SafeArea2d {
         
         const width: number = Math.floor(this.width);
         const height: number = Math.floor(this.height);
-        const padding: number = Math.floor(this.padding);
 
         context.strokeStyle = getCSSVar("--color-b");
         context.lineWidth = 1 / zoom;
 
         context.strokeRect(x, y, width, height);
-        context.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
+        context.strokeRect(x - this.offsetLeft, y - this.offsetTop, width + this.offsetLeft + this.offsetRight, height + this.offsetTop + this.offsetBottom);
+
+        // LEFT LINE :
 
         context.beginPath();
-        context.moveTo(x, Math.floor(y + height / 2) + 0.5); 
-        context.lineTo(x - padding, Math.floor(y + height / 2) + 0.5);
+        context.moveTo(x, Math.floor(y + height / 2) + 0.5);
+        context.lineTo(x - this.offsetLeft, Math.floor(y + height / 2) + 0.5);
         context.stroke();
 
-        context.beginPath();
-        context.moveTo(x + width, Math.floor(y + height / 2) + 0.5); 
-        context.lineTo(x + width + padding, Math.floor(y + height / 2) + 0.5);
-        context.stroke();
+        // RIGHT LINE :
 
         context.beginPath();
-        context.moveTo(Math.floor(x + width / 2) + 0.5, y - padding); 
+        context.moveTo(x + width, Math.floor(y + height / 2) + 0.5);
+        context.lineTo(x + width + this.offsetRight, Math.floor(y + height / 2) + 0.5);
+        context.stroke(); 
+
+        // TOP LINE :
+
+        context.beginPath();
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y - this.offsetTop);
         context.lineTo(Math.floor(x + width / 2) + 0.5, y);
         context.stroke();
 
+        // BOTTOM LINE : 
+
         context.beginPath();
-        context.moveTo(Math.floor(x + width / 2) + 0.5, y + height); 
-        context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + padding); 
+        context.moveTo(Math.floor(x + width / 2) + 0.5, y + height);
+        context.lineTo(Math.floor(x + width / 2) + 0.5, y + height + this.offsetBottom);
         context.stroke();
 
-    };
+    };  
 
     public setCoordinate = (x : number , y : number) : void => {
         if(x) this.x = x;
@@ -135,6 +148,10 @@ export class SafeArea2d {
     public setY = (y : number) : number => this.y = y;
     public setWidth = ( width : number) : number => this.width = width;
     public setHeight = ( height : number) : number => this.height = height;
+    public setOffsetLeft = ( offsetLeft : number ) : number => this.offsetLeft = offsetLeft;
+    public setOffsetRight = ( offsetRight : number ) : number => this.offsetRight = offsetRight;
+    public setOffsetTop = ( offsetTop : number ) : number => this.offsetTop = offsetTop;
+    public setOffsetBottom = ( offsetBottom : number ) : number => this.offsetBottom = offsetBottom;
     
 };
 

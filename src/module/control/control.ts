@@ -418,7 +418,7 @@ export class SliderControl {
 
         this.controlSliderLabelValue = document.createElement("span"); 
         this.controlSliderLabelValue.classList.add("control-row-range-value-label")
-        this.controlSliderLabelValue.textContent = "0.0";
+        this.controlSliderLabelValue.textContent = this.value.toString() || "0";
 
         this.controlInput = document.createElement("input");
         this.controlInput.type = "range";

@@ -40,6 +40,7 @@ export class Camera2DNode {
     private verticalGap : number;
     private horizontalGap : number;
     private crossSize : number;
+    private cameraZoom : number;
 
     constructor ( option : ICamera2DNode ) {
         this.type = "CAMERA_2D_NODE";
@@ -53,18 +54,19 @@ export class Camera2DNode {
         this.isSelectable = true;
         this.isSelected = false;
         this.verticalGap = 10;
-        this.horizontalGap = 10;
-        this.safeArea = option.safeArea || null;
+        this.horizontalGap = 40;
+        this.safeArea = option.safeArea || null; 
         this.crossSize = 10;
+        this.cameraZoom = 1;
     };
 
     public render = ( context : CanvasRenderingContext2D ) : void => {
 
         if(!this.isVisible) return;
 
-        if(this.viewport && this.origin2d && this.safeArea){
+        if(this.viewport && this.origin2d && this.safeArea){ 
 
-            const zoom = this.viewport.currentZoom;
+            const zoom : number = this.viewport.currentZoom;
 
             context.save();
 
@@ -81,13 +83,20 @@ export class Camera2DNode {
             context.strokeRect(this.x, this.y, this.width, this.height);
 
             // CAMERA ZOOM AREA : 
+            const marginX = this.horizontalGap + this.cameraZoom;
+            const marginY = this.verticalGap + this.cameraZoom;
+
+            const zoomAreaX = this.x + marginX;
+            const zoomAreaY = this.y + marginY;
+            const zoomAreaWidth = this.width - (marginX * 2);
+            const zoomAreaHeight = this.height - (marginY * 2);
 
             context.setLineDash([3 / zoom, 3 / zoom]); 
-            context.strokeRect(this.x + this.horizontalGap, this.y + this.verticalGap, this.width - this.horizontalGap * 2, this.height - this.verticalGap * 2);
+            context.strokeRect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
 
             // CAMERA CROSS :
 
-            context.setLineDash([]); 
+            context.setLineDash([]);  
 
             const crossCenterX: number = this.x + this.width / 2; 
             const crossCenterY: number = this.y + this.height / 2;
@@ -96,7 +105,7 @@ export class Camera2DNode {
 
             context.beginPath();
             context.moveTo(crossCenterX,crossCenterY - this.crossSize / 2);
-            context.lineTo(crossCenterX,crossCenterY + this.crossSize / 2);
+            context.lineTo(crossCenterX,crossCenterY + this.crossSize / 2); 
             context.stroke();
 
             // HORIZONTAL :
@@ -116,11 +125,11 @@ export class Camera2DNode {
 
             context.rect(0,0, this.safeArea.width, this.safeArea.height);
             
-            // CAMERA MASK AREA : 
- 
-            context.rect(this.x + this.horizontalGap, this.y + this.verticalGap, this.width - this.horizontalGap * 2, this.height - this.verticalGap * 2);
+            // CAMERA MASK AREA :  
 
-            context.fill("evenodd");
+            context.rect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
+
+            context.fill("evenodd");  
 
             context.restore();
         };
@@ -132,6 +141,9 @@ export class Camera2DNode {
     public setY = (y : number) : number => this.y = y;
     public setWidth = ( width : number) : number => this.width = width;
     public setHeight = ( height : number) : number => this.height = height;
+    public setZoom = ( scale : number ) : number => this.cameraZoom = scale;
+    public setHorizontalGap = ( gap : number ) : number => this.horizontalGap = gap;
+    public setVerticalGap = ( gap : number ) : number => this.verticalGap = gap;
 
     
 };
