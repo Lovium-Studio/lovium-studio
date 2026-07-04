@@ -65,7 +65,8 @@ export const nodeProcessor = ( scene : SceneType ) : SceneType => {
                     y : NODE_DATA.y,
                     origin2d : SCENE_2D_ORIGIN_2D,
                     viewport : SCENE_2D_VIEWPORT_2D,
-                    safeArea : SCENE_2D_SAFE_AREA
+                    safeArea : SCENE_2D_SAFE_AREA,
+                    isMask : NODE_DATA.isMask
                 });
 
                 node.node = CAMERA_2D_NODE; 

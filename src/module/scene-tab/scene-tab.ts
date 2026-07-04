@@ -33,6 +33,7 @@ import { Toggle } from "../../util/toggle/toggle.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { GuideLabel } from "../guide-label/guide-label.js";
+import { SCENE_2D_CAMERA_MASK } from "../camera-mask/camera-mask.js";
 
 const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
@@ -41,6 +42,7 @@ SCENE_2D.insertSceneBelow(SCENE_2D_SAFE_AREA);
 
 SCENE_2D.insertSceneAbove(SCENE_2D_CROSS_GUIDE);  
 SCENE_2D.insertSceneAbove(SCENE_2D_SELECT_REGION_2D);    
+SCENE_2D.insertSceneAbove(SCENE_2D_CAMERA_MASK);     
 SCENE_2D.insertSceneAbove(SCENE_2D_RESIZE_HANDLE);    
  
 let sceneSelectedNode : SceneNode | null; 
@@ -282,7 +284,8 @@ const sceneTemlate : IScene2dOption = {
             x : 100,
             y : 50, 
             width : 500, 
-            height : 240 
+            height : 240,
+            isMask : true
         }
     ]
 };
@@ -517,6 +520,11 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
             if (lastSelectedNode && lastSelectedNode !== n.node) {
                 lastSelectedNode.setSelected(false);
+                if(lastSelectedNode.type === "CAMERA_2D_NODE"){
+                    if(lastSelectedNode.isMask){
+                        SCENE_2D_CAMERA_MASK.desabled();
+                    }
+                }
             }; 
 
             lastSelectedNode = n.node; 
@@ -538,7 +546,14 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
             if (sceneSelectedNode?.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
                 INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
-            };     
+            };  
+            
+            if (sceneSelectedNode?.type === "CAMERA_2D_NODE") {
+                if(sceneSelectedNode.isSelected && sceneSelectedNode.isMask) {
+                    SCENE_2D_CAMERA_MASK.enabled();
+                    SCENE_2D_CAMERA_MASK.setCamera(sceneSelectedNode)
+                }
+            };      
 
             INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
             INSPECTOR_SCALE_Y_CONTROL.setValue(n.node.height); 

@@ -272,7 +272,8 @@ export interface ICamera2DNode {
     height : number,
     viewport? : Viewport2D,
     origin2d? : Origin2D,
-    safeArea? : SafeArea2d
+    safeArea? : SafeArea2d,
+    isMask : boolean
 };
 
 // SAFE AREA 2D : 

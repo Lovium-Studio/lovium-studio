@@ -31,16 +31,17 @@ export class Camera2DNode {
     public isSelected : boolean;
     public isSelectable : boolean;
     public type : "CAMERA_2D_NODE";
+    public verticalGap : number;
+    public horizontalGap : number;
+    public cameraZoom : number;
+    public isMask : boolean;
 
     private viewport : Viewport2D | null;
     private origin2d : Origin2D | null;
     private safeArea : SafeArea2d | null;
 
     private isVisible : boolean;
-    private verticalGap : number;
-    private horizontalGap : number;
     private crossSize : number;
-    private cameraZoom : number;
 
     constructor ( option : ICamera2DNode ) {
         this.type = "CAMERA_2D_NODE";
@@ -58,6 +59,7 @@ export class Camera2DNode {
         this.safeArea = option.safeArea || null; 
         this.crossSize = 10;
         this.cameraZoom = 1;
+        this.isMask = option.isMask;
     };
 
     public render = ( context : CanvasRenderingContext2D ) : void => {
@@ -101,35 +103,35 @@ export class Camera2DNode {
             const crossCenterX: number = this.x + this.width / 2; 
             const crossCenterY: number = this.y + this.height / 2;
 
-            // VERTICAL :  
+            // VERTICAL LINE:  
 
             context.beginPath();
             context.moveTo(crossCenterX,crossCenterY - this.crossSize / 2);
             context.lineTo(crossCenterX,crossCenterY + this.crossSize / 2); 
             context.stroke();
 
-            // HORIZONTAL :
+            // HORIZONTAL LINE :
 
             context.beginPath();
             context.moveTo(crossCenterX - this.crossSize / 2,crossCenterY);
             context.lineTo(crossCenterX + this.crossSize / 2,  crossCenterY);
             context.stroke();
 
-            // CAMERA MASK :
+            // // CAMERA MASK :
 
-            context.globalAlpha = 0.3;
+            // context.globalAlpha = 0.3;
 
-            context.fillStyle = getCSSVar("--color-c");
+            // context.fillStyle = getCSSVar("--color-c");
 
-            context.beginPath();  
+            // context.beginPath();  
 
-            context.rect(0,0, this.safeArea.width, this.safeArea.height);
+            // context.rect(0,0, this.safeArea.width, this.safeArea.height);
             
-            // CAMERA MASK AREA :  
+            // // CAMERA MASK AREA :  
 
-            context.rect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
+            // context.rect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
 
-            context.fill("evenodd");  
+            // context.fill("evenodd");  
 
             context.restore();
         };
@@ -144,6 +146,8 @@ export class Camera2DNode {
     public setZoom = ( scale : number ) : number => this.cameraZoom = scale;
     public setHorizontalGap = ( gap : number ) : number => this.horizontalGap = gap;
     public setVerticalGap = ( gap : number ) : number => this.verticalGap = gap;
+    public enableMask = () : boolean => this.isMask = true;
+    public desableMask = () : boolean => this.isMask = false;
 
     
 };
