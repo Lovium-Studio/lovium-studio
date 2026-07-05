@@ -34,6 +34,7 @@ import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { GuideLabel } from "../guide-label/guide-label.js";
 import { SCENE_2D_CAMERA_MASK } from "../camera-mask/camera-mask.js";
+import { assetFileViewer } from "../asset-tab/asset-tab.js";
 
 const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
@@ -533,7 +534,7 @@ const selectNode = ( event : MouseEvent ) : void => {
     const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
     const zoom = SCENE_2D.zoom;
-    
+
     const mouseX = (event.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
     const mouseY = (event.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
 
@@ -570,7 +571,8 @@ const selectNode = ( event : MouseEvent ) : void => {
 
             if (sceneSelectedNode.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
-                INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
+                INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation); 
+                assetFileViewer(sceneSelectedNode.getSpriteList(),"IMG"); 
             };  
             
             if (sceneSelectedNode.type === "CAMERA_2D_NODE") {

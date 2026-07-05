@@ -75,6 +75,9 @@ export type NodePropertyControlType = "TRANSLASTE_X"
 
 export type SceneNode = SpriteNode | Camera2DNode;
 
+// ASSET TAB FILE VIEWER TYPE : 
+
+export type AssetFileViewerType = "IMG" | "AUDIO";
 
 // TIMELINE TRACK TYPE : 
 
@@ -187,6 +190,7 @@ export interface ITextControl {
 };
 
 export type GuideLineSideOption = "ALL" | "TOP" | "BOTTOM" | "RIGHT" | "LEFT" | "VERTICAL" | "HORIZONTAL";
+
 
 
 // NUMBER CONTROL OPTION : 

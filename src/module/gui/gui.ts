@@ -21,10 +21,14 @@ import { getUi } from "../get-ui/get-ui.js";
 export const gui = {
     mainContainer : getUi("main-container") as HTMLDivElement,
     mainShield : getUi("ui-shild") as HTMLDivElement,
-    assetTab : {
-        simpleImagePreview : getUi("simple-image-preview") as HTMLDivElement,
+    assetTab : { 
         simplePreviewContainer : getUi("simple-preview-container") as HTMLDivElement,
-        simplePreviewContainerZoomArea : getUi("simple-preview-container-zoom-area") as HTMLDivElement
+        simplePreviewContainerZoomArea : getUi("simple-preview-container-zoom-area") as HTMLDivElement,
+        assetTabImagePreview : getUi("asset-tab-image-preview") as HTMLImageElement,
+        assetTabImagePrev : getUi("asset-tab-image-prev") as HTMLButtonElement,
+        assetTabImageNext : getUi("asset-tab-image-next") as HTMLButtonElement,
+        assetTabAssetName : getUi("asset-tab-asset-name") as HTMLSpanElement,
+        assetTabAssetSlotRange : getUi("asset-tab-asset-slot-range") as HTMLSpanElement
     },
     tabManager : {
         tabLeftHeader : getUi("ui-left-container-tab-row") as HTMLDivElement,

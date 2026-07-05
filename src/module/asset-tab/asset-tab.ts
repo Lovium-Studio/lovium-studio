@@ -17,6 +17,7 @@
 
 // ASSET TAB : 
 
+import { AssetFileViewerType } from "../../../ts/types.js";
 import { gui } from "../gui/gui.js";
 
 // SETUP : 
@@ -29,9 +30,51 @@ export const assetTab = () : void => {
     return;
 };
 
-const simpleFileViewer = () : void => {
+let selectedImagePreview : number = 0;
+let imagePreviewMax : number = 0;
+let imagePreviewMin : number = 0;
+let imageList : string | string[] = [];
+
+export const assetFileViewer = ( src : string | string[] , type : AssetFileViewerType ) : void => {
         
-    
+    if(type === "IMG"){
+
+        selectedImagePreview = 0;
+        imagePreviewMax = src.length;  
+        imageList = src;
+
+        assetImageLoad(src[selectedImagePreview])
+
+        return;
+    };
+
+};
+
+gui.assetTab.assetTabImageNext.addEventListener("click",()=>{
+    if(selectedImagePreview >= imagePreviewMax -1) return;
+    selectedImagePreview++;
+    assetImageLoad(imageList[selectedImagePreview])    
+});  
+
+gui.assetTab.assetTabImagePrev.addEventListener("click",()=>{
+    if(selectedImagePreview <= imagePreviewMin) return;
+    selectedImagePreview--;
+    assetImageLoad(imageList[selectedImagePreview])
+});  
+ 
+const assetSlotRange = ( current : number , max : number ) : void => {
+    gui.assetTab.assetTabAssetSlotRange.textContent = current + " / " + (max - 1);
+};
+
+const assetImageLoad = ( src : string ) : void => {  
+    gui.assetTab.assetTabImagePreview.src = src;
+    assetNameLoad(src);
+    assetSlotRange(selectedImagePreview,imagePreviewMax)
+};
+
+const assetNameLoad = ( src : string ) : void => {
+    const name = src.split("/").pop() as string;
+    gui.assetTab.assetTabAssetName.textContent = name.toString();
 };
 
 const updateZoomAreaPosition = (event : MouseEvent) : void => {
@@ -46,30 +89,30 @@ const updateZoomAreaPosition = (event : MouseEvent) : void => {
     gui.assetTab.simplePreviewContainerZoomArea.style.top = `${Math.max(0, Math.min(mouseY - (zoomAreaHeight / 2), containerRect.height - zoomAreaHeight))}px`;
 };
 
-const zoomToPosition = (event : MouseEvent) : void => { 
+const zoomToPosition = (event : MouseEvent) : void => {
 
     if (ZOOM_STATE) {
         const mouseX = event.clientX;
         const mouseY = event.clientY;
 
-        gui.assetTab.simpleImagePreview.style.left = `${-mouseX + gui.assetTab.simpleImagePreview.offsetWidth / 2}px`;
-        gui.assetTab.simpleImagePreview.style.top = `${-mouseY + gui.assetTab.simpleImagePreview.offsetHeight / 2}px`;
+        gui.assetTab.assetTabImagePreview.style.left = `${-mouseX + gui.assetTab.assetTabImagePreview.offsetWidth / 2}px`;
+        gui.assetTab.assetTabImagePreview.style.top = `${-mouseY + gui.assetTab.assetTabImagePreview.offsetHeight / 2}px`;
     }
-};
+};  
 
 gui.assetTab.simplePreviewContainer.addEventListener("click", (event : MouseEvent) => {
 
     ZOOM_STATE = !ZOOM_STATE;
 
     if (ZOOM_STATE) {
-        gui.assetTab.simpleImagePreview.style.height = "135%";
-        gui.assetTab.simpleImagePreview.style.cursor = "zoom-out";
+        gui.assetTab.assetTabImagePreview.style.height = "135%";
+        gui.assetTab.assetTabImagePreview.style.cursor = "zoom-out";
         zoomToPosition(event); 
     } else {
-        gui.assetTab.simpleImagePreview.style.height = "";
-        gui.assetTab.simpleImagePreview.style.cursor = "";
-        gui.assetTab.simpleImagePreview.style.left = "auto";
-        gui.assetTab.simpleImagePreview.style.top = "auto";
+        gui.assetTab.assetTabImagePreview.style.height = "";
+        gui.assetTab.assetTabImagePreview.style.cursor = "";
+        gui.assetTab.assetTabImagePreview.style.left = "auto";
+        gui.assetTab.assetTabImagePreview.style.top = "auto";
     };
 
 });
@@ -94,7 +137,7 @@ gui.assetTab.simplePreviewContainer.addEventListener("wheel", (event : WheelEven
         gui.assetTab.simplePreviewContainerZoomArea.style.width = `${Math.min(containerWidth, zoomAreaWidth)}px`;
         gui.assetTab.simplePreviewContainerZoomArea.style.height = `${Math.min(containerHeight, zoomAreaHeight)}px`;
 
-        updateZoomAreaPosition(e); 
+        updateZoomAreaPosition(event); 
     }
 });
 

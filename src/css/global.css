@@ -1598,7 +1598,7 @@ input[type=number]::-webkit-outer-spin-button {
   height: 70%;
   -webkit-user-drag: none;
 }
-#simple-file-viewer #simple-file-name {
+#simple-file-viewer #asset-tab-asset-name {
   position: absolute;
   bottom: 10px;
   font-family: arial;
