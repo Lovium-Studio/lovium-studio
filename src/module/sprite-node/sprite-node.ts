@@ -136,6 +136,8 @@ export class SpriteNode {
     public setOpacity = ( opacity : number ) : number => this.opacity = opacity;
     public setRotation = ( rotation : number ) : number => this.rotation = rotation;
 
+    public getSpriteList = () : string[] => this.src;
+
     public setSpriteSlot = ( slot : number ) : void => {
         if(slot < this.spriteSlotMin || slot >= this.spriteSlotMax) return;
 

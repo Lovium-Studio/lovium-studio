@@ -194,15 +194,15 @@ const sceneTemlate : IScene2dOption = {
             type : "SPRITE_NODE", 
             x : 100,
             y : 100,   
-            width : 60,
+            width : 60, 
             height : 60,  
             src : [
-                "../.././src/asset/sprite-animation/sprite (2).png",
-                "../.././src/asset/sprite-animation/sprite (3).png",
-                "../.././src/asset/sprite-animation/sprite (4).png",
-                "../.././src/asset/sprite-animation/sprite (5).png",
-                "../.././src/asset/sprite-animation/sprite (6).png",
-                "../.././src/asset/sprite-animation/sprite (7).png",
+                "../.././src/asset/sprite-animation/1.png",
+                "../.././src/asset/sprite-animation/2.png",
+                "../.././src/asset/sprite-animation/3.png",
+                "../.././src/asset/sprite-animation/4.png",      
+                "../.././src/asset/sprite-animation/5.png",
+                "../.././src/asset/sprite-animation/6.png",
             ], 
             location : "FOREIGNER",
             opacity : 1,  
@@ -526,15 +526,18 @@ toggleSelectRegion.onToggle(state =>{
 
 // SCENE 2D SELECT NODE : 
 
-gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
+gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => selectNode(e));
+
+const selectNode = ( event : MouseEvent ) : void => {
 
     const rect = gui.sceneTab.sceneCanvas.getBoundingClientRect(); 
 
-        const zoom = SCENE_2D.zoom;
-        const mouseX = (e.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
-        const mouseY = (e.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
+    const zoom = SCENE_2D.zoom;
+    
+    const mouseX = (event.clientX - rect.left) / zoom - SCENE_2D_ORIGIN_2D.x;
+    const mouseY = (event.clientY - rect.top) / zoom - SCENE_2D_ORIGIN_2D.y;
 
-        SCENE_NODE_LIST.find(n => {     
+    SCENE_NODE_LIST.find(n => {     
 
         if(!n.node) return; 
 
@@ -565,16 +568,16 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
             SCENE_2D_RESIZE_HANDLE.enabled();
 
-            if (sceneSelectedNode?.type === "SPRITE_NODE") {
+            if (sceneSelectedNode.type === "SPRITE_NODE") {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
                 INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation);  
             };  
             
-            if (sceneSelectedNode?.type === "CAMERA_2D_NODE") {
+            if (sceneSelectedNode.type === "CAMERA_2D_NODE") {
                 if(sceneSelectedNode.isSelected && sceneSelectedNode.isMask) {
                     SCENE_2D_CAMERA_MASK.enabled();
                     SCENE_2D_CAMERA_MASK.setCamera(sceneSelectedNode)
-                }
+                };
             };      
 
             INSPECTOR_SCALE_X_CONTROL.setValue(n.node.width);
@@ -584,8 +587,7 @@ gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => {
 
             return true;
         };
- 
+
         return false;
     });
-
-});
+};

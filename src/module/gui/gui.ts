@@ -63,7 +63,7 @@ export const gui = {
     },
     inspectorTab : {
         inspectorFontWheightDropdown : getUi("inspector-dropdown-font-wheight") as HTMLDivElement
-},
+    },
     windowMenu : {
         windowMenuContainer : getUi("window-menu-container") as HTMLDivElement,
         windowMenuBar : getUi("menu-bar") as HTMLDivElement

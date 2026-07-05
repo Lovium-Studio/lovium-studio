@@ -330,26 +330,26 @@ export class NumberControl {
 
     private onIncrementorDragMove = (e: MouseEvent): void => {
 
-    if (!this.isDragging) return;
+        if (!this.isDragging) return;
+        
+        const currentValue = parseFloat(this.controlNumberInput.value) || 0;
+        let newValue = currentValue + (e.movementX * this.sensitivity);
+
+        if (this.loop && this.min !== null && this.max !== null) {
+            const range = this.max - this.min;
+            if (newValue > this.max) newValue = this.min + ((newValue - this.max - 1) % range);
+            if (newValue < this.min) newValue = this.max - ((this.min - newValue - 1) % range);
+        } else {
+            if (this.max !== null && newValue > this.max) newValue = this.max;  
+            if (this.min !== null && newValue < this.min) newValue = this.min;
+        }; 
+
+        this.value = newValue;
+        this.lastValue = newValue;
+        this.controlNumberInput.value = this.prefix + newValue.toString() + this.sufix;
     
-    const currentValue = parseFloat(this.controlNumberInput.value) || 0;
-    let newValue = currentValue + (e.movementX * this.sensitivity);
-
-    if (this.loop && this.min !== null && this.max !== null) {
-        const range = this.max - this.min;
-        if (newValue > this.max) newValue = this.min + ((newValue - this.max - 1) % range);
-        if (newValue < this.min) newValue = this.max - ((this.min - newValue - 1) % range);
-    } else {
-        if (this.max !== null && newValue > this.max) newValue = this.max;  
-        if (this.min !== null && newValue < this.min) newValue = this.min;
-    }; 
-
-    this.value = newValue;
-    this.lastValue = newValue; 
-    this.controlNumberInput.value = this.prefix + newValue.toString() + this.sufix;
- 
-    this.onWriteCallbackList.forEach(callback => callback(this.value.toString()));
-};
+        this.onWriteCallbackList.forEach(callback => callback(this.value.toString()));
+    };
 
     public onKeyboardEnter = (callback: (value: string) => void) : void => {
         this.onKeyBoardEnterCallbackList.push(callback);
