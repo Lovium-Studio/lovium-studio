@@ -1,4 +1,3 @@
-
 /**************************************************************************/
 /*                                                                        */
 /*                         This file is part of :                         */
@@ -16,58 +15,67 @@
 
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { Camera2DNode } from "../camera-2d-node/camera-2d-node.js";
-import { SafeArea2d, SCENE_2D_SAFE_AREA } from './../safe-area-2d/safe-area-2d.js';
+import { Origin2D } from "../origin-2d/origin-2d.js";
+import { Viewport2D, SCENE_2D_VIEWPORT_2D } from "../viewport-2d/viewport-2d.js";
+import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 
 // CAMERA MASK : 
 
 export class CameraMask {
 
-    private safeArea : SafeArea2d;
+    private viewport : Viewport2D;
+    private origin2d : Origin2D;
     private camera : Camera2DNode | null;
     private isEnabled : boolean;
 
-    constructor (safeArea : SafeArea2d) {
+    constructor (viewport : Viewport2D, origin2d : Origin2D) {
         this.camera = null;
-        this.safeArea = safeArea;
+        this.viewport = viewport;
+        this.origin2d = origin2d;
         this.isEnabled = true;
     }; 
 
     public render = ( context : CanvasRenderingContext2D ) : void => {
 
-    if(!this.isEnabled) return;
+        if(!this.isEnabled) return;
 
-    if(this.camera){
+        if(this.camera){
 
-        context.save();
+            const zoom = this.viewport.currentZoom;
 
-        const marginX = this.camera.horizontalGap + this.camera.cameraZoom;
-        const marginY = this.camera.verticalGap + this.camera.cameraZoom;
+            context.save();
 
-        const zoomAreaX = this.camera.x + marginX;
-        const zoomAreaY = this.camera.y + marginY;
-        const zoomAreaWidth = this.camera.width - (marginX * 2);
-        const zoomAreaHeight = this.camera.height - (marginY * 2);
+            context.setTransform(1, 0, 0, 1, 0, 0);
 
-        // CAMERA MASK : 
+            const outerWidth = this.viewport.getWidth();
+            const outerHeight = this.viewport.getHeight();
 
-        const outerX = -this.safeArea.offsetLeft;
-        const outerY = -this.safeArea.offsetTop;
-        const outerWidth = this.safeArea.width + this.safeArea.offsetLeft + this.safeArea.offsetRight;
-        const outerHeight = this.safeArea.height + this.safeArea.offsetTop + this.safeArea.offsetBottom;
+            const marginX = this.camera.horizontalGap + this.camera.cameraZoom;
+            const marginY = this.camera.verticalGap + this.camera.cameraZoom;
 
-        context.globalAlpha = 0.2; 
-        context.fillStyle = getCSSVar("--color-c");
-        context.beginPath();  
-        context.rect(outerX, outerY, outerWidth, outerHeight);
-         
-        // CAMERA MASK AREA :   
+            const localZoomAreaX = this.camera.x + marginX;
+            const localZoomAreaY = this.camera.y + marginY;
+            const localZoomAreaWidth = this.camera.width - (marginX * 2);
+            const localZoomAreaHeight = this.camera.height - (marginY * 2);
 
-        context.rect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
-        context.fill("evenodd");  
-        context.restore();
+            const zoomAreaX = (this.origin2d.x + localZoomAreaX) * zoom;
+            const zoomAreaY = (this.origin2d.y + localZoomAreaY) * zoom;
+            const zoomAreaWidth = localZoomAreaWidth * zoom;
+            const zoomAreaHeight = localZoomAreaHeight * zoom;
+
+            context.globalAlpha = 0.2; 
+            context.fillStyle = getCSSVar("--color-c");
+            context.beginPath();  
+            context.rect(0, 0, outerWidth, outerHeight);
+
+            // CAMERA MASK AREA :   
+
+            context.rect(zoomAreaX, zoomAreaY, zoomAreaWidth, zoomAreaHeight);
+            context.fill("evenodd");  
+            context.restore();  
+        };
+
     };
-
-};
 
     public enabled = () : boolean => this.isEnabled = true;
     public desabled = () : boolean => this.isEnabled = false;
@@ -75,4 +83,4 @@ export class CameraMask {
 
 };
 
-export const SCENE_2D_CAMERA_MASK = new CameraMask(SCENE_2D_SAFE_AREA)
+export const SCENE_2D_CAMERA_MASK = new CameraMask(SCENE_2D_VIEWPORT_2D, SCENE_2D_ORIGIN_2D);

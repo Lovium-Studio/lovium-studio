@@ -47,7 +47,6 @@ export class Viewport2D {
         this.zoomOffsetY = 0;
     };
 
-    // aplica o ponto de ancoragem (zoomOffsetX/Y) pra manter o mesmo local sob o cursor durante o zoom
     private applyZoomAnchor = ( oldZoom : number, newZoom : number ) : void => {
 
         const factor = (1 / newZoom) - (1 / oldZoom);
@@ -122,6 +121,9 @@ export class Viewport2D {
  
     public setWidth = ( width : number  ) : number => this.width = width;
     public setHeight = ( height : number  ) : number => this.height = height;
+
+    public getWidth = () : number => this.width;
+    public getHeight = () : number => this.height;
 };   
 
 export const SCENE_2D_VIEWPORT_2D = new Viewport2D({ width : 0 , height : 0, offsetX : 0 , offsetY : 0});

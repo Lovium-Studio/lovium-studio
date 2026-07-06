@@ -124,7 +124,7 @@ export class SpriteNode {
         
         context.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
 
-        context.restore(); 
+        context.restore();  
 
     };
 
