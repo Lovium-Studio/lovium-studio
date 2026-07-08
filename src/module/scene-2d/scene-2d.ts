@@ -18,11 +18,12 @@ import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../../
 import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
+import { SpriteNode } from "../sprite-node/sprite-node.js";
 
 
 // SCENE 2D : 
 
-class Scene2d {
+export class Scene2d {
 
     private nodeList: SceneNodeListType[];
     private name: string;
@@ -59,6 +60,13 @@ class Scene2d {
     };
 
     public getNodeList = (): SceneNodeListType[] => this.nodeList;
+
+    public getSpriteNodeList = () : SpriteNode[] => {
+        return this.nodeList
+            .filter( n => n.type === "SPRITE_NODE" )
+            .map( n => n.node )
+            .filter( ( node ) : node is SpriteNode => node !== undefined && node !== null );
+    };
     
     public clearScene = (): void => {
         this.isScene = false;

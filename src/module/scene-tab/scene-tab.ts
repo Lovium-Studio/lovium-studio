@@ -18,7 +18,7 @@
 
 import { IScene2dOption, SceneNode } from "../../../ts/types.js";
 import { SCENE_2D_GRID_2D } from "../2d-grid/2d-grid.js";
-import { console } from "../console/console.js";
+import { console as consoleT } from "../console/console.js";
 import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";
 import { SCENE_2D_CROSS_GUIDE } from "../cross-guide/cross-guide.js";
 import { gui } from "../gui/gui.js";
@@ -35,6 +35,8 @@ import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { GuideLabel } from "../guide-label/guide-label.js";
 import { SCENE_2D_CAMERA_MASK } from "../camera-mask/camera-mask.js";
 import { assetFileViewer } from "../asset-tab/asset-tab.js";
+import { SCENE_2D_SPRITE_NODE_ANIMATE } from "../sprite-node-animate/sprite-node-animate.js";
+import { HtmlOrchester } from "../html-orchester/html-orchester.js";
 
 const SCENE_NODE_LIST = SCENE_2D.getNodeList();
 
@@ -256,6 +258,136 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+  
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/tile72.png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
             src : ["../.././src/asset/asset-template/pointer.png"], 
             location : "FOREIGNER",
             opacity : 1,  
@@ -309,7 +441,7 @@ const sceneTemlate : IScene2dOption = {
             width : 500, 
             height : 240,
             isMask : true
-        }
+        }   
     ]
 };
 
@@ -317,18 +449,18 @@ const processor = nodeProcessor(sceneTemlate);
 
 SCENE_2D.loadScene(processor);
 
-const render = (): void => {
+const render = (): void => {     
     SCENE_2D_CONTEXT.clearRect( 0,0,gui.sceneTab.sceneCanvas.width,gui.sceneTab.sceneCanvas.height);
-    SCENE_2D.renderScene(SCENE_2D_CONTEXT); 
-}; 
+    SCENE_2D.renderScene(SCENE_2D_CONTEXT);   
+};  
 
 const frameLoop = (): void => {  
     render();
-    requestAnimationFrame(frameLoop); 
+    requestAnimationFrame(frameLoop);   
 };
 
 export const sceneTab = (): void => { 
-    resizeCanvas();    
+    resizeCanvas();     
     frameLoop();
 };
 
@@ -408,8 +540,8 @@ gui.sceneTab.scene2dAlignBottomButton.addEventListener("click",()=>{
 
 INSPECTOR_OPACITY_CONTROL.onDrag(value => {
     if(sceneSelectedNode?.type === "SPRITE_NODE"){
-        sceneSelectedNode.setOpacity(parseFloat(value))
-        console(value) 
+        sceneSelectedNode.setOpacity(parseFloat(value))    
+        consoleT(value) 
     };
 });
 
@@ -522,9 +654,24 @@ toggleSelectRegion.onToggle(state =>{
     }else{
         SCENE_2D_SELECT_REGION_2D.desabled();  
     }
-    icon.style.color = state ? getCSSVar("--color-b") : ""; 
-});     
+    icon.style.color = state ? getCSSVar("--color-b") : "";  
+});        
+ 
+// SCENE SPRITE NODE ANIMATE :  
 
+gui.sceneTab.scene2dStartAnimationButton.addEventListener("click",()=> {
+    if(sceneSelectedNode?.type === "SPRITE_NODE"){
+        SCENE_2D_SPRITE_NODE_ANIMATE.animateSpriteNode(sceneSelectedNode);
+        SCENE_2D_SPRITE_NODE_ANIMATE.start() 
+    };
+});
+  
+gui.sceneTab.scene2dAlignTopButton.addEventListener("click",()=> { 
+    if(sceneSelectedNode?.type === "SPRITE_NODE"){
+        SCENE_2D_SPRITE_NODE_ANIMATE.stop() 
+    };
+});  
+    
 // SCENE 2D SELECT NODE : 
 
 gui.sceneTab.sceneCanvasContainer.addEventListener("click", (e: MouseEvent) => selectNode(e));
@@ -593,3 +740,54 @@ const selectNode = ( event : MouseEvent ) : void => {
         return false;
     });
 };
+
+
+const html = new HtmlOrchester({
+    indent : 4
+}); 
+
+const h = html.html([
+    {
+        tag : "div",
+          attribute : [
+            {
+                name : "id",
+                value : "3000"
+            },
+            {
+                name : "bordered",
+                value : "3000"
+            },
+            
+        ],
+        children : [
+            {
+                tag : "span",
+                content : "hello world",
+                attribute : [ 
+            {
+                name : "id",
+                value : "3000"
+            },
+            {
+                name : "bordered",
+                value : "3000"
+            },
+        ]
+            }
+        ]
+    },
+    {
+        tag : "div",
+        attribute : [
+            {
+                name : "id",
+                value : "3000"
+            }
+        ]
+    }
+]);
+
+consoleT(h)
+  
+console.log(h)

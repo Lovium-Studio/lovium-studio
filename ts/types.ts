@@ -348,3 +348,23 @@ export interface IScene2D {
     viewport : Viewport2D,
     safeArea : SafeArea2d
 };  
+
+// HTML ORCHESTER : 
+
+export interface IHtmlOrchesterAttribute { 
+    name : string,
+    value : string
+};
+
+export type IHtmlOrchesterContent = string | number;
+
+export interface IHtmlOrchesterTag {
+    tag : keyof HTMLElementTagNameMap,
+    attribute : IHtmlOrchesterAttribute[]
+    children? : IHtmlOrchesterTag[]
+    content? : IHtmlOrchesterContent
+};
+
+export interface IHtmlOrchester {
+    indent : number
+};

@@ -93,8 +93,8 @@ INSPECTOR_TRANSLATE_X_CONTROL.joinControl(INSPECTOR_TRANSLATE_Y_CONTROL);
 export const INSPECTOR_ROTATE_CONTROL = new NumberControl({
     label: "Rotation",
     max : 360,
-    min : 0,
-    value : 0,
+    min : -360,
+    value : 0,   
     sufix : "º"
 });
 
