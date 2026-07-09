@@ -662,7 +662,6 @@ toggleSelectRegion.onToggle(state =>{
 gui.sceneTab.scene2dStartAnimationButton.addEventListener("click",()=> {
     if(sceneSelectedNode?.type === "SPRITE_NODE"){
         SCENE_2D_SPRITE_NODE_ANIMATE.animateSpriteNode(sceneSelectedNode);
-        SCENE_2D_SPRITE_NODE_ANIMATE.start() 
     };
 });
   
@@ -720,7 +719,8 @@ const selectNode = ( event : MouseEvent ) : void => {
                 INSPECTOR_OPACITY_CONTROL.setValue(sceneSelectedNode.opacity); 
                 INSPECTOR_ROTATE_CONTROL.setValue(sceneSelectedNode.rotation); 
                 assetFileViewer(sceneSelectedNode.getSpriteList(),"IMG"); 
-            };  
+                SCENE_2D_SPRITE_NODE_ANIMATE.animateSpriteNode(sceneSelectedNode);
+            };    
             
             if (sceneSelectedNode.type === "CAMERA_2D_NODE") {
                 if(sceneSelectedNode.isSelected && sceneSelectedNode.isMask) {
@@ -742,52 +742,4 @@ const selectNode = ( event : MouseEvent ) : void => {
 };
 
 
-const html = new HtmlOrchester({
-    indent : 4
-}); 
-
-const h = html.html([
-    {
-        tag : "div",
-          attribute : [
-            {
-                name : "id",
-                value : "3000"
-            },
-            {
-                name : "bordered",
-                value : "3000"
-            },
-            
-        ],
-        children : [
-            {
-                tag : "span",
-                content : "hello world",
-                attribute : [ 
-            {
-                name : "id",
-                value : "3000"
-            },
-            {
-                name : "bordered",
-                value : "3000"
-            },
-        ]
-            }
-        ]
-    },
-    {
-        tag : "div",
-        attribute : [
-            {
-                name : "id",
-                value : "3000"
-            }
-        ]
-    }
-]);
-
-consoleT(h)
-  
-console.log(h)
+ 

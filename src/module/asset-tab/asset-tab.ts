@@ -18,17 +18,23 @@
 // ASSET TAB : 
 
 import { AssetFileViewerType } from "../../../ts/types.js";
+import { FlashButton, FlashRow, FlashTable } from "../flash-table/flash-table.js";
+// import { ASSET_TAB_HTML } from "../../static-ui/asset-tab-html/asset-tab-html.js";
 import { gui } from "../gui/gui.js";
+import { SCENE_2D_SPRITE_NODE_ANIMATE } from "../sprite-node-animate/sprite-node-animate.js";
 
 // SETUP : 
 
 let ZOOM_STATE : boolean = false;
 let ZOOM_SCALE : number = 1;
 
-export const assetTab = () : void => {
+export const assetTab = () : void => { 
 
     return;
 };
+
+    // ASSET_TAB_HTML();   
+
 
 let selectedImagePreview : number = 0;
 let imagePreviewMax : number = 0;
@@ -47,19 +53,21 @@ export const assetFileViewer = ( src : string | string[] , type : AssetFileViewe
 
         return;
     };
+  
+}; 
 
-};
-
-gui.assetTab.assetTabImageNext.addEventListener("click",()=>{
+gui.assetTab?.assetTabImageNext?.addEventListener("click",()=>{
     if(selectedImagePreview >= imagePreviewMax -1) return;
     selectedImagePreview++;
-    assetImageLoad(imageList[selectedImagePreview])    
-});  
+    assetImageLoad(imageList[selectedImagePreview])     
+});    
 
-gui.assetTab.assetTabImagePrev.addEventListener("click",()=>{
+console.log(gui.assetTab.assetTabImageNext)   
+ 
+gui.assetTab?.assetTabImagePrev?.addEventListener("click",()=>{
     if(selectedImagePreview <= imagePreviewMin) return;
     selectedImagePreview--;
-    assetImageLoad(imageList[selectedImagePreview])
+    assetImageLoad(imageList[selectedImagePreview]) 
 });  
  
 const assetSlotRange = ( current : number , max : number ) : void => {
@@ -100,7 +108,7 @@ const zoomToPosition = (event : MouseEvent) : void => {
     }
 };  
 
-gui.assetTab.simplePreviewContainer.addEventListener("click", (event : MouseEvent) => {
+gui.assetTab.simplePreviewContainer?.addEventListener("click", (event : MouseEvent) => {
 
     ZOOM_STATE = !ZOOM_STATE;
 
@@ -117,14 +125,14 @@ gui.assetTab.simplePreviewContainer.addEventListener("click", (event : MouseEven
 
 });
 
-gui.assetTab.simplePreviewContainer.addEventListener("mousemove", (event : MouseEvent) => {
+gui.assetTab.simplePreviewContainer?.addEventListener("mousemove", (event : MouseEvent) => {
     if (ZOOM_STATE) zoomToPosition(event);
 });
 
-gui.assetTab.simplePreviewContainer.addEventListener("wheel", (event : WheelEvent) => {
+gui.assetTab.simplePreviewContainer?.addEventListener("wheel", (event : WheelEvent) => {
 
     if (ZOOM_STATE) {
-        const zoomSpeed = 0.1;
+        const zoomSpeed = 0.1;  
         const delta = Math.sign(event.deltaY);
         ZOOM_SCALE = Math.max(0.5, Math.min(2, ZOOM_SCALE - delta * zoomSpeed));
 
@@ -141,7 +149,7 @@ gui.assetTab.simplePreviewContainer.addEventListener("wheel", (event : WheelEven
     }
 });
 
-gui.assetTab.simplePreviewContainer.addEventListener("mouseleave",()=> {
+gui.assetTab.simplePreviewContainer?.addEventListener("mouseleave",()=> {
     if (ZOOM_STATE) {
         gui.assetTab.simplePreviewContainerZoomArea.style.left = "";
         gui.assetTab.simplePreviewContainerZoomArea.style.top = "";
@@ -150,9 +158,56 @@ gui.assetTab.simplePreviewContainer.addEventListener("mouseleave",()=> {
     };
 });
 
+// SPRITE NODE FLASH TABLE : 
 
+const SPRITE_NODE_FLASH_TABLE : FlashTable = new FlashTable(gui.nativeTab.assetTab);
 
+export const SPRITE_NODE_NAME_ROW : FlashRow = new FlashRow({
+    name : "Name",
+    value : "image.png" 
+});
 
+export const SPRITE_NODE_SIZE_ROW : FlashRow = new FlashRow({
+    name : "Size",
+    value : "40x40"
+});
 
+export const SPRITE_NODE_SLOT_ROW : FlashRow = new FlashRow({
+    name : "Slot",
+    value : "0/10"
+});
 
+export const SPRITE_NODE_PLAY_BUTTON : FlashButton = new FlashButton({
+    name : "Play",
+    icon : "ri-play-circle-fill",
+    onClick : ()=> {
+        SCENE_2D_SPRITE_NODE_ANIMATE.start()  
+    }
+});
 
+export const SPRITE_NODE_STOP_BUTTON : FlashButton = new FlashButton({
+    name : "Stop", 
+    icon : "ri-stop-circle-fill",
+    onClick : ()=> {
+        SCENE_2D_SPRITE_NODE_ANIMATE.stop()  
+    } 
+});
+
+const SPRITE_NODE_DELETE_BUTTON : FlashButton = new FlashButton({
+    name : "Delete",
+    icon : "ri-indeterminate-circle-fill"
+});
+
+const SPRITE_NODE_FLASH_TABLE_NAME : string = "asset-tab-sprite-node-flash-table"
+
+SPRITE_NODE_FLASH_TABLE.register(SPRITE_NODE_FLASH_TABLE_NAME); 
+
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_NAME_ROW,SPRITE_NODE_FLASH_TABLE_NAME);
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_SIZE_ROW,SPRITE_NODE_FLASH_TABLE_NAME);
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_SLOT_ROW,SPRITE_NODE_FLASH_TABLE_NAME);
+
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_PLAY_BUTTON,SPRITE_NODE_FLASH_TABLE_NAME);
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_STOP_BUTTON,SPRITE_NODE_FLASH_TABLE_NAME);
+SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_DELETE_BUTTON,SPRITE_NODE_FLASH_TABLE_NAME);
+
+SPRITE_NODE_FLASH_TABLE.switch(SPRITE_NODE_FLASH_TABLE_NAME);  

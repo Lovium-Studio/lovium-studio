@@ -205,7 +205,7 @@ export const tabManager = (tabList: ITab[]): void => {
         });
 
         if (["LEFT", "RIGHT", "BOTTOM", "TOP"].indexOf(tabLocation) === -1) {
-            console(`LAYOUT_INSERT_TAB_ERROR: in tab '${tab.name}', error to insert the tab in the layout. You need to follow the 'location' specifications!`, "error");
+            console(`LAYOUT_INSERT_TAB_ERROR: in tab '${tab.name}', error to insert the tab in the layout. You need to follow the 'location' specifications!`, "ERROR");
             return;
         };
 
@@ -217,7 +217,7 @@ export const tabManager = (tabList: ITab[]): void => {
                 tabContentsByLocation.LEFT.push(tabContent);
                 break;
             case "TOP":
-                if (gui.tabManager.addTabButton) {
+                if (gui.tabManager.addTabButton) { 
                     gui.tabManager.tabTopHeader.insertBefore(tabButton, gui.tabManager.addTabButton);
                 } else {
                     gui.tabManager.tabTopHeader.appendChild(tabButton);

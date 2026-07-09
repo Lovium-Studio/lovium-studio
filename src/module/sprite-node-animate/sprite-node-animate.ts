@@ -15,6 +15,7 @@
 
 // SPRITE NODE ANIMATE : 
 
+import { INPSECTOR_SPRITE_SLOT_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { SpriteNode } from "../sprite-node/sprite-node.js";
 
 interface ISpriteNodeAnimation {
@@ -54,8 +55,7 @@ export class SpriteNodeAnimate {
                 elapsed : 0
             });
         };
-
-        this.start();
+  
     }; 
 
     public removeSpriteNode = ( spriteNode : SpriteNode ) : void => {
@@ -85,7 +85,7 @@ export class SpriteNodeAnimate {
         this.tweenSprite.forEach(tween => {
             tween.currentSlot = tween.from;
             tween.elapsed = 0;
-            tween.node.setSpriteSlot(tween.currentSlot);
+            tween.node.setSpriteSlot(Number(INPSECTOR_SPRITE_SLOT_CONTROL.getValue()));     
         });
     };
 

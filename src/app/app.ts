@@ -16,13 +16,13 @@
 
 // APP : 
 
+import { appLoad } from "../module/app-load/app-load.js";
 import { getUi } from "../module/get-ui/get-ui.js";
 import { windowMenu } from "../module/menu-window/window-menu.js";
-import { appLoad } from "../module/app-load/app-load.js";
 
 // APP LOAD : 
 
-document.addEventListener("DOMContentLoaded",appLoad);
+document.addEventListener("DOMContentLoaded",appLoad);  
 
 // WINDOW MENU : 
 

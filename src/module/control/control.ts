@@ -621,3 +621,4 @@ export class DropdownControl {
 
     private removeLabel = () : string => this.controlLabelContainer.style.display = "none";
 };
+

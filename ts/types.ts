@@ -368,3 +368,18 @@ export interface IHtmlOrchesterTag {
 export interface IHtmlOrchester {
     indent : number
 };
+
+// FLASH ROW : 
+
+export interface IFlashRow {
+    name : string,
+    value : string | number
+}
+
+// FLASH BUTTON : 
+
+export interface IFlashButton {
+    name : string,
+    icon : string
+    onClick? : Function | null
+}

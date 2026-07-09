@@ -16,14 +16,16 @@
 
 import { IHtmlOrchesterAttribute, IHtmlOrchesterContent, IHtmlOrchesterTag, IHtmlOrchester } from "../../../ts/types";
 
-// HTML ORCHESTER :
-  
-export class HtmlOrchester { 
- 
-    private indentValue: number;
+// HTML ORCHESTER : 
 
-    constructor(option: IHtmlOrchester) { 
+export class HtmlOrchester {
+
+    private indentValue: number;
+    private html: string;
+
+    constructor(option: IHtmlOrchester) {
         this.indentValue = option.indent;
+        this.html = "";
     };
 
     private static getIndent = (level: number, indentValue: number): string => {
@@ -49,31 +51,49 @@ export class HtmlOrchester {
     ]);
 
     private static getCloseTag = (tag: keyof HTMLElementTagNameMap, inside: string, content: IHtmlOrchesterContent): string => {
+
         if(HtmlOrchester.VOID_ELEMENTS.has(tag)) return ">";
-        else return ">" + content + inside + "</" + tag + ">";
+
+        return ">" + content + inside + "</" + tag + ">";
     };
 
     private static getAttributeTag = (attribute: IHtmlOrchesterAttribute[]): string => {
         return attribute.map(att => HtmlOrchester.setAttribute(att.name, att.value)).join(" ");
     };
 
-    public html = (htmlNode: IHtmlOrchesterTag[], level: number = 0): string => {
+    private render = (htmlNode: IHtmlOrchesterTag[], level: number = 0): string => {
 
         let html = "";
         const indent = HtmlOrchester.getIndent(level, this.indentValue);
 
-        htmlNode.forEach(tagNode => {  
+        htmlNode.forEach(tagNode => {
 
-            const tag: keyof HTMLElementTagNameMap = tagNode.tag;
+            const tag = tagNode.tag;
             const attribute = HtmlOrchester.getAttributeTag(tagNode.attribute);
+            const content = tagNode.content ?? "";
 
-            const content: IHtmlOrchesterContent = tagNode.content ?? "";
-            const children = tagNode.children ? "\n" + this.html(tagNode.children, level + 1) + "\n" + indent : "";
+            const children = tagNode.children? "\n" + this.render(tagNode.children, level + 1) + "\n" + indent: "";
 
-            html += indent + "<" + tag + " " + attribute + HtmlOrchester.getCloseTag(tag, children, content);
+            html += indent + "<" + tag + " " + attribute + HtmlOrchester.getCloseTag(tag, children, content) + "\n";
 
-        }); 
+        });   
 
-        return html;
+        return html;      
+    }; 
+
+    public innerHtml = (tag: HTMLElement): void => tag.insertAdjacentHTML("afterbegin", this.html);
+ 
+    public clearHtml = (): string => this.html = "";     
+
+    public static children = (htmlNode: { node: IHtmlOrchesterTag[] }): IHtmlOrchesterTag[] => htmlNode.node;
+
+    public setHtml = (htmlNode: IHtmlOrchesterTag[]): { node: IHtmlOrchesterTag[], html: string } => {
+
+        this.html = this.render(htmlNode);
+
+        return {
+            node: htmlNode,
+            html: this.html
+        };
     };
 };

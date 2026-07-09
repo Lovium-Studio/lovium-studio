@@ -25,21 +25,25 @@ import { statusBar } from "../status-bar/status-bar.js";
 import { gui } from "../gui/gui.js";
 import { tabManager } from "../tab-manager/tab-manager.js";
 import { sceneTab } from "../scene-tab/scene-tab.js";
+// import { htmlLoader } from "../html-loader/html-loader.js"; 
 
-// APP LOAD :  
+// APP LOAD :   
 
-export const appLoad = () : void  => { 
+export const appLoad = () : void  => {    
+
+    // htmlLoader(); 
 
     splitter();
     inspectorTab(); 
-    tabLoader();
     codeTab();
-    assetTab();
+    assetTab();      
     timelineTab();
-    statusBarLoader();
+    statusBarLoader();  
     inspectorLoader();
     sceneTab();
-    console("Application Started...", "LOG");
+    console("Application Started...", "LOG");   
+    tabLoader(); 
+
 
 };
 

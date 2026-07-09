@@ -2842,27 +2842,53 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: column;
   gap: 3px;
 }
-#asset-tab-info-table .info-table-row {
+
+.flash-table {
+  position: relative;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.info-table-row {
   position: relative;
   width: 100%;
   height: 30px;
+  min-height: 30px;
   background: var(--color-f);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#asset-tab-info-table .info-table-row span {
+.info-table-row span {
   position: absolute;
   font-family: arial;
   font-weight: initial;
   font-size: 11px;
   color: var(--color-c);
 }
-#asset-tab-info-table .info-table-row .info-key {
+.info-table-row .info-key {
   left: 5px;
 }
-#asset-tab-info-table .info-table-row .info-value {
+.info-table-row .info-value {
   right: 5px;
+}
+
+.flash-table-tab {
+  position: relative;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
 }
 
 #scene-canvas-container {

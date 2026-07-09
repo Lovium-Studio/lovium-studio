@@ -40,8 +40,8 @@ export const gui = {
         tabBottomContainer : getUi("tab-bottom") as HTMLDivElement,
         tabRightContainer : getUi("tab-right") as HTMLDivElement,
         addTabButton : getUi("add-tab-button") as HTMLButtonElement
-    },
-    nativeTab : {
+    }, 
+    nativeTab : {  
         consoleTab : getUi("console-tab") as HTMLDivElement,
         timelineTab : getUi("timeline-tab") as HTMLDivElement,
         terminalTab : getUi("terminal-tab") as HTMLDivElement,

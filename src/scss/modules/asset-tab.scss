@@ -52,26 +52,55 @@
     align-items: center;
     flex-direction: column;
     gap: $inside-tab-gap;
-    .info-table-row{
-        position: relative;
-        width: 100%;
-        height: 30px;
-        background: var(--color-f);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        span{ 
-            position: absolute;
-            font-family: $app-font;
-            font-weight: initial;
-            font-size: $text-1x;
-            color: var(--color-c);
-        }
-        .info-key{
-            left: 5px;
-        }
-        .info-value{
-            right: 5px;
-        }
+
+}
+
+.flash-table{
+    position: relative; 
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: $inside-tab-gap;
+ 
+}
+
+.info-table-row{
+    position: relative;
+    width: 100%;
+    height: 30px; 
+    min-height: 30px;
+    background: var(--color-f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span{ 
+        position: absolute;
+        font-family: $app-font;
+        font-weight: initial;
+        font-size: $text-1x;
+        color: var(--color-c); 
     }
+    .info-key{
+        left: 5px;
+    }
+    .info-value{
+        right: 5px;
+    }
+}
+
+.flash-table-tab{
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: none;
+    justify-content: center;
+    align-items: center;  
+    flex-direction: column;
+    gap: $inside-tab-gap;
+
 }
