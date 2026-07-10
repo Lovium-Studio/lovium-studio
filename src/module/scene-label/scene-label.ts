@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ISceneLabel } from "../../../ts/types.js";
+import { ISceneLabel } from "../../ts/types.js";
 
 // SCENE LABEL : 
 

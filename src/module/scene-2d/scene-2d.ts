@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../../ts/types.js";
+import { IScene2D, IScene2dOption, SceneNode,SceneNodeListType } from "../../ts/types.js";
 import { SafeArea2d, SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";

@@ -13,7 +13,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ICrossGuide, GuideLineSideOption } from "../../../ts/types.js";
+import { ICrossGuide, GuideLineSideOption } from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { Origin2D, SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { ResizeHandle, SCENE_2D_RESIZE_HANDLE } from "../resize-handle/resize-handle.js";

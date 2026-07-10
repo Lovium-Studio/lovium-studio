@@ -16,7 +16,7 @@
 
 // SCENE TAB : 
 
-import { IScene2dOption, SceneNode } from "../../../ts/types.js";
+import { IScene2dOption, SceneNode } from "../../ts/types.js";
 import { SCENE_2D_GRID_2D } from "../2d-grid/2d-grid.js";
 import { console as consoleT } from "../console/console.js";
 import { SCENE_2D_CONTEXT } from "../scene-2d-context/scene-2d-context.js";

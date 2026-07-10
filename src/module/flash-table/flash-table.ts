@@ -13,7 +13,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IFlashButton, IFlashRow } from "../../../ts/types.js";
+import { IFlashButton, IFlashRow } from "../../ts/types.js";
 
 // FLASH TABLE :   
 

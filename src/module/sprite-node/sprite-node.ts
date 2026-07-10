@@ -13,7 +13,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { NodeLocation, Scene2dNodeType, ISpriteNode } from "../../../ts/types.js";
+import { NodeLocation, Scene2dNodeType, ISpriteNode } from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 
 // SPRITE NODE : 

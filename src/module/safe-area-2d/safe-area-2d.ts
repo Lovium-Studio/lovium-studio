@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { NodeLocation, SafeArea2dOption, Scene2dNodeType } from "../../../ts/types.js";
+import { NodeLocation, SafeArea2dOption, Scene2dNodeType } from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { INSPECTOR_SAFE_AREA_SCALE_X_CONTROL, INSPECTOR_SAFE_AREA_SCALE_Y_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_Y_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";

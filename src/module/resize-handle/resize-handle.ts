@@ -15,7 +15,7 @@
 
 // RESIZE HANDLE : 
 
-import {IResizeHandle,IResizeHandleConfigOption,IResizeHandleCoordinate,SceneNode} from "../../../ts/types.js";
+import {IResizeHandle,IResizeHandleConfigOption,IResizeHandleCoordinate,SceneNode} from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { console } from "../console/console.js";
 import { gui } from "../gui/gui.js";

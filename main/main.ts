@@ -8,18 +8,20 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, dialog, protocol } from 'electron';
 import { exec } from 'child_process';
 
+import "./ipc/file-ipc/file-ipc";    
+
 import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 
-if (!app.isPackaged) {
+if (!app.isPackaged) { 
     try {
         require("electron-reloader")(module, {
             ignore: ["node_modules","dist","out"]
         });
-    } catch {}
+    } catch {}  
 };
-
+ 
 
 // SETUP : 
 
@@ -99,9 +101,9 @@ function createSplashWindow(): void{
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            preload : path.join(__dirname, './preload/splash-window-preload.ts'),
+            preload : path.join(__dirname, './preload/splash-window-preload.js'),
             disableBlinkFeatures: 'Autofill' 
-        }
+        } 
     });
 
     SPLASH_WINDOW.loadFile(path.join(__dirname, '..', '..' ,'src', 'app', 'splash.html'));

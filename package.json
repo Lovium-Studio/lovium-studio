@@ -56,6 +56,7 @@
   "author": "BioBit Interactive Co.",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^26.1.1",
     "electron": "^30.0.2",
     "electron-builder": "^25.0.0-alpha.9",
     "electron-reloader": "^1.2.3"

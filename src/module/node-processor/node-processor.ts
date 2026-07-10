@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ICamera2DNode, IScene2dOption, ISpriteNode } from "../../../ts/types.js";
+import { ICamera2DNode, IScene2dOption, ISpriteNode } from "../../ts/types.js";
 import { Camera2DNode } from "../camera-2d-node/camera-2d-node.js";
 import { SCENE_2D_ORIGIN_2D } from "../origin-2d/origin-2d.js";
 import { SCENE_2D_SAFE_AREA } from "../safe-area-2d/safe-area-2d.js";

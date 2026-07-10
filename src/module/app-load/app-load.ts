@@ -14,9 +14,9 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IInspectorControlOption, IStatusBadge, ITab } from "../../../ts/types.js";
+import { IInspectorControlOption, IStatusBadge, ITab } from "../../ts/types.js";  
 import { assetTab } from "../asset-tab/asset-tab.js";
-import { codeTab } from "../code-tab/code-tab.js";
+import { codeTab } from "../code-tab/code-tab.js";  
 import { console } from "../console/console.js";
 import { INSPECTOR_ANCHOR_POINT_X_CONTROL, INSPECTOR_APPEARANCE_CONTROL_GROUP, INSPECTOR_NODE_CONTROL_GROUP, INSPECTOR_SPRITE_CONTROL_GROUP, inspectorTab, INESPECTOR_TRANSFORM_CONTROL_GROUP, INSPECTOR_NODE_ID_CONTROL, INSPECTOR_NODE_NAME_CONTROL, INSPECTOR_OPACITY_CONTROL, INSPECTOR_ROTATE_CONTROL, INSPECTOR_SCALE_X_CONTROL, INSPECTOR_SPRITE_DEPTH_CONTROL, INPSECTOR_SPRITE_SLOT_CONTROL, INSPECTOR_SPRITE_VISIBILITY_CONTROL, INSPECTOR_TRANSLATE_X_CONTROL, INSPECTOR_ANIMATION_CONTROL_GROUP, INSPECTOR_SPRITE_ANIMATION_CONTROL, INSPECTOR_ANIMATION_FPS_CONTROL, INSPECTOR_ANIMATION_SPEED_CONTROL, INSPECTOR_ANIMATION_CURRENT_FRAME_CONTROL, INSPECTOR_GRID_CONTROL_GROUP, INSPECTOR_SPRITE_GRID_CONTROL, INSPECTOR_COLLISION_CONTROL_GROUP, INSPECTOR_COLLISION_CONTROL, INSPECTOR_COLLISION_VISIBILITY_CONTROL, INSPECTOR_SAFE_AREA_CONTROL_GROUP, INSPECTOR_SAFE_AREA_SCALE_X_CONTROL, INSPECTOR_SAFE_AREA_TRANSLATE_X_CONTROL, INSPECTOR_CAMERA_CONTROL_GROUP, INSPECTOR_CAMERA_DROPDOWN_CONTROL, INSPECTOR_CAMERA_ZOOM, INSPECTOR_CAMERA_HORIZONTAL_GAP_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_TOP_CONTROL, INSPECTOR_SAFE_AREA_OFFSET_LEFT_CONTROL } from "../inspector-tab/inspector-tab.js";
 import { splitter } from "../splitter/splitter.js";
@@ -38,7 +38,7 @@ export const appLoad = () : void  => {
     codeTab();
     assetTab();      
     timelineTab();
-    statusBarLoader();  
+    statusBarLoader();   
     inspectorLoader();
     sceneTab();
     console("Application Started...", "LOG");   

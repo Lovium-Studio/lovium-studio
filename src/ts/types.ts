@@ -14,13 +14,13 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { Camera2DNode } from "../src/module/camera-2d-node/camera-2d-node.js";
-import { DropdownControl, NumberControl, SliderControl, TextControl } from "../src/module/control/control.js";
-import { Origin2D } from "../src/module/origin-2d/origin-2d.js";
-import { ResizeHandle } from "../src/module/resize-handle/resize-handle.js";
-import { SafeArea2d } from "../src/module/safe-area-2d/safe-area-2d.js";
-import { SpriteNode } from "../src/module/sprite-node/sprite-node.js";
-import { Viewport2D } from "../src/module/viewport-2d/viewport-2d.js";
+import { Camera2DNode } from "../module/camera-2d-node/camera-2d-node.js";
+import { DropdownControl, NumberControl, SliderControl, TextControl } from "../module/control/control.js";
+import { Origin2D } from "../module/origin-2d/origin-2d.js";
+import { ResizeHandle } from "../module/resize-handle/resize-handle.js";
+import { SafeArea2d } from "../module/safe-area-2d/safe-area-2d.js";
+import { SpriteNode } from "../module/sprite-node/sprite-node.js";
+import { Viewport2D } from "../module/viewport-2d/viewport-2d.js";
 
 // TAB LOCATION TYPE : 
 
@@ -30,7 +30,7 @@ export type TabLocationOption = "BOTTOM" | "TOP" | "LEFT" | "RIGHT";
 
 export type ConsoleTypeOption = "ALERT" | "ERROR" | "LOG";
 
-// RESIZE HANDLE OBJECT MANIPULATION TYPE : 
+// RESIZE HANDLE OBJECT MANIPULATION TYPE :  
 
 export type ResizeHandleTypeOption = "SINGLE_OBJECT" | "GROUP_OBJECT" | "ASPECT_RATIO_OBJECT" | "PATTERN_OBJECT";
 
@@ -382,4 +382,21 @@ export interface IFlashButton {
     name : string,
     icon : string
     onClick? : Function | null
+}
+
+export interface IElectronApi {
+
+    readDirectory(path: string): Promise<any>;
+    openDialog(): Promise<string>;
+
+}
+
+export {}; 
+
+declare global { 
+
+    interface Window {
+        loviumApi: IElectronApi;
+    }
+
 }

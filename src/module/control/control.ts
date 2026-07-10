@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, INumberControl, ISliderControl, ITextControl } from "../../../ts/types.js";
+import { ControlGroupAddType, ControlType, IDropdown, IDropdownControl, INumberControl, ISliderControl, ITextControl } from "../../ts/types.js";
 
 // CONTROL : 
 

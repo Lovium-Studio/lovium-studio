@@ -13,7 +13,7 @@
 /*                   https://opensource.org/license/mit                   */
 /*                                                                        */
 /**************************************************************************/
-import { IGrid2D } from "../../../ts/types.js";
+import { IGrid2D } from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { gui } from "../gui/gui.js";
 import { SCENE_2D_VIEWPORT_2D, Viewport2D } from "../viewport-2d/viewport-2d.js";

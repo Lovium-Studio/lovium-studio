@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { SceneNode } from "../../../ts/types.js";
+import { SceneNode } from "../../ts/types.js";
 
 // NODE MODIFY : 
 

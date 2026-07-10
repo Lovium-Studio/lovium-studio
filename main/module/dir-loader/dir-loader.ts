@@ -14,21 +14,35 @@
 /*                                                                        */
 /**************************************************************************/
 
-// UI SHILD : 
+// DIR LOADER : 
 
-import { IMainShield } from "../../ts/types.js";
-import { gui } from "../gui/gui.js";
+import { readdirSync, Dirent } from "fs";
 
-const uiShild = gui.mainShield;
+export class DirLoader {
 
-export const shild = (option : IMainShield ) : void => {
+    private dirList: Dirent[];
 
-    const opaqueColor = "rgba(0, 0, 0, 0.30)";
+    constructor(dir: string) {
 
-    const visible = option.visible;
-    const opaque = option.opaque;
- 
-    visible ? uiShild.style.display = "flex" : uiShild.style.display = "none";
-    
-    opaque  ? uiShild.style.background = opaqueColor : uiShild.style.background = "none";
+        this.dirList = readdirSync(dir,{
+            withFileTypes: true
+        });
+
+    }
+
+    public get = (): Dirent[] => this.dirList;
+
 };
+
+
+// list.forEach((item : any) => {
+
+//     if(item.isDirectory()) {
+//         console.log("📁", item.name);
+//     }
+
+//     if(item.isFile()) {
+//         console.log("📄", item.name);
+//     }
+
+// });

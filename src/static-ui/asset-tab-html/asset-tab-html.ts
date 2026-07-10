@@ -1,7 +1,7 @@
 
 // ASSET TAB : 
 
-import { IHtmlOrchesterTag } from "../../../ts/types.js";
+import { IHtmlOrchesterTag } from "../../ts/types.js";
 import { HtmlOrchester } from "../../module/html-orchester/html-orchester.js";
 
 const HTML_NODE : IHtmlOrchesterTag[] = [

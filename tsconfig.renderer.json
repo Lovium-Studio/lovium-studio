@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "outDir": "./dist/src",
     "rootDir": "./src",
     "allowJs": true,
@@ -11,9 +11,9 @@
     "skipLibCheck": true,
     "noEmitOnError": false,
     "noImplicitAny": false,
-    "strict": false ,
-    "strictNullChecks": false,
+    "strict": false,
+    "strictNullChecks": false 
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist","main"]
+  "exclude": ["node_modules","dist","main"]
 }

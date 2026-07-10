@@ -13,7 +13,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IViewport2D } from "../../../ts/types.js";
+import { IViewport2D } from "../../ts/types.js";
 
 // VIEWPORT 2D : 
 

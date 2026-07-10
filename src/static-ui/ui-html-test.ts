@@ -16,7 +16,7 @@
 
 // ASSET TAB : 
 
-import { IHtmlOrchesterTag } from "../../ts/types.js";
+import { IHtmlOrchesterTag } from "../ts/types.js";
 
 export const UI_HTML_TEST : IHtmlOrchesterTag[] = [
     {

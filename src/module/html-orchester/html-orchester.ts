@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { IHtmlOrchesterAttribute, IHtmlOrchesterContent, IHtmlOrchesterTag, IHtmlOrchester } from "../../../ts/types";
+import { IHtmlOrchesterAttribute, IHtmlOrchesterContent, IHtmlOrchesterTag, IHtmlOrchester } from "../../ts/types";
 
 // HTML ORCHESTER : 
 

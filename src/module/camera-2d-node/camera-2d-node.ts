@@ -14,7 +14,7 @@
 /*                                                                        */
 /**************************************************************************/
 
-import { ICamera2DNode } from "../../../ts/types.js";
+import { ICamera2DNode } from "../../ts/types.js";
 import { getCSSVar } from "../anchor-node/theme/theme.js";
 import { Origin2D } from "../origin-2d/origin-2d.js";
 import { SafeArea2d } from "../safe-area-2d/safe-area-2d.js";

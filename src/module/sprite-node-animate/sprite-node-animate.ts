@@ -76,7 +76,7 @@ export class SpriteNodeAnimate {
         this.isStart = false;
 
         if (this.rafId !== null) {
-            cancelAnimationFrame(this.rafId);
+            cancelAnimationFrame(this.rafId); 
             this.rafId = null;
         };
 

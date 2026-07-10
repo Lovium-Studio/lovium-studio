@@ -17,11 +17,12 @@
 
 // ASSET TAB : 
 
-import { AssetFileViewerType } from "../../../ts/types.js";
+import { AssetFileViewerType } from "../../ts/types.js"; 
 import { FlashButton, FlashRow, FlashTable } from "../flash-table/flash-table.js";
 // import { ASSET_TAB_HTML } from "../../static-ui/asset-tab-html/asset-tab-html.js";
 import { gui } from "../gui/gui.js";
 import { SCENE_2D_SPRITE_NODE_ANIMATE } from "../sprite-node-animate/sprite-node-animate.js";
+import { fileApi } from "../../ipc/file-ipc/file-ipc.js";   
 
 // SETUP : 
 
@@ -211,3 +212,11 @@ SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_STOP_BUTTON,SPRITE_NODE_FLASH_TABLE_N
 SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_DELETE_BUTTON,SPRITE_NODE_FLASH_TABLE_NAME);
 
 SPRITE_NODE_FLASH_TABLE.switch(SPRITE_NODE_FLASH_TABLE_NAME);  
+
+const loadFiles = async (): Promise<void> => {
+    const files = await fileApi.readDirectory("C:\\lovium-project");
+    console.log(files); 
+};
+
+loadFiles();
+// cc(files)       
