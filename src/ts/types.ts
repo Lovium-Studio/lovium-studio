@@ -400,3 +400,17 @@ declare global {
     }
 
 }
+
+export interface ITreeView {
+    path : string,
+    children : ITreeView,
+    name : string
+    type : "FOLDER" | "FILE"
+};
+
+export interface ITreeViewBranch {
+    icon : string,
+    name : string,
+    path : string,
+    isCollapsed : boolean
+};

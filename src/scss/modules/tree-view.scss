@@ -1,0 +1,119 @@
+
+// TREE VIEW :
+
+$tree-view-row-height: 25px;
+
+.tree-view-branch-container{
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: $tree-view-row-height;
+    box-sizing: border-box;
+};
+
+.tree-view-branch-header{
+    position: relative;
+    width: 100%; 
+    height: $tree-view-row-height;
+    min-height: $tree-view-row-height;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    &:hover{
+        background: var(--color-e);
+    };
+};
+
+.tree-view-branch-root-icon{
+    position: absolute;
+    margin-left: 5px;
+    font-size: $icon-size;
+    color: var(--color-c);
+};
+
+.tree-view-branch-root-name{
+    position: absolute;
+    font-family: $app-font;
+    font-weight: initial;
+    font-size: $text-1x;
+    color: var(--color-c);
+    margin-left: 22px;
+};
+
+.tree-view-branch-control-container{
+    position: absolute;
+    right: 0px;
+    width: auto;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    padding-right: 3px;
+};
+
+.tree-view-branch-control-button{
+    position: relative;
+    height: 20px;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    @include click();
+    i{
+        position: absolute;
+        font-size: $icon-size;
+        color: var(--color-c);
+    };
+};
+
+.tree-view-branch-body{
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: $tree-view-row-height;
+    box-sizing: border-box;
+    padding-left: 15px;
+};
+
+.tree-view-branch-children{
+    position: relative;
+    width: 100%; 
+    height: $tree-view-row-height;
+    min-height: $tree-view-row-height;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    &:hover{
+        background: var(--color-e);
+    };
+    &::after{
+        position: absolute;
+        left: -5px;
+        width: 1px;
+        height: 100%;
+        box-sizing: border-box;
+        border-left: 1px dashed var(--color-c);
+        content: "";
+    };
+     &:last-of-type{
+        &::after{
+            height: 12px;
+            top: 0px; 
+            width: 5px;
+            border-bottom: 1px dashed var(--color-c);
+        };
+    };
+};

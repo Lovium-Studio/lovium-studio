@@ -14,55 +14,28 @@
 /*                                                                        */
 /**************************************************************************/
 
-// DIR LOADER : 
+import { ITreeView } from "../../ts/types.js";
 
-import { readdirSync } from "fs";
-import path from "path";
+// TREE VIEW : 
 
-export class DirLoader {
+export class TreeView {
 
-    private dirList: any[];
+    private isCollapsed : boolean;
+    private tree : ITreeView[];
 
-    constructor(dir: string) {
-
-        this.dirList = this.readDirectory(dir);
-
-    }
-
-    private readDirectory = (dir: string): any[] => {
-
-        const files = readdirSync(dir, {
-            withFileTypes: true
-        });
-
-        return files.map(file => {
-
-            const filePath = path.join(dir, file.name);
-
-            return {
-                name: file.name,
-                path: filePath,
-                type: file.isDirectory() ? "FOLDER" : "FILE",
-                children: file.isDirectory() ? this.readDirectory(filePath) : []
-            };
-
-        });
- 
+    constructor ( tree : ITreeView[] ) {
+        this.tree = tree;
     };
 
-    public get = (): any[] => this.dirList;
+    public update = ( tree : ITreeView[] ) : void => {
 
+
+    }
 };
 
+class TreeViewBranch {
 
-// list.forEach((item : any) => {
+    constructor ( branch :  ITreeView) {
 
-//     if(item.isDirectory()) {
-//         console.log("📁", item.name);
-//     }
-
-//     if(item.isFile()) {
-//         console.log("📄", item.name);
-//     }
-
-// });
+    }
+}

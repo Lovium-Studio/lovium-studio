@@ -18,8 +18,8 @@
 
 .timeline-left-container{
     position: relative;
-    width: 170px;
-    min-width: 170px;
+    width: 180px;
+    min-width: 180px;
     height: 100%;
     box-sizing: border-box; 
 }
@@ -31,6 +31,7 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+
 }
 
 // TIMELINE HEADER CONTAINER :
@@ -43,7 +44,7 @@ $timeline-header-height: $tab-header-height;
     height: $timeline-header-height;
     box-sizing: border-box;
     background: var(--color-d);
-    margin-bottom: 2px;
+    margin-bottom: $inside-tab-gap; 
 }
 
 // TIMELINE TRACK CONTAINER : 
@@ -79,7 +80,7 @@ $timeline-header-height: $tab-header-height;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    gap: 2px;
+    gap: $inside-tab-gap;
     box-sizing: border-box;
 }
 
@@ -102,7 +103,7 @@ $track-height: 30px;
 
 // TIMELINE TRACKER CONTROL : 
 
-$tracker-in-border: 2px;
+$tracker-in-border: 20px;
 
 .timeline-tracker-control{
     position: absolute;
@@ -113,9 +114,9 @@ $tracker-in-border: 2px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    flex-direction: row;
-    padding-right: 11px;
-    gap : 17px;
+    flex-direction: row; 
+    padding-right: 9px;
+    gap : 13px;
     // &::after{
     //     position: absolute;
     //     width: 1px;

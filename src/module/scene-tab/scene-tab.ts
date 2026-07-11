@@ -173,6 +173,71 @@ const sceneTemlate : IScene2dOption = {
             y : 100,  
             width : 60,
             height : 60,  
+            src : ["../.././src/asset/asset-template/sprite (8).png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/sprite (17).png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/sprite (18).png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/sprite (19).png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100, 
+            y : 100,   
+            width : 60,
+            height : 60,  
+            src : ["../.././src/asset/asset-template/sprite (20).png"], 
+            location : "FOREIGNER",
+            opacity : 1,  
+            rotation : 0, 
+            anchorPoint : [300,100] 
+
+        },
+        { 
+            type : "SPRITE_NODE", 
+            x : 100,
+            y : 100,  
+            width : 60,
+            height : 60,  
             src : ["../.././src/asset/asset-template/tile68.png"], 
             location : "FOREIGNER",
             opacity : 1,  

@@ -220,3 +220,7 @@ const loadFiles = async (): Promise<void> => {
 
 loadFiles();
 // cc(files)       
+
+// console.log(files[0].name);
+// console.log(files[0].isDirectory());
+// console.log(files[0].isFile());
