@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css"/>
     <link rel="stylesheet" href="../../node_modules/remixicon/fonts/remixicon.css">
-    <title></title>
+    <title>Lovium Studio</title>
   
     <!-- META END -->
 
@@ -95,7 +95,73 @@
             </div> 
         </div>
         <div id="code-editor" class="code-editor-container">
-// 2026 Lovium Studio & Community. 
+-- 2026 Lovium Studio & Community. / Be Happy! 
+
+local player = {
+    x = 100,
+    y = 200,
+    speed = 250.5,
+    health = 100,
+    name = "Hero",
+    isAlive = true,
+    inventory = {"sword", "shield", "potion"}
+}
+
+local GRAVITY = 9.8
+local MAX_JUMP_COUNT = 2   
+local jumpCount = 0
+
+function love.load()
+    love.window.setTitle("Lovium Test Scene")
+    love.graphics.setBackgroundColor(0.1, 0.1, 0.15)
+
+    player.image = love.graphics.newImage("assets/hero.png")
+    player.sound = love.audio.newSource("assets/jump.ogg", "static")
+end
+
+function love.update(dt)
+    if love.keyboard.isDown("right") then
+        player.x = player.x + player.speed * dt
+    elseif love.keyboard.isDown("left") then
+        player.x = player.x - player.speed * dt
+    end
+
+    player.y = player.y + GRAVITY * dt
+
+    for i, item in ipairs(player.inventory) do
+        print(i .. ": " .. item)
+    end
+end
+
+function love.draw()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(player.image, player.x, player.y)
+
+    love.graphics.print("HP: " .. player.health, 10, 10)
+
+    if player.health <= 0 and player.isAlive then
+        player.isAlive = false
+        print("Player died!")
+    end
+end
+
+function love.keypressed(key)
+    if key == "space" and jumpCount < MAX_JUMP_COUNT then
+        player.sound:play()
+        jumpCount = jumpCount + 1
+    end
+
+    if key == "escape" then
+        love.event.quit()
+    end
+end
+
+local function getPosition()
+    return player.x, player.y
+end
+
+local x, y = getPosition()
+print(string.format("Position: (%d, %d)", x, y))
         </div>  
     </div>
 
@@ -1138,7 +1204,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.2.6/pixi.min.js"></script>
     <script src="../lib/ace-editor/ace.js"></script>
-    <script defer type="module" src="../../dist//src/app/app.js"></script>  
-        
+    <script defer type="module" src="../../dist//src/app/app.js"></script>
+    <script defer src="../../dist/src/theme/code-editor-theme/code-editor-theme.js"></script>
+ 
+          
 </body>
 </html>

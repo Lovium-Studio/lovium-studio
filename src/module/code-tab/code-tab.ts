@@ -28,17 +28,16 @@ export const codeTab = () : void => {
     // @ts-ignore
     const editor = ace.edit("code-editor");
 
-    editor.session.setMode("ace/mode/lua");
+    editor.session.setMode("ace/mode/lua");  
 
-
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/lovium-theme");
 
     editor.setOptions({
         fontSize: "10pt", 
         showLineNumbers: true,
         showGutter: true,
         enableBasicAutocompletion: false,
-        enableLiveAutocompletion: false,
+        enableLiveAutocompletion: false, 
         enableSnippets: true, 
         customScrollbar: false
     }); 

@@ -24,13 +24,14 @@ const ICON_MAP : Record<string,string> = {
     lscn : "ri-clapperboard-fill",
     lanim : "ri-movie-2-fill",
     lcui : "ri-toggle-fill",
-    lui : "ri-layout-fill"  
-}; 
+    lui : "ri-layout-fill",
+    lspt : "ri-run-fill" 
+};
 
 export const iconFile = ( path : string ) : string => {
     const FILE = path.split(".").pop()?.toLowerCase() ?? "";
     if(ICON_MAP[FILE]) return ICON_MAP[FILE]; 
     else return "ri-file-fill";
-};  
+};
 
  
