@@ -18,7 +18,11 @@
 
 import { appLoad } from "../module/app-load/app-load.js";
 import { getUi } from "../module/get-ui/get-ui.js";
+import { gui } from "../module/gui/gui.js";
 import { windowMenu } from "../module/menu-window/window-menu.js";
+import { TreeView } from "../module/tree-view/tree-view.js";
+import { ITreeView } from "../ts/types.js";
+import { fileApi } from './../ipc/file-ipc/file-ipc.js';
 
 // APP LOAD : 
 
@@ -141,6 +145,30 @@ function handleMenuEdit(){
 editMenu.addEventListener("click",handleMenuEdit)
 
 
+const treeData: ITreeView[] = [
+    {
+        type: "FOLDER",
+        name: "Sprites Folder",
+        path: "/sprites",
+        children: [
+            { type: "FILE", name: "player.png", path: "/sprites/player.png", children: [] },
+            { 
+                type: "FOLDER", 
+                name: "Enemies", 
+                path: "/sprites/enemies",  
+                children: [
+                    { type: "FILE", name: "goblin.png", path: "/sprites/enemies/goblin.png", children: [] }
+                ]
+            }
+        ]
+    }
+];
 
+const loadFiles = async (): Promise<void> => {
+    const files = await fileApi.readDirectory("C:\\lovium-project");
+    const tree = new TreeView(files, gui.nativeTab.explorerTab);
+    console.log(files); 
+};
 
+loadFiles();
 

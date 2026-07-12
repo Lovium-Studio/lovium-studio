@@ -1710,7 +1710,6 @@ input[type=number]::-webkit-outer-spin-button {
   position: relative;
   width: 100%;
   height: auto;
-  min-height: 25px;
   box-sizing: border-box;
 }
 
@@ -1718,7 +1717,6 @@ input[type=number]::-webkit-outer-spin-button {
   position: relative;
   width: 100%;
   height: 25px;
-  min-height: 25px;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
@@ -1788,16 +1786,28 @@ input[type=number]::-webkit-outer-spin-button {
   position: relative;
   width: 100%;
   height: auto;
-  min-height: 25px;
   box-sizing: border-box;
   padding-left: 15px;
+  overflow: hidden;
+}
+.tree-view-branch-body .tree-view-branch-container .tree-view-branch-header::after {
+  position: absolute;
+  left: -5px;
+  height: 12px;
+  top: 0px;
+  width: 5px;
+  border-bottom: 1px dashed var(--color-c);
+  border-left: 1px dashed var(--color-c);
+  content: "";
+}
+.tree-view-branch-body .tree-view-branch-container ~ .tree-view-branch-container .tree-view-branch-header::after {
+  display: none;
 }
 
 .tree-view-branch-children {
   position: relative;
   width: 100%;
   height: 25px;
-  min-height: 25px;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
@@ -1994,178 +2004,6 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   flex-direction: column;
   background: var(--color-f);
-}
-
-.explorer-folder-root-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  background: none;
-  z-index: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.explorer-folder-root-container .explorer-component-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.explorer-folder-root-container .explorer-folder-header {
-  position: relative;
-  width: 100%;
-  height: 25px;
-  box-sizing: border-box;
-}
-.explorer-folder-root-container .explorer-row-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  border-left: 1px solid var(--color-f);
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-.explorer-folder-root-container .explorer-row-item:hover {
-  background: var(--color-e);
-}
-.explorer-folder-root-container .explorer-row-item:hover .explorer-item-menu-container {
-  display: flex;
-}
-.explorer-folder-root-container .explorer-row-item i {
-  position: relative;
-  font-size: 12px;
-  color: var(--color-c);
-  margin-left: 5px;
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-name {
-  position: relative;
-  font-family: arial;
-  font-weight: initial;
-  font-size: 11px;
-  color: var(--color-c);
-  margin-left: 5px;
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container {
-  position: absolute;
-  right: 5px;
-  height: 100%;
-  width: auto;
-  box-sizing: border-box;
-  display: none;
-  justify-content: flex-end;
-  align-items: center;
-  flex-direction: row;
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button {
-  position: relative;
-  background: none;
-  border: none;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 17px;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button:hover {
-  cursor: pointer;
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button:active i {
-  color: var(--color-b);
-}
-.explorer-folder-root-container .explorer-row-item .explorer-item-menu-container button i {
-  position: absolute;
-  font-size: var(--color-c);
-  color: var(--color-c);
-}
-.explorer-folder-root-container .explorer-element-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.explorer-folder-root-container .explorer-element-container .explorer-element-header {
-  position: relative;
-  width: 100%;
-  height: 25px;
-  box-sizing: border-box;
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  border-left: 1px solid var(--color-f);
-  position: relative;
-  width: 100%;
-  height: 25px;
-  box-sizing: border-box;
-  cursor: pointer;
-  padding-left: 15px;
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row::after {
-  position: absolute;
-  left: 10px;
-  height: 100%;
-  width: 1px;
-  border-left: 1px dashed var(--color-c);
-  box-sizing: border-box;
-  content: "";
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row:last-of-type::after {
-  height: 12px;
-  top: 0px;
-  width: 5px;
-  border-bottom: 1px dashed var(--color-c);
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row:hover {
-  background: var(--color-e);
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row:hover i {
-  color: var(--color-b);
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row:hover::before {
-  background: var(--color-b);
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row i {
-  position: relative;
-  font-size: 12px;
-  color: var(--color-c);
-  margin-left: 5px;
-}
-.explorer-folder-root-container .explorer-element-container .explorer-entity-container .explorer-entity-row .explorer-item-name {
-  position: relative;
-  font-family: arial;
-  font-weight: initial;
-  font-size: 11px;
-  color: var(--color-c);
-  margin-left: 5px;
 }
 
 #viewport-tab {

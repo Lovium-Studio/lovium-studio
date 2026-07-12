@@ -403,14 +403,27 @@ declare global {
 
 export interface ITreeView {
     path : string,
-    children : ITreeView,
     name : string
     type : "FOLDER" | "FILE"
+    children : ITreeView[]
 };
 
 export interface ITreeViewBranch {
     icon : string,
     name : string,
     path : string,
-    isCollapsed : boolean
+    isCollapsed : boolean,
+    controlList : ITreeViewBranchControl[]
 };
+
+export interface ITreeViewBranchChildren {
+    icon : string,
+    name : string,
+    path : string,
+    controlList : ITreeViewBranchControl[]
+};
+
+export interface ITreeViewBranchControl {
+    icon : string
+};
+

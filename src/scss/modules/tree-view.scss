@@ -1,29 +1,28 @@
 
 // TREE VIEW :
 
-$tree-view-row-height: 25px;
-
 .tree-view-branch-container{
     position: relative;
     width: 100%;
     height: auto;
-    min-height: $tree-view-row-height;
+    // min-height: $ui-base-height-in;
     box-sizing: border-box;
+   
 };
 
 .tree-view-branch-header{
     position: relative;
     width: 100%; 
-    height: $tree-view-row-height;
-    min-height: $tree-view-row-height;
+    height: $ui-base-height-in;
+    // min-height: $ui-base-height-in;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center; 
     flex-direction: row;
     cursor: pointer;
     &:hover{
-        background: var(--color-e);
+        background: var(--color-e); 
     };
 };
 
@@ -76,20 +75,42 @@ $tree-view-row-height: 25px;
     };
 };
 
-.tree-view-branch-body{
+.tree-view-branch-body {
     position: relative;
     width: 100%;
     height: auto;
-    min-height: $tree-view-row-height;
+    // min-height: $ui-base-height-in;
     box-sizing: border-box;
     padding-left: 15px;
+    overflow: hidden; 
+    .tree-view-branch-container {
+        .tree-view-branch-header {
+            &::after {
+                position: absolute;
+                left: -5px;
+                height: 12px;
+                top: 0px;     
+                width: 5px;
+                border-bottom: 1px dashed var(--color-c);
+                border-left: 1px dashed var(--color-c);
+                content: "";
+            }
+        }
+        & ~ .tree-view-branch-container {
+            .tree-view-branch-header {
+                &::after {
+                    display: none;
+                };
+            };
+        };
+    };
 };
 
 .tree-view-branch-children{
     position: relative;
     width: 100%; 
-    height: $tree-view-row-height;
-    min-height: $tree-view-row-height;
+    height: $ui-base-height-in;
+    // min-height: $ui-base-height-in;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
@@ -108,7 +129,7 @@ $tree-view-row-height: 25px;
         border-left: 1px dashed var(--color-c);
         content: "";
     };
-     &:last-of-type{
+    &:last-of-type{
         &::after{
             height: 12px;
             top: 0px; 

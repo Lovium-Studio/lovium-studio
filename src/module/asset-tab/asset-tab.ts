@@ -213,12 +213,7 @@ SPRITE_NODE_FLASH_TABLE.append(SPRITE_NODE_DELETE_BUTTON,SPRITE_NODE_FLASH_TABLE
 
 SPRITE_NODE_FLASH_TABLE.switch(SPRITE_NODE_FLASH_TABLE_NAME);  
 
-const loadFiles = async (): Promise<void> => {
-    const files = await fileApi.readDirectory("C:\\lovium-project");
-    console.log(files); 
-};
 
-loadFiles();
 // cc(files)       
 
 // console.log(files[0].name);

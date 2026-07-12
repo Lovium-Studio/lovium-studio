@@ -43,8 +43,8 @@
     .ui-dropdown-button{
         position: relative;
         width: 100%;
-        height: 25px;
-        min-height: 25px;
+        height: $ui-base-height-in;
+        min-height: $ui-base-height-in;
         box-sizing: border-box;
         font-family: $app-font;
         font-weight: initial;
