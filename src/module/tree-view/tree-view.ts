@@ -18,59 +18,48 @@ import { iconFile } from "../../util/icon-file/icon-file.js";
 
 // TREE VIEW : 
 
-const createControl = ( control : ITreeViewBranchControl , container : HTMLDivElement) : void => {
-
-    const button : HTMLButtonElement = document.createElement("button");
-    button.classList.add("tree-view-branch-control-button");
-    button.innerHTML = "<i class=\"" + control.icon + "\"></i>";
-
-    container.appendChild(button); 
-
-};
-
-const createBranchChildren = ( branchChildren : ITreeViewBranchChildren ) : HTMLDivElement => {
-
-    const children : HTMLDivElement = document.createElement("div");
-    children.classList.add("tree-view-branch-children");
-
-    const childrenIcon : HTMLElement = document.createElement("i");
-    childrenIcon.classList.add("tree-view-branch-root-icon",branchChildren.icon);
-
-    const childrenName : HTMLSpanElement = document.createElement("span");
-    childrenName.classList.add("tree-view-branch-root-name");
-    childrenName.textContent = branchChildren.name;
-
-    const childrenControlContainer : HTMLDivElement = document.createElement("div");
-    childrenControlContainer.classList.add("tree-view-branch-control-container");
-
-    children.appendChild(childrenIcon);
-    children.appendChild(childrenName);
-    children.appendChild(childrenControlContainer);
-
-    if(branchChildren.controlList) branchChildren.controlList.forEach(control=> createControl(control,childrenControlContainer));
-
-    return children;
-};
-
 export class TreeView {
 
     private tree : ITreeView[];
     private container : HTMLDivElement;
     private branchList : TreeViewBranch[];
+    private treeViewContainer : HTMLDivElement;
+    private treeViewSelected : HTMLDivElement;
+    private self : TreeView;
+
+    public  containerRect : DOMRect;
 
     constructor ( tree : ITreeView[], container : HTMLDivElement ) {
 
         this.tree = tree;
         this.container = container;
         this.branchList = [];
+        this.self = this;
 
+        this.treeViewContainer = document.createElement("div");
+        this.treeViewContainer.classList.add("tree-view-container");
+        this.container.appendChild(this.treeViewContainer);
+
+        this.containerRect = this.container.getBoundingClientRect();
+
+        this.treeViewSelected = document.createElement("div");
+        this.treeViewSelected.classList.add("tree-view-selected");
+
+ 
         this.createTree(this.tree);
     };
 
+    public treeViewSelectedSetOffsetY = ( offsetY : number ) : void => {
+        this.treeViewSelected.style.transform = "translateY(" + offsetY + "px)";
+    }; 
+
+    public treeViewSelectedSetVisibily = ( state : boolean) : string => this.treeViewSelected.style.display = state ? "flex" : "none"; 
+
     private createTree = ( tree : ITreeView[] ) : void => {
 
-        this.container.innerHTML = "";
-        this.branchList = [];
+        this.treeViewContainer.innerHTML = "";
+        this.branchList = []; 
+        this.treeViewContainer.append(this.treeViewSelected); 
 
         tree.forEach( node => {
 
@@ -81,37 +70,49 @@ export class TreeView {
                     name : node.name,
                     path : node.path,
                     isCollapsed : false,
+                    treeView : this.self,
                     controlList : [
                         { icon : "ri-add-fill" },
                         { icon : "ri-arrow-down-s-fill" }
-                    ]
+                    ],
+                    onEnter : (rect)=> {
+                        this.treeViewSelectedSetOffsetY(rect.y - this.containerRect.y - 1)
+                        this.treeViewSelectedSetVisibily(true);
+                    },
+                    onLeave : ()=> this.treeViewSelectedSetVisibily(false)
                 }, node.children);
 
                 this.branchList.push(branch);
-                this.container.appendChild(branch.get());
+                this.treeViewContainer.appendChild(branch.get());
 
             } else {
 
                 const leaf = createBranchChildren({
                     icon : iconFile(node.path),
-                    name : node.name, 
+                    name : node.name,   
                     path : node.path,
                     controlList : [
                         { icon : "ri-instance-line" },
                         { icon : "ri-arrow-right-line" }
-                    ]
-                });
+                    ],
+                    onEnter : (rect)=> {
+                        this.treeViewSelectedSetOffsetY(rect.y - this.containerRect.y - 1)
+                        this.treeViewSelectedSetVisibily(true);
+                    },
+                    onLeave : ()=> this.treeViewSelectedSetVisibily(false)
+                    
+                }); 
 
-                this.container.appendChild(leaf);
+                this.treeViewContainer.appendChild(leaf); 
             };
 
-        });
+        });  
     };
 
     public update = ( tree : ITreeView[] ) : void => {
         this.tree = tree;
         this.createTree(this.tree);
-    };
+    }; 
 };
 
 class TreeViewBranch {
@@ -127,6 +128,7 @@ class TreeViewBranch {
     private treeViewBranchName : HTMLSpanElement;
     private treeViewBranchControlContainer : HTMLDivElement;
     private treeViewBranchBody : HTMLDivElement;
+    private treeView : TreeView;
 
     constructor ( option : ITreeViewBranch, children : ITreeView[] ) {
 
@@ -134,6 +136,7 @@ class TreeViewBranch {
         this.icon = option.icon;
         this.name = option.name;
         this.controlList = option.controlList;
+        this.treeView = option.treeView;
 
         this.treeViewBranchContainer = document.createElement("div");
         this.treeViewBranchContainer.classList.add("tree-view-branch-container");
@@ -177,11 +180,17 @@ class TreeViewBranch {
                         name : child.name,
                         path : child.path,
                         isCollapsed : false,
+                        treeView : this.treeView,   
                         controlList : [
                             { icon : "ri-add-fill" },
                             { icon : "ri-arrow-down-s-fill" }
-                        ]
-                    }, child.children);
+                        ],
+                        onEnter : (rect)=> {
+                            this.treeView.treeViewSelectedSetOffsetY(rect.y - this.treeView.containerRect.y - 1)
+                            this.treeView.treeViewSelectedSetVisibily(true);
+                        },
+                        onLeave : ()=> this.treeView.treeViewSelectedSetVisibily(false)  
+                    }, child.children);  
 
                     this.treeViewBranchBody.appendChild(childBranch.get());
 
@@ -193,8 +202,13 @@ class TreeViewBranch {
                         path : child.path,
                         controlList : [
                             { icon : "ri-instance-line" },
-                            { icon : "ri-arrow-right-line" } 
-                        ]
+                            { icon : "ri-arrow-right-line" }   
+                        ], 
+                        onEnter : (rect)=> {
+                            this.treeView.treeViewSelectedSetOffsetY(rect.y - this.treeView.containerRect.y - 1)
+                            this.treeView.treeViewSelectedSetVisibily(true);
+                        },
+                        onLeave : ()=> this.treeView.treeViewSelectedSetVisibily(false) 
                     }); 
 
                     this.treeViewBranchBody.appendChild(leaf);
@@ -209,6 +223,23 @@ class TreeViewBranch {
 
         if (this.isCollapsed) this.setCollapsed(true);
 
+        // EVENT : 
+
+         if(option.onClick){
+            const onClick = option.onClick;
+            this.treeViewBranchHeader.onclick = () => onClick();
+        };
+
+        if(option.onEnter){  
+            const onEnter = option.onEnter;
+            this.treeViewBranchHeader.onmouseenter = () => onEnter(this.treeViewBranchHeader.getBoundingClientRect());
+        };
+
+        if(option.onLeave){
+            const onLeave = option.onLeave;
+            this.treeViewBranchHeader.onmouseleave = () => onLeave();
+        };
+
     }; 
 
     private toggleCollapse = () : void => {
@@ -222,4 +253,61 @@ class TreeViewBranch {
 
     public get = () : HTMLDivElement => this.treeViewBranchContainer; 
 
+};
+
+const createControl = ( control : ITreeViewBranchControl , container : HTMLDivElement) : void => {
+
+    const button : HTMLButtonElement = document.createElement("button");
+    button.classList.add("tree-view-branch-control-button");
+    button.innerHTML = "<i class=\"" + control.icon + "\"></i>";
+
+    container.appendChild(button); 
+
+    // EVENT : 
+
+    if(control.onClick) button.onclick = ()=> control.onClick();
+    if(control.onEnter) button.onmouseenter = ()=> control.onEnter();
+    if(control.onLeave) button.onmouseleave = ()=> control.onLeave();
+
+};
+
+const createBranchChildren = ( branchChildren : ITreeViewBranchChildren ) : HTMLDivElement => {
+
+    const children : HTMLDivElement = document.createElement("div");
+    children.classList.add("tree-view-branch-children");
+
+    const childrenIcon : HTMLElement = document.createElement("i");
+    childrenIcon.classList.add("tree-view-branch-root-icon",branchChildren.icon);
+
+    const childrenName : HTMLSpanElement = document.createElement("span");
+    childrenName.classList.add("tree-view-branch-root-name");
+    childrenName.textContent = branchChildren.name;
+
+    const childrenControlContainer : HTMLDivElement = document.createElement("div");
+    childrenControlContainer.classList.add("tree-view-branch-control-container");
+
+    children.appendChild(childrenIcon);
+    children.appendChild(childrenName);
+    children.appendChild(childrenControlContainer);
+
+    if(branchChildren.controlList) branchChildren.controlList.forEach(control=> createControl(control,childrenControlContainer));
+
+    // EVENT : 
+
+    if(branchChildren.onClick){
+        const onClick = branchChildren.onClick;
+        children.onclick = () => onClick();
+    };
+
+    if(branchChildren.onEnter){  
+        const onEnter = branchChildren.onEnter;
+        children.onmouseenter = () => onEnter(children.getBoundingClientRect());
+    };
+
+    if(branchChildren.onLeave){
+        const onLeave = branchChildren.onLeave;
+        children.onmouseleave = () => onLeave();
+    };
+
+    return children;
 };

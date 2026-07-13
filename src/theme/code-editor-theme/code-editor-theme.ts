@@ -36,7 +36,7 @@ ace.define("ace/theme/lovium-theme", ["require", "exports", "module", "ace/lib/d
         }
 
         .lovium-theme .ace_marker-layer .ace_selection {
-            background: var(--color-a-t); 
+            background: var(--color-a-t);   
         }
 
         .lovium-theme .ace_marker-layer .ace_active-line {
@@ -125,7 +125,34 @@ ace.define("ace/theme/lovium-theme", ["require", "exports", "module", "ace/lib/d
         .ace_scrollbar-h::-webkit-scrollbar-track {
             background: none;
         }    
-    `;
+
+        .lovium-theme .ace_gutter-cell.ace_error {
+            background-image: none; /* remove o ícone padrão do Ace */
+        }
+
+        .lovium-theme .ace_gutter-cell.ace_error::before {
+            content: "✕"; /* ou use um ícone de fonte, tipo Remix Icon */
+            color: #ff5555;
+            font-weight: bold;
+        }
+
+        .lovium-theme .ace_gutter-cell.ace_warning::before {
+            content: "!";  
+            color: #ffb86c;  
+            font-weight: bold;
+        }
+
+        .lovium-theme .ace_gutter-cell.ace_info::before {
+            content: "i";
+            color: #8be9fd;
+        }
+
+        .lovium-theme .ace_gutter-cell.ace_error::before {
+            font-family: "remixicon";
+            content: "&#xECAF;"; /* código unicode do ícone ri-close-circle-fill, por exemplo */
+            color: #ff5555;   
+        }         
+    `; 
 
     var dom = require("../lib/dom");   
     dom.importCssString(exports.cssText, exports.cssClass, false);

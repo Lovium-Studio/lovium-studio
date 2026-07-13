@@ -2,11 +2,11 @@
   --color-a-t: #0000003f;
   --red-color: #A71919;
   --color-a: #27AAE1;
-  --color-b: #979797;
-  --color-c: #D9D9D9;
-  --color-d: #161616;
-  --color-e: #1E1E1E;
-  --color-f: #111111;
+  --color-b: #E74A99;
+  --color-c: #262626;
+  --color-d: #E9E9E9;
+  --color-e: #EEEEEE;
+  --color-f: #cacaca;
 }
 
 .non-renderable {
@@ -867,13 +867,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .v-scroll::-webkit-scrollbar {
   background: none;
-  width: 11px;
+  width: 9px;
   left: -5px;
 }
 .v-scroll::-webkit-scrollbar-thumb {
   background: var(--color-f);
   width: 5px;
-  border: 3px solid var(--color-d);
+  border-left: 3px solid var(--color-d);
 }
 .v-scroll::-webkit-scrollbar-thumb:active {
   background: var(--color-c);
@@ -1724,9 +1724,6 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: row;
   cursor: pointer;
 }
-.tree-view-branch-header:hover {
-  background: var(--color-e);
-}
 
 .tree-view-branch-root-icon {
   position: absolute;
@@ -1815,9 +1812,6 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: row;
   cursor: pointer;
 }
-.tree-view-branch-children:hover {
-  background: var(--color-e);
-}
 .tree-view-branch-children::after {
   position: absolute;
   left: -5px;
@@ -1832,6 +1826,29 @@ input[type=number]::-webkit-outer-spin-button {
   top: 0px;
   width: 5px;
   border-bottom: 1px dashed var(--color-c);
+}
+
+.tree-view-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.tree-view-selected {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 25px;
+  box-sizing: border-box;
+  background: var(--color-e);
+  will-change: transform;
+  display: none;
+  cursor: pointer;
 }
 
 #rocon-create-button {

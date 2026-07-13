@@ -20,6 +20,7 @@ import { Origin2D } from "../module/origin-2d/origin-2d.js";
 import { ResizeHandle } from "../module/resize-handle/resize-handle.js";
 import { SafeArea2d } from "../module/safe-area-2d/safe-area-2d.js";
 import { SpriteNode } from "../module/sprite-node/sprite-node.js";
+import { TreeView } from "../module/tree-view/tree-view.js";
 import { Viewport2D } from "../module/viewport-2d/viewport-2d.js";
 
 // TAB LOCATION TYPE : 
@@ -413,17 +414,27 @@ export interface ITreeViewBranch {
     name : string,
     path : string,
     isCollapsed : boolean,
-    controlList : ITreeViewBranchControl[]
+    controlList : ITreeViewBranchControl[],
+    treeView : TreeView,
+    onClick? : Function,
+    onEnter? : Function,
+    onLeave? : Function,
 };
 
 export interface ITreeViewBranchChildren {
     icon : string,
     name : string,
     path : string,
-    controlList : ITreeViewBranchControl[]
+    controlList : ITreeViewBranchControl[],
+    onClick? : Function,
+    onEnter? : Function,
+    onLeave? : Function,
 };
 
 export interface ITreeViewBranchControl {
-    icon : string
+    icon : string,
+    onClick? : Function,
+    onEnter? : Function,
+    onLeave? : Function,
 };
 

@@ -7,14 +7,14 @@
     overflow-y: auto;
     &::-webkit-scrollbar {
         background: none; 
-        width: 11px;
+        width:9px;
         left: -5px;
     }
     &::-webkit-scrollbar-thumb { 
         background: var(--color-f);  
         width: 5px;
-        border: $inside-tab-gap solid var(--color-d);
-        &:active{
+        border-left: $inside-tab-gap solid var(--color-d);
+        &:active{  
             background: var(--color-c);
         }
     }

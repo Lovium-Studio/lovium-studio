@@ -32,6 +32,21 @@ export const codeTab = () : void => {
 
     editor.setTheme("ace/theme/lovium-theme");
 
+    // editor.getSession().setAnnotations([
+    //     {
+    //         row: 17, // linha 18 (0-indexed)   
+    //         column: 0,
+    //         text: "Variável 'hfhfh' não foi declarada",
+    //         type: "error" // "error" | "warning" | "info"
+    //     },
+    //     { 
+    //         row: 19,
+    //         column: 0,
+    //         text: "Função 'func' pode não existir",
+    //         type: "warning"
+    //     }
+    // ]);  
+
     editor.setOptions({
         fontSize: "10pt", 
         showLineNumbers: true,
